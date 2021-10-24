@@ -83,16 +83,13 @@ const LinksWrap = styled.div`
 const StyledLink = styled(Link)`
   font-family: "Poppins";
   font-weight: 700;
+  color: #000000;
   margin: 0 0 0 -5px;
   text-decoration: none;
   transition: background 0.1s ease, box-shadow 0.1s ease, color 0.1s ease;
 
   &:hover {
     color: #de6932;
-  }
-
-  &:visited {
-    color: rgba(0, 0, 0, 0);
   }
 `;
 
