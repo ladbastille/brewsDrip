@@ -8,11 +8,44 @@ import memberLogo from "../images/logo-member.svg";
 import cartLogo from "../images/logo-cart.svg";
 import mobileMenuLogo from "../images/logo-mobileMenu.svg";
 
+function Header() {
+  return (
+    <MainHeader>
+      <LogoBtnWrap>
+        <MenuLogoWrap>
+          <MobileMenu src={mobileMenuLogo} />
+          <TimerLogoImg src={timerLogo} />
+        </MenuLogoWrap>
+        <Link to="/">
+          <LogoImg path="/" src={logo} />
+        </Link>
+        <MenuLogoWrap>
+          <MenuLogoImg src={searchLogo} />
+          <Link to='/login'>
+            <MenuLogoImg path="/login" src={memberLogo} />
+          </Link>
+          <CartLogoImg src={cartLogo} />
+        </MenuLogoWrap>
+      </LogoBtnWrap>
+      <LinksWrap>
+        <StyledLink to="/tutorials">COFFEE TUTORIALS</StyledLink>
+        <StyledLink to="/tastenotes">TASTE NOTE</StyledLink>
+        <StyledLink to="/coffeemap">COFFEE MAP</StyledLink>
+        <StyledLink to="/coffeetimer">COFFEE TIMER</StyledLink>
+        <StyledLink to="/shop">SHOP</StyledLink>
+      </LinksWrap>
+    </MainHeader>
+  );
+}
+
 const MainHeader = styled.div`
   width: 100%;
   height: 140px;
   font-family: Poppins, Arial, Helvetica, sans-serif;
   margin-top: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
 `;
 
 const LogoImg = styled.img`
@@ -103,32 +136,6 @@ const MobileMenu = styled.img`
   }
 `;
 
-function Header() {
-  return (
-    <MainHeader>
-      <LogoBtnWrap>
-        <MenuLogoWrap>
-          <MobileMenu src={mobileMenuLogo} />
-          <TimerLogoImg src={timerLogo} />
-        </MenuLogoWrap>
-        <Link to="/">
-          <LogoImg path="/" src={logo} />
-        </Link>
-        <MenuLogoWrap>
-          <MenuLogoImg src={searchLogo} />
-          <MenuLogoImg src={memberLogo} />
-          <CartLogoImg src={cartLogo} />
-        </MenuLogoWrap>
-      </LogoBtnWrap>
-      <LinksWrap>
-        <StyledLink to="/tutorials">COFFEE TUTORIALS</StyledLink>
-        <StyledLink to="/tastenotes">TASTE NOTE</StyledLink>
-        <StyledLink to="/coffeemap">COFFEE MAP</StyledLink>
-        <StyledLink to="/coffeetimer">COFFEE TIMER</StyledLink>
-        <StyledLink to="/shop">SHOP</StyledLink>
-      </LinksWrap>
-    </MainHeader>
-  );
-}
+
 
 export default Header;

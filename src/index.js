@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
 import App from "./App";
 import { BrowserRouter, Switch } from "react-router-dom";
-import './index.css'
+import './reset.css'
 
 ReactDOM.render(
   <BrowserRouter>
