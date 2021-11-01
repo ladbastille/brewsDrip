@@ -14,7 +14,9 @@ function Header() {
       <LogoBtnWrap>
         <MenuLogoWrap>
           <MobileMenu src={mobileMenuLogo} />
-          <TimerLogoImg src={timerLogo} />
+          <Link to="/coffeetimer">
+            <TimerLogoImg src={timerLogo} />
+          </Link>
         </MenuLogoWrap>
         <Link to="/">
           <LogoImg path="/" src={logo} />

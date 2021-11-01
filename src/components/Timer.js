@@ -23,22 +23,22 @@ const MOCK_SCRIPT = [
   {
     baseColor: "#FBD850",
     customStep: "step 1",
-    customSec: 3,
+    customSec: 5,
   },
   {
     baseColor: "#EFABBA",
     customStep: "step 2",
-    customSec: 6,
+    customSec: 10,
   },
   {
     baseColor: "#00B790",
     customStep: "step 3",
-    customSec: 9,
+    customSec: 15,
   },
   {
     baseColor: "#B4CFCB",
     customStep: "step 4",
-    customSec: 12,
+    customSec: 20,
   },
 ];
 

@@ -110,7 +110,7 @@ export const SignupButton = styled(SubmitButton)`
   }
 `;
 
-const Signin = ({ toggle, handleOnClick }) => {
+const Signin = ({ toggle, handleOnClick, }) => {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -142,10 +142,10 @@ const Signin = ({ toggle, handleOnClick }) => {
   return (
     <SigninContainer avtive={toggle}>
       <StyledForm>
-      <Input type="email"
+      {/* <Input type="email"
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}/>
+          onChange={(e) => setEmail(e.target.value)}/> */}
         <HeaderSingin>Welcome!</HeaderSingin>
         <SocialContainer>
           <a>
