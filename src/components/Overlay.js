@@ -14,7 +14,7 @@ const Overlay = ({ toggle, setToggle }) => {
         <OverlayPanelRight active={toggle}>
           <HeaderH1>Join Us!</HeaderH1>
           <OverlayParagraph>Don't be shy!</OverlayParagraph>
-          <OverlayBtn onClick={() => setToggle(!toggle)}>Go Back</OverlayBtn>
+          <OverlayBtn onClick={() => setToggle(!toggle)}>Sign Up</OverlayBtn>
         </OverlayPanelRight>
       </OverlayDiv>
     </OverlayContainer>
@@ -87,7 +87,7 @@ const OverlayPanelRight = styled.div`
 
 const OverlayParagraph = styled.p`
   font-size: 14px;
-  font-weight: 100;
+  font-weight: 150;
   line-height: 20px;
   letter-spacing: 0.5px;
   margin: 20px 0 30px;

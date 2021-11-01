@@ -8,10 +8,52 @@ import {
   SocialContainer,
   StyledForm,
   HeaderH1,
-  SocialLoginButton,
   StyledInput,
   SubmitButton,
 } from "./Signin";
+
+const Signup = ({ toggle ,handleOnClick }) => {
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState()
+    // const handleSubmit = () => {
+    //     setActiveItem('signup');
+    //     dispatch({type: 'email/set'})
+    // }
+
+    const onSignUp = (e) => {
+        console.log("signUP");
+        e.preventDefault()
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(email, password)
+          .then(() => {
+            console.log("success");
+            history.push("/");
+          });
+      };
+
+    
+
+  return (
+    <SignupContainer avtive={toggle}>
+      <StyledForm >
+        <HeaderH1>Create Account</HeaderH1>
+        <SocialContainer>
+          <a >
+            <SiFacebook onClick={() => handleOnClick(facebookProvider)}/>
+          </a>
+          <a >
+            <SiGoogle onClick={() => handleOnClick(googleProvider)}/>
+          </a>
+        </SocialContainer>
+        <StyledSpan>or use your email for registration</StyledSpan>
+        <StyledInput type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+        <StyledInput type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+        <SubmitButton onClick={(e) => onSignUp(e)}>Sign Up</SubmitButton>
+      </StyledForm>
+    </SignupContainer>
+  );
+};
 
 const SignupContainer = styled.div`
   position: absolute;
@@ -40,39 +82,14 @@ const SignupContainer = styled.div`
 }
 `;
 
-const StyledSpan = styled.span`
+export const StyledSpan = styled.span`
   font-size: 12px;
+  font-weight: 450;
+  color:#646464;
+
+  @media(max-width:425px){
+      color:#FFFFFF;
+  }
 `;
-
-const Signup = ({ toggle ,onClick }) => {
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState()
-    // const handleSubmit = () => {
-    //     setActiveItem('signup');
-    //     dispatch({type: 'email/set'})
-    // }
-
-    
-
-  return (
-    <SignupContainer avtive={toggle}>
-      <StyledForm >
-        <HeaderH1>Create Account</HeaderH1>
-        <SocialContainer>
-          <a >
-            <SiFacebook onClick={() => onClick(facebookProvider)}/>
-          </a>
-          <a >
-            <SiGoogle onClick={() => onClick(googleProvider)}/>
-          </a>
-        </SocialContainer>
-        <StyledSpan>or use your email for registration</StyledSpan>
-        <StyledInput type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-        <StyledInput type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-        {/* <SubmitButton onClick={handleSubmit}>Sign Up</SubmitButton> */}
-      </StyledForm>
-    </SignupContainer>
-  );
-};
 
 export default Signup;

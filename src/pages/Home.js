@@ -38,16 +38,18 @@ const TutorialsBtn = styled.div`
   color: #ffffff;
   text-decoration: none;
   background-color: #de6932;
-  border-radius: 2px;
+  border-radius: 10px;
   outline: none;
-  border: none;
-  padding: 12px 26px;
+  /* border: none; */
+  padding: 12px 45px;
   transition: all 0.3s ease-out;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
+
   &:hover {
-    background-color: #ffffff;
     color: #000000;
     transition: all 0.3s ease-out;
+    background-color: transparent;
+    border: #de6932 1px solid;
   }
 `;
 
@@ -58,7 +60,7 @@ function Home() {
         <BackgroundVideo />
         <TutorialsParagraph>Let’s brew together!</TutorialsParagraph>
         <BtnDiv>
-          <BtnLink to='/tutorials'>
+          <BtnLink to="/tutorials">
             <TutorialsBtn>START</TutorialsBtn>
           </BtnLink>
         </BtnDiv>

@@ -20,55 +20,23 @@ const LoginBody = styled.div`
 `;
 
 function Login() {
-  const history = useHistory();
-  const [toggle, setToggle] = React.useState(false);
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [activeItem, setActiveItem] = React.useState("signup");
+  const [toggle, setToggle] = React.useState(true);
+  //   const history = useHistory();
+  //   const [email, setEmail] = React.useState("");
+  //   const [password, setPassword] = React.useState("");
+  //   const [activeItem, setActiveItem] = React.useState("signup");
 
   const handleOnClick = async (provider) => {
-    console.log("SNS Btn");
+    console.log("SNS Btn Login");
     const res = await socialMediaAuth(provider);
     console.log(res);
   };
 
-  function onSubmit() {
-    if (activeItem === "signup") {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(email,password)
-        .then(() => {
-          history.push("/");
-        });
-    } else if (activeItem === "signin") {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(email,password)
-        .then(() => {
-          history.push("/");
-        });
-    }
-  }
-
   return (
     <LoginBody>
       <LoginContainer toggle={toggle}>
-        <Signin
-          toggle={toggle}
-          handleOnClick={handleOnClick}
-          email={email}
-          password={password}
-          activeItem={activeItem}
-          onSubmit={() => onSubmit}
-        />
-        <Signup
-          toggle={toggle}
-          onClick={() => onClick}
-          email={email}
-          password={password}
-          activeItem={activeItem}
-          onSubmit={() => onSubmit}
-        />
+        <Signin toggle={toggle} handleOnClick={handleOnClick} />
+        <Signup toggle={toggle} handleOnClick={handleOnClick} />
         <Overlay toggle={toggle} setToggle={setToggle} />
       </LoginContainer>
     </LoginBody>

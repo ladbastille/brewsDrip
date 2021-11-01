@@ -21,7 +21,7 @@ function Header() {
         </Link>
         <MenuLogoWrap>
           <MenuLogoImg src={searchLogo} />
-          <Link to='/login'>
+          <Link to="/login">
             <MenuLogoImg path="/login" src={memberLogo} />
           </Link>
           <CartLogoImg src={cartLogo} />
@@ -135,7 +135,5 @@ const MobileMenu = styled.img`
     display: block;
   }
 `;
-
-
 
 export default Header;

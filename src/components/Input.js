@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { SiFacebook, SiGoogle } from "react-icons/si";
-import {StyledSpan} from './Signup'
-import { facebookProvider, googleProvider } from "../utils/authMethods";
-import firebase from "./../utils/firebase";
-import { useHistory } from "react-router-dom";
-import Input from './Input'
+import { StyledSpan } from "./Signup";
 
 export const SigninContainer = styled.div`
   position: absolute;
@@ -92,7 +87,7 @@ export const SubmitButton = styled.button`
   color: #ffffff;
   font-size: 12px;
   font-weight: bold;
-  margin-top:10px;
+  margin-top: 10px;
   padding: 12px 45px;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -110,69 +105,24 @@ export const SignupButton = styled(SubmitButton)`
   }
 `;
 
-const Signin = ({ toggle, handleOnClick }) => {
-  const history = useHistory();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const onSignUp = (e) => {
-    console.log("signUP");
-    e.preventDefault()
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        console.log("success");
-        history.push("/");
-      });
-  };
-
-  const onSignIn = (e) => {
-    console.log("signin");
-    e.preventDefault()
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        console.log("success");
-        history.push("/");
-      });
-  };
-
+const Input = ({
+  onChange,
+  type,
+  placeholder,
+  value,
+  readOnly = true,
+  ...props
+}) => {
   return (
-    <SigninContainer avtive={toggle}>
-      <StyledForm>
-      <Input type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}/>
-        <HeaderSingin>Welcome!</HeaderSingin>
-        <SocialContainer>
-          <a>
-            <SiFacebook onClick={() => handleOnClick(facebookProvider)} />
-          </a>
-          <a>
-            <SiGoogle onClick={() => handleOnClick(googleProvider)} />
-          </a>
-        </SocialContainer>
-        <StyledSpan>press buttons above or use email to signin</StyledSpan>
-        <StyledInput
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <StyledInput
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <SubmitButton onClick={(e) => onSignIn(e)}>Sign In</SubmitButton>
-        <SignupButton onClick={(e) => onSignUp(e)}>Sign Up</SignupButton>
-      </StyledForm>
-    </SigninContainer>
+    <StyledInput
+      type={type}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+      readOnly={readOnly}
+      {...props}
+    />
   );
 };
 
-export default Signin;
+export default Input;
