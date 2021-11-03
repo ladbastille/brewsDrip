@@ -210,7 +210,8 @@ const FooterLinksWrap = styled.div`
     justify-content: center;
   }
   @media (max-width: 768px) {
-    justify-content: space-evenly;
+    justify-content: space-between;
+    padding:2%;
   }
 `;
 
