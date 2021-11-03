@@ -88,6 +88,8 @@ const convertTotalCountTotimerString = (totalCounter) => {
 // };
 
 const Timer = () => {
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  // const audioCtx = new AudioContext();
   const [timers, setTimers] = useState([]);
   // const [playing, toggle] = useState(false);
   //   const [baseColor, setBaseColor] = useState("");
@@ -101,6 +103,7 @@ const Timer = () => {
 
   const useAudio = (url) => {
     const [audio] = useState(new Audio(url));
+    // audio.preload = false;
     const [playing, setPlaying] = useState(false);
     const toggle = () => setPlaying(!playing);
 
@@ -175,7 +178,7 @@ const Timer = () => {
   function startTimer() {
     setIsActive(!isActive);
     setIsPause(false);
-    setDoneAlert(false)
+    setDoneAlert(false);
     toggle(true);
   }
 
@@ -199,7 +202,7 @@ const Timer = () => {
     new Audio(src).play();
   };
 
-  if ( doneAlert) {
+  if (doneAlert) {
     playAudio(done);
   }
 
@@ -236,14 +239,14 @@ const Timer = () => {
     <TimerContainer background={baseColor}>
       <div className="steps-area">
         <div className="step-left">
-        <div className="currentStep">{`NOW: ${customStep}`}</div>
-        <div className="nextStep">
-          {pointer !== MOCK_SCRIPT.length - 1 && `next: ${nexrCustomStep}`}
-        </div>
+          <div className="currentStep">{`NOW: ${customStep}`}</div>
+          <div className="nextStep">
+            {pointer !== MOCK_SCRIPT.length - 1 && `next: ${nexrCustomStep}`}
+          </div>
         </div>
         <div className="step-right">
-        <div className="stepNumber">{`${pointer + 1}/${totalSteps}`}</div>
-        <div>Steps</div>
+          <div className="stepNumber">{`${pointer + 1}/${totalSteps}`}</div>
+          <div>Steps</div>
         </div>
       </div>
 
@@ -258,7 +261,7 @@ const Timer = () => {
           className="start"
           // disabled={isActive ? true : false}
         >
-          {!isActive ? 'Start' : 'Pause'}
+          {!isActive ? "Start" : "Pause"}
         </button>
 
         <button

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Route } from "react-router-dom";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Tutorials from "./pages/Tutorials";
 import TasteNotes from "./pages/TasteNotes";
@@ -14,23 +15,27 @@ const AppDiv = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 function App() {
   return (
-    <AppDiv>
-      <Header />
+    <>
+      <AppDiv>
+        <Header />
 
-      <Route path="/tutorials" exact component={Tutorials} />
-      <Route path="/tastenotes" exact component={TasteNotes} />
-      <Route path="/coffeemap" exact component={CoffeeMap} />
-      <Route path="/coffeetimer" exact component={CoffeeTimer} />
-      <Route path="/shop" exact component={Shop} />
-      <Route path="/login" exact component={Login} />
-      <Route path="/" exact>
-        <Home />
-      </Route>
-    </AppDiv>
+        <Route path="/tutorials" exact component={Tutorials} />
+        <Route path="/tastenotes" exact component={TasteNotes} />
+        <Route path="/coffeemap" exact component={CoffeeMap} />
+        <Route path="/coffeetimer" exact component={CoffeeTimer} />
+        <Route path="/shop" exact component={Shop} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/" exact>
+          <Home />
+        </Route>
+      </AppDiv>
+      <Footer />
+    </>
   );
 }
 

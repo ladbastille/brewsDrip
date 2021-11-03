@@ -114,9 +114,12 @@ const Signin = ({ toggle, handleOnClick, }) => {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = React.useState('');
 
   const onSignUp = (e) => {
     console.log("signUP");
+    setIsLoading(true);
     e.preventDefault()
     firebase
       .auth()
@@ -124,11 +127,28 @@ const Signin = ({ toggle, handleOnClick, }) => {
       .then(() => {
         console.log("success");
         history.push("/");
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+            setErrorMessage('信箱已存在');
+            break;
+          case 'auth/invalid-email':
+            setErrorMessage('信箱格式不正確');
+            break;
+          case 'auth/weak-password':
+            setErrorMessage('密碼強度不足');
+            break;
+          default:
+        }
+        setIsLoading(false);
       });
   };
 
   const onSignIn = (e) => {
     console.log("signin");
+    setIsLoading(true);
     e.preventDefault()
     firebase
       .auth()
@@ -136,6 +156,22 @@ const Signin = ({ toggle, handleOnClick, }) => {
       .then(() => {
         console.log("success");
         history.push("/");
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        switch (error.code) {
+          case 'auth/invalid-email':
+            setErrorMessage('信箱格式不正確');
+            break;
+          case 'auth/user-not-found':
+            setErrorMessage('信箱不存在');
+            break;
+          case 'auth/wrong-password':
+            setErrorMessage('密碼錯誤');
+            break;
+          default:
+        }
+        setIsLoading(false);
       });
   };
 

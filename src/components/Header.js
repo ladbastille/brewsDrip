@@ -50,7 +50,7 @@ const MainHeader = styled.div`
   z-index: 999;
 `;
 
-const LogoImg = styled.img`
+export const LogoImg = styled.img`
   height: 40px;
   margin-top: 1.2rem;
   cursor: pointer;

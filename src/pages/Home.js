@@ -26,11 +26,11 @@ const BtnDiv = styled.div`
   margin-left: 40px;
 `;
 
-const BtnLink = styled(Link)`
+export const BtnLink = styled(Link)`
   text-decoration: none;
 `;
 
-const TutorialsBtn = styled.div`
+export const TutorialsBtn = styled.div`
   margin: 6px;
   cursor: pointer;
   font-family: "Poppins”, sans-serif";
@@ -40,16 +40,16 @@ const TutorialsBtn = styled.div`
   background-color: #de6932;
   border-radius: 10px;
   outline: none;
-  /* border: none; */
   padding: 12px 45px;
   transition: all 0.3s ease-out;
   font-size: 0.9rem;
+  border: none;
 
   &:hover {
     color: #000000;
     transition: all 0.3s ease-out;
     background-color: transparent;
-    border: #de6932 1px solid;
+    border: #de6932 2px solid;
   }
 `;
 

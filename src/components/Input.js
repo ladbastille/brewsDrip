@@ -119,7 +119,7 @@ const Input = ({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      readOnly={readOnly}
+      // readOnly={readOnly}
       {...props}
     />
   );

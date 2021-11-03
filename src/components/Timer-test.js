@@ -16,6 +16,9 @@ const TimerContainer = styled.div`
   background: ${(props) => props.background};
 `;
 
+
+
+
 const Timer = () => {
   const [timers, setTimers] = useState([]);
   //   const [baseColor, setBaseColor] = useState("");
