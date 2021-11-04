@@ -1,5 +1,6 @@
+import React,{useEffect} from "react";
 import styled from "styled-components";
-import { Route } from "react-router-dom";
+import { Route,Redirect } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -9,6 +10,10 @@ import CoffeeMap from "./pages/CoffeeMap";
 import CoffeeTimer from "./pages/CoffeeTimer";
 import Shop from "./pages/Shop";
 import Login from "./pages/Login";
+import Member from "./pages/Member"
+import firebase from "./utils/firebase";
+import TimerLists from "./pages/TimerLists";
+import NewTimer from './components/NewTimer'
 
 const AppDiv = styled.div`
   width: 95%;
@@ -19,6 +24,12 @@ const AppDiv = styled.div`
 `;
 
 function App() {
+  const [user, setUser] = React.useState();
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((currentUser) => {
+      setUser(currentUser);
+    });
+  }, []);
   return (
     <>
       <AppDiv>
@@ -27,9 +38,17 @@ function App() {
         <Route path="/tutorials" exact component={Tutorials} />
         <Route path="/tastenotes" exact component={TasteNotes} />
         <Route path="/coffeemap" exact component={CoffeeMap} />
+        <Route path="/timerlists" exact component={TimerLists} />
+        <Route path="/newtimer" exact component={NewTimer} />
         <Route path="/coffeetimer" exact component={CoffeeTimer} />
         <Route path="/shop" exact component={Shop} />
-        <Route path="/login" exact component={Login} />
+        <Route path="/member" >
+          {user !== null ?  <Member user={user}/> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/login" exact>
+        {user !== null ?  <Redirect to="/member" /> : <Login user={user}/>}
+        </Route>
+
         <Route path="/" exact>
           <Home />
         </Route>

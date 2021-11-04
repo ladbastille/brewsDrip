@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { StyledSpan } from "./Signup";
+
 
 export const SigninContainer = styled.div`
   position: absolute;
@@ -74,9 +74,10 @@ export const SocialLoginButton = styled.i`
 export const StyledInput = styled.input`
   background-color: #eee;
   border: none;
-  padding: 12px 15px;
-  margin: 8px 0;
-  width: 100%;
+  padding: 10px 15px;
+  margin: 6px 0;
+  width:25%;
+  max-width: 70%;
   border-radius: 5px;
 `;
 
@@ -110,7 +111,7 @@ const Input = ({
   type,
   placeholder,
   value,
-  readOnly = true,
+  // readOnly = true,
   ...props
 }) => {
   return (

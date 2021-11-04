@@ -19,7 +19,7 @@ const LoginBody = styled.div`
   }
 `;
 
-function Login() {
+function Login({user}) {
   const [toggle, setToggle] = React.useState(true);
   //   const history = useHistory();
   //   const [email, setEmail] = React.useState("");

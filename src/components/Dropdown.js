@@ -10,6 +10,7 @@ const Dropdown = ({
   valueIsColor = false,
 }) => {
   const [open, setOpen] = useState(false);
+  
 
   return (
     <>
@@ -18,13 +19,14 @@ const Dropdown = ({
         value={value.label}
         placeholder={placeholder}
         onClick={() => setOpen((prev) => !prev)}
-        style={{ backgroundColor: valueIsColor ? value.value : "#fff " }}
+        style={{ backgroundColor: valueIsColor ? value.value : "#eee" } }
       />
       {open && (
         <div>
           {options.map((item) => (
+            
             <div
-              style={{ backgroundColor: valueIsColor ? item.value : "#fff " }}
+              style={{ backgroundColor: valueIsColor ? item.value : "#eee " }}
               value={item.value}
               onClick={() => {
                 setValue(item);

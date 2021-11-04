@@ -5,6 +5,7 @@ import {StyledSpan} from './Signup'
 import { facebookProvider, googleProvider } from "../utils/authMethods";
 import firebase from "./../utils/firebase";
 import { useHistory } from "react-router-dom";
+import ReactLoading from 'react-loading';
 import Input from './Input'
 
 export const SigninContainer = styled.div`
@@ -115,10 +116,11 @@ const Signin = ({ toggle, handleOnClick, }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = React.useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const onSignUp = (e) => {
     console.log("signUP");
+    
     setIsLoading(true);
     e.preventDefault()
     firebase
@@ -197,15 +199,19 @@ const Signin = ({ toggle, handleOnClick, }) => {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          onFocus={()=> setErrorMessage('')}
         />
         <StyledInput
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onFocus={()=> setErrorMessage('')}
         />
         <SubmitButton onClick={(e) => onSignIn(e)}>Sign In</SubmitButton>
         <SignupButton onClick={(e) => onSignUp(e)}>Sign Up</SignupButton>
+        {errorMessage && <h5 >{errorMessage}</h5>}
+        {isLoading ? (<ReactLoading color="#FBD850" type="spinningBubbles" />) : (<></>) }
       </StyledForm>
     </SigninContainer>
   );

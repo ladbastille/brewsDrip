@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../utils/firebase";
-import { FaPlayCircle, FaPauseCircle } from "react-icons/fa";
 import "firebase/firestore";
+import { FaPlayCircle, FaPauseCircle } from "react-icons/fa";
 import "../components/timer.css";
 import styled from "styled-components";
 

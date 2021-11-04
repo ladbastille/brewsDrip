@@ -60,8 +60,8 @@ const Footer = () => {
 
         <FooterLinksWrap>
           {menu.map(({ name, links }) => (
-            <Menu>
-              <MenuHead>{name}</MenuHead>
+            <Menu >
+              <MenuHead >{name}</MenuHead>
               {links.map(({ title, url }) => (
                 <MenuLink to={url}>{title}</MenuLink>
               ))}
@@ -69,10 +69,10 @@ const Footer = () => {
           ))}
         </FooterLinksWrap>
         <FooterCTABtnWrap>
-          <BtnLink>
+          <BtnLink to="/login">
             <FooterCTABtn>Sign In</FooterCTABtn>
           </BtnLink>
-          <BtnLink>
+          <BtnLink to="/login">
             <FooterCTABtn color={"#7E876D"}>Sign Up</FooterCTABtn>
           </BtnLink>
         </FooterCTABtnWrap>
@@ -215,11 +215,12 @@ const FooterLinksWrap = styled.div`
   }
 `;
 
-const FooterCTABtn = styled(TutorialsBtn)`
+export const FooterCTABtn = styled(TutorialsBtn)`
   padding: 10px 40px;
   max-width: 80px;
   text-align: center;
   background: ${(props) => (props.color ? props.color : "#de6932")};
+  width: ${(props) => (props.width ? props.width : "60px")};
   &:hover {
     border-color: ${(props) => (props.color ? props.color : "#de6932")};
   }
