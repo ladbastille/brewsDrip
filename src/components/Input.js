@@ -111,7 +111,6 @@ const Input = ({
   type,
   placeholder,
   value,
-  // readOnly = true,
   ...props
 }) => {
   return (
@@ -120,7 +119,6 @@ const Input = ({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      // readOnly={readOnly}
       {...props}
     />
   );

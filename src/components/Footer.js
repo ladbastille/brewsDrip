@@ -60,14 +60,15 @@ const Footer = () => {
 
         <FooterLinksWrap>
           {menu.map(({ name, links }) => (
-            <Menu >
-              <MenuHead >{name}</MenuHead>
+            <Menu>
+              <MenuHead>{name}</MenuHead>
               {links.map(({ title, url }) => (
                 <MenuLink to={url}>{title}</MenuLink>
               ))}
             </Menu>
           ))}
         </FooterLinksWrap>
+
         <FooterCTABtnWrap>
           <BtnLink to="/login">
             <FooterCTABtn>Sign In</FooterCTABtn>
@@ -211,7 +212,7 @@ const FooterLinksWrap = styled.div`
   }
   @media (max-width: 768px) {
     justify-content: space-between;
-    padding:2%;
+    padding: 3%;
   }
 `;
 

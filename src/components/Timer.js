@@ -13,8 +13,8 @@ const TimerContainer = styled.div`
   margin: 0 auto;
   display: grid;
   place-items: center;
-  /* background: grey; */
-  padding: 1rem 2rem;
+  justify-content: center;;
+  padding: 1rem;
   border-radius: 10px;
   background: ${(props) => (props.background ? props.background : "grey")};
 `;

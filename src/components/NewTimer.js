@@ -30,16 +30,16 @@ const COLOR_OPTIONS = [
 
 const BREW_OPTIONS = [
   {
+    value: "timer",
+    label: "Timer",
+  },
+  {
     value: "aeroPress",
     label: "Aero Press",
   },
   {
     value: "pourOver",
     label: "Pour Over",
-  },
-  {
-    value: "timer",
-    label: "Timer",
   },
 ];
 
@@ -66,19 +66,19 @@ const NewTimer = () => {
   // };
 
   const [timerName, setTimerName] = useState("");
-  const [baseColor, setBaseColor] = useState("#FBD850");
-  const [endTime, setEndTime] = useState("");
+  const [baseColor, setBaseColor] = useState("");
   const [brewMethod, setBrewMethod] = useState("");
+  // const [endTime, setEndTime] = useState("");
+
+  // const [stepSec1, setStepSec1] = useState("");
+  // const [stepSec2, setStepSec2] = useState("");
+  // const [stepSec3, setStepSec3] = useState("");
+  // const [stepSec4, setStepSec4] = useState("");
 
   const [stepName1, setStepName1] = useState("");
   const [stepName2, setStepName2] = useState("");
   const [stepName3, setStepName3] = useState("");
   const [stepName4, setStepName4] = useState("");
-
-  const [stepSec1, setStepSec1] = useState("");
-  const [stepSec2, setStepSec2] = useState("");
-  const [stepSec3, setStepSec3] = useState("");
-  const [stepSec4, setStepSec4] = useState("");
 
   const [stepColor1, setStepColor1] = useState("");
   const [stepColor2, setStepColor2] = useState("");
@@ -86,6 +86,31 @@ const NewTimer = () => {
   const [stepColor4, setStepColor4] = useState("");
 
   const [timers, setTimers] = useState([]);
+  const numInitialState = {
+    endTime: "",
+    stepSec1: "",
+    stepSec2: "",
+    stepSec3: "",
+    stepSec4: "",
+  };
+  const [numValues, setNumValues] = useState(numInitialState);
+
+  //  const changeHandler = e => {
+  //     setAllValues({...allValues, [e.target.name]: e.target.value})
+  //  }
+
+  const checkSetNum = (e) => {
+    const value = parseInt(e.target.value.replace(/\D/g, ""));
+    // console.log(e);
+    console.log("[onChange:]", e.target.name);
+    console.log("[value is:]", value);
+    setNumValues({ ...numValues, [e.target.name]: value });
+  };
+
+  const resetInput = () => {
+    setNumValues(numInitialState);
+  };
+
   useEffect(() => {
     firebase
       .firestore()
@@ -99,32 +124,8 @@ const NewTimer = () => {
       });
   }, []);
 
-  // function resetInput() {
-  //   document.querySelectorAll('input');
-  //   this.setState({
-  //   itemvalues: ""
-  // });
-  // };
-  function stringToNumber(string) {
-    // return Number(string);
-    return parseInt(string, 10);
-  }
-
-  function checkSetEndTime(e) {
-      let endTimeNumber = parseInt(e.target.value);
-      if (endTimeNumber <= 0 || endTimeNumber == NaN) {
-        // alert('Enter integers only')
-        setEndTime("");
-      } else {
-        setEndTime(endTimeNumber);
-      }
-    }
-  
-
   function createNewTimer() {
     setIsLoading(true);
-    stringToNumber(endTime);
-    // stringToNumber(endTime, stepSec1, stepSec2, stepSec3, stepSec4);
     const documentRef = firebase.firestore().collection("timerTest").doc();
     // const fileRef = firebase.storage().ref("post-images/" + documentRef.id);
     // const metadata = {
@@ -133,17 +134,17 @@ const NewTimer = () => {
     // fileRef.put(file, metadata).then(() => {
     //   fileRef.getDownloadURL().then((imageUrl) => {
     let dataObj = {
-      timerName,
-      baseColor,
-      brewMethod: brewMethod || "",
-      endTime: parseInt(endTime),
+      timerName: timerName || "Unnamed Timer",
+      baseColor: baseColor || COLOR_OPTIONS[0],
+      brewMethod: brewMethod || BREW_OPTIONS[0],
+      endTime: parseInt(numValues.endTime) || null,
       customColor: [stepColor1, stepColor2, stepColor3, stepColor4],
       customStep: [stepName1, stepName2, stepName3, stepName4],
       customSec: [
-        stepSec1 || null,
-        stepSec2 || null,
-        stepSec3 || null,
-        stepSec4 || null,
+        parseInt(numValues.stepSec1) || 0,
+        parseInt(numValues.stepSec2) || null,
+        parseInt(numValues.stepSec3) || null,
+        parseInt(numValues.stepSec4) || null,
       ],
       createdAt: firebase.firestore.Timestamp.now(),
       author: {
@@ -198,11 +199,12 @@ const NewTimer = () => {
             onKeyPress={(e) => {
               return e.charCode >= 48;
             }}
-            min="1"
+            min="0"
             step="1"
             max="999"
-            value={stepSec1}
-            onChange={(e) => setStepSec1(e.target.value)}
+            value={numValues.stepSec1}
+            name="stepSec1"
+            onChange={(e) => checkSetNum(e)}
             placeholder="At the sec"
           />
           <Dropdown
@@ -227,8 +229,9 @@ const NewTimer = () => {
             min="1"
             step="1"
             max="999"
-            value={stepSec2}
-            onChange={(e) => setStepSec2(e.target.value)}
+            value={numValues.stepSec2}
+            name="stepSec2"
+            onChange={(e) => checkSetNum(e)}
             placeholder="At the sec"
           />
           <Dropdown
@@ -254,8 +257,9 @@ const NewTimer = () => {
             min="1"
             step="1"
             max="999"
-            value={stepSec3}
-            onChange={(e) => setStepSec3(e.target.value)}
+            value={numValues.stepSec3}
+            name="stepSec3"
+            onChange={(e) => checkSetNum(e)}
             placeholder="At the sec"
           />
           <Dropdown
@@ -281,8 +285,9 @@ const NewTimer = () => {
             min="1"
             step="1"
             max="999"
-            value={stepSec4}
-            onChange={(e) => setStepSec4(e.target.value)}
+            value={numValues.stepSec4}
+            name="stepSec4"
+            onChange={(e) => checkSetNum(e)}
             placeholder="At the sec"
           />
           <Dropdown
@@ -303,16 +308,17 @@ const NewTimer = () => {
           min="1"
           step="1"
           max="999"
-          value={endTime}
-          onChange={(e) => checkSetEndTime(e)}
+          value={numValues.endTime}
+          name="endTime"
+          onChange={(e) => checkSetNum(e)}
           placeholder="secs (OPTIONAL)"
         />
         <FooterCTABtn width={"50px"} color={"#00B790"} onClick={createNewTimer}>
           Save
         </FooterCTABtn>
-        {/* <FooterCTABtn width={"50px"} color={"#FF5741"} onClick={resetInput}>
+        <FooterCTABtn width={"50px"} color={"#FF5741"} onClick={resetInput}>
           Reset
-        </FooterCTABtn> */}
+        </FooterCTABtn>
       </NewTimerContainer>
     </>
   );

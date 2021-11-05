@@ -10,7 +10,7 @@
       rgb(255, 176, 85) 0%,
       rgb(252, 142, 39) 35%,
       rgb(255, 136, 0) 100%); */
-  padding: 1rem 2rem;
+  padding: 1rem;
   border-radius: 10px;
 }
 
@@ -42,12 +42,12 @@
 }
 
 .pause {
-  background: #DE6932;
+  background: #de6932;
   color: white;
 }
 
 .reset {
-  background: #D42927;
+  background: #d42927;
   color: white;
 }
 
@@ -58,28 +58,30 @@
   opacity: 0.6;
 }
 
-.steps-area{
+.steps-area {
   width: 100%;
   display: flex;
   justify-content: space-evenly;
 }
 
-.step-left,.step-right{
+.step-left,
+.step-right {
   width: 50%;
   display: flex;
   flex-direction: column;
-  color:#FFFFFF;
+  color: #ffffff;
   font-size: 2rem;
 }
 
-.step-left div,.step-right div{
+.step-left div,
+.step-right div {
   margin-bottom: 15px;
 }
 
-.currentStep{
+.currentStep {
   font-size: 2.5rem;
 }
 
 .step-right {
-  text-align:right;
+  text-align: right;
 }
