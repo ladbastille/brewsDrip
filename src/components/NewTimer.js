@@ -68,12 +68,6 @@ const NewTimer = () => {
   const [timerName, setTimerName] = useState("");
   const [baseColor, setBaseColor] = useState("");
   const [brewMethod, setBrewMethod] = useState("");
-  // const [endTime, setEndTime] = useState("");
-
-  // const [stepSec1, setStepSec1] = useState("");
-  // const [stepSec2, setStepSec2] = useState("");
-  // const [stepSec3, setStepSec3] = useState("");
-  // const [stepSec4, setStepSec4] = useState("");
 
   const [stepName1, setStepName1] = useState("");
   const [stepName2, setStepName2] = useState("");
@@ -109,6 +103,17 @@ const NewTimer = () => {
 
   const resetInput = () => {
     setNumValues(numInitialState);
+    setTimerName("");
+    setBaseColor("");
+    setBrewMethod("");
+    setStepName1("");
+    setStepName2("");
+    setStepName3("");
+    setStepName4("");
+    setStepColor1("");
+    setStepColor2("");
+    setStepColor3("");
+    setStepColor4("");
   };
 
   useEffect(() => {

@@ -54,47 +54,11 @@ const convertTotalCountTotimerString = (totalCounter) => {
   return { computedSecond, computedMinute };
 };
 
-// const useAudio = (url) => {
-//   // const [audio] = useState(new Audio(url));
-//   const audio = new Audio();
-//   audio.src = bgm;
-//   console.log(audio.play() instanceof Promise)
-//   const [playingMusic, setPlayingMusic] = useState(false);
-
-//   const checkIsPlay =
-//     audio.currentTime > 0 &&
-//     !audio.paused &&
-//     !audio.ended &&
-//     audio.readyState > audio.HAVE_CURRENT_DATA;
-//   const toggle = () => {
-//     if (!checkIsPlay) {
-//       audio.play();
-//       // setPlayingMusic(!playingMusic)
-//     }
-//   };
-
-//   useEffect(() => {
-//     playingMusic ? audio.play() : audio.pause();
-//   }, [playingMusic]);
-
-//   useEffect(() => {
-//     audio.addEventListener("ended", () => setPlayingMusic(false));
-//     return () => {
-//       audio.removeEventListener("ended", () => setPlayingMusic(false));
-//     };
-//   }, []);
-
-//   return [playingMusic, toggle];
-// };
-
 const Timer = () => {
   const AudioContext = window.AudioContext || window.webkitAudioContext;
   // const audioCtx = new AudioContext();
   const [timers, setTimers] = useState([]);
-  // const [playing, toggle] = useState(false);
-  //   const [baseColor, setBaseColor] = useState("");
-  //   const [baseTime, setBaseTime] = useState(0);
-  //   const [currentTime, setCurrentTime] = useState(0);
+  
   const [isActive, setIsActive] = useState(false);
   const [isPause, setIsPause] = useState(true);
   const [totalCounter, setTotalCounter] = useState(0);
@@ -141,16 +105,6 @@ const Timer = () => {
 
   const [playing, toggle] = useAudio(bgm);
 
-  // let playBgm = new Audio(bgm);
-  // const toggleBgm = (code) => {
-  //   if (code === "startPlay") {
-  //     playBgm.play();
-  //   }
-  //   if (code === "stopPlay") {
-  //     this.playBgm.pause();
-  //     this.playBgm.currentTime = 0;
-  //   }
-  // };
   useEffect(() => {
     let intervalId;
 

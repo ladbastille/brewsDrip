@@ -71,10 +71,10 @@ const Footer = () => {
 
         <FooterCTABtnWrap>
           <BtnLink to="/login">
-            <FooterCTABtn>Sign In</FooterCTABtn>
+            <FooterCTABtn path="/login">Sign In</FooterCTABtn>
           </BtnLink>
           <BtnLink to="/login">
-            <FooterCTABtn color={"#7E876D"}>Sign Up</FooterCTABtn>
+            <FooterCTABtn path="/login" color={"#7E876D"}>Sign Up</FooterCTABtn>
           </BtnLink>
         </FooterCTABtnWrap>
       </FooterContentContainer>
