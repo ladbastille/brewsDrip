@@ -16,6 +16,7 @@ const LoginBody = styled.div`
   @media (max-width: 768px) {
     width: 100%;
     margin-top: -10%;
+    margin: 20px auto;
   }
 `;
 

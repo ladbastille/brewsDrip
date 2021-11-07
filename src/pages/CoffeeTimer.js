@@ -1,11 +1,10 @@
 import Timer from "../components/Timer";
-import NewTimer from "../components/NewTimer";
-import TimerLists from "./TimerLists";
+import NewTimer from "./NewTimer";
+import TimerLists from "./TimerList";
 
 function CoffeeTimer() {
   return (
     <>
-      <Timer />
       <TimerLists />
     </>
   );

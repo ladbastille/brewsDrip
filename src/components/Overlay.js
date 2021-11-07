@@ -1,18 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-import { HeaderH1, SubmitButton } from "./Signin";
+import { SubmitButton } from "./Signin";
+import { HeaderH1 } from "./Input";
 
 const Overlay = ({ toggle, setToggle }) => {
   return (
     <OverlayContainer active={toggle}>
       <OverlayDiv active={toggle}>
         <OverlayPanelLeft active={toggle}>
-          <HeaderH1>Hello, There!</HeaderH1>
+          <HeaderH1 color={"#FFFFFF"}>Hello, There!</HeaderH1>
           <OverlayParagraph>Press the button to continue</OverlayParagraph>
           <OverlayBtn onClick={() => setToggle(!toggle)}>Sign In</OverlayBtn>
         </OverlayPanelLeft>
         <OverlayPanelRight active={toggle}>
-          <HeaderH1>Join Us!</HeaderH1>
+          <HeaderH1 color={"#FFFFFF"}>Join Us!</HeaderH1>
           <OverlayParagraph>Don't be shy!</OverlayParagraph>
           <OverlayBtn onClick={() => setToggle(!toggle)}>Sign Up</OverlayBtn>
         </OverlayPanelRight>

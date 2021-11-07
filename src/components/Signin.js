@@ -7,6 +7,7 @@ import firebase from "./../utils/firebase";
 import { useHistory } from "react-router-dom";
 import ReactLoading from 'react-loading';
 import Input from './Input'
+import { HeaderH1 } from "./Input";
 
 export const SigninContainer = styled.div`
   position: absolute;
@@ -36,12 +37,6 @@ export const StyledForm = styled.form`
     background: -webkit-linear-gradient(to right, #ed8f03, #ffb75e);
     background: linear-gradient(to right, #ed8f03, #ffb75e);
   }
-`;
-
-export const HeaderH1 = styled.h1`
-  font-weight: bold;
-  margin: 0;
-  font-size: 2em;
 `;
 
 const HeaderSingin = styled(HeaderH1)`

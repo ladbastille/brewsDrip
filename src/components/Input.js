@@ -34,15 +34,18 @@ export const StyledForm = styled.form`
 
 export const HeaderH1 = styled.h1`
   font-weight: bold;
-  margin: 0;
   font-size: 2em;
+  text-align: center;
+  margin: 0;
+  margin-bottom: ${(props)=>(props.marginBottom?props.marginBottom:"0")};
+  color:${(props)=>(props.color?props.color:"#000000")}
 `;
 
-const HeaderSingin = styled(HeaderH1)`
-  @media (max-width: 425px) {
-    color: #ffffff;
-  }
-`;
+// const HeaderSingin = styled(HeaderH1)`
+//   @media (max-width: 425px) {
+//     color: #ffffff;
+//   }
+// `;
 
 export const SocialContainer = styled.div`
   margin: 20px 0;
@@ -72,13 +75,12 @@ export const SocialLoginButton = styled.i`
 `;
 
 export const StyledInput = styled.input`
-  background-color: #eee;
-  border: none;
-  padding: 10px 15px;
-  margin: 6px 0;
-  width:25%;
-  max-width: 70%;
-  border-radius: 5px;
+  background-color: #FBD850;
+  border: 1px solid #ffffff;
+  margin: 4px 3px 3px 3px;
+  padding: ${(props)=>(props.padding ? props.padding : "10px 8px")};
+  width: ${(props)=>(props.width ? props.width : "70%")};
+  border-radius: 10px;
 `;
 
 export const SubmitButton = styled.button`

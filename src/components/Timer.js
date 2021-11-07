@@ -131,19 +131,19 @@ const Timer = () => {
 
   function startTimer() {
     setIsActive(!isActive);
-    setIsPause(false);
-    setDoneAlert(false);
+    setIsPause((prev)=>(!prev));
+    // setDoneAlert(false);
     toggle(true);
   }
 
-  function pauseTimer() {
+  function stopTimer() {
     setIsActive(false);
     setIsPause(true);
-    setDoneAlert(true);
     toggle(false);
+    setDoneAlert(true);
   }
 
-  function stopTimer() {
+  function resetTimer() {
     setIsActive(false);
     setIsPause(true);
     setTotalCounter(0);
@@ -219,7 +219,7 @@ const Timer = () => {
         </button>
 
         <button
-          onClick={pauseTimer}
+          onClick={stopTimer}
           className="pause"
           disabled={isActive ? false : true}
         >
@@ -227,7 +227,7 @@ const Timer = () => {
         </button>
 
         <button
-          onClick={stopTimer}
+          onClick={resetTimer}
           className="reset"
           disabled={!isActive ? false : true}
         >

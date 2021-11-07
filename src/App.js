@@ -12,8 +12,8 @@ import Shop from "./pages/Shop";
 import Login from "./pages/Login";
 import Member from "./pages/Member"
 import firebase from "./utils/firebase";
-import TimerLists from "./pages/TimerLists";
-import NewTimer from './components/NewTimer'
+import TimerList from "./pages/TimerList";
+import NewTimer from './pages/NewTimer'
 
 const AppDiv = styled.div`
   width: 95%;
@@ -38,7 +38,10 @@ function App() {
         <Route path="/tutorials" exact component={Tutorials} />
         <Route path="/tastenotes" exact component={TasteNotes} />
         <Route path="/coffeemap" exact component={CoffeeMap} />
-        <Route path="/timerlists" exact component={TimerLists} />
+        <Route path="/timerlist" exact component={TimerList} />
+        <Route path="/timerlist/:timerid" exact>
+          Hello, Timer
+        </Route>
         <Route path="/newtimer" exact component={NewTimer} />
         <Route path="/coffeetimer" exact component={CoffeeTimer} />
         <Route path="/shop" exact component={Shop} />

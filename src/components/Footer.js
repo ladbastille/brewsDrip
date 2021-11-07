@@ -6,6 +6,7 @@ import MobileFooterLogoImg from "../images/footer3DLogo.png";
 import { LogoImg } from "./Header";
 import { TutorialsBtn, BtnLink } from "../pages/Home";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
+import { v4 as uuidv4 } from "uuid";
 
 const menu = [
   {
@@ -60,10 +61,12 @@ const Footer = () => {
 
         <FooterLinksWrap>
           {menu.map(({ name, links }) => (
-            <Menu>
-              <MenuHead>{name}</MenuHead>
+            <Menu key={uuidv4()}>
+              <MenuHead key={uuidv4()}>{name}</MenuHead>
               {links.map(({ title, url }) => (
-                <MenuLink to={url}>{title}</MenuLink>
+                <MenuLink key={uuidv4()} to={url}>
+                  {title}
+                </MenuLink>
               ))}
             </Menu>
           ))}
@@ -74,7 +77,9 @@ const Footer = () => {
             <FooterCTABtn path="/login">Sign In</FooterCTABtn>
           </BtnLink>
           <BtnLink to="/login">
-            <FooterCTABtn path="/login" color={"#7E876D"}>Sign Up</FooterCTABtn>
+            <FooterCTABtn path="/login" color={"#7E876D"}>
+              Sign Up
+            </FooterCTABtn>
           </BtnLink>
         </FooterCTABtnWrap>
       </FooterContentContainer>
