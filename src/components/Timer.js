@@ -85,24 +85,6 @@ const Timer = () => {
     return [playing, toggle];
   };
 
-  // useEffect(() => {
-  //   firebase
-  //     .firestore()
-  //     .collection("timer")
-
-  //     .get()
-  //     .then((collectionSnapshot) => {
-  //       const data = collectionSnapshot.docs.map((doc) => {
-  //         return doc.data();
-  //       });
-  //       // setTopcis(data);
-  //       console.log(data);
-  //       console.log(data[0].baseColor);
-  //       setTimers(data);
-  //       // console.log(timers)
-  //     });
-  // }, []);
-
   const [playing, toggle] = useAudio(bgm);
 
   useEffect(() => {

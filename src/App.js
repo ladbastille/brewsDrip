@@ -1,6 +1,6 @@
-import React,{useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Route,Redirect } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -10,10 +10,12 @@ import CoffeeMap from "./pages/CoffeeMap";
 import CoffeeTimer from "./pages/CoffeeTimer";
 import Shop from "./pages/Shop";
 import Login from "./pages/Login";
-import Member from "./pages/Member"
+import Member from "./pages/Member";
 import firebase from "./utils/firebase";
 import TimerList from "./pages/TimerList";
-import NewTimer from './pages/NewTimer'
+import NewTimer from "./pages/NewTimer";
+import TasteNoteList from "./pages/TasteNoteList";
+import NewNote from "./pages/NewNote"
 
 const AppDiv = styled.div`
   width: 95%;
@@ -24,7 +26,7 @@ const AppDiv = styled.div`
 `;
 
 function App() {
-  const [user, setUser] = React.useState();
+  const [user, setUser] = useState();
   useEffect(() => {
     firebase.auth().onAuthStateChanged((currentUser) => {
       setUser(currentUser);
@@ -36,20 +38,30 @@ function App() {
         <Header />
 
         <Route path="/tutorials" exact component={Tutorials} />
-        <Route path="/tastenotes" exact component={TasteNotes} />
+        {/* <Route path="/tastenotelist/taste" exact component={TasteNoteList} />
+        <Route path="/tastenotelist/favs" exact component={TasteNoteList} />
+        <Route path="/tastenotelist/brew" exact component={TasteNoteList} /> */}
         <Route path="/coffeemap" exact component={CoffeeMap} />
+        <Route path="/tastenotelist" exact component={TasteNoteList} />
+        <Route path="/newnote">
+          {user !== null ? <NewNote user={user} /> : <Redirect to="/login" />}
+        </Route>
         <Route path="/timerlist" exact component={TimerList} />
         <Route path="/timerlist/:timerid" exact>
-          Hello, Timer
+          <CoffeeTimer />
         </Route>
-        <Route path="/newtimer" exact component={NewTimer} />
-        <Route path="/coffeetimer" exact component={CoffeeTimer} />
-        <Route path="/shop" exact component={Shop} />
-        <Route path="/member" >
-          {user !== null ?  <Member user={user}/> : <Redirect to="/login" />}
+        {/* <Route path="/coffeetimer" exact component={CoffeeTimer} /> */}
+        {/* <Route path="/shop" exact component={Shop} /> */}
+
+        <Route path="/newtimer">
+          {user !== null ? <NewTimer user={user} /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/member">
+          {user !== null ? <Member user={user} /> : <Redirect to="/login" />}
         </Route>
         <Route path="/login" exact>
-        {user !== null ?  <Redirect to="/member" /> : <Login user={user}/>}
+          {user !== null ? <Redirect to="/member" /> : <Login user={user} />}
         </Route>
 
         <Route path="/" exact>

@@ -40,8 +40,8 @@ function Header() {
 
       <LinksWrap mobileMenuOpen={mobileMenuOpen}>
         <StyledLink to="/tutorials" onClick={() => setMobileMenuOpen((prev) => !prev)}>COFFEE TUTORIALS</StyledLink>
-        <StyledLink to="/tastenotes" onClick={() => setMobileMenuOpen((prev) => !prev)}>TASTE NOTE</StyledLink>
-        <StyledLink to="/coffeetimer" onClick={() => setMobileMenuOpen((prev) => !prev)}>COFFEE TIMER</StyledLink>
+        <StyledLink to="/tastenotelist" onClick={() => setMobileMenuOpen((prev) => !prev)}>TASTE NOTE</StyledLink>
+        <StyledLink to="/timerlist" onClick={() => setMobileMenuOpen((prev) => !prev)}>COFFEE TIMER</StyledLink>
         <StyledLink to="/coffeemap" onClick={() => setMobileMenuOpen((prev) => !prev)}>COFFEE MAP</StyledLink>
         <StyledLink to="/shop" onClick={() => setMobileMenuOpen((prev) => !prev)}>SHOP</StyledLink>
       </LinksWrap>
