@@ -57,7 +57,7 @@ const InsideTimerlistWrap = styled.div`
 `;
 
 const TimerList = () => {
-  const [notes, setNotes] = useState([]);
+  const [tasteNotes, setTasteNotes] = useState([]);
   const [isLike, setIslike] = useState(true);
 
   const location = useLocation();
@@ -78,8 +78,8 @@ const TimerList = () => {
         });
         lastPostSnapshotRef.current =
           collectionSnapshot.docs[collectionSnapshot.docs.length - 1];
-        setNotes(data);
-        console.log(notes)
+        setTasteNotes(data);
+        console.log(data)
       });
   }, []);
   return (
@@ -104,7 +104,7 @@ const TimerList = () => {
 
 {/* here: render timers */}
 
-{notes.map((note) => {
+{tasteNotes.map((note) => {
   return (
         <BigTimerlistLink
           key={note.id}

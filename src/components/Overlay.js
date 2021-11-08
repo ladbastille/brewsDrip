@@ -37,7 +37,7 @@ const OverlayContainer = styled.div`
   }
 `;
 
-const OverlayDiv = styled.div`
+export const OverlayDiv = styled.div`
   background: #ffb75e;
   background: -webkit-linear-gradient(to right, #ed8f03, #ffb75e);
   background: linear-gradient(to right, #ed8f03, #ffb75e);

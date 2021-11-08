@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../utils/firebase";
 import "firebase/firestore";
-import 'firebase/storage';
+import "firebase/storage";
 import styled from "styled-components";
 import { FaArrowLeft, FaRegHeart, FaHeart } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
@@ -10,11 +10,12 @@ import Input, { HeaderH1 } from "../components/Input";
 import Dropdown from "../components/Dropdown";
 import { SubmitButton } from "../components/Signin";
 import { FooterCTABtn } from "../components/Footer";
+import { ImgWrap } from "./TasteNote";
 
 const BREW_OPTIONS = [
   {
-    value: "timer",
-    label: "Timer",
+    value: "espressoBased",
+    label: "Espresso Based",
   },
   {
     value: "aeroPress",
@@ -68,12 +69,12 @@ const SecondWrap = styled.div`
   flex-direction: ${(props) =>
     props.flexDirection ? props.flexDirection : ""};
   align-items: ${(props) => (props.alignItems ? props.alignItems : "")};
-  margin: 2% 0;
+  margin: 20px 0;
 `;
 
-const PreviewImage = styled.img`
-  width: 40%;
-  height: auto;
+export const PreviewImage = styled.img`
+  max-height: 100%;
+  max-width: 100%;
 `;
 
 const DropdownWrap = styled.div`
@@ -126,21 +127,21 @@ const NewNote = () => {
     // console.log(e);
     console.log("[onChange:]", e.target.name);
     console.log("[value is:]", value);
-    setRating( value );
+    setRating(value);
   };
 
-  useEffect(() => {
-    firebase
-      .firestore()
-      .collection("taste-note")
-      .get()
-      .then((collectionSnapshot) => {
-        const data = collectionSnapshot.docs.map((doc) => {
-          return doc.data();
-        });
-        setNotes(data);
-      });
-  }, []);
+  // useEffect(() => {
+  //   firebase
+  //     .firestore()
+  //     .collection("taste-note")
+  //     .get()
+  //     .then((collectionSnapshot) => {
+  //       const data = collectionSnapshot.docs.map((doc) => {
+  //         return doc.data();
+  //       });
+  //       setNotes(data);
+  //     });
+  // }, []);
 
   const previewUrl = file
     ? URL.createObjectURL(file)
@@ -151,7 +152,7 @@ const NewNote = () => {
     const documentRef = firebase.firestore().collection("taste-note").doc();
     const fileRef = firebase.storage().ref("taste-pics/" + documentRef.id);
     const metadata = {
-      contentType: file.type,
+      contentType: file?.type || "",
     };
     fileRef.put(file, metadata).then(() => {
       fileRef.getDownloadURL().then((imageUrl) => {
@@ -159,7 +160,7 @@ const NewNote = () => {
           coffeeName: coffeeName || "Unnamed Note",
           brewMethod: brewMethod || null,
           rating: parseInt(rating) || null,
-          place:place,
+          place: place,
           createdAt: firebase.firestore.Timestamp.now(),
           author: {
             displayName: firebase.auth().currentUser.displayName || "",
@@ -167,11 +168,12 @@ const NewNote = () => {
             uid: firebase.auth().currentUser.uid,
             email: firebase.auth().currentUser.email,
           },
-          imageUrl,
+          imageUrl: imageUrl || "",
         };
         console.log(dataObj);
         documentRef.set(dataObj).then(() => {
           setIsLoading(false);
+          setNotes("");
           history.push("/tastenotelist");
         });
       });
@@ -211,19 +213,20 @@ const NewNote = () => {
               type="file"
               onChange={(e) => setFile(e.target.files[0])}
             ></Input>
-            <PreviewImage
-              src={previewUrl}
-              sizes="(max-width: 100px) 120px, 30vw"
-            />
+            <ImgWrap>
+              <PreviewImage src={previewUrl} />
+            </ImgWrap>
           </SecondWrap>
         </InsideNotelistWrap>
 
         <InsideNotelistWrap flexDirection={"column"}>
           <HeaderH2 margin={"2% auto 2% 0"}>Note</HeaderH2>
           <textarea
-            cols="30"
-            rows="10"
+            cols="5"
+            rows="5"
             placeholder="- ENTER NOTES HERE ... -"
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
           ></textarea>
         </InsideNotelistWrap>
 

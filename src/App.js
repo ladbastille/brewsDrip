@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Tutorials from "./pages/Tutorials";
-import TasteNotes from "./pages/TasteNotes";
+import TasteNotes from "./pages/TasteNote";
 import CoffeeMap from "./pages/CoffeeMap";
 import CoffeeTimer from "./pages/CoffeeTimer";
 import Shop from "./pages/Shop";
@@ -16,6 +16,7 @@ import TimerList from "./pages/TimerList";
 import NewTimer from "./pages/NewTimer";
 import TasteNoteList from "./pages/TasteNoteList";
 import NewNote from "./pages/NewNote"
+import TasteNote from "./pages/TasteNote";
 
 const AppDiv = styled.div`
   width: 95%;
@@ -47,8 +48,11 @@ function App() {
           {user !== null ? <NewNote user={user} /> : <Redirect to="/login" />}
         </Route>
         <Route path="/timerlist" exact component={TimerList} />
-        <Route path="/timerlist/:timerid" exact>
+        <Route path="/timerlist/:timerId" exact>
           <CoffeeTimer />
+        </Route>
+        <Route path="/tastenotelist/:noteId" exact>
+          <TasteNote />
         </Route>
         {/* <Route path="/coffeetimer" exact component={CoffeeTimer} /> */}
         {/* <Route path="/shop" exact component={Shop} /> */}

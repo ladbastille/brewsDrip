@@ -26,10 +26,10 @@ const menu = [
     ],
   },
   {
-    name: "Online Shop",
+    name: "Coffee Timer",
     links: [
-      { title: "New Item", url: "/shop" },
-      { title: "Must-have", url: "/shop" },
+      { title: "All", url: "/timerlist" },
+      { title: "My Timer", url: "/timerlist" },
     ],
   },
   {

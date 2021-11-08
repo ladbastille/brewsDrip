@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../utils/firebase";
+import { useParams } from "react-router-dom";
 import "firebase/firestore";
 import "../components/timer.css";
 import styled from "styled-components";
@@ -13,32 +14,32 @@ const TimerContainer = styled.div`
   margin: 0 auto;
   display: grid;
   place-items: center;
-  justify-content: center;;
+  justify-content: center;
   padding: 1rem;
   border-radius: 10px;
   background: ${(props) => (props.background ? props.background : "grey")};
 `;
 
-const MOCK_SCRIPT = [
+let TIMER_SCRIPT = [
   {
     baseColor: "#FBD850",
     customStep: "step 1",
-    customSec: 5,
+    customSec: 3,
   },
   {
     baseColor: "#EFABBA",
     customStep: "step 2",
-    customSec: 10,
+    customSec: 5,
   },
   {
     baseColor: "#00B790",
     customStep: "step 3",
-    customSec: 15,
+    customSec: 7,
   },
   {
     baseColor: "#B4CFCB",
     customStep: "step 4",
-    customSec: 20,
+    customSec: 10,
   },
 ];
 
@@ -55,10 +56,58 @@ const convertTotalCountTotimerString = (totalCounter) => {
 };
 
 const Timer = () => {
-  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  const { timerId } = useParams();
+  const [timer, setTimer] = useState(null);
+  const [timerData, setTimerData] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const db = firebase.firestore();
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("timers")
+      .doc(timerId)
+      // .onSnapshot((docSnapshot) => {
+      //   const data = docSnapshot.data();
+      //   setTimer(data);
+      // });
+      .get()
+      .then((docSnapshot) => {
+        const data = docSnapshot.data();
+        // console.log(timerId)
+        console.log(data);
+        setTimer(data);
+        // handleSetScript(data)
+      });
+  }, []);
+
+  function handleSetScript() {
+    return (TIMER_SCRIPT = [
+      {
+        baseColor: customColor[0].value,
+        customStep: "step 1",
+        customSec: 5,
+      },
+      {
+        baseColor: customColor[1],
+        customStep: "step 2",
+        customSec: 10,
+      },
+      {
+        baseColor: customColor[2],
+        customStep: "step 3",
+        customSec: 15,
+      },
+      {
+        baseColor: customColor[3],
+        customStep: "step 4",
+        customSec: 20,
+      },
+    ]);
+  }
+
+  // const AudioContext = window.AudioContext || window.webkitAudioContext;
   // const audioCtx = new AudioContext();
-  const [timers, setTimers] = useState([]);
-  
   const [isActive, setIsActive] = useState(false);
   const [isPause, setIsPause] = useState(true);
   const [totalCounter, setTotalCounter] = useState(0);
@@ -93,6 +142,9 @@ const Timer = () => {
     if (isActive) {
       intervalId = setInterval(() => {
         setTotalCounter((totalCounter) => totalCounter + 1);
+        if (timer.endTime === totalCounter + 1) {
+          setIsActive(false);
+        }
       }, 1000);
     }
 
@@ -100,8 +152,8 @@ const Timer = () => {
   }, [isActive, totalCounter]);
 
   useEffect(() => {
-    const currentStep = MOCK_SCRIPT[pointer];
-    const lastStepIndex = MOCK_SCRIPT.length;
+    const currentStep = TIMER_SCRIPT[pointer];
+    const lastStepIndex = TIMER_SCRIPT.length;
     const { customSec } = currentStep;
     if (totalCounter === customSec) {
       setPointer((pointer) =>
@@ -113,7 +165,7 @@ const Timer = () => {
 
   function startTimer() {
     setIsActive(!isActive);
-    setIsPause((prev)=>(!prev));
+    setIsPause((prev) => !prev);
     // setDoneAlert(false);
     toggle(true);
   }
@@ -162,61 +214,84 @@ const Timer = () => {
   const { computedMinute, computedSecond } =
     convertTotalCountTotimerString(totalCounter);
 
-  console.log(MOCK_SCRIPT[pointer]);
+  // console.log(TIMER_SCRIPT[pointer]);
 
-  const { baseColor, customStep } = MOCK_SCRIPT[pointer];
+  // const { baseColor, customStep } = TIMER_SCRIPT[pointer];
+  // const nexrCustomStep =
+  //   pointer === TIMER_SCRIPT.length - 1
+  //     ? ""
+  //     : TIMER_SCRIPT[pointer + 1].customStep;
+  // const totalSteps = TIMER_SCRIPT.length;
+
+  if (!timer) return null;
+  const customColor = timer.customColor[pointer].value;
+  const customStep = timer.customStep[pointer];
+  const customSec = timer.customSec[pointer];
+
   const nexrCustomStep =
-    pointer === MOCK_SCRIPT.length - 1
+    pointer === timer.customStep.length - 1
       ? ""
-      : MOCK_SCRIPT[pointer + 1].customStep;
-  const totalSteps = MOCK_SCRIPT.length;
+      : timer.customStep[pointer + 1];
+
+  const totalSteps = timer.customSec.length;
+
+  console.log(timer);
+
+  // if(timer.endTime === totalCounter){
+  //   clearInterval(intervalId)
+  // };
 
   return (
-    <TimerContainer background={baseColor}>
-      <div className="steps-area">
-        <div className="step-left">
-          <div className="currentStep">{`NOW: ${customStep}`}</div>
-          <div className="nextStep">
-            {pointer !== MOCK_SCRIPT.length - 1 && `next: ${nexrCustomStep}`}
+    <>
+      {timer && (
+        <TimerContainer background={customColor}>
+          <div className="steps-area">
+            <div className="step-left">
+              <div className="currentStep">{`NOW: ${customStep}`}</div>
+              <div className="nextStep">
+                {pointer !== timer.customStep.length - 1 &&
+                  `next: ${nexrCustomStep}`}
+              </div>
+            </div>
+            <div className="step-right">
+              <div className="stepNumber">{`${pointer + 1}/${totalSteps}`}</div>
+              <div>Steps</div>
+            </div>
           </div>
-        </div>
-        <div className="step-right">
-          <div className="stepNumber">{`${pointer + 1}/${totalSteps}`}</div>
-          <div>Steps</div>
-        </div>
-      </div>
 
-      <div className="time">
-        <span className="minute">
-          {computedMinute}:{computedSecond}
-        </span>
-      </div>
-      <div className="buttons">
-        <button
-          onClick={startTimer}
-          className="start"
-          // disabled={isActive ? true : false}
-        >
-          {!isActive ? "Start" : "Pause"}
-        </button>
+          <div className="time">
+            <span className="minute">
+              {computedMinute}:{computedSecond}
+            </span>
+          </div>
+          <div className="buttons">
+            <button
+              onClick={startTimer}
+              className="start"
+              // disabled={isActive ? true : false}
+            >
+              {!isActive ? "Start" : "Pause"}
+            </button>
 
-        <button
-          onClick={stopTimer}
-          className="pause"
-          disabled={isActive ? false : true}
-        >
-          Stop
-        </button>
+            <button
+              onClick={stopTimer}
+              className="pause"
+              disabled={isActive ? false : true}
+            >
+              Stop
+            </button>
 
-        <button
-          onClick={resetTimer}
-          className="reset"
-          disabled={!isActive ? false : true}
-        >
-          Reset
-        </button>
-      </div>
-    </TimerContainer>
+            <button
+              onClick={resetTimer}
+              className="reset"
+              disabled={!isActive ? false : true}
+            >
+              Reset
+            </button>
+          </div>
+        </TimerContainer>
+      )}
+    </>
   );
 };
 

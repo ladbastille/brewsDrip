@@ -197,10 +197,10 @@ const NewTimer = () => {
     //   fileRef.getDownloadURL().then((imageUrl) => {
     let dataObj = {
       timerName: timerName || "Unnamed Timer",
-      baseColor: baseColor || COLOR_OPTIONS[0],
+      baseColor: baseColor.value || COLOR_OPTIONS[0],
       brewMethod: brewMethod || BREW_OPTIONS[0],
       endTime: parseInt(numValues.endTime) || null,
-      customColor: [stepColor1, stepColor2, stepColor3, stepColor4],
+      customColor: [stepColor1.value, stepColor2.value, stepColor3.value, stepColor4.value],
       customStep: [stepName1, stepName2, stepName3, stepName4],
       customSec: [
         parseInt(numValues.stepSec1) || 0,

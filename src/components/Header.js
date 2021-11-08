@@ -19,7 +19,7 @@ function Header() {
             src={mobileMenuLogo}
             onClick={() => setMobileMenuOpen((prev) => !prev)}
           />
-          <Link to="/coffeetimer">
+          <Link to="/timerlist">
             <TimerLogoImg src={timerLogo} />
           </Link>
         </MenuLogoWrap>
@@ -31,7 +31,7 @@ function Header() {
           <Link to="/login">
             <MenuLogoImg path="/login" src={memberLogo} />
           </Link>
-          <MenuLogoImg src={cartLogo} />
+          {/* <MenuLogoImg src={cartLogo} /> */}
           <Link to="/coffeetimer">
             <MobileTimerLogo src={timerLogo} />
           </Link>
@@ -43,7 +43,7 @@ function Header() {
         <StyledLink to="/tastenotelist" onClick={() => setMobileMenuOpen((prev) => !prev)}>TASTE NOTE</StyledLink>
         <StyledLink to="/timerlist" onClick={() => setMobileMenuOpen((prev) => !prev)}>COFFEE TIMER</StyledLink>
         <StyledLink to="/coffeemap" onClick={() => setMobileMenuOpen((prev) => !prev)}>COFFEE MAP</StyledLink>
-        <StyledLink to="/shop" onClick={() => setMobileMenuOpen((prev) => !prev)}>SHOP</StyledLink>
+        {/* <StyledLink to="/shop" onClick={() => setMobileMenuOpen((prev) => !prev)}>SHOP</StyledLink> */}
       </LinksWrap>
     </MainHeader>
   );

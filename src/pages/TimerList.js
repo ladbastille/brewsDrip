@@ -89,7 +89,7 @@ const TimerList = () => {
         lastPostSnapshotRef.current =
           collectionSnapshot.docs[collectionSnapshot.docs.length - 1];
         setTimers(data);
-        console.log(timers)
+        console.log(data)
       });
   }, []);
   return (
