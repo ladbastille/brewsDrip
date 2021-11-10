@@ -40,8 +40,9 @@ export const StyledTimerlistLink = styled(Link)`
   color: #ffffff;
   /* margin: 4px 3px 3px 3px; */
   margin: 4% auto;
-  padding: ${(props) => (props.padding ? props.padding : "10px 20px")};
   border-radius: 10px;
+  border: 6px solid transparent;
+  padding: ${(props) => (props.padding ? props.padding : "10px 20px")};
   width: ${(props) => (props.width ? props.width : "50%")};
   text-align: ${(props) => (props.textAlign ? props.textAlign : "center")};
   &:hover{
@@ -57,7 +58,7 @@ const BigTimerlistLink = styled(StyledTimerlistLink)`
   width: 85%;
 `;
 
-const InsideTimerlistWrap = styled.div`
+export const InsideTimerlistWrap = styled.div`
   display: flex;
   flex-direction: column;
   width: ${(props) => (props.width ? props.width : "90%")};
@@ -67,7 +68,7 @@ const InsideTimerlistWrap = styled.div`
 
 const TimerList = () => {
   const [timers, setTimers] = useState([]);
-  const [isLike, setIslike] = useState(true);
+  const [isCollected, setIsCollected] = useState(true);
 
   const location = useLocation();
   const urlSearchParams = new URLSearchParams(location.search);
@@ -115,7 +116,7 @@ const TimerList = () => {
           <HeaderH2 color={"#FFFFFF"}>+ NEW TIMER</HeaderH2>
         </StyledTimerlistLink>
         <HeaderH1 marginBottom={"3%"} color={"#FFFFFF"}>
-          My Timers
+          All Timers
         </HeaderH1>
 
 {/* here: render timers */}
@@ -141,7 +142,7 @@ const TimerList = () => {
             </HeaderH2>
           </InsideTimerlistWrap>
           <InsideTimerlistWrap width={"10%"}>
-            {!isLike ? (
+            {!isCollected ? (
               <FaRegHeart size={"1.5rem"} />
             ) : (
               <FaHeart size={"1.5rem"} />
@@ -149,95 +150,6 @@ const TimerList = () => {
             <FaEdit size={"1.5rem"} />
           </InsideTimerlistWrap>
         </BigTimerlistLink>)})}
-
-        {/* <BigTimerlistLink
-          to="/timer/:id?"
-          background={"#B4CFCB"}
-          color={"#000000"}
-        >
-          <InsideTimerlistWrap>
-            <HeaderH2 margin={"1.5% auto 2% 1.5%"} fontSize={"1.8rem"}>
-              Timer Name
-            </HeaderH2>
-            <HeaderH2
-              margin={"1.5% auto 2% 1.5%"}
-              fontSize={"1.6rem"}
-              color={"#ffffff"}
-            >
-              00:00 01:00 03:00 04:30
-            </HeaderH2>
-          </InsideTimerlistWrap>
-
-          <InsideTimerlistWrap width={"10%"}>
-            {!isLike ? (
-              <FaRegHeart size={"1.5rem"} />
-            ) : (
-              <FaHeart size={"1.5rem"} />
-            )}
-            <FaEdit size={"1.5rem"} />
-          </InsideTimerlistWrap>
-        </BigTimerlistLink>
-
-        <BigTimerlistLink
-          to="/timer/:id?"
-          background={"#EFABBA"}
-          color={"#000000"}
-        >
-          <InsideTimerlistWrap>
-            <HeaderH2 margin={"1.5% auto 2% 1.5%"} fontSize={"1.8rem"}>
-              Timer Name
-            </HeaderH2>
-            <HeaderH2
-              margin={"1.5% auto 2% 1.5%"}
-              fontSize={"1.6rem"}
-              color={"#ffffff"}
-            >
-              00:00 01:00 03:00 04:30
-            </HeaderH2>
-          </InsideTimerlistWrap>{" "}
-          <InsideTimerlistWrap width={"10%"}>
-            {!isLike ? (
-              <FaRegHeart size={"1.5rem"} />
-            ) : (
-              <FaHeart size={"1.5rem"} />
-            )}
-            <FaEdit size={"1.5rem"} />
-          </InsideTimerlistWrap>
-        </BigTimerlistLink> */}
-
-
-
-        {/* default timer */}
-
-        {/* <HeaderH2 margin={"2.5% auto"} fontSize={"1.9rem"} color={"#FFFFFF"}>
-          Default Timers
-        </HeaderH2>
-        <BigTimerlistLink
-          to="/timer/:id?"
-          background={"#00B790"}
-          color={"#000000"}
-        >
-          <InsideTimerlistWrap>
-            <HeaderH2 margin={"1.5% auto 2% 1.5%"} fontSize={"1.8rem"}>
-              Timer Name
-            </HeaderH2>
-            <HeaderH2
-              margin={"1.5% auto 2% 1.5%"}
-              fontSize={"1.6rem"}
-              color={"#ffffff"}
-            >
-              00:00 01:00 03:00 04:30
-            </HeaderH2>
-          </InsideTimerlistWrap>
-          <InsideTimerlistWrap width={"10%"}>
-            {!isLike ? (
-              <FaRegHeart size={"1.5rem"} />
-            ) : (
-              <FaHeart size={"1.5rem"} />
-            )}
-            <FaEdit size={"1.5rem"} />
-          </InsideTimerlistWrap>
-        </BigTimerlistLink> */}
       </TimerListContainer>
     </>
   );

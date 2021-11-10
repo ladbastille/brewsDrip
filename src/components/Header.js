@@ -32,7 +32,7 @@ function Header() {
             <MenuLogoImg path="/login" src={memberLogo} />
           </Link>
           {/* <MenuLogoImg src={cartLogo} /> */}
-          <Link to="/coffeetimer">
+          <Link to="/timerlist">
             <MobileTimerLogo src={timerLogo} />
           </Link>
         </MenuLogoWrap>

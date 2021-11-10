@@ -1,47 +1,133 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../utils/firebase";
-import { useParams } from "react-router-dom";
-import "firebase/firestore";
-import "../components/timer.css";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
+import "firebase/firestore";
+
+import {
+  FaArrowLeft,
+  FaRegHeart,
+  FaHeart,
+  FaPlayCircle,
+  FaRegPauseCircle,
+  FaStop,
+  FaRedoAlt,
+} from "react-icons/fa";
+import { GiSoundOff, GiSoundOn } from "react-icons/gi";
+import { HeaderH1 } from "./Input";
+import { HeaderH2 } from "../pages/NewTimer";
+import { InsideTimerlistWrap } from "../pages/TimerList";
+
+import "../components/timer.css";
 import bgm from "../sounds/DonnieOzone-ReturnOfTheGucciGhost.mp3";
-import done from "../sounds/done.mp3";
-import alert from "../sounds/alert.mp3";
+import doneSound from "../sounds/done.mp3";
+import resetSound from "../sounds/reset.mp3";
+import alertSound from "../sounds/alert.mp3";
+import timerGif from "../images/pourover.gif";
 
 const TimerContainer = styled.div`
+  font-family: "Open Sans Condensed", sans-serif;
   width: 90%;
-  height: 70vh;
-  margin: 0 auto;
-  display: grid;
-  place-items: center;
-  justify-content: center;
+  max-width: 768px;
+  /* height: 70vh; */
+  overflow: hidden;
+  margin: 5px auto 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
   padding: 1rem;
   border-radius: 10px;
-  background: ${(props) => (props.background ? props.background : "grey")};
+  background: ${(props) => (props.background ? props.background : "#FBD850")};
 `;
 
-let TIMER_SCRIPT = [
-  {
-    baseColor: "#FBD850",
-    customStep: "step 1",
-    customSec: 3,
-  },
-  {
-    baseColor: "#EFABBA",
-    customStep: "step 2",
-    customSec: 5,
-  },
-  {
-    baseColor: "#00B790",
-    customStep: "step 3",
-    customSec: 7,
-  },
-  {
-    baseColor: "#B4CFCB",
-    customStep: "step 4",
-    customSec: 10,
-  },
-];
+const BrewImg = styled.img`
+  border-radius: 10px;
+`;
+
+const Flex100BetweenWrap = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const FlexColumnWrap = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 1% auto;
+`;
+
+const Flex100AroundWrap = styled(Flex100BetweenWrap)`
+  justify-content: space-around;
+`;
+
+const Flex100CenterWrap = styled(Flex100BetweenWrap)`
+  justify-content: center;
+`;
+
+const Flex50ColumnWrap = styled(FlexColumnWrap)`
+  width: 50%;
+`;
+
+const Flex90BetweenWrap = styled(Flex100BetweenWrap)`
+  width: 90%;
+  margin: 5%;
+  /* @media (min-width:768px){
+    width:30%;
+  } */
+`;
+
+const StepsBigFont = styled.h1`
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 2.8rem;
+  margin: 5px 0;
+`;
+const StepsSmallFont = styled.h1`
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 400;
+`;
+
+const BigTimeFont = styled.h1`
+  color: #ffffff;
+  font-size: 11rem;
+  font-weight: 500;
+  margin: 0 auto 5%;
+`;
+
+const StyledIconBtn = styled.button`
+  cursor: pointer;
+  background:transparent;
+  border:none;
+  &:disabled {
+    opacity: 0.4;
+    cursor:not-allowed;
+  }
+`;
+// let TIMER_SCRIPT = [
+//   {
+//     baseColor: "#FBD850",
+//     customStep: "step 1",
+//     customSec: 3,
+//   },
+//   {
+//     baseColor: "#EFABBA",
+//     customStep: "step 2",
+//     customSec: 5,
+//   },
+//   {
+//     baseColor: "#00B790",
+//     customStep: "step 3",
+//     customSec: 7,
+//   },
+//   {
+//     baseColor: "#B4CFCB",
+//     customStep: "step 4",
+//     customSec: 10,
+//   },
+// ];
 
 const convertTotalCountTotimerString = (totalCounter) => {
   const secondCounter = totalCounter % 60;
@@ -58,61 +144,33 @@ const convertTotalCountTotimerString = (totalCounter) => {
 const Timer = () => {
   const { timerId } = useParams();
   const [timer, setTimer] = useState(null);
-  const [timerData, setTimerData] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  const db = firebase.firestore();
 
   useEffect(() => {
     firebase
       .firestore()
       .collection("timers")
       .doc(timerId)
-      // .onSnapshot((docSnapshot) => {
-      //   const data = docSnapshot.data();
-      //   setTimer(data);
-      // });
-      .get()
-      .then((docSnapshot) => {
+      .onSnapshot((docSnapshot) => {
         const data = docSnapshot.data();
-        // console.log(timerId)
-        console.log(data);
         setTimer(data);
-        // handleSetScript(data)
       });
+    // .get()
+    // .then((docSnapshot) => {
+    //   const data = docSnapshot.data();
+    //   // console.log(timerId)
+    //   console.log(data);
+    //   setTimer(data);
+    // });
   }, []);
 
-  function handleSetScript() {
-    return (TIMER_SCRIPT = [
-      {
-        baseColor: customColor[0].value,
-        customStep: "step 1",
-        customSec: 5,
-      },
-      {
-        baseColor: customColor[1],
-        customStep: "step 2",
-        customSec: 10,
-      },
-      {
-        baseColor: customColor[2],
-        customStep: "step 3",
-        customSec: 15,
-      },
-      {
-        baseColor: customColor[3],
-        customStep: "step 4",
-        customSec: 20,
-      },
-    ]);
-  }
-
-  // const AudioContext = window.AudioContext || window.webkitAudioContext;
-  // const audioCtx = new AudioContext();
   const [isActive, setIsActive] = useState(false);
   const [isPause, setIsPause] = useState(true);
+  const [isReset, setIsReset] = useState(false);
   const [totalCounter, setTotalCounter] = useState(0);
   const [pointer, setPointer] = useState(0);
   const [doneAlert, setDoneAlert] = useState(false);
+  const isMuted = timer?.mutedBy?.includes(firebase.auth().currentUser.uid);
 
   const useAudio = (url) => {
     const [audio] = useState(new Audio(url));
@@ -123,6 +181,10 @@ const Timer = () => {
     useEffect(() => {
       playing ? audio.play() : audio.pause();
     }, [playing]);
+
+    useEffect(() => {
+      isMuted ? (audio.volume = 0.001) : (audio.volume = 1);
+    }, [isMuted]);
 
     useEffect(() => {
       audio.addEventListener("ended", () => setPlaying(false));
@@ -144,6 +206,9 @@ const Timer = () => {
         setTotalCounter((totalCounter) => totalCounter + 1);
         if (timer.endTime === totalCounter + 1) {
           setIsActive(false);
+          setIsPause(true);
+          toggle(false);
+          setDoneAlert(true);
         }
       }, 1000);
     }
@@ -151,22 +216,44 @@ const Timer = () => {
     return () => clearInterval(intervalId);
   }, [isActive, totalCounter]);
 
+  // useEffect(() => {
+  //   const currentStep = TIMER_SCRIPT[pointer];
+  //   const lastStepIndex = TIMER_SCRIPT.length;
+  //   const { customSec } = currentStep;
+  //   if (totalCounter === customSec) {
+  //     setPointer((pointer) =>
+  //       pointer + 1 < lastStepIndex ? pointer + 1 : pointer
+  //     );
+  //     playAudio(alert);
+  //   }
+  // }, [pointer, totalCounter]);
+
   useEffect(() => {
-    const currentStep = TIMER_SCRIPT[pointer];
-    const lastStepIndex = TIMER_SCRIPT.length;
-    const { customSec } = currentStep;
-    if (totalCounter === customSec) {
-      setPointer((pointer) =>
-        pointer + 1 < lastStepIndex ? pointer + 1 : pointer
-      );
-      playAudio(alert);
+    if (timer !== null) {
+      const currentStep = timer.customSec[pointer];
+      const lastStepIndex = timer.customSec.length;
+      // const { customSec } = currentStep;
+      console.log("CurStep:" + currentStep);
+
+      if (totalCounter === currentStep) {
+        setPointer((pointer) =>
+          pointer + 1 < lastStepIndex ? pointer + 1 : pointer
+        );
+        if (pointer + 1 <= lastStepIndex - 1) {
+          playAudio(alertSound);
+        }
+      }
+      // new Audio(alertSound);
     }
   }, [pointer, totalCounter]);
+
+  console.log("Pointer:" + pointer);
 
   function startTimer() {
     setIsActive(!isActive);
     setIsPause((prev) => !prev);
-    // setDoneAlert(false);
+    setIsReset(false);
+    setDoneAlert(false);
     toggle(true);
   }
 
@@ -180,9 +267,11 @@ const Timer = () => {
   function resetTimer() {
     setIsActive(false);
     setIsPause(true);
+    setIsReset(true);
     setTotalCounter(0);
     setPointer(0);
-    setDoneAlert(true);
+    playAudio(resetSound);
+    // setDoneAlert(true);
     // toggle(false);
   }
 
@@ -190,8 +279,9 @@ const Timer = () => {
     new Audio(src).play();
   };
 
-  if (doneAlert) {
-    playAudio(done);
+  if (doneAlert && !isReset) {
+    playAudio(doneSound);
+  } else {
   }
 
   // useEffect(() => {
@@ -224,75 +314,152 @@ const Timer = () => {
   // const totalSteps = TIMER_SCRIPT.length;
 
   if (!timer) return null;
-  const customColor = timer.customColor[pointer].value;
+  const customColor = timer.customColor[pointer]?.value;
   const customStep = timer.customStep[pointer];
   const customSec = timer.customSec[pointer];
 
-  const nexrCustomStep =
+  const nextCustomStep =
     pointer === timer.customStep.length - 1
       ? ""
       : timer.customStep[pointer + 1];
 
   const totalSteps = timer.customSec.length;
 
-  console.log(timer);
+  // console.log(timer);
 
   // if(timer.endTime === totalCounter){
   //   clearInterval(intervalId)
   // };
 
+  function toggleLikeCollect(activeInField, field) {
+    const uid = firebase.auth().currentUser.uid;
+    firebase
+      .firestore()
+      .collection("timers")
+      .doc(timerId)
+      .update({
+        [field]: activeInField
+          ? firebase.firestore.FieldValue.arrayRemove(uid)
+          : firebase.firestore.FieldValue.arrayUnion(uid),
+      });
+  }
+
+  const isCollected = timer.collectedBy?.includes(
+    firebase.auth().currentUser.uid
+  );
+
+  const isLiked = timer.likedBy?.includes(firebase.auth().currentUser.uid);
+  // const isMuted = timer.mutedBy?.includes(firebase.auth().currentUser.uid);
+
+  // if (isMuted) {
+  //   new Audio(bgm).volume = 0;
+  // } else {
+  //   new Audio(bgm).volume = 0.5;
+  // }
+  // console.log(audio.volume)
+  console.log(timer);
+
   return (
     <>
       {timer && (
-        <TimerContainer background={customColor}>
-          <div className="steps-area">
-            <div className="step-left">
-              <div className="currentStep">{`NOW: ${customStep}`}</div>
-              <div className="nextStep">
-                {pointer !== timer.customStep.length - 1 &&
-                  `next: ${nexrCustomStep}`}
-              </div>
-            </div>
-            <div className="step-right">
-              <div className="stepNumber">{`${pointer + 1}/${totalSteps}`}</div>
-              <div>Steps</div>
-            </div>
-          </div>
+        <>
+          <TimerContainer background={customColor}>
+            <FlexColumnWrap>
+              <Flex100BetweenWrap>
+                <FaArrowLeft
+                  color={"#ffffff"}
+                  size={"1.5rem"}
+                  style={{ alignSelf: "flex-start" }}
+                />
+                <HeaderH2 color="#FFFFFF">{timer.timerName}</HeaderH2>
+                <BrewImg src={timerGif}></BrewImg>
+              </Flex100BetweenWrap>
 
-          <div className="time">
-            <span className="minute">
-              {computedMinute}:{computedSecond}
-            </span>
-          </div>
-          <div className="buttons">
-            <button
-              onClick={startTimer}
-              className="start"
-              // disabled={isActive ? true : false}
-            >
-              {!isActive ? "Start" : "Pause"}
-            </button>
+              <Flex100AroundWrap>
+                <Flex50ColumnWrap>
+                  <StepsBigFont>{customStep}</StepsBigFont>
+                  {/* <div className="currentStep">{`NOW: ${customStep}`}</div> */}
+                  <StepsSmallFont>
+                    {pointer !== timer.customStep.length - 1 && nextCustomStep}
+                    {/* {pointer !== timer.customStep.length - 1 && `next: ${nextCustomStep}`} */}
+                  </StepsSmallFont>
+                </Flex50ColumnWrap>
+                <Flex50ColumnWrap style={{ alignItems: "flex-end" }}>
+                  <StepsBigFont>{`${pointer + 1}/${totalSteps}`}</StepsBigFont>
+                  <StepsSmallFont>STEP</StepsSmallFont>
+                </Flex50ColumnWrap>
+              </Flex100AroundWrap>
+            </FlexColumnWrap>
 
-            <button
-              onClick={stopTimer}
-              className="pause"
-              disabled={isActive ? false : true}
-            >
-              Stop
-            </button>
+            <Flex100CenterWrap>
+              <BigTimeFont>
+                {computedMinute}:{computedSecond}
+              </BigTimeFont>
+            </Flex100CenterWrap>
 
-            <button
-              onClick={resetTimer}
-              className="reset"
-              disabled={!isActive ? false : true}
-            >
-              Reset
-            </button>
-          </div>
-        </TimerContainer>
+            <Flex90BetweenWrap>
+            
+              <StyledIconBtn disabled={isActive ? "disabled":""} onClick={() => resetTimer()}>
+                <FaRedoAlt
+                  color="#FFFFFF"
+                  size="1.5rem"
+                />
+              </StyledIconBtn>
+              <StyledIconBtn disabled={!isActive ? "disabled":""} onClick={stopTimer}>
+                <FaStop
+                  color="#FFFFFF"
+                  size="1.5rem"
+                />
+              </StyledIconBtn>
+            </Flex90BetweenWrap>
+
+            <Flex100CenterWrap>
+              <StyledIconBtn onClick={startTimer}>
+                {!isActive ? (
+                  <FaPlayCircle color="#FFFFFF" size="6rem" />
+                ) : (
+                  <FaRegPauseCircle color="#FFFFFF" size="6rem" />
+                )}
+              </StyledIconBtn>
+            </Flex100CenterWrap>
+
+            <Flex90BetweenWrap>
+              <StyledIconBtn>
+                {!isLiked ? (
+                  <FaRegHeart
+                    color={"white"}
+                    size={"1.5rem"}
+                    onClick={() => toggleLikeCollect(isLiked, "likedBy")}
+                  />
+                ) : (
+                  <FaHeart
+                    color={"white"}
+                    size={"1.5rem"}
+                    onClick={() => toggleLikeCollect(isLiked, "likedBy")}
+                  />
+                )}
+              </StyledIconBtn>
+              <StyledIconBtn>
+                {!isMuted ? (
+                  <GiSoundOn
+                    color={"white"}
+                    size={"2rem"}
+                    onClick={() => toggleLikeCollect(isMuted, "mutedBy")}
+                  />
+                ) : (
+                  <GiSoundOff
+                    color={"white"}
+                    size={"2rem"}
+                    onClick={() => toggleLikeCollect(isMuted, "mutedBy")}
+                  />
+                )}
+              </StyledIconBtn>
+            </Flex90BetweenWrap>
+          </TimerContainer>
+        </>
       )}
+      ;
     </>
   );
 };
-
 export default Timer;

@@ -34,7 +34,7 @@ export const StyledForm = styled.form`
 
 export const HeaderH1 = styled.h1`
   font-weight: bold;
-  font-size: 2em;
+  font-size: 2rem;
   text-align: center;
   margin: 0;
   margin-bottom: ${(props)=>(props.marginBottom?props.marginBottom:"0")};

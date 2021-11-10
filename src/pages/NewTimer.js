@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import firebase from "../utils/firebase";
 import "firebase/firestore";
 import styled from "styled-components";
-import { FaArrowLeft,FaRegHeart,FaHeart } from "react-icons/fa";
+import { FaArrowLeft, FaRegHeart, FaHeart } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import { useLocation, Link } from "react-router-dom";
 import Input, { HeaderH1 } from "../components/Input";
@@ -83,7 +83,7 @@ const DropdownWrap = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin:3px;
+  margin: 3px;
   position: relative;
   & input {
     background-color: #ffffff;
@@ -93,8 +93,10 @@ const DropdownWrap = styled.div`
 const StepAlertOptionWrap = styled.div`
   display: flex;
   width: 100%;
-  justify-content: ${(props)=>(props.justifyContent?props.justifyContent:"")};
-  flex-direction: ${(props)=>(props.flexDirection?props.flexDirection:"")};
+  justify-content: ${(props) =>
+    props.justifyContent ? props.justifyContent : ""};
+  flex-direction: ${(props) =>
+    props.flexDirection ? props.flexDirection : ""};
 `;
 
 const ShortInput = styled(Input)`
@@ -107,8 +109,7 @@ const ShortInput = styled(Input)`
 export const HeaderH2 = styled(HeaderH1)`
   font-size: ${(props) => (props.fontSize ? props.fontSize : "1.2rem")};
   margin: ${(props) => (props.margin ? props.margin : "2% auto")};
-  text-align: ${(props) => (props.textAlign ? props.textAlign :"center")};
-
+  text-align: ${(props) => (props.textAlign ? props.textAlign : "center")};
 `;
 
 const NewTimer = () => {
@@ -158,20 +159,20 @@ const NewTimer = () => {
     setNumValues({ ...numValues, [e.target.name]: value });
   };
 
-  const resetInput = () => {
-    setNumValues(numInitialState);
-    setTimerName("");
-    setBaseColor("");
-    setBrewMethod("");
-    setStepName1("");
-    setStepName2("");
-    setStepName3("");
-    setStepName4("");
-    setStepColor1("");
-    setStepColor2("");
-    setStepColor3("");
-    setStepColor4("");
-  };
+  // const resetInput = () => {
+  //   setNumValues(numInitialState);
+  //   setTimerName("");
+  //   setBaseColor("");
+  //   setBrewMethod("");
+  //   setStepName1("");
+  //   setStepName2("");
+  //   setStepName3("");
+  //   setStepName4("");
+  //   setStepColor1("");
+  //   setStepColor2("");
+  //   setStepColor3("");
+  //   setStepColor4("");
+  // };
 
   useEffect(() => {
     firebase
@@ -195,19 +196,36 @@ const NewTimer = () => {
     // };
     // fileRef.put(file, metadata).then(() => {
     //   fileRef.getDownloadURL().then((imageUrl) => {
+    const customColorArr = [stepColor1, stepColor2, stepColor3, stepColor4];
+    const customColorArrFiltered = customColorArr.filter(function (el) {
+      return el !== null && el !== "";
+    });
+    const customStepArr = [stepName1, stepName2, stepName3, stepName4];
+    const customStepArrFiltered = customStepArr.filter(function (el) {
+      return el !== null && el !== "";
+    });
+    const customSecArr = [numValues.stepSec1, numValues.stepSec2, numValues.stepSec3, numValues.stepSec4];
+    const customSecArrFiltered = customSecArr.filter(function (el) {
+      return el !== null && el !== "";
+    });
+    
+
+    console.log(customColorArrFiltered);
+
     let dataObj = {
       timerName: timerName || "Unnamed Timer",
-      baseColor: baseColor.value || COLOR_OPTIONS[0],
+      baseColor: baseColor || COLOR_OPTIONS[0],
       brewMethod: brewMethod || BREW_OPTIONS[0],
       endTime: parseInt(numValues.endTime) || null,
-      customColor: [stepColor1.value, stepColor2.value, stepColor3.value, stepColor4.value],
-      customStep: [stepName1, stepName2, stepName3, stepName4],
-      customSec: [
-        parseInt(numValues.stepSec1) || 0,
-        parseInt(numValues.stepSec2) || null,
-        parseInt(numValues.stepSec3) || null,
-        parseInt(numValues.stepSec4) || null,
-      ],
+      customColor: customColorArrFiltered,
+      customStep: customStepArrFiltered,
+      customSec: customSecArrFiltered,
+      // customSec: [
+      //   parseInt(numValues.stepSec1) || 0,
+      //   parseInt(numValues.stepSec2) || null,
+      //   parseInt(numValues.stepSec3) || null,
+      //   parseInt(numValues.stepSec4) || null,
+      // ],
       createdAt: firebase.firestore.Timestamp.now(),
       author: {
         displayName: firebase.auth().currentUser.displayName || "",
@@ -238,7 +256,7 @@ const NewTimer = () => {
         />
         <StepAlertOptionWrap>
           <DropdownWrap>
-            <HeaderH2>Background</HeaderH2>
+            <HeaderH2>Color in List</HeaderH2>
             <Dropdown
               value={baseColor}
               setValue={setBaseColor}
@@ -262,7 +280,7 @@ const NewTimer = () => {
         <StepAlertOptionWrap>
           <HeaderH2 fontsize={"1rem"}>Step Name</HeaderH2>
           <HeaderH2 fontsize={"1rem"}>to Next Step</HeaderH2>
-          <HeaderH2 fontsize={"1rem"}>Color to Change</HeaderH2>
+          <HeaderH2 fontsize={"1rem"}>Background Color</HeaderH2>
         </StepAlertOptionWrap>
         <StepAlertOptionWrap>
           <Input
@@ -329,7 +347,8 @@ const NewTimer = () => {
               valueIsColor
             />
           </DropdownWrap>
-        </StepAlertOptionWrap><StepAlertOptionWrap>
+        </StepAlertOptionWrap>
+        <StepAlertOptionWrap>
           <Input
             width={"30%"}
             value={stepName3}
@@ -361,7 +380,8 @@ const NewTimer = () => {
               valueIsColor
             />
           </DropdownWrap>
-        </StepAlertOptionWrap><StepAlertOptionWrap>
+        </StepAlertOptionWrap>
+        <StepAlertOptionWrap>
           <Input
             width={"30%"}
             value={stepName4}
@@ -416,9 +436,9 @@ const NewTimer = () => {
           >
             Save
           </FooterCTABtn>
-          <FooterCTABtn width={"50px"} color={"#FF5741"} onClick={resetInput}>
+          {/* <FooterCTABtn width={"50px"} color={"#FF5741"} onClick={resetInput}>
             Reset
-          </FooterCTABtn>
+          </FooterCTABtn> */}
         </StepAlertOptionWrap>
       </NewTimerContainer>
     </>

@@ -30,8 +30,10 @@ const NoteContainer = styled.div`
 
   & span {
     background: #ffffff;
-    padding: 10px;
+    padding: 10px 20px;
     border-radius: 10px;
+    margin-left:10px;
+    margin-right:5px;
   }
 
   & input:focus {
@@ -42,22 +44,23 @@ const NoteContainer = styled.div`
 const FlexWrap = styled.div`
   display: flex;
   flex-direction: row;
-  width: 50%;
+  width: 100%;
   margin-top: 25px;
   justify-content: center;
 
   button {
     margin: 2px;
-    padding: 10px 15px;
+    padding: 10px 20px;
     border-radius: 10px;
-    border: 1px solid;
+    border: none;
     background: #fbd850;
   }
 `;
 
 export const ImgWrap = styled.div`
-  width: 150px;
+  width: 100px;
   height: auto;
+  margin-left:10px;
 `;
 
 const TitleH2 = styled(HeaderH2)`

@@ -31,8 +31,9 @@ export const StyledTimerlistLink = styled(Link)`
   color: #ffffff;
   /* margin: 4px 3px 3px 3px; */
   margin: 4% auto;
-  padding: ${(props) => (props.padding ? props.padding : "10px 20px")};
   border-radius: 10px;
+  border: 6px solid transparent;
+  padding: ${(props) => (props.padding ? props.padding : "10px 20px")};
   width: ${(props) => (props.width ? props.width : "50%")};
   text-align: ${(props) => (props.textAlign ? props.textAlign : "center")};
   &:hover{
@@ -99,7 +100,7 @@ const TimerList = () => {
           <HeaderH2 color={"#FFFFFF"}>+ NEW NOTE</HeaderH2>
         </StyledTimerlistLink>
         <HeaderH1 marginBottom={"3%"} color={"#FFFFFF"}>
-          My Notes
+          All Notes
         </HeaderH1>
 
 {/* here: render timers */}
