@@ -78,8 +78,8 @@ const Flex90BetweenWrap = styled(Flex100BetweenWrap)`
 
 const StepsBigFont = styled.h1`
   color: #ffffff;
-  font-weight: 600;
-  font-size: 2.8rem;
+  font-weight: 500;
+  font-size: 2.5rem;
   margin: 5px 0;
 `;
 const StepsSmallFont = styled.h1`
@@ -455,7 +455,7 @@ const Timer = () => {
           </TimerContainer>
         </>
       )}
-      ;
+      
     </>
   );
 };
