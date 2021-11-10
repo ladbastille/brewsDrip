@@ -14,15 +14,13 @@ import {
   FaRedoAlt,
 } from "react-icons/fa";
 import { GiSoundOff, GiSoundOn } from "react-icons/gi";
-import { HeaderH1 } from "./Input";
 import { HeaderH2 } from "../pages/NewTimer";
-import { InsideTimerlistWrap } from "../pages/TimerList";
 
-import "../components/timer.css";
 import bgm from "../sounds/DonnieOzone-ReturnOfTheGucciGhost.mp3";
 import doneSound from "../sounds/done.mp3";
 import resetSound from "../sounds/reset.mp3";
 import alertSound from "../sounds/alert.mp3";
+
 import timerGif from "../images/pourover.gif";
 
 const TimerContainer = styled.div`
@@ -99,11 +97,11 @@ const BigTimeFont = styled.h1`
 
 const StyledIconBtn = styled.button`
   cursor: pointer;
-  background:transparent;
-  border:none;
+  background: transparent;
+  border: none;
   &:disabled {
     opacity: 0.4;
-    cursor:not-allowed;
+    cursor: not-allowed;
   }
 `;
 // let TIMER_SCRIPT = [
@@ -398,18 +396,17 @@ const Timer = () => {
             </Flex100CenterWrap>
 
             <Flex90BetweenWrap>
-            
-              <StyledIconBtn disabled={isActive ? "disabled":""} onClick={() => resetTimer()}>
-                <FaRedoAlt
-                  color="#FFFFFF"
-                  size="1.5rem"
-                />
+              <StyledIconBtn
+                disabled={isActive ? "disabled" : ""}
+                onClick={() => resetTimer()}
+              >
+                <FaRedoAlt color="#FFFFFF" size="1.5rem" />
               </StyledIconBtn>
-              <StyledIconBtn disabled={!isActive ? "disabled":""} onClick={stopTimer}>
-                <FaStop
-                  color="#FFFFFF"
-                  size="1.5rem"
-                />
+              <StyledIconBtn
+                disabled={!isActive ? "disabled" : ""}
+                onClick={stopTimer}
+              >
+                <FaStop color="#FFFFFF" size="1.5rem" />
               </StyledIconBtn>
             </Flex90BetweenWrap>
 
