@@ -12,8 +12,7 @@ import Shop from "./pages/Shop";
 import Login from "./pages/Login";
 import Member from "./pages/Member";
 import firebase from "./utils/firebase";
-import TimerListNestContainer from "./pages/TimerListNestContainer";
-import AllTimerList from "./pages/AllTimerList";
+import AllTimerList,{TimerListContainer} from "./pages/AllTimerList";
 import MyTimers from "./pages/MyTimers";
 import NewTimer from "./pages/NewTimer";
 import CollectedTimer from "./pages/CollectedTimer";
@@ -21,6 +20,7 @@ import DefaultTimer from "./pages/DefaultTimer";
 import TasteNoteList from "./pages/TasteNoteList";
 import NewNote from "./pages/NewNote";
 import TasteNote from "./pages/TasteNote";
+import TimerListMenu from "./components/TimerListMenu";
 
 const AppDiv = styled.div`
   width: 95%;
@@ -53,27 +53,28 @@ function App() {
         <Route path="/newnote">
           {user !== null ? <NewNote user={user} /> : <Redirect to="/login" />}
         </Route>
-        {/* <Route path="/timerlist"> */}
-          {/* <TimerListNestContainer>
-            <Switch> */}
+              <Route path="/timer/:timerId" exact>
+                <CoffeeTimer />
+              </Route>
+        <Route path="/timerlist">
+          <TimerListContainer>
+            <TimerListMenu />
+            <Switch>
               <Route path="/timerlist" exact>
                 <AllTimerList user={user} />
-              </Route>
-              <Route path="/timerlist/:timerId" exact>
-                <CoffeeTimer />
               </Route>
               <Route path="/timerlist/mytimers" exact>
               {user !== null ? <MyTimers user={user}/>: <Redirect to="/login" />}
               </Route>
-              {/* <Route path="/timerlist/collected" exact>
-                <CollectedTimer />
+              <Route path="/timerlist/collected" exact>
+              {user !== null ? <CollectedTimer user={user}/>: <Redirect to="/login" />}
               </Route>
-              <Route path="/timerlist/default" exact>
+              {/* <Route path="/timerlist/default" exact>
                 <DefaultTimer />
               </Route> */}
-            {/* </Switch>
-          </TimerListNestContainer> */}
-        {/* </Route> */}
+            </Switch>
+          </TimerListContainer>
+        </Route>
 
         <Route path="/tastenotelist/:noteId" exact>
           <TasteNote />

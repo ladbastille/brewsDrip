@@ -181,33 +181,7 @@ const TimerListNestContainer = ({ user }) => {
         })}
       </div> */}
       <TimerListContainer>
-        <FaArrowLeft
-          color={"#ffffff"}
-          size={"1.5rem"}
-          style={{ alignSelf: "flex-start" }}
-        />
-        <HeaderH1 color={"#ffffff"}>Timer List</HeaderH1>
-        <StyledTimerlistLink
-          to="/newtimer"
-          background={"#939597"}
-          color={"#FFFFFF"}
-        >
-          <HeaderH2 color={"#FFFFFF"}>+ NEW TIMER</HeaderH2>
-        </StyledTimerlistLink>
-        <TimersTagWrap>
-        <TimersTag to="/timerlist" marginBottom={"3%"} color={"#FFFFFF"}>
-          All
-        </TimersTag>
-        <TimersTag to="/timerlist/default" marginBottom={"3%"} color={"#FFFFFF"}>
-          Default
-        </TimersTag>
-        <TimersTag to="/timerlist/collected" marginBottom={"3%"} color={"#FFFFFF"}>
-          Collected
-        </TimersTag>
-        <TimersTag to="/timerlist/mytimers" marginBottom={"3%"} color={"#FFFFFF"}>
-          My Timers
-        </TimersTag>
-        </TimersTagWrap>
+        
         {/* <HeaderH1 marginBottom={"3%"} color={"#FFFFFF"}>
           All Timers
         </HeaderH1> */}
