@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -12,10 +12,14 @@ import Shop from "./pages/Shop";
 import Login from "./pages/Login";
 import Member from "./pages/Member";
 import firebase from "./utils/firebase";
-import TimerList from "./pages/TimerList";
+import TimerListNestContainer from "./pages/TimerListNestContainer";
+import AllTimerList from "./pages/AllTimerList";
+import MyTimers from "./pages/MyTimers";
 import NewTimer from "./pages/NewTimer";
+import CollectedTimer from "./pages/CollectedTimer";
+import DefaultTimer from "./pages/DefaultTimer";
 import TasteNoteList from "./pages/TasteNoteList";
-import NewNote from "./pages/NewNote"
+import NewNote from "./pages/NewNote";
 import TasteNote from "./pages/TasteNote";
 
 const AppDiv = styled.div`
@@ -28,11 +32,13 @@ const AppDiv = styled.div`
 
 function App() {
   const [user, setUser] = useState();
+
   useEffect(() => {
     firebase.auth().onAuthStateChanged((currentUser) => {
       setUser(currentUser);
     });
   }, []);
+
   return (
     <>
       <AppDiv>
@@ -47,10 +53,28 @@ function App() {
         <Route path="/newnote">
           {user !== null ? <NewNote user={user} /> : <Redirect to="/login" />}
         </Route>
-        <Route path="/timerlist" exact component={TimerList} />
-        <Route path="/timerlist/:timerId" exact>
-          <CoffeeTimer />
-        </Route>
+        {/* <Route path="/timerlist"> */}
+          {/* <TimerListNestContainer>
+            <Switch> */}
+              <Route path="/timerlist" exact>
+                <AllTimerList user={user} />
+              </Route>
+              <Route path="/timerlist/:timerId" exact>
+                <CoffeeTimer />
+              </Route>
+              <Route path="/timerlist/mytimers" exact>
+              {user !== null ? <MyTimers user={user}/>: <Redirect to="/login" />}
+              </Route>
+              {/* <Route path="/timerlist/collected" exact>
+                <CollectedTimer />
+              </Route>
+              <Route path="/timerlist/default" exact>
+                <DefaultTimer />
+              </Route> */}
+            {/* </Switch>
+          </TimerListNestContainer> */}
+        {/* </Route> */}
+
         <Route path="/tastenotelist/:noteId" exact>
           <TasteNote />
         </Route>

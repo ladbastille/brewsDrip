@@ -14,6 +14,8 @@ import {
   FaRedoAlt,
 } from "react-icons/fa";
 import { GiSoundOff, GiSoundOn } from "react-icons/gi";
+import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
+
 import { HeaderH2 } from "../pages/NewTimer";
 
 import bgm from "../sounds/DonnieOzone-ReturnOfTheGucciGhost.mp3";
@@ -95,13 +97,20 @@ const BigTimeFont = styled.h1`
   margin: 0 auto 5%;
 `;
 
-const StyledIconBtn = styled.button`
+export const StyledIconBtn = styled.div`
+  color: #ffffff;
   cursor: pointer;
   background: transparent;
   border: none;
   &:disabled {
     opacity: 0.4;
     cursor: not-allowed;
+  }
+`;
+
+const StyledIconBtnSound = styled(StyledIconBtn)`
+  @media (max-width: 768px) {
+    display: none;
   }
 `;
 // let TIMER_SCRIPT = [
@@ -168,7 +177,7 @@ const Timer = () => {
   const [totalCounter, setTotalCounter] = useState(0);
   const [pointer, setPointer] = useState(0);
   const [doneAlert, setDoneAlert] = useState(false);
-  const isMuted = timer?.mutedBy?.includes(firebase.auth().currentUser.uid);
+  const isMuted = timer?.mutedBy?.includes(firebase.auth().currentUser?.uid);
 
   const useAudio = (url) => {
     const [audio] = useState(new Audio(url));
@@ -231,7 +240,7 @@ const Timer = () => {
       const currentStep = timer.customSec[pointer];
       const lastStepIndex = timer.customSec.length;
       // const { customSec } = currentStep;
-      console.log("CurStep:" + currentStep);
+      console.log("CurStepSec:" + currentStep);
 
       if (totalCounter === currentStep) {
         setPointer((pointer) =>
@@ -343,10 +352,10 @@ const Timer = () => {
   }
 
   const isCollected = timer.collectedBy?.includes(
-    firebase.auth().currentUser.uid
+    firebase.auth().currentUser?.uid
   );
 
-  const isLiked = timer.likedBy?.includes(firebase.auth().currentUser.uid);
+  const isLiked = timer.likedBy?.includes(firebase.auth().currentUser?.uid);
   // const isMuted = timer.mutedBy?.includes(firebase.auth().currentUser.uid);
 
   // if (isMuted) {
@@ -355,7 +364,6 @@ const Timer = () => {
   //   new Audio(bgm).volume = 0.5;
   // }
   // console.log(audio.volume)
-  console.log(timer);
 
   return (
     <>
@@ -436,7 +444,8 @@ const Timer = () => {
                   />
                 )}
               </StyledIconBtn>
-              <StyledIconBtn>
+
+              <StyledIconBtnSound>
                 {!isMuted ? (
                   <GiSoundOn
                     color={"white"}
@@ -450,12 +459,31 @@ const Timer = () => {
                     onClick={() => toggleLikeCollect(isMuted, "mutedBy")}
                   />
                 )}
+              </StyledIconBtnSound>
+
+              <StyledIconBtn>
+                {!isCollected ? (
+                  <IoBookmarkOutline
+                    color={"white"}
+                    size={"1.5rem"}
+                    onClick={() =>
+                      toggleLikeCollect(isCollected, "collectedBy")
+                    }
+                  />
+                ) : (
+                  <IoBookmark
+                    color={"white"}
+                    size={"1.5rem"}
+                    onClick={() =>
+                      toggleLikeCollect(isCollected, "collectedBy")
+                    }
+                  />
+                )}
               </StyledIconBtn>
             </Flex90BetweenWrap>
           </TimerContainer>
         </>
       )}
-      
     </>
   );
 };
