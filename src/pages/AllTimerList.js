@@ -180,34 +180,7 @@ const AllTimerList = ({ user }) => {
           return <h3 key={timer.id}>Timer ID: {timer.id}</h3>;
         })}
       </div> */}
-      <TimerListContainer>
-        <FaArrowLeft
-          color={"#ffffff"}
-          size={"1.5rem"}
-          style={{ alignSelf: "flex-start" }}
-        />
-        <HeaderH1 color={"#ffffff"}>Timer List</HeaderH1>
-        <StyledTimerlistLink
-          to="/newtimer"
-          background={"#939597"}
-          color={"#FFFFFF"}
-        >
-          <HeaderH2 color={"#FFFFFF"}>+ NEW TIMER</HeaderH2>
-        </StyledTimerlistLink>
-        <TimersTagWrap>
-        <TimersTag to="/timerlist" marginBottom={"3%"} color={"#FFFFFF"}>
-          All
-        </TimersTag>
-        <TimersTag to="/timerlist/default" marginBottom={"3%"} color={"#FFFFFF"}>
-          Default
-        </TimersTag>
-        <TimersTag to="/timerlist/collected" marginBottom={"3%"} color={"#FFFFFF"}>
-          Collected
-        </TimersTag>
-        <TimersTag to="/timerlist/mytimers" marginBottom={"3%"} color={"#FFFFFF"}>
-          My Timers
-        </TimersTag>
-        </TimersTagWrap>
+      
         <HeaderH1 marginBottom={"3%"} color={"#FFFFFF"}>
           All Timers
         </HeaderH1>
@@ -218,7 +191,7 @@ const AllTimerList = ({ user }) => {
             firebase.auth().currentUser?.uid
           );
           const isCollected = timer.collectedBy?.includes(
-    firebase.auth().currentUser.uid
+    firebase.auth().currentUser?.uid
   );
           console.log(isLiked);
           return (
@@ -227,7 +200,7 @@ const AllTimerList = ({ user }) => {
               background={timer.baseColor.value}
               color={"#000000"}
             >
-              <InsideTimerlistWrap as={Link} to={`/timerlist/${timer.id}`}>
+              <InsideTimerlistWrap as={Link} to={`/timer/${timer.id}`}>
                 <HeaderH2 margin={"1.5% auto 2% 1.5%"} fontSize={"1.8rem"}>
                   {timer.timerName}
                 </HeaderH2>
@@ -279,7 +252,7 @@ const AllTimerList = ({ user }) => {
             </BigTimerlistLink>
           );
         })}
-      </TimerListContainer>
+
     </>
   );
 };

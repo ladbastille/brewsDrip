@@ -97,6 +97,17 @@ const BigTimeFont = styled.h1`
   margin: 0 auto 5%;
 `;
 
+const ControlBtn=styled.button`
+color: #ffffff;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+`
+
 export const StyledIconBtn = styled.div`
   color: #ffffff;
   cursor: pointer;
@@ -372,11 +383,14 @@ const Timer = () => {
           <TimerContainer background={customColor}>
             <FlexColumnWrap>
               <Flex100BetweenWrap>
-                <FaArrowLeft
-                  color={"#ffffff"}
-                  size={"1.5rem"}
-                  style={{ alignSelf: "flex-start" }}
-                />
+                <Link to="/timerlist">
+                  <FaArrowLeft
+                    color={"#ffffff"}
+                    size={"1.5rem"}
+                    style={{ alignSelf: "flex-start" }}
+                  />
+                </Link>
+
                 <HeaderH2 color="#FFFFFF">{timer.timerName}</HeaderH2>
                 <BrewImg src={timerGif}></BrewImg>
               </Flex100BetweenWrap>
@@ -404,18 +418,18 @@ const Timer = () => {
             </Flex100CenterWrap>
 
             <Flex90BetweenWrap>
-              <StyledIconBtn
+              <ControlBtn
                 disabled={isActive ? "disabled" : ""}
                 onClick={() => resetTimer()}
               >
                 <FaRedoAlt color="#FFFFFF" size="1.5rem" />
-              </StyledIconBtn>
-              <StyledIconBtn
+              </ControlBtn>
+              <ControlBtn
                 disabled={!isActive ? "disabled" : ""}
                 onClick={stopTimer}
               >
                 <FaStop color="#FFFFFF" size="1.5rem" />
-              </StyledIconBtn>
+              </ControlBtn>
             </Flex90BetweenWrap>
 
             <Flex100CenterWrap>

@@ -20,8 +20,9 @@ function MyTimers() {
       .firestore()
       .collection('timers')
       .where('author.uid', '==', firebase.auth().currentUser?.uid)
-      .get()
-      .then((collectionSnapshot) => {
+      // .get()
+      // .then((collectionSnapshot) => {
+      .onSnapshot((collectionSnapshot) => {
         const data = collectionSnapshot.docs.map((docSnapshot) => {
           const id = docSnapshot.id;
           return { ...docSnapshot.data(), id };
@@ -29,36 +30,31 @@ function MyTimers() {
         setTimers(data);
       });
   }, []);
+
+  function toggleLikeCollect(activeInField, field, id) {
+    const uid = firebase.auth().currentUser?.uid;
+    if (uid) {
+      firebase
+        .firestore()
+        .collection("timers")
+        .doc(id)
+        .update({
+          [field]: activeInField
+            ? firebase.firestore.FieldValue.arrayRemove(uid)
+            : firebase.firestore.FieldValue.arrayUnion(uid),
+        });
+    }
+  }
+
+  const isCollected = timers.collectedBy?.includes(
+    firebase.auth().currentUser.uid
+  );
+  const isLiked = timers.likedBy?.includes(firebase.auth().currentUser.uid);
+  const currentUserId = firebase.auth().currentUser?.uid;
+
   return (
     <>
-     <TimerListContainer>
-        <FaArrowLeft
-          color={"#ffffff"}
-          size={"1.5rem"}
-          style={{ alignSelf: "flex-start" }}
-        />
-        <HeaderH1 color={"#ffffff"}>Timer List</HeaderH1>
-        <StyledTimerlistLink
-          to="/newtimer"
-          background={"#939597"}
-          color={"#FFFFFF"}
-        >
-          <HeaderH2 color={"#FFFFFF"}>+ NEW TIMER</HeaderH2>
-        </StyledTimerlistLink>
-        <TimersTagWrap>
-        <TimersTag to="/timerlist" marginBottom={"3%"} color={"#FFFFFF"}>
-          All
-        </TimersTag>
-        <TimersTag to="/timerlist/default" marginBottom={"3%"} color={"#FFFFFF"}>
-          Default
-        </TimersTag>
-        <TimersTag to="/timerlist/collected" marginBottom={"3%"} color={"#FFFFFF"}>
-          Collected
-        </TimersTag>
-        <TimersTag to="/timerlist/mytimers" marginBottom={"3%"} color={"#FFFFFF"}>
-          My Timers
-        </TimersTag>
-        </TimersTagWrap>
+     
         <HeaderH1 marginBottom={"3%"} color={"#FFFFFF"}>
           My Timers
         </HeaderH1>
@@ -78,7 +74,7 @@ function MyTimers() {
               background={timer.baseColor.value}
               color={"#000000"}
             >
-              <InsideTimerlistWrap as={Link} to={`/timerlist/${timer.id}`}>
+              <InsideTimerlistWrap as={Link} to={`/timer/${timer.id}`}>
                 <HeaderH2 margin={"1.5% auto 2% 1.5%"} fontSize={"1.8rem"}>
                   {timer.timerName}
                 </HeaderH2>
@@ -130,7 +126,7 @@ function MyTimers() {
             </BigTimerlistLink>
           );
         })}
-      </TimerListContainer>
+
     </>
   );
 }
