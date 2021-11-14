@@ -58,9 +58,8 @@ const FlexWrap = styled.div`
 `;
 
 export const ImgWrap = styled.div`
-  width: 100px;
+  width: 160px;
   height: auto;
-  margin:5px;
 `;
 
 const TitleH2 = styled(HeaderH2)`

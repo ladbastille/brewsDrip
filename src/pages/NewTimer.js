@@ -9,7 +9,8 @@ import Input, { HeaderH1 } from "../components/Input";
 import Dropdown from "../components/Dropdown";
 import { SubmitButton } from "../components/Signin";
 import { FooterCTABtn } from "../components/Footer";
-
+import { Flex100BetweenWrap
+ } from "../components/Timer";
 const COLOR_OPTIONS = [
   {
     value: "#FBD850",
@@ -204,11 +205,15 @@ const NewTimer = () => {
     const customStepArrFiltered = customStepArr.filter(function (el) {
       return el !== null && el !== "";
     });
-    const customSecArr = [numValues.stepSec1, numValues.stepSec2, numValues.stepSec3, numValues.stepSec4];
+    const customSecArr = [
+      numValues.stepSec1,
+      numValues.stepSec2,
+      numValues.stepSec3,
+      numValues.stepSec4,
+    ];
     const customSecArrFiltered = customSecArr.filter(function (el) {
       return el !== null && el !== "";
     });
-    
 
     console.log(customColorArrFiltered);
 
@@ -247,7 +252,12 @@ const NewTimer = () => {
   return (
     <>
       <NewTimerContainer>
-        <FaArrowLeft size={"1.5rem"} style={{ alignSelf: "flex-start" }} />
+        
+        <Flex100BetweenWrap>
+          <Link to="/timerlist">
+          <FaArrowLeft color={"#000000"} size={"1.5rem"} style={{ alignSelf: "flex-start" }} />
+        </Link>
+        </Flex100BetweenWrap>
         <HeaderH1>Create New Timer</HeaderH1>
         <ShortInput
           placeholder="- ENTER TIMER NAME　-"

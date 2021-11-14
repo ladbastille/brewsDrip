@@ -45,7 +45,7 @@ const BrewImg = styled.img`
   border-radius: 10px;
 `;
 
-const Flex100BetweenWrap = styled.div`
+export const Flex100BetweenWrap = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;

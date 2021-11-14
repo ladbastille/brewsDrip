@@ -8,11 +8,11 @@ import { TimerListContainer,StyledTimerlistLink,TimersTagWrap,TimersTag,BigTimer
 function TimerListMenu (){
     return(
         <>
-        <FaArrowLeft
+        {/* <FaArrowLeft
           color={"#ffffff"}
           size={"1.5rem"}
           style={{ alignSelf: "flex-start" }}
-        />
+        /> */}
         <HeaderH1 color={"#ffffff"}>Timer List</HeaderH1>
         <StyledTimerlistLink
           to="/newtimer"
