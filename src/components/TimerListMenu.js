@@ -22,16 +22,16 @@ function TimerListMenu (){
           <HeaderH2 color={"#FFFFFF"}>+ NEW TIMER</HeaderH2>
         </StyledTimerlistLink>
         <TimersTagWrap>
-        <TimersTag to="/timerlist" marginBottom={"3%"} color={"#FFFFFF"}>
+        <TimersTag to="/timerlist" marginbottom={"3%"} color={"#FFFFFF"}>
           All
         </TimersTag>
-        <TimersTag to="/timerlist/default" marginBottom={"3%"} color={"#FFFFFF"}>
-          Default
+        <TimersTag to="/timerlist/default" marginbottom={"3%"} color={"#FFFFFF"}>
+          Demo
         </TimersTag>
-        <TimersTag to="/timerlist/collected" marginBottom={"3%"} color={"#FFFFFF"}>
+        <TimersTag to="/timerlist/collected" marginbottom={"3%"} color={"#FFFFFF"}>
           Collections
         </TimersTag>
-        <TimersTag to="/timerlist/mytimers" marginBottom={"3%"} color={"#FFFFFF"}>
+        <TimersTag to="/timerlist/mytimers" marginbottom={"3%"} color={"#FFFFFF"}>
           My Timers
         </TimersTag>
         </TimersTagWrap>

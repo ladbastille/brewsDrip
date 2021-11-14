@@ -1,25 +1,45 @@
 import React,{useState,useEffect} from 'react';
-import firebase from '../utils/firebase';
-import { TimerListContainer,StyledTimerlistLink,TimersTagWrap,TimersTag,BigTimerlistLink,InsideTimerlistWrap } from './AllTimerList';
-import "firebase/firestore";
 import { useLocation, Link } from "react-router-dom";
 import styled from "styled-components";
+import firebase from '../utils/firebase';
+import "firebase/firestore";
+import { TimerListContainer,StyledTimerlistLink,TimersTagWrap,TimersTag,BigTimerlistLink,InsideTimerlistWrap } from './AllTimerList';
 import { FaArrowLeft, FaRegHeart, FaHeart, FaEdit } from "react-icons/fa";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
-import { AiFillSetting } from "react-icons/ai";
+import { TiDeleteOutline,TiDelete } from "react-icons/ti";
+import { FiDelete } from "react-icons/fi";
+import { RiDeleteBack2Fill } from "react-icons/ri";
 
 import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
-import { StyledIconBtn } from "../components/Timer";
+import { StyledIconDiv } from "../components/Timer";
 import Header from "../components/Header";
 
-function MyTimers() {
+export const EditIconDiv = styled(StyledIconDiv)`
+  position:absolute;
+  background:#D42927;
+  border-radius: 50px;
+  padding: 3px;
+  top:0;
+  right:0;
+  margin:-18px -20px 0 0;
+  display:none;
+`
+
+function MyTimers({user}) {
   const [timers, setTimers] = useState([]);
+
+
   useEffect(() => {
+  
+    console.log(user)
+
+    if(user){
     firebase
       .firestore()
       .collection('timers')
-      .where('author.uid', '==', firebase.auth().currentUser?.uid)
+      .where('author.uid', '==', firebase.auth().currentUser.uid)
+      .orderBy("createdAt", "desc")
       // .get()
       // .then((collectionSnapshot) => {
       .onSnapshot((collectionSnapshot) => {
@@ -28,8 +48,8 @@ function MyTimers() {
           return { ...docSnapshot.data(), id };
         });
         setTimers(data);
-      });
-  }, []);
+      });}  
+  }, [user]);
 
   function toggleLikeCollect(activeInField, field, id) {
     const uid = firebase.auth().currentUser?.uid;
@@ -52,10 +72,18 @@ function MyTimers() {
   const isLiked = timers.likedBy?.includes(firebase.auth().currentUser.uid);
   const currentUserId = firebase.auth().currentUser?.uid;
 
+  function handleDeleteTimer(timerid){
+    firebase
+      .firestore()
+      .collection("timers")
+      .doc(timerid)
+      .delete()
+  }
+
   return (
     <>
      
-        <HeaderH1 marginBottom={"3%"} color={"#FFFFFF"}>
+        <HeaderH1 marginbottom={"3%"} color={"#FFFFFF"}>
           My Timers
         </HeaderH1>
         {/* here: render timers */}
@@ -67,7 +95,7 @@ function MyTimers() {
           const isCollected = timer.collectedBy?.includes(
     firebase.auth().currentUser.uid
   );
-          console.log(isLiked);
+          console.log('isLiked:'+ isLiked);
           return (
             <BigTimerlistLink
               key={timer.id}
@@ -80,14 +108,14 @@ function MyTimers() {
                 </HeaderH2>
                 <HeaderH2
                   margin={"1.5% auto 2% 1.5%"}
-                  fontSize={"1.6rem"}
+                  fontSize={"1.4rem"}
                   color={"#ffffff"}
                 >
                   {`Steps at ${timer.customSec} secs`}
                 </HeaderH2>
               </InsideTimerlistWrap>
-              <InsideTimerlistWrap width={"10%"}>
-                <StyledIconBtn>
+              <InsideTimerlistWrap width={"15%"}>
+                <StyledIconDiv>
                   {!isLiked ? (
                     <FaRegHeart
                       color={"white"}
@@ -102,8 +130,8 @@ function MyTimers() {
                     />
                   )}
                 <span>&thinsp;{timer.likedBy?.length || 0}</span>
-                </StyledIconBtn>
-                <StyledIconBtn>
+                </StyledIconDiv>
+                <StyledIconDiv>
                   {!isCollected ? (
                     <IoBookmarkOutline
                       size={"1.5rem"}
@@ -120,9 +148,10 @@ function MyTimers() {
                     />
                   )}
                 <span>&thinsp;{timer.collectedBy?.length || 0}</span>
-                </StyledIconBtn>
-                {/* <StyledIconBtn>{<FaEdit size={"1.5rem"} />}</StyledIconBtn> */}
+                </StyledIconDiv>
+                
               </InsideTimerlistWrap>
+              <EditIconDiv onClick={(e)=>{handleDeleteTimer(timer.id)}}>{<RiDeleteBack2Fill size={"1.5rem"} />}</EditIconDiv>
             </BigTimerlistLink>
           );
         })}

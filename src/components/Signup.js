@@ -5,6 +5,7 @@ import "firebase/auth";
 import { SiFacebook, SiGoogle } from "react-icons/si";
 import { useHistory } from "react-router-dom";
 import socialMediaAuth from "../utils/auth";
+import ReactLoading from 'react-loading';
 import { facebookProvider, googleProvider } from "../utils/authMethods";
 import { HeaderH1 } from "./Input";
 import {

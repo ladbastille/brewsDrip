@@ -69,9 +69,9 @@ function App() {
               <Route path="/timerlist/collected" exact>
               {user !== null ? <CollectedTimer user={user}/>: <Redirect to="/login" />}
               </Route>
-              {/* <Route path="/timerlist/default" exact>
+              <Route path="/timerlist/default" exact>
                 <DefaultTimer />
-              </Route> */}
+              </Route>
             </Switch>
           </TimerListContainer>
         </Route>

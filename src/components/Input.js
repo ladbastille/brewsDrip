@@ -37,7 +37,7 @@ export const HeaderH1 = styled.h1`
   font-size: 2rem;
   text-align: center;
   margin: 0;
-  margin-bottom: ${(props)=>(props.marginBottom?props.marginBottom:"0")};
+  margin-bottom: ${(props)=>(props.marginbottom?props.marginbottom:"0")};
   color:${(props)=>(props.color?props.color:"#000000")}
 `;
 

@@ -86,11 +86,11 @@ const TimerList = () => {
   return (
     <>
       <TasteNoteListContainer>
-        <FaArrowLeft
+        {/* <FaArrowLeft
           color={"#ffffff"}
           size={"1.5rem"}
           style={{ alignSelf: "flex-start" }}
-        />
+        /> */}
         <HeaderH1 color={"#FFFFFF"}>Taste Note</HeaderH1>
         <StyledTimerlistLink
           to="/newnote"

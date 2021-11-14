@@ -6,10 +6,10 @@ import styled from "styled-components";
 import { FaArrowLeft, FaRegHeart, FaHeart, FaEdit } from "react-icons/fa";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { AiFillSetting } from "react-icons/ai";
-
+import {EditIconDiv} from "./MyTimers"
 import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
-import { StyledIconBtn } from "../components/Timer";
+import { StyledIconDiv } from "../components/Timer";
 import Header from "../components/Header";
 
 export const TimerListContainer = styled.div`
@@ -67,20 +67,24 @@ export const BigTimerlistLink = styled.div`
   padding: ${(props) => (props.padding ? props.padding : "10px 20px")};
   width: ${(props) => (props.width ? props.width : "50%")};
   text-align: ${(props) => (props.textAlign ? props.textAlign : "center")};
-  &:hover {
-    border: 6px solid #de6932;
-  }
   padding: 16px 20px;
   display: flex;
   flex-direction: row;
   margin: 1% auto;
   width: 85%;
+  position:relative;
+  &:hover {
+    border: 6px solid #de6932;
+  }
+  &:hover ${EditIconDiv}{
+    display:block;
+  }
 `;
 
 export const InsideTimerlistWrap = styled.div`
   display: flex;
   flex-direction: column;
-  width: ${(props) => (props.width ? props.width : "90%")};
+  width: ${(props) => (props.width ? props.width : "85%")};
   align-items: flex-end;
   justify-content: space-around;
 `;
@@ -103,7 +107,7 @@ export const TimersTag =styled(Link)`
   border-radius:50px;
   padding:.4rem .75rem;
   margin: 0;
-  margin-bottom: ${(props)=>(props.marginBottom?props.marginBottom:"0")};
+  margin-bottom: ${(props)=>(props.marginbottom?props.marginbottom:"0")};
   color:${(props)=>(props.color?props.color:"#000000")};
   &:hover{
     background-color:#de6932;
@@ -206,14 +210,14 @@ const AllTimerList = ({ user }) => {
                 </HeaderH2>
                 <HeaderH2
                   margin={"1.5% auto 2% 1.5%"}
-                  fontSize={"1.6rem"}
+                  fontSize={"1.4rem"}
                   color={"#ffffff"}
                 >
                   {`Steps at ${timer.customSec} secs`}
                 </HeaderH2>
               </InsideTimerlistWrap>
-              <InsideTimerlistWrap width={"10%"}>
-                <StyledIconBtn>
+              <InsideTimerlistWrap width={"15%"}>
+                <StyledIconDiv>
                   {!isLiked ? (
                     <FaRegHeart
                       color={"white"}
@@ -228,8 +232,8 @@ const AllTimerList = ({ user }) => {
                     />
                   )}
                 <span>&thinsp;{timer.likedBy?.length || 0}</span>
-                </StyledIconBtn>
-                <StyledIconBtn>
+                </StyledIconDiv>
+                <StyledIconDiv>
                   {!isCollected ? (
                     <IoBookmarkOutline
                       size={"1.5rem"}
@@ -246,8 +250,8 @@ const AllTimerList = ({ user }) => {
                     />
                   )}
                 <span>&thinsp;{timer.collectedBy?.length || 0}</span>
-                </StyledIconBtn>
-                {/* <StyledIconBtn>{<FaEdit size={"1.5rem"} />}</StyledIconBtn> */}
+                </StyledIconDiv>
+                {/* <StyledIconDiv>{<FaEdit size={"1.5rem"} />}</StyledIconDiv> */}
               </InsideTimerlistWrap>
             </BigTimerlistLink>
           );

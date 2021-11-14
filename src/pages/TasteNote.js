@@ -21,8 +21,8 @@ const NoteContainer = styled.div`
   position: relative;
   /* overflow: hidden; */
   /* width: 7px; */
-  width: 90%;
-  height: 480px;
+  max-width: 100%;
+  min-height: 480px;
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -60,7 +60,7 @@ const FlexWrap = styled.div`
 export const ImgWrap = styled.div`
   width: 100px;
   height: auto;
-  margin-left:10px;
+  margin:5px;
 `;
 
 const TitleH2 = styled(HeaderH2)`

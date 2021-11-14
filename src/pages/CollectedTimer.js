@@ -10,27 +10,29 @@ import { AiFillSetting } from "react-icons/ai";
 
 import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
-import { StyledIconBtn } from "../components/Timer";
+import { StyledIconDiv } from "../components/Timer";
 import Header from "../components/Header";
 
-function CollectedTimers() {
+function CollectedTimers({user}) {
   const [timers, setTimers] = useState([]);
 
   useEffect(() => {
+    if(user){
     firebase
       .firestore()
       .collection('timers')
       .where('collectedBy', 'array-contains' ,firebase.auth().currentUser?.uid)
     //   .get()
     //   .then((collectionSnapshot) => {
+      .orderBy("createdAt", "desc")
       .onSnapshot((collectionSnapshot) => {
         const data = collectionSnapshot.docs.map((docSnapshot) => {
           const id = docSnapshot.id;
           return { ...docSnapshot.data(), id };
         });
         setTimers(data);
-      });
-  }, []);
+      });}
+  }, [user]);
 
   function toggleLikeCollect(activeInField, field, id) {
     const uid = firebase.auth().currentUser?.uid;
@@ -81,14 +83,14 @@ function CollectedTimers() {
                 </HeaderH2>
                 <HeaderH2
                   margin={"1.5% auto 2% 1.5%"}
-                  fontSize={"1.6rem"}
+                  fontSize={"1.4rem"}
                   color={"#ffffff"}
                 >
                   {`Steps at ${timer.customSec} secs`}
                 </HeaderH2>
               </InsideTimerlistWrap>
-              <InsideTimerlistWrap width={"10%"}>
-                <StyledIconBtn>
+              <InsideTimerlistWrap width={"15%"}>
+                <StyledIconDiv>
                   {!isLiked ? (
                     <FaRegHeart
                       color={"white"}
@@ -103,8 +105,8 @@ function CollectedTimers() {
                     />
                   )}
                 <span>&thinsp;{timer.likedBy?.length || 0}</span>
-                </StyledIconBtn>
-                <StyledIconBtn>
+                </StyledIconDiv>
+                <StyledIconDiv>
                   {!isCollected ? (
                     <IoBookmarkOutline
                       size={"1.5rem"}
@@ -121,8 +123,8 @@ function CollectedTimers() {
                     />
                   )}
                 <span>&thinsp;{timer.collectedBy?.length || 0}</span>
-                </StyledIconBtn>
-                {/* <StyledIconBtn>{<FaEdit size={"1.5rem"} />}</StyledIconBtn> */}
+                </StyledIconDiv>
+                {/* <StyledIconDiv>{<FaEdit size={"1.5rem"} />}</StyledIconDiv> */}
               </InsideTimerlistWrap>
             </BigTimerlistLink>
           );

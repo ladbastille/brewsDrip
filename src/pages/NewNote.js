@@ -3,7 +3,13 @@ import firebase from "../utils/firebase";
 import "firebase/firestore";
 import "firebase/storage";
 import styled from "styled-components";
-import { FaArrowLeft, FaRegHeart, FaHeart } from "react-icons/fa";
+import {
+  FaCameraRetro,
+  FaArrowLeft,
+  FaPlus,
+  FaRegHeart,
+  FaHeart,
+} from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import { useLocation, Link } from "react-router-dom";
 import Input, { HeaderH1 } from "../components/Input";
@@ -25,6 +31,10 @@ const BREW_OPTIONS = [
     value: "pourOver",
     label: "Pour Over",
   },
+  {
+    value: "other",
+    label: "Other",
+  },
 ];
 
 const NewNoteContainer = styled.div`
@@ -36,7 +46,7 @@ const NewNoteContainer = styled.div`
   /* overflow: hidden; */
   /* width: 7px; */
   max-width: 100%;
-  min-height: 480 px;
+  min-height: 480px;
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -57,19 +67,18 @@ const InsideNotelistWrap = styled.div`
   display: flex;
   flex-direction: ${(props) =>
     props.flexDirection ? props.flexDirection : "row"};
-  width: ${(props) => (props.width ? props.width : "90%")};
-  justify-content: space-around;
+  width: ${(props) => (props.width ? props.width : "100%")};
+  justify-content: space-between;
 `;
 
 const SecondWrap = styled.div`
   display: flex;
-  width: ${(props) => (props.width ? props.width : "50%")};
+  flex-direction: ${(props) => props.flexDirection};
+  margin: ${(props) => (props.margin ? props.margin : "20px 0")};
+  width: ${(props) => (props.width ? props.width : "70%")};
   justify-content: ${(props) =>
     props.justifyContent ? props.justifyContent : ""};
-  flex-direction: ${(props) =>
-    props.flexDirection ? props.flexDirection : ""};
   align-items: ${(props) => (props.alignItems ? props.alignItems : "")};
-  margin: 20px 0;
 `;
 
 export const PreviewImage = styled.img`
@@ -83,9 +92,6 @@ const DropdownWrap = styled.div`
   border-radius: 10px;
   overflow: hidden;
   width: ${(props) => (props.width ? props.width : "50%")};
-  /* padding: 0.3rem;
-
-  margin: 0 4px; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -97,10 +103,11 @@ const DropdownWrap = styled.div`
   }
 `;
 
-const ShortInput = styled(Input)`
-  width: 50%;
+const TasteInput = styled(Input)`
+  width: 65%;
   align-content: center;
-  margin: 4% auto;
+  margin: 2% 3%;
+  padding: 5px 10px;
   font-family: Poppins, Arial, Helvetica, sans-serif;
 `;
 
@@ -108,6 +115,20 @@ export const HeaderH2 = styled(HeaderH1)`
   font-size: ${(props) => (props.fontSize ? props.fontSize : "1.2rem")};
   margin: ${(props) => (props.margin ? props.margin : "2% auto")};
   text-align: ${(props) => (props.textAlign ? props.textAlign : "center")};
+`;
+
+const UploadLabel = styled.label`
+  background-color: #fbd850;
+  border: 1px solid #ffffff;
+  margin: 4px 3px 3px 3px;
+  padding: 6px 8px;
+  width: ${(props) => (props.width ? props.width : "70%")};
+  border-radius: 10px;
+  text-align: center;
+`;
+const NoteTextarea = styled.textarea`
+  border: transparent;
+  border-radius: 10px;
 `;
 
 const NewNote = () => {
@@ -159,6 +180,7 @@ const NewNote = () => {
         let dataObj = {
           coffeeName: coffeeName || "Unnamed Note",
           brewMethod: brewMethod || null,
+          notes: notes || null,
           rating: parseInt(rating) || null,
           place: place,
           createdAt: firebase.firestore.Timestamp.now(),
@@ -184,55 +206,63 @@ const NewNote = () => {
     <>
       <NewNoteContainer>
         <FaArrowLeft size={"1.5rem"} style={{ alignSelf: "flex-start" }} />
-        <HeaderH1>Create New Note</HeaderH1>
+        <HeaderH1 marginbottom={"10px"}>Create New Note</HeaderH1>
         <InsideNotelistWrap>
-          <SecondWrap width={"50%"} flexDirection={"column"}>
+          <SecondWrap flexDirection={"column"}>
             <InsideNotelistWrap>
               <HeaderH2>Drink</HeaderH2>
-              <Input
-                placeholder="- ENTER DRINK NAME　-"
+              <TasteInput
+                placeholder="- ENTER DRINK -"
                 value={coffeeName}
                 onChange={(e) => setCoffeeName(e.target.value)}
               />
             </InsideNotelistWrap>
             <InsideNotelistWrap>
               <HeaderH2>Place</HeaderH2>
-              <Input
-                placeholder="- ENTER PLACE　-"
+              <TasteInput
+                placeholder="- ENTER PLACE -"
                 value={place}
                 onChange={(e) => setPlace(e.target.value)}
               />
             </InsideNotelistWrap>
           </SecondWrap>
           <SecondWrap
-            width={"50%"}
-            flexDirection={"row"}
-            alignItems={"flex-start"}
+            width={"25%"}
+            flexDirection={"column"}
+            alignItems={"center"}
+            justifyContent={"space-evenly"}
+            margin={"0"}
           >
-            <Input
-              type="file"
-              onChange={(e) => setFile(e.target.files[0])}
-            ></Input>
-            <ImgWrap>
-              <PreviewImage src={previewUrl} />
-            </ImgWrap>
+            <HeaderH2>Photo</HeaderH2>
+            <UploadLabel>
+              +&ensp;
+              <FaCameraRetro />
+              <TasteInput
+                type="file"
+                onChange={(e) => setFile(e.target.files[0])}
+                style={{ display: "none" }}
+              ></TasteInput>
+            </UploadLabel>
           </SecondWrap>
         </InsideNotelistWrap>
+        <ImgWrap>
+          <PreviewImage src={previewUrl} />
+        </ImgWrap>
 
         <InsideNotelistWrap flexDirection={"column"}>
           <HeaderH2 margin={"2% auto 2% 0"}>Note</HeaderH2>
-          <textarea
-            cols="5"
-            rows="5"
-            placeholder="- ENTER NOTES HERE ... -"
+          <NoteTextarea
+            cols="3"
+            rows="ˋ"
+            placeholder="- ENTER NOTES HERE -"
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
-          ></textarea>
+          ></NoteTextarea>
         </InsideNotelistWrap>
 
         <InsideNotelistWrap>
           <SecondWrap>
-            <DropdownWrap>
+            <DropdownWrap width={"70%"}>
               <HeaderH2>Brew Method</HeaderH2>
               <Dropdown
                 value={brewMethod}
@@ -245,7 +275,7 @@ const NewNote = () => {
 
           <SecondWrap justifyContent={"space-between"}>
             <HeaderH2>Rating</HeaderH2>
-            <Input
+            <TasteInput
               type="number"
               width={"55%"}
               min="0"

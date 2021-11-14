@@ -108,7 +108,7 @@ color: #ffffff;
   }
 `
 
-export const StyledIconBtn = styled.div`
+export const StyledIconDiv = styled.div`
   color: #ffffff;
   cursor: pointer;
   background: transparent;
@@ -119,7 +119,7 @@ export const StyledIconBtn = styled.div`
   }
 `;
 
-const StyledIconBtnSound = styled(StyledIconBtn)`
+const StyledIconDivSound = styled(StyledIconDiv)`
   @media (max-width: 768px) {
     display: none;
   }
@@ -225,8 +225,9 @@ const Timer = () => {
         if (timer.endTime === totalCounter + 1) {
           setIsActive(false);
           setIsPause(true);
-          toggle(false);
           setDoneAlert(true);
+          setIsReset(false);
+          toggle(false);
         }
       }, 1000);
     }
@@ -251,7 +252,7 @@ const Timer = () => {
       const currentStep = timer.customSec[pointer];
       const lastStepIndex = timer.customSec.length;
       // const { customSec } = currentStep;
-      console.log("CurStepSec:" + currentStep);
+      // console.log("CurStepSec:" + currentStep);
 
       if (totalCounter === currentStep) {
         setPointer((pointer) =>
@@ -265,7 +266,7 @@ const Timer = () => {
     }
   }, [pointer, totalCounter]);
 
-  console.log("Pointer:" + pointer);
+  // console.log("Pointer:" + pointer);
 
   function startTimer() {
     setIsActive(!isActive);
@@ -278,6 +279,7 @@ const Timer = () => {
   function stopTimer() {
     setIsActive(false);
     setIsPause(true);
+    setIsReset(false);
     toggle(false);
     setDoneAlert(true);
   }
@@ -293,13 +295,12 @@ const Timer = () => {
     // toggle(false);
   }
 
-  const playAudio = (src) => {
+  function playAudio (src) {
     new Audio(src).play();
   };
 
   if (doneAlert && !isReset) {
     playAudio(doneSound);
-  } else {
   }
 
   // useEffect(() => {
@@ -433,17 +434,17 @@ const Timer = () => {
             </Flex90BetweenWrap>
 
             <Flex100CenterWrap>
-              <StyledIconBtn onClick={startTimer}>
+              <StyledIconDiv onClick={startTimer}>
                 {!isActive ? (
                   <FaPlayCircle color="#FFFFFF" size="6rem" />
                 ) : (
                   <FaRegPauseCircle color="#FFFFFF" size="6rem" />
                 )}
-              </StyledIconBtn>
+              </StyledIconDiv>
             </Flex100CenterWrap>
 
             <Flex90BetweenWrap>
-              <StyledIconBtn>
+              <StyledIconDiv>
                 {!isLiked ? (
                   <FaRegHeart
                     color={"white"}
@@ -457,9 +458,9 @@ const Timer = () => {
                     onClick={() => toggleLikeCollect(isLiked, "likedBy")}
                   />
                 )}
-              </StyledIconBtn>
+              </StyledIconDiv>
 
-              <StyledIconBtnSound>
+              <StyledIconDivSound>
                 {!isMuted ? (
                   <GiSoundOn
                     color={"white"}
@@ -473,9 +474,9 @@ const Timer = () => {
                     onClick={() => toggleLikeCollect(isMuted, "mutedBy")}
                   />
                 )}
-              </StyledIconBtnSound>
+              </StyledIconDivSound>
 
-              <StyledIconBtn>
+              <StyledIconDiv>
                 {!isCollected ? (
                   <IoBookmarkOutline
                     color={"white"}
@@ -493,7 +494,7 @@ const Timer = () => {
                     }
                   />
                 )}
-              </StyledIconBtn>
+              </StyledIconDiv>
             </Flex90BetweenWrap>
           </TimerContainer>
         </>
