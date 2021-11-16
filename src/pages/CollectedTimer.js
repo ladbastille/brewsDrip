@@ -4,26 +4,27 @@ import { TimerListContainer,StyledTimerlistLink,TimersTagWrap,TimersTag,BigTimer
 import "firebase/firestore";
 import { useLocation, Link } from "react-router-dom";
 import styled from "styled-components";
-import { FaArrowLeft, FaRegHeart, FaHeart, FaEdit } from "react-icons/fa";
+import { FaArrowLeft, FaRegHeart, FaHeart, FaEdit, FaUser } from "react-icons/fa";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { AiFillSetting } from "react-icons/ai";
 
 import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
-import { StyledIconDiv } from "../components/Timer";
+import { StyledIconDiv } from "./Timer";
 import Header from "../components/Header";
 
 function CollectedTimers({user}) {
   const [timers, setTimers] = useState([]);
 
   useEffect(() => {
+
+    console.log(user)
+
     if(user){
     firebase
       .firestore()
       .collection('timers')
       .where('collectedBy', 'array-contains' ,firebase.auth().currentUser?.uid)
-    //   .get()
-    //   .then((collectionSnapshot) => {
       .orderBy("createdAt", "desc")
       .onSnapshot((collectionSnapshot) => {
         const data = collectionSnapshot.docs.map((docSnapshot) => {
@@ -49,16 +50,16 @@ function CollectedTimers({user}) {
     }
   }
 
-  const isCollected = timers.collectedBy?.includes(
-    firebase.auth().currentUser.uid
-  );
-  const isLiked = timers.likedBy?.includes(firebase.auth().currentUser.uid);
-  const currentUserId = firebase.auth().currentUser?.uid;
-
+  // const isCollected = timers.collectedBy?.includes(
+  //   firebase.auth().currentUser.uid
+  // );
+  // const isLiked = timers.likedBy?.includes(firebase.auth().currentUser.uid);
+  // const currentUserId = firebase.auth().currentUser?.uid;
+console.log(timers)
   return (
     <>
      
-        <HeaderH1 marginBottom={"3%"} color={"#FFFFFF"}>
+        <HeaderH1 marginbottom={"3%"} color={"#FFFFFF"}>
           Collected Timers
         </HeaderH1>
         {/* here: render timers */}

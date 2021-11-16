@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-
 export const SigninContainer = styled.div`
   position: absolute;
   top: 0;
@@ -34,11 +33,12 @@ export const StyledForm = styled.form`
 
 export const HeaderH1 = styled.h1`
   font-weight: bold;
-  font-size: 2rem;
+  font-size: ${(props) => props.fontSize?props.fontSize:"2rem"};
   text-align: center;
   margin: 0;
-  margin-bottom: ${(props)=>(props.marginbottom?props.marginbottom:"0")};
-  color:${(props)=>(props.color?props.color:"#000000")}
+  margin-bottom: ${(props) => props.marginbottom};
+  margin-top: ${(props) => props.margintop};
+  color: ${(props) => (props.color ? props.color : "#000000")};
 `;
 
 // const HeaderSingin = styled(HeaderH1)`
@@ -75,11 +75,11 @@ export const SocialLoginButton = styled.i`
 `;
 
 export const StyledInput = styled.input`
-  background-color: #FBD850;
+  background-color: #fbd850;
   border: 1px solid #ffffff;
   margin: 4px 3px 3px 3px;
-  padding: ${(props)=>(props.padding ? props.padding : "10px 8px")};
-  width: ${(props)=>(props.width ? props.width : "70%")};
+  padding: ${(props) => (props.padding ? props.padding : "10px 8px")};
+  width: ${(props) => (props.width ? props.width : "70%")};
   border-radius: 10px;
 `;
 
@@ -108,13 +108,7 @@ export const SignupButton = styled(SubmitButton)`
   }
 `;
 
-const Input = ({
-  onChange,
-  type,
-  placeholder,
-  value,
-  ...props
-}) => {
+const Input = ({ onChange, type, placeholder, value, ...props }) => {
   return (
     <StyledInput
       type={type}

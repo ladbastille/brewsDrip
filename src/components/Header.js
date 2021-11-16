@@ -27,13 +27,13 @@ function Header() {
           <LogoImg path="/" src={logo} />
         </Link>
         <MenuLogoWrap>
-          <MenuLogoImg src={searchLogo} />
-          <Link to="/login">
-            <MenuLogoImg path="/login" src={memberLogo} />
-          </Link>
+          {/* <MenuLogoImg src={searchLogo} /> */}
           {/* <MenuLogoImg src={cartLogo} /> */}
           <Link to="/timerlist">
             <MobileTimerLogo src={timerLogo} />
+          </Link>
+          <Link to="/login">
+            <MenuLogoImg path="/login" src={memberLogo} />
           </Link>
         </MenuLogoWrap>
       </LogoBtnWrap>
@@ -42,7 +42,7 @@ function Header() {
         <StyledLink to="/tutorials" onClick={() => setMobileMenuOpen((prev) => !prev)}>COFFEE TUTORIALS</StyledLink>
         <StyledLink to="/tastenotelist" onClick={() => setMobileMenuOpen((prev) => !prev)}>TASTE NOTE</StyledLink>
         <StyledLink to="/timerlist" onClick={() => setMobileMenuOpen((prev) => !prev)}>COFFEE TIMER</StyledLink>
-        <StyledLink to="/coffeemap" onClick={() => setMobileMenuOpen((prev) => !prev)}>COFFEE MAP</StyledLink>
+        {/* <StyledLink to="/coffeemap" onClick={() => setMobileMenuOpen((prev) => !prev)}>COFFEE MAP</StyledLink> */}
         {/* <StyledLink to="/shop" onClick={() => setMobileMenuOpen((prev) => !prev)}>SHOP</StyledLink> */}
       </LinksWrap>
     </MainHeader>
@@ -54,7 +54,7 @@ const MainHeader = styled.div`
   height: 120px;
   font-family: Poppins, Arial, Helvetica, sans-serif;
   margin-top: 2px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   position: sticky;
   top: 0;
   z-index: 999;
@@ -76,7 +76,7 @@ export const LogoImg = styled.img`
   }
 `;
 
-const TimerLogoImg = styled.img`
+export const TimerLogoImg = styled.img`
   height: 40px;
   padding-top: 10px;
   cursor: pointer;
@@ -109,7 +109,7 @@ const MenuLogoWrap = styled.div`
   height: 45px;
   padding-top: 5px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-end;
 `;
 

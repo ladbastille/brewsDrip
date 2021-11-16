@@ -83,6 +83,7 @@ const TimerList = () => {
         console.log(data)
       });
   }, []);
+  
   return (
     <>
       <TasteNoteListContainer>
@@ -134,38 +135,6 @@ const TimerList = () => {
             <FaEdit size={"1.5rem"} />
           </InsideTimerlistWrap>
         </BigTimerlistLink>)})}
-
-        {/* default notes */}
-
-        {/* <HeaderH2 margin={"2.5% auto"} fontSize={"1.9rem"} color={"#FFFFFF"}>
-          Default Timers
-        </HeaderH2>
-        <BigTimerlistLink
-          to="/timer/:id?"
-          background={"#00B790"}
-          color={"#000000"}
-        >
-          <InsideTimerlistWrap>
-            <HeaderH2 margin={"1.5% auto 2% 1.5%"} fontSize={"1.8rem"}>
-              Timer Name
-            </HeaderH2>
-            <HeaderH2
-              margin={"1.5% auto 2% 1.5%"}
-              fontSize={"1.6rem"}
-              color={"#ffffff"}
-            >
-              00:00 01:00 03:00 04:30
-            </HeaderH2>
-          </InsideTimerlistWrap>
-          <InsideTimerlistWrap width={"10%"}>
-            {!isLike ? (
-              <FaRegHeart size={"1.5rem"} />
-            ) : (
-              <FaHeart size={"1.5rem"} />
-            )}
-            <FaEdit size={"1.5rem"} />
-          </InsideTimerlistWrap>
-        </BigTimerlistLink> */}
       </TasteNoteListContainer>
     </>
   );

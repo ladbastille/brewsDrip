@@ -17,7 +17,7 @@ import { AiFillSetting } from "react-icons/ai";
 
 import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
-import { StyledIconDiv } from "../components/Timer";
+import { StyledIconDiv } from "./Timer";
 import Header from "../components/Header";
 
 const DefaultTimer = ({ user }) => {
@@ -66,7 +66,7 @@ const DefaultTimer = ({ user }) => {
   console.log(timers);
   return (
     <>
-      <HeaderH1 marginBottom={"3%"} color={"#FFFFFF"}>
+      <HeaderH1 marginbottom={"3%"} color={"#FFFFFF"}>
         Demo Timers
       </HeaderH1>
       {/* here: render timers */}

@@ -10,7 +10,8 @@ import Dropdown from "../components/Dropdown";
 import { SubmitButton } from "../components/Signin";
 import { FooterCTABtn } from "../components/Footer";
 import { Flex100BetweenWrap
- } from "../components/Timer";
+ } from "./Timer";
+
 const COLOR_OPTIONS = [
   {
     value: "#FBD850",
@@ -59,11 +60,14 @@ const NewTimerContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 20px;
+  margin-top: 10px;
 
   & ::placeholder {
     color: #001a3a;
     opacity: 0.5;
     text-align: center;
+    
   }
 
   & input:focus {
@@ -258,7 +262,7 @@ const NewTimer = () => {
           <FaArrowLeft color={"#000000"} size={"1.5rem"} style={{ alignSelf: "flex-start" }} />
         </Link>
         </Flex100BetweenWrap>
-        <HeaderH1>Create New Timer</HeaderH1>
+        <HeaderH1 marginbottom={"3%"}>Create New Timer</HeaderH1>
         <ShortInput
           placeholder="- ENTER TIMER NAME　-"
           value={timerName}
@@ -276,7 +280,7 @@ const NewTimer = () => {
             />
           </DropdownWrap>
           <DropdownWrap>
-            <HeaderH2>Brew Method</HeaderH2>
+            <HeaderH2 >Timer Method</HeaderH2>
             <Dropdown
               value={brewMethod}
               setValue={setBrewMethod}
@@ -286,11 +290,11 @@ const NewTimer = () => {
           </DropdownWrap>
         </StepAlertOptionWrap>
 
-        <HeaderH2 fontsize={"1.5rem"}>Step Alert Option</HeaderH2>
+        <HeaderH2 margin={"20px auto 10px"} fontSize={"1.5rem"}>Step Alert Option</HeaderH2>
         <StepAlertOptionWrap>
-          <HeaderH2 fontsize={"1rem"}>Step Name</HeaderH2>
-          <HeaderH2 fontsize={"1rem"}>to Next Step</HeaderH2>
-          <HeaderH2 fontsize={"1rem"}>Background Color</HeaderH2>
+          <HeaderH2 fontSize={"1rem"}>Step Name</HeaderH2>
+          <HeaderH2 fontSize={"1rem"}>Sec to Next Step</HeaderH2>
+          <HeaderH2 fontSize={"1rem"}>Background Color</HeaderH2>
         </StepAlertOptionWrap>
         <StepAlertOptionWrap>
           <Input

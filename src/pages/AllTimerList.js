@@ -9,7 +9,7 @@ import { AiFillSetting } from "react-icons/ai";
 import {EditIconDiv} from "./MyTimers"
 import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
-import { StyledIconDiv } from "../components/Timer";
+import { StyledIconDiv } from "./Timer";
 import Header from "../components/Header";
 
 export const TimerListContainer = styled.div`
@@ -20,12 +20,14 @@ export const TimerListContainer = styled.div`
   position: relative;
   overflow: hidden;
   width: 768px;
-  max-width: 100%;
+  max-width: 95%;
   min-height: 480 px;
   padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 20px;
+  margin-top: 10px;
 
   /* & ::placeholder {
     color: #001a3a;
@@ -113,10 +115,10 @@ export const TimersTag =styled(Link)`
     background-color:#de6932;
     opacity:1;
   }
-  @media (min-width:768px){
+  /* @media (min-width:768px){
     padding:1.2rem 2.25rem;
     font-size:1.8rem;
-  }
+  } */
 
   @media (min-width:768px){
     padding:1.5rem 2.8rem;
@@ -178,16 +180,10 @@ const AllTimerList = ({ user }) => {
   console.log(timers);
   return (
     <>
-      {/* <Link to="/newtimer"><button>Create Timer</button></Link>
-      <div>
-        {timers.map((timer) => {
-          return <h3 key={timer.id}>Timer ID: {timer.id}</h3>;
-        })}
-      </div> */}
-      
-        <HeaderH1 marginBottom={"3%"} color={"#FFFFFF"}>
+        <HeaderH1  marginbottom={"3%"} color={"#FFFFFF"}>
           All Timers
         </HeaderH1>
+
         {/* here: render timers */}
 
         {timers.map((timer) => {

@@ -12,7 +12,7 @@ import { RiDeleteBack2Fill } from "react-icons/ri";
 
 import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
-import { StyledIconDiv } from "../components/Timer";
+import { StyledIconDiv } from "./Timer";
 import Header from "../components/Header";
 
 export const EditIconDiv = styled(StyledIconDiv)`
@@ -40,8 +40,6 @@ function MyTimers({user}) {
       .collection('timers')
       .where('author.uid', '==', firebase.auth().currentUser.uid)
       .orderBy("createdAt", "desc")
-      // .get()
-      // .then((collectionSnapshot) => {
       .onSnapshot((collectionSnapshot) => {
         const data = collectionSnapshot.docs.map((docSnapshot) => {
           const id = docSnapshot.id;
@@ -66,11 +64,11 @@ function MyTimers({user}) {
     }
   }
 
-  const isCollected = timers.collectedBy?.includes(
-    firebase.auth().currentUser.uid
-  );
-  const isLiked = timers.likedBy?.includes(firebase.auth().currentUser.uid);
-  const currentUserId = firebase.auth().currentUser?.uid;
+  // const isCollected = timers.collectedBy?.includes(
+  //   firebase.auth().currentUser.uid
+  // );
+  // const isLiked = timers.likedBy?.includes(firebase.auth().currentUser.uid);
+  // const currentUserId = firebase.auth().currentUser?.uid;
 
   function handleDeleteTimer(timerid){
     firebase
@@ -79,7 +77,7 @@ function MyTimers({user}) {
       .doc(timerid)
       .delete()
   }
-
+console.log(timers)
   return (
     <>
      

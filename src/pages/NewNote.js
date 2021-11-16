@@ -16,8 +16,7 @@ import Input, { HeaderH1 } from "../components/Input";
 import Dropdown from "../components/Dropdown";
 import { SubmitButton } from "../components/Signin";
 import { FooterCTABtn } from "../components/Footer";
-import { ImgWrap } from "./TasteNote";
-import { Flex100BetweenWrap } from "../components/Timer";
+import { Flex100BetweenWrap } from "./Timer";
 import { GiCoffeeBeans } from "react-icons/gi";
 
 const BREW_OPTIONS = [
@@ -52,6 +51,8 @@ const NewNoteContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 20px;
+  margin-top: 10px;
 
   & ::placeholder {
     color: #001a3a;
@@ -72,7 +73,7 @@ const InsideNotelistWrap = styled.div`
   justify-content: space-between;
 `;
 
-const SecondWrap = styled.div`
+export const SecondWrap = styled.div`
   display: flex;
   flex-direction: ${(props) => props.flexDirection};
   margin: ${(props) => (props.margin ? props.margin : "20px 0")};
@@ -83,7 +84,7 @@ const SecondWrap = styled.div`
 `;
 
 export const PreviewImage = styled.img`
-  max-height: 100%;
+  /* max-height: 100%; */
   max-width: 100%;
 `;
 
@@ -132,11 +133,11 @@ const NoteTextarea = styled.textarea`
   border-radius: 10px;
 `;
 
-const RatingDiv = styled.div`
+export const RatingDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 2px 10px;
+  margin: ${(props) => (props.margin ? props.margin : "2px 10px")};
 
   input[type="radio"] {
     display: none;
@@ -145,6 +146,13 @@ const RatingDiv = styled.div`
     cursor: pointer;
     transition: color 200ms;
   }
+`;
+
+export const ImgWrap = styled.div`
+  width: ${props=>props.width?props.width:"160px"};
+  height: auto;
+  display:flex;
+  justify-content:center;
 `;
 
 const NewNote = () => {
@@ -156,7 +164,7 @@ const NewNote = () => {
   const [brewMethod, setBrewMethod] = useState("");
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
-  const [file, setFile] = React.useState(null);
+  const [file, setFile] = useState(null);
 
   const [timerUsed, setTimerUsed] = useState("");
   const [tags, setTags] = useState([]);
@@ -285,7 +293,7 @@ const NewNote = () => {
             onChange={(e) => setNotes(e.target.value)}
           ></NoteTextarea>
         </InsideNotelistWrap>
-        <SecondWrap margin={"20px auto 10px 0"} width={"100%"}>
+        <SecondWrap margin={"10px auto 5px 0"} width={"100%"}>
           <HeaderH2 margin={"2% 10px 1% 0"}>Rating</HeaderH2>
 
           {[...Array(5)].map((star, index) => {
@@ -314,7 +322,7 @@ const NewNote = () => {
           })}
         </SecondWrap>
         <InsideNotelistWrap>
-          <SecondWrap margin={"5px auto 5px 0"}>
+          {/* <SecondWrap margin={"5px auto 5px 0"}>
             <DropdownWrap width={"70%"}>
               <HeaderH2>Brew Method</HeaderH2>
               <Dropdown
@@ -324,7 +332,7 @@ const NewNote = () => {
                 placeholder="- Select Method -"
               />
             </DropdownWrap>
-          </SecondWrap>
+          </SecondWrap> */}
         </InsideNotelistWrap>
 
         <SecondWrap margin={"5px auto 5px "} justifyContent={"center"}>

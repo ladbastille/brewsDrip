@@ -20,25 +20,27 @@ const menu = [
   {
     name: "Taste Note",
     links: [
-      { title: "Flavor Tag", url: "/tasteNotes" },
-      { title: "My Note", url: "/tasteNotes" },
-      { title: "Badges", url: "/tasteNotes" },
+      // { title: "Flavor Tag", url: "/tasteNotes" },
+      { title: "All", url: "/tastenotelist" },
+      { title: "My Note", url: "/tastenotelist/mynotes" },
+      // { title: "Badges", url: "/tasteNotes" },
     ],
   },
   {
     name: "Coffee Timer",
     links: [
       { title: "All", url: "/timerlist" },
-      { title: "My Timer", url: "/timerlist" },
+      { title: "Default", url: "/timerlist/default" },
+      { title: "My Timer", url: "/timerlist/mytimers" },
     ],
   },
-  {
-    name: "Coffee Map",
-    links: [
-      { title: "World Coffee", url: "/coffeemap" },
-      { title: "Taiwan", url: "/coffeemap" },
-    ],
-  },
+  // {
+  //   name: "Coffee Map",
+  //   links: [
+  //     { title: "World Coffee", url: "/coffeemap" },
+  //     { title: "Taiwan", url: "/coffeemap" },
+  //   ],
+  // },
   {
     name: "About Us",
     links: [

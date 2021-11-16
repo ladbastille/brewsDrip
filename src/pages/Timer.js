@@ -16,7 +16,7 @@ import {
 import { GiSoundOff, GiSoundOn } from "react-icons/gi";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 
-import { HeaderH2 } from "../pages/NewTimer";
+import { HeaderH2 } from "./NewTimer";
 
 import bgm from "../sounds/DonnieOzone-ReturnOfTheGucciGhost.mp3";
 import doneSound from "../sounds/done.mp3";
