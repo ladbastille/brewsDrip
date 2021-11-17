@@ -51,6 +51,7 @@ function Header() {
 
 const MainHeader = styled.div`
   width: 100%;
+  min-width:375px;
   height: 120px;
   font-family: Poppins, Arial, Helvetica, sans-serif;
   margin-top: 2px;
@@ -64,6 +65,10 @@ const MainHeader = styled.div`
   }
   @media (max-width: 768px) {
     height: 50px;
+    border-radius:0 0 10px 10px;
+  }
+  @media (max-width: 374px){
+    min-width: 100%;
   }
 `;
 
@@ -73,12 +78,13 @@ export const LogoImg = styled.img`
   cursor: pointer;
   @media (max-width: 768px) {
     height: 30px;
+    margin-top:0.6rem;
   }
 `;
 
 export const TimerLogoImg = styled.img`
-  height: 40px;
-  padding-top: 10px;
+  height: 35px;
+  align-self:center;
   cursor: pointer;
   @media (max-width: 768px) {
     display: none;
@@ -86,8 +92,9 @@ export const TimerLogoImg = styled.img`
 `;
 
 const MenuLogoImg = styled.img`
-  height: 30px;
-  padding-top: 5px;
+  height: 35px;
+  width:35px;
+  align-self:center;
   cursor: pointer;
   @media (max-width: 768px) {
     display: none;
@@ -95,8 +102,8 @@ const MenuLogoImg = styled.img`
 `;
 
 const CartLogoImg = styled.img`
-  height: 30px;
-  padding-top: 5px;
+  height: 35px;
+  align-self:center;
   cursor: pointer;
   @media (max-width: 768px) {
     height: 25px;
@@ -107,10 +114,11 @@ const CartLogoImg = styled.img`
 const MenuLogoWrap = styled.div`
   width: 135px;
   height: 45px;
-  padding-top: 5px;
+  /* padding-top: 5px; */
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  align-self:center;
 `;
 
 const LogoBtnWrap = styled.div`
@@ -121,6 +129,7 @@ const LogoBtnWrap = styled.div`
 
 const LinksWrap = styled.div`
   height: 40px;
+  background-color: #ffffff;
   margin: 0 auto;
   padding: 0 10%;
   display: flex;
@@ -161,17 +170,19 @@ const StyledLink = styled(Link)`
 `;
 
 const MobileMenu = styled.img`
-  height: 30px;
+  height: 35px;
   cursor: pointer;
   display: none;
 
   @media (max-width: 768px) {
     display: block;
+    
   }
 `;
 
 const MobileTimerLogo = styled(TimerLogoImg)`
   display: none;
+  align-self:center;
   @media (max-width: 768px) {
     display: block;
   }

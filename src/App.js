@@ -4,7 +4,6 @@ import { Route, Redirect, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
-import Tutorials from "./pages/Tutorials";
 import TasteNotes from "./pages/TasteNote";
 import CoffeeMap from "./pages/CoffeeMap";
 import Timer from "./pages/Timer";
@@ -160,7 +159,7 @@ function App() {
           <Home />
         </Route>
       </AppDiv>
-      <Footer />
+      <Footer user={user}/>
     </>
   );
 }

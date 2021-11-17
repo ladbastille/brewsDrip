@@ -201,7 +201,7 @@ const Timer = () => {
     }, [playing]);
 
     useEffect(() => {
-      isMuted ? (audio.volume = 0.001) : (audio.volume = 1);
+      isMuted ? (audio.volume = 0.001) : (audio.volume = 0.6);
     }, [isMuted]);
 
     useEffect(() => {
@@ -261,6 +261,10 @@ const Timer = () => {
         if (pointer + 1 <= lastStepIndex - 1) {
           playAudio(alertSound);
         }
+      }
+
+      if (totalCounter!==0 && !playing){
+        toggle(playing)
       }
       // new Audio(alertSound);
     }

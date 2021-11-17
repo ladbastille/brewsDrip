@@ -65,7 +65,7 @@ const CardBtnDiv = styled.div`
 
 const MemberPageButton = styled(SubmitButton)`
   background-color: ${(props) => props.backgroundColor};
-  padding: ${(props) => (props.padding ? props.padding : "4px 8px")};
+  padding: ${(props) => (props.padding ? props.padding : "3px 8px")};
   border-radius: 50px;
   border: none;
 `;
@@ -104,7 +104,7 @@ function Member({ user }) {
     setIsLoading(false);
   };
 
-  console.log(user);
+  console.log('[user]',user);
 
   return (
     <>

@@ -1,20 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import firebase from "../utils/firebase";
+import { Link, useHistory } from "react-router-dom";
 import FooterLogoImg from "../images/logo_225x50.svg";
 import MobileFooterLogoImg from "../images/footer3DLogo.png";
 import { LogoImg } from "./Header";
-import { TutorialsBtn, BtnLink } from "../pages/Home";
+import { TutorialsBtn } from "../pages/Home";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { v4 as uuidv4 } from "uuid";
-
+import { toLogOut } from "../utils/auth";
 const menu = [
   {
     name: "Coffee Tutorials",
     links: [
-      { title: "Drinks", url: "/tutorials" },
-      { title: "Equipments", url: "/tutorials" },
-      { title: "Origins", url: "/tutorials" },
+      { title: "Brew", url: "/tutorials/brew" },
+      { title: "Drink", url: "/tutorials/drink" },
+      { title: "Culture", url: "/tutorials/culture" },
     ],
   },
   {
@@ -50,7 +51,7 @@ const menu = [
   },
 ];
 
-const Footer = () => {
+const Footer = ({ user }) => {
   return (
     <FooterContainer>
       <FooterContentContainer>
@@ -75,14 +76,22 @@ const Footer = () => {
         </FooterLinksWrap>
 
         <FooterCTABtnWrap>
-          <BtnLink to="/login">
-            <FooterCTABtn path="/login">Sign In</FooterCTABtn>
-          </BtnLink>
-          <BtnLink to="/login">
-            <FooterCTABtn path="/login" color={"#7E876D"}>
-              Sign Up
-            </FooterCTABtn>
-          </BtnLink>
+          {user ? (
+            <>
+              <BtnLink to="/member">
+                <FooterCTABtn path="/member">Member</FooterCTABtn>
+              </BtnLink>
+            </>
+          ) : (
+            <>
+              <FooterCTABtn>
+                <BtnLink to="/login">Sign In</BtnLink>
+              </FooterCTABtn>
+              <FooterCTABtn color={"#7E876D"}>
+                <BtnLink to="/login">Sign Up</BtnLink>
+              </FooterCTABtn>
+            </>
+          )}
         </FooterCTABtnWrap>
       </FooterContentContainer>
 
@@ -106,6 +115,7 @@ const Footer = () => {
 export default Footer;
 
 const FooterContainer = styled.div`
+  font-family: "Poppins”, sans-serif";
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -124,7 +134,6 @@ const FooterContentContainer = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
   justify-content: space-between;
   border-bottom: #939597 1px solid;
   h5 {
@@ -199,7 +208,7 @@ const MenuHead = styled.div`
 const MenuLink = styled(Link)`
   display: block;
   text-decoration: none;
-  font-size: 0.3rem;
+  font-size: 0.8rem;
   font-weight: 500;
   line-height: 1.8;
   color: #646464;
@@ -213,7 +222,7 @@ const FooterLinksWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-top: 15px;
+  margin-top: 10px;
   @media (max-width: 1024px) {
     justify-content: center;
   }
@@ -223,21 +232,34 @@ const FooterLinksWrap = styled.div`
   }
 `;
 
+const BtnLink = styled(Link)`
+  margin-top: 5px;
+`;
+
 export const FooterCTABtn = styled(TutorialsBtn)`
   padding: 10px 40px;
-  max-width: 80px;
+  margin-top: 10px;
   text-align: center;
   background: ${(props) => (props.color ? props.color : "#de6932")};
-  width: ${(props) => (props.width ? props.width : "60px")};
+  /* width: ${(props) => (props.width ? props.width : "60px")}; */
+  border: 2px solid transparent;
+
   &:hover {
-    border-color: ${(props) => (props.color ? props.color : "#de6932")};
+    border-color: ${(props) => props.color};
+  }
+  & a:visited {
+    color: #ffffff;
+  }
+
+  &:hover a {
+    color: #000000;
   }
 `;
 
 const FooterCTABtnWrap = styled(FooterLinksWrap)`
   flex-direction: column;
-  justify-content: center;
-  margin-right: 2%;
+  justify-content: space-evenly;
+  margin: 2%;
   @media (max-width: 1024px) {
     flex-direction: row;
   }
@@ -258,6 +280,7 @@ const SNSLinksWrap = styled(FooterLinksWrap)`
   }
   a {
     margin-right: 30px;
+    color: #000000;
     &:visited {
       color: #000000;
     }

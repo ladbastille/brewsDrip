@@ -97,6 +97,7 @@ const OverlayParagraph = styled.p`
 const OverlayBtn = styled(SubmitButton)`
   background-color: transparent;
   border-color: #ffffff;
+  cursor: pointer;
 `;
 
 export default Overlay;

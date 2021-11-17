@@ -83,6 +83,7 @@ export const StyledInput = styled.input`
 
 export const SubmitButton = styled.button`
   border-radius: 10px;
+  cursor: pointer;
   border: 1px solid #de6932;
   background-color: #de6932;
   color: #ffffff;
@@ -188,7 +189,7 @@ const Signin = ({ toggle, handleOnClick, }) => {
             <SiGoogle onClick={() => handleOnClick(googleProvider)} />
           </a>
         </SocialContainer>
-        <StyledSpan>press buttons above or use email to signin</StyledSpan>
+        <StyledSpan>press buttons above or use email to sign in</StyledSpan>
         <StyledInput
           type="email"
           placeholder="Email"

@@ -16,23 +16,28 @@ const TutorialsDiv = styled.div`
   min-height: 50vh;
   background-color: #e5e5e5;
   margin-bottom:10px;
+@media (max-width:1280px){
+  flex-wrap:wrap;
+  padding:10px;
+}
 `;
 
 const CardDiv = styled.div`
   width: 33.33.%;
   /* height: 50vh; */
   position: relative;
-  border: 6px solid #ffffff;
   opacity:0.75;
   &:hover{
       opacity:1;
   }
+  
 `;
 
 const CategoryImg = styled.img`
   width: 350px;
   height: 550px;
-  
+  border: 6px solid #ffffff;
+
 `;
 
 const CategoryH2 = styled.h2`

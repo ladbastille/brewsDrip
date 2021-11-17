@@ -107,7 +107,7 @@ export const TimersTag =styled(Link)`
   font-size: 1.3rem;
   text-align: center;
   border-radius:50px;
-  padding:.4rem .75rem;
+  padding:.4rem .65rem;
   margin: 0;
   margin-bottom: ${(props)=>(props.marginbottom?props.marginbottom:"0")};
   color:${(props)=>(props.color?props.color:"#000000")};

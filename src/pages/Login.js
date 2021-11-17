@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import "firebase/auth";
@@ -12,7 +12,7 @@ const LoginBody = styled.div`
   box-sizing: border-box;
   font-family: "Poppins”, sans-serif";
   background: #f6f5f7;
-  margin: 10px auto;
+  margin: 20px auto;
   @media (max-width: 768px) {
     width: 100%;
     margin-top: -10%;
@@ -21,7 +21,7 @@ const LoginBody = styled.div`
 `;
 
 function Login({user}) {
-  const [toggle, setToggle] = React.useState(true);
+  const [toggle, setToggle] = useState(true);
   //   const history = useHistory();
   //   const [email, setEmail] = React.useState("");
   //   const [password, setPassword] = React.useState("");

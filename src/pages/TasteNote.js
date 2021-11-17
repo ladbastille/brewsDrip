@@ -297,7 +297,11 @@ function TasteNote({ user }) {
         </InsideNotelistWrap>
         <SecondWrap margin={"10px auto 5px auto"} width={"90%"}>
           <HeaderH2 margin={"2% 10px 1% 0"}>Rating</HeaderH2>
-
+              {/* {const activeArr = ['a', 'c']}
+              {['a', 'b', 'c'].map(tag => {
+                const isActive = activeArr.includes(tag);
+                return <Tag isActive={isActive} >{tag}</Tag>
+              })} */}
           {[...Array(5)].map((star, index) => {
             const ratingValue = (index += 1);
             return (

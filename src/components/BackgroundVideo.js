@@ -1,17 +1,32 @@
+import {useState} from 'react'
 import styled from "styled-components";
 import Vimeo from "@u-wave/react-vimeo";
+import ReactLoading from 'react-loading';
 
 export default function BackgroundVideo() {
+  const [isLoading,setIsLoading]=useState(true)
   return (
-    <Video background={true} loop={true} responsive={true} video="139500258" />
+    <>
+    {isLoading && <ReactLoading color="#FBD850" type="spinningBubbles" />} 
+      <Video
+        background={true}
+        loop={true}
+        responsive={true}
+        video="139500258"
+        onPlay={()=>setIsLoading(false)}
+      />
+    </>
   );
 }
 
 const Video = styled((props) => <Vimeo {...props} />)`
   object-fit: cover;
-  width: 70%;
-  height: 100%;
-  position: fixed;
+  width: 100%;
   z-index: -1;
-  margin-left: 25%;
+@media (max-width:1024px){
+  width:150%
+}
+@media (max-width:375px){
+    width:100%;
+  }
 `;

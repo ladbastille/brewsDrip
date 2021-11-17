@@ -78,7 +78,7 @@ export const BigNotelistLink = styled.div`
   width: 85%;
   position: relative;
   &:hover {
-    border: 6px solid #fbd850;
+    border: 6px solid #de6932;
   }
   &:hover ${EditIconDiv} {
     display: block;
@@ -111,7 +111,7 @@ export const NotesTag = styled(Link)`
   font-size: 1.3rem;
   text-align: center;
   border-radius: 50px;
-  padding: 0.4rem 1.5rem;
+  padding: 0.4rem 1.4rem;
   margin: 0;
   margin-bottom: ${(props) => (props.marginbottom ? props.marginbottom : "0")};
   color: ${(props) => (props.color ? props.color : "#000000")};

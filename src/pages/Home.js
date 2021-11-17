@@ -1,42 +1,59 @@
+import React, { useState } from "react";
 import styled from "styled-components";
-import BackgroundVideo from "../components/BackgroundVideo";
 import { Link } from "react-router-dom";
+import BackgroundVideo from "../components/BackgroundVideo";
 
-const TutorialsSection = styled.div`
-  height: 100vh;
+
+const HomeDiv = styled.div`
   width: 100%;
+  min-height:450px;
+  padding:0.8rem;
+  text-decoration: none;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: row;
+  justify-content: space-between;
   box-shadow: inset 0 0 0 1000px rgba(0.02);
   object-fit: contain;
+  @media (max-width:1024px){
+    min-height: 400px;
+  }
+  @media (max-width:768px){
+    min-height: 350px;
+  }
+  @media (max-width:375px){
+    flex-direction:column-reverse;
+    min-height: 490px;
+    justify-content: space-evenly;
+  }
 `;
+
+const CTADiv =styled.div`
+display:flex;
+flex-direction:column;
+align-self:center;
+margin-left: 15px;  
+`
 
 const TutorialsParagraph = styled.p`
   font-family: "Poppins”, sans-serif";
   font-size: 2.5rem;
-  margin-left: 40px;
+  /* margin-left: 40px; */
   color: #000;
   width: 20%;
+  @media (max-width:375px){
+    font-size: 1.5rem;
+  }
 `;
 
 const BtnDiv = styled.div`
   margin-top: 32px;
-  margin-left: 40px;
 `;
 
-export const BtnLink = styled(Link)`
-  text-decoration: none;
-`;
-
-export const TutorialsBtn = styled.div`
-  margin: 6px;
-  cursor: pointer;
+export const TutorialsBtn = styled.a`
   font-family: "Poppins”, sans-serif";
+  cursor: pointer;
   font-weight: 700;
   color: #ffffff;
-  text-decoration: none;
   background-color: #de6932;
   border-radius: 10px;
   outline: none;
@@ -51,20 +68,30 @@ export const TutorialsBtn = styled.div`
     background-color: transparent;
     border: #de6932 2px solid;
   }
+
+  @media (max-width:375px){
+    padding: 10px 40px;
+  }
 `;
 
 function Home() {
+
+
   return (
     <>
-      <TutorialsSection>
-        <BackgroundVideo />
-        <TutorialsParagraph>Let’s brew together!</TutorialsParagraph>
+    
+      <HomeDiv> 
+        <CTADiv><TutorialsParagraph>Let’s brew together!</TutorialsParagraph>
         <BtnDiv>
-          <BtnLink to="/tutorials">
+          <Link to="/tutorials">
             <TutorialsBtn>START</TutorialsBtn>
-          </BtnLink>
-        </BtnDiv>
-      </TutorialsSection>
+          </Link>
+        </BtnDiv></CTADiv>
+        
+        <BackgroundVideo 
+        /> 
+      </HomeDiv>
+      
     </>
   );
 }
