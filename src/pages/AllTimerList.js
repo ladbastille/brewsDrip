@@ -20,7 +20,7 @@ export const TimerListContainer = styled.div`
   position: relative;
   overflow: hidden;
   width: 768px;
-  max-width: 95%;
+  max-width: 97%;
   min-height: 480 px;
   padding: 1rem;
   display: flex;

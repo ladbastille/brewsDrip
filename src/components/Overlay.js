@@ -23,6 +23,7 @@ const Overlay = ({ toggle, setToggle }) => {
 };
 
 const OverlayContainer = styled.div`
+font-family: "Poppins", Arial, Helvetica, sans-serif;
   position: absolute;
   top: 0;
   left: 50%;

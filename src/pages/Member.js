@@ -12,7 +12,7 @@ import timerLogo from "../images/logo-timer.svg";
 import { BiTimer, BiNotepad } from "react-icons/bi";
 
 const MemberDiv = styled.div`
-  font-family: "Poppins”, sans-serif";
+  font-family: "Poppins", sans-serif;
   background: #ffb75e;
   background: -webkit-linear-gradient(to right, #ed8f03, #ffb75e);
   background: linear-gradient(to right, #ed8f03, #ffb75e);
@@ -50,6 +50,12 @@ const ProfileCardDiv = styled.div`
   flex-direction: ${(props) => props.flexDirection};
   @media (max-width: 768px) {
     min-height: 20vh;
+  }
+  @media (max-width: 375px) {
+    .welcome-title {
+      font-size:1.5rem;
+      margin:0 auto 10px;
+    }
   }
 `;
 
@@ -118,6 +124,7 @@ function Member({ user }) {
           <ProfileCardDiv flexDirection={"column"} alignItems={"flex-start"}>
             <div>
               <HeaderH1
+                className="welcome-title"
                 fontSize={"2rem"}
                 color={"#FFFFFF"}
                 marginbottom={"20px"}
@@ -140,7 +147,7 @@ function Member({ user }) {
                   <BiTimer size={"2rem"} color={"#ffffff"} />
                 </Link>
               </MemberPageButton>
-              <HeaderH2 margin={"2% 2% 1%;"} color={"#ffffff"}>
+              <HeaderH2 margin={"2% 20px 1% 5px;"} color={"#ffffff"}>
                 My Timers
               </HeaderH2>
               <MemberPageButton backgroundColor={"#00B790"}>
@@ -148,7 +155,7 @@ function Member({ user }) {
                   <BiNotepad size={"2rem"} color={"#ffffff"} />
                 </Link>
               </MemberPageButton>
-              <HeaderH2 margin={"2% 2% 1%;"} color={"#ffffff"}>
+              <HeaderH2 margin={"2% 20px 1% 5px;"} color={"#ffffff"}>
                 My Notes
               </HeaderH2>
             </CardBtnDiv>

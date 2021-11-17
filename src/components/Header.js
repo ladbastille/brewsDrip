@@ -53,7 +53,7 @@ const MainHeader = styled.div`
   width: 100%;
   min-width:375px;
   height: 120px;
-  font-family: Poppins, Arial, Helvetica, sans-serif;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
   margin-top: 2px;
   margin-bottom: 5px;
   position: sticky;

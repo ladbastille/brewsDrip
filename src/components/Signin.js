@@ -92,7 +92,7 @@ export const SubmitButton = styled.button`
   margin-top:10px;
   padding: 12px 45px;
   letter-spacing: 1px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   transition: transform 80ms ease-in;
 `;
 

@@ -79,15 +79,19 @@ const Footer = ({ user }) => {
           {user ? (
             <>
               <BtnLink to="/member">
-                <FooterCTABtn path="/member">Member</FooterCTABtn>
+                <FooterCTABtn >Member</FooterCTABtn>
               </BtnLink>
+              <BtnLink to="/member">
+                <FooterCTABtn  color={"transparent"}>Logout</FooterCTABtn>
+              </BtnLink>
+              
             </>
           ) : (
             <>
               <FooterCTABtn>
                 <BtnLink to="/login">Sign In</BtnLink>
               </FooterCTABtn>
-              <FooterCTABtn color={"#7E876D"}>
+              <FooterCTABtn  color={"#7E876D"}>
                 <BtnLink to="/login">Sign Up</BtnLink>
               </FooterCTABtn>
             </>
@@ -115,14 +119,15 @@ const Footer = ({ user }) => {
 export default Footer;
 
 const FooterContainer = styled.div`
-  font-family: "Poppins”, sans-serif";
+  font-family: "Poppins", sans-serif;
   width: 100%;
   display: flex;
   flex-direction: column;
   background: #fbd850;
   border-radius: 3px;
   display: inline-block;
-  /* margin-bottom:0.1rem; */
+  padding-top:1rem;
+  margin-top:1rem;
 
   /* &:hover {
     box-shadow: 0 14px 14px rgba(0, 0, 0, 0.25)
@@ -201,7 +206,7 @@ const MenuHead = styled.div`
   color: #000000;
   @media (max-width: 425px) {
     width: 100%;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 `;
 
@@ -233,7 +238,7 @@ const FooterLinksWrap = styled.div`
 `;
 
 const BtnLink = styled(Link)`
-  margin-top: 5px;
+  margin-top:5px;
 `;
 
 export const FooterCTABtn = styled(TutorialsBtn)`
@@ -242,10 +247,13 @@ export const FooterCTABtn = styled(TutorialsBtn)`
   text-align: center;
   background: ${(props) => (props.color ? props.color : "#de6932")};
   /* width: ${(props) => (props.width ? props.width : "60px")}; */
-  border: 2px solid transparent;
+  border: ${(props) => (props.border? props.border:"2px solid transparent")};
 
   &:hover {
     border-color: ${(props) => props.color};
+  }
+  & a {
+    color: #ffffff;
   }
   & a:visited {
     color: #ffffff;
@@ -253,6 +261,10 @@ export const FooterCTABtn = styled(TutorialsBtn)`
 
   &:hover a {
     color: #000000;
+  }
+  @media (max-width: 375px){
+    padding: 10px 30px;
+  
   }
 `;
 
@@ -262,6 +274,10 @@ const FooterCTABtnWrap = styled(FooterLinksWrap)`
   margin: 2%;
   @media (max-width: 1024px) {
     flex-direction: row;
+  }
+  @media (max-width: 375px) {
+    justify-content: center;
+    margin-bottom:20px;
   }
 `;
 

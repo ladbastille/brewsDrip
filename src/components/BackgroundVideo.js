@@ -13,7 +13,7 @@ export default function BackgroundVideo() {
         loop={true}
         responsive={true}
         video="139500258"
-        onPlay={()=>setIsLoading(false)}
+        onReady={()=>setIsLoading(false)}
       />
     </>
   );
