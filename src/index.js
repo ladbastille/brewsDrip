@@ -1,13 +1,16 @@
 import ReactDOM from "react-dom";
 import App from "./App";
 import { BrowserRouter, Switch } from "react-router-dom";
-import './index.css'
+import "./reset.css";
+import ScrollToTop from "./components/ScrollToTop";
 
 ReactDOM.render(
   <BrowserRouter>
-    <Switch>
-      <App />
-    </Switch>
+    <ScrollToTop>
+      <Switch>
+        <App />
+      </Switch>
+    </ScrollToTop>
   </BrowserRouter>,
   document.getElementById("root")
 );
