@@ -3,28 +3,8 @@ import firebase from "../utils/firebase";
 import "firebase/firestore";
 import { useLocation, Link } from "react-router-dom";
 import styled from "styled-components";
-import TutorialCard from "../components/TutorialCardBrew";
-
-const TutorialsBrewDiv = styled.div`
-  font-family: Poppins, Arial, Helvetica, sans-serif;
-  padding: 20px;
-  justify-content: space-around;
-  width: 50%;
-  min-height: 560px;
-  /* background-color: #e5e5e5; */
-`;
-
-const CardListDiv = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  vertical-align: center;
-  font-family: Poppins, Arial, Helvetica, sans-serif;
-  margin: 15px;
-  a:visited {
-    color: #000000;
-  }
-`;
+import {TutorialsBrewDiv,CardListDiv,CardListH3,CardListText} from "./TutorialsB01"
+import {CardListH5} from './TutorialsD02'
 
 const CardListImg = styled.img`
   max-width: 100%;
@@ -32,25 +12,11 @@ const CardListImg = styled.img`
   width: ${(props) => props.width};
 `;
 
-const CardListH3 = styled.h3`
-  font-size: 28px;
-  line-height: 1.25;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-`;
-
 const CardListH4 = styled.h4`
   font-size: 20px;
   line-height: 24px;
-  margin-bottom: ${(props) => props.marginbottom};
+  margin-bottom: ${(props) => props.marginbottom || "20px"};
   margin-top: ${(props) => props.margintop};
-`;
-
-const CardListText = styled.p`
-  margin: 20px 0 24px;
-  padding: 0;
-  font-size: 14px;
-  line-height: 1.6;
 `;
 
 const FlexRowDiv = styled.div`
@@ -109,15 +75,15 @@ const TutorialsD01 = () => {
             />
           </FlexRowDiv>
           <FlexRowDiv>
-            <CardListH4 marginbottom={"20px"}>Colby Barr</CardListH4>
-            <CardListH4 mmarginbottom={"20px"}>Bobby Daugherty</CardListH4>
+            <CardListH5 marginbottom={"20px"}>Colby Barr</CardListH5>
+            <CardListH5 mmarginbottom={"20px"}>Bobby Daugherty</CardListH5>
           </FlexRowDiv>
 
           <CardListH4 style={{ color: "#DE6932" }}>
             What are the big similarities between growing coffee fruit and
             growing grapes for wine?
           </CardListH4>
-          <CardListH4 margintop={"10px"}>Colby Barr: </CardListH4>
+          <CardListH5 margintop={"10px"}>Colby Barr: </CardListH5>
           <CardListText>
             Growing up in a family that farmed wine grapes in Northern
             California, I’ve often talked about this with my father who studied
@@ -159,8 +125,8 @@ const TutorialsD01 = () => {
             />
           </FlexRowDiv>
           <FlexRowDiv>
-            <CardListH4 marginbottom={"20px"}>Coffee cherries picked during peak season.</CardListH4>
-            <CardListH4 mmarginbottom={"20px"}>The almighty wine grape during harvest.</CardListH4>
+            <CardListH5 marginbottom={"20px"}>Coffee cherries picked during peak season.</CardListH5>
+            <CardListH5 mmarginbottom={"20px"}>The almighty wine grape during harvest.</CardListH5>
           </FlexRowDiv>
 
 

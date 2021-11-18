@@ -82,7 +82,7 @@ function Home() {
           <TutorialsParagraph>Let’s brew together!</TutorialsParagraph>
           <BtnDiv>
             <Link to="/tutorials">
-              <TutorialsBtn>START</TutorialsBtn>
+              <TutorialsBtn>Start</TutorialsBtn>
             </Link>
           </BtnDiv>
         </CTADiv>

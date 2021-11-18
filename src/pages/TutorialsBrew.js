@@ -3,8 +3,8 @@ import firebase from "../utils/firebase";
 import "firebase/firestore";
 import { useLocation, Link } from "react-router-dom";
 import styled from "styled-components";
-import TutorialCard from "../components/TutorialCardBrew";
-import TutorialCardBrew from "../components/TutorialCardBrew";
+import TutorialCard from "./TutorialCardBrew";
+import TutorialCardBrew from "./TutorialCardBrew";
 
 const TutorialsDiv = styled.div`
 font-family: Poppins, Arial, Helvetica, sans-serif;

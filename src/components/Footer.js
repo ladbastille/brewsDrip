@@ -206,7 +206,6 @@ const MenuHead = styled.div`
   color: #000000;
   @media (max-width: 425px) {
     width: 100%;
-    font-size: 1.1rem;
   }
 `;
 

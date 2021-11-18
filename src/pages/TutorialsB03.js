@@ -3,51 +3,17 @@ import firebase from "../utils/firebase";
 import "firebase/firestore";
 import { useLocation, Link } from "react-router-dom";
 import styled from "styled-components";
-import TutorialCard from "../components/TutorialCardBrew";
-
-const TutorialsBrewDiv = styled.div`
-font-family: Poppins, Arial, Helvetica, sans-serif;
-padding: 20px;
-justify-content: space-around;
-width: 50%;
-min-height: 560px;
-/* background-color: #e5e5e5; */
-`;
-
-const CardListDiv = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  vertical-align: center;
-  font-family: Poppins, Arial, Helvetica, sans-serif;
-  margin: 15px;
-  a:visited{
-      color:#000000;
-  }
-`;
+import TutorialCard from "./TutorialCardBrew";
+import {TutorialsBrewDiv,CardListDiv,CardListH3,CardListText} from "./TutorialsB01"
 
 const CardListImg = styled.img`
   max-width: 100%;
   margin-bottom: 20px;
 `;
 
-const CardListH3 = styled.h3`
-  font-size: 28px;
-  line-height: 1.25;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-`;
-
 const CardListH4 = styled.h4`
   font-size: 20px;
   line-height: 24px;
-`;
-
-const CardListText = styled.p`
-  margin: 20px 0 24px;
-  padding: 0;
-  font-size: 14px;
-  line-height: 1.6;
 `;
 
 const TutorialsB03 = () => {

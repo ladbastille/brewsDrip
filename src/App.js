@@ -79,7 +79,7 @@ function App() {
           {user !== null ? <NewNote user={user} /> : <Redirect to="/login" />}
         </Route>
         <Route path="/timer/:timerId" exact>
-          <Timer />
+          <Timer user={user}/>
         </Route>
         
         <Route path="/timerlist">

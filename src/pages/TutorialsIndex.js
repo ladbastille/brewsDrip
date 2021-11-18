@@ -8,36 +8,34 @@ import DRINK from "../images/DRINK.jpg";
 import CULTURE from "../images/CULTURE.jpg";
 
 const TutorialsDiv = styled.div`
-  font-family: Poppins, Arial, Helvetica, sans-serif;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
   padding: 20px;
   display: flex;
   justify-content: space-around;
   width: 100%;
   min-height: 50vh;
   background-color: #e5e5e5;
-  margin-bottom:10px;
-@media (max-width:1280px){
-  flex-wrap:wrap;
-  padding:10px;
-}
+  margin-bottom: 10px;
+  @media (max-width: 1280px) {
+    flex-wrap: wrap;
+    padding: 10px;
+  }
 `;
 
 const CardDiv = styled.div`
   width: 33.33.%;
   /* height: 50vh; */
   position: relative;
-  opacity:0.75;
-  &:hover{
-      opacity:1;
+  opacity: 0.75;
+  &:hover {
+    opacity: 1;
   }
-  
 `;
 
 const CategoryImg = styled.img`
   width: 350px;
   height: 550px;
   border: 6px solid #ffffff;
-
 `;
 
 const CategoryH2 = styled.h2`
@@ -45,7 +43,7 @@ const CategoryH2 = styled.h2`
   font-size: 3rem;
   font-style: bolder;
   text-align: center;
-  position:absolute;
+  position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);

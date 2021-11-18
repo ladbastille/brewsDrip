@@ -3,28 +3,8 @@ import firebase from "../utils/firebase";
 import "firebase/firestore";
 import { useLocation, Link } from "react-router-dom";
 import styled from "styled-components";
-import TutorialCard from "../components/TutorialCardBrew";
-
-const TutorialsBrewDiv = styled.div`
-  font-family: Poppins, Arial, Helvetica, sans-serif;
-  padding: 20px;
-  justify-content: space-around;
-  width: 50%;
-  min-height: 560px;
-  /* background-color: #e5e5e5; */
-`;
-
-const CardListDiv = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  vertical-align: center;
-  font-family: Poppins, Arial, Helvetica, sans-serif;
-  margin: 15px;
-  a:visited {
-    color: #000000;
-  }
-`;
+import {TutorialsBrewDiv,CardListDiv,CardListH3,CardListText} from "./TutorialsB01"
+import {CardListH5} from './TutorialsD02'
 
 const CardListImg = styled.img`
   max-width: 100%;
@@ -32,30 +12,10 @@ const CardListImg = styled.img`
   width: ${(props) => props.width};
 `;
 
-const CardListH3 = styled.h3`
-  font-size: 28px;
-  line-height: 1.25;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-`;
-
 const CardListH4 = styled.h4`
   font-size: 20px;
   line-height: 24px;
   margin-bottom: ${(props) => props.marginbottom};
-`;
-
-const CardListText = styled.p`
-  margin: 20px 0 24px;
-  padding: 0;
-  font-size: 14px;
-  line-height: 1.6;
-`;
-
-const FlexRowDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
 `;
 
 const TutorialsD02 = () => {
@@ -141,13 +101,13 @@ const TutorialsD02 = () => {
             woman. Sometimes in the field when a woman feels tired, it is
             frowned upon. Men feel the same way: however, they do not show it.
           </CardListText>
-          <CardListH3>
+          <CardListH5>
             "When the whole world tells you that you can't, you begin to believe
             that you can't. But there is a moment where you have a glimmer of
             belief inside yourself that says 'you can' that you have to hold on
             to. Anything you have in your mind you can create. Everything in our
             mind is able to be unraveled and actualized."{" "}
-          </CardListH3>
+          </CardListH5>
 
           <CardListH4>Q: How has coffee impacted your life?</CardListH4>
 
@@ -175,10 +135,10 @@ const TutorialsD02 = () => {
             incredible product. It's a perfect opportunity to share and
             communicate with the world through the end product.
           </CardListText>
-          <CardListH3>
+          <CardListH5>
             "You are the one behind the coffee cup. You are the essence, you are
             the one drinking it. My desire to give the world something good."
-          </CardListH3>
+          </CardListH5>
           <CardListText>
             A: Coffee is a cultivar and apart from the highs and lows that is
             has and that it is not the easiest to manage. When I started in
@@ -238,6 +198,11 @@ const TutorialsD02 = () => {
             incredible coffees in the world while knowing that you’ve positively
             impacted global communities with every sip.
           </CardListText>
+          <CardListImg
+            src={
+              "https://cdn.shopify.com/s/files/1/0035/9372/files/Farmlevel-Colombia-AmparoMaya-5919_1.jpg?v=1583435180"
+            }
+          />
           <CardListText>
             The stories from Farmlevel are always pushing us forward so we can
             continue to discover the next best coffees on earth. “If you can
@@ -248,11 +213,7 @@ const TutorialsD02 = () => {
             and veteran coffee buyer Colby Barr. Stay tuned for another
             Farmlevel adventure.
           </CardListText>
-          <CardListImg
-            src={
-              "https://cdn.shopify.com/s/files/1/0035/9372/files/Farmlevel-Colombia-AmparoMaya-5919_1.jpg?v=1583435180"
-            }
-          />
+          
         </CardListDiv>
       </TutorialsBrewDiv>
     </>

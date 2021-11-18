@@ -159,7 +159,7 @@ const convertTotalCountTotimerString = (totalCounter) => {
   return { computedSecond, computedMinute };
 };
 
-const Timer = () => {
+const Timer = ({user}) => {
   const { timerId } = useParams();
   const [timer, setTimer] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -188,7 +188,8 @@ const Timer = () => {
   const [totalCounter, setTotalCounter] = useState(0);
   const [pointer, setPointer] = useState(0);
   const [doneAlert, setDoneAlert] = useState(false);
-  const isMuted = timer?.mutedBy?.includes(firebase.auth().currentUser?.uid);
+  const [isMuted,setIsMuted] = useState(false)
+  // const isMuted = timer?.mutedBy?.includes(firebase.auth().currentUser?.uid);
 
   const useAudio = (url) => {
     const [audio] = useState(new Audio(url));
@@ -201,7 +202,7 @@ const Timer = () => {
     }, [playing]);
 
     useEffect(() => {
-      isMuted ? (audio.volume = 0.001) : (audio.volume = 0.6);
+      isMuted ? (audio.volume = 0.001) : (audio.volume = 0.5);
     }, [isMuted]);
 
     useEffect(() => {
@@ -300,7 +301,10 @@ const Timer = () => {
   }
 
   function playAudio (src) {
-    new Audio(src).play();
+    // new Audio(src).play()
+    const alertAudio = new Audio(src);
+    alertAudio.volume=0.4
+    alertAudio.play()
   };
 
   if (doneAlert && !isReset) {
@@ -355,7 +359,9 @@ const Timer = () => {
   // };
 
   function toggleLikeCollect(activeInField, field) {
-    const uid = firebase.auth().currentUser.uid;
+    
+    if(!user){console.log("Please login to collect/like this timer.")} else {
+      const uid = firebase.auth().currentUser.uid;
     firebase
       .firestore()
       .collection("timers")
@@ -364,7 +370,7 @@ const Timer = () => {
         [field]: activeInField
           ? firebase.firestore.FieldValue.arrayRemove(uid)
           : firebase.firestore.FieldValue.arrayUnion(uid),
-      });
+      });}
   }
 
   const isCollected = timer.collectedBy?.includes(
@@ -380,7 +386,7 @@ const Timer = () => {
   //   new Audio(bgm).volume = 0.5;
   // }
   // console.log(audio.volume)
-
+// console.log(user)
   return (
     <>
       {timer && (
@@ -469,13 +475,15 @@ const Timer = () => {
                   <GiSoundOn
                     color={"white"}
                     size={"2rem"}
-                    onClick={() => toggleLikeCollect(isMuted, "mutedBy")}
+                    onClick={() => setIsMuted(true)}
+                    // onClick={() => toggleLikeCollect(isMuted, "mutedBy")}
                   />
                 ) : (
                   <GiSoundOff
                     color={"white"}
                     size={"2rem"}
-                    onClick={() => toggleLikeCollect(isMuted, "mutedBy")}
+                    onClick={() => setIsMuted(false)}
+                    // onClick={() => toggleLikeCollect(isMuted, "mutedBy")}
                   />
                 )}
               </StyledIconDivSound>

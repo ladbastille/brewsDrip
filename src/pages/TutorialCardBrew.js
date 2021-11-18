@@ -27,10 +27,15 @@ const CardListDiv = styled.div`
   display: flex;
   flex-direction: column;
   vertical-align: center;
-  font-family: Poppins, Arial, Helvetica, sans-serif;
-  margin: 15px;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  margin-top: 15px;
+  margin-bottom: 25px;
   a,a:visited {
     color: #000000;
+  }
+  @media (max-width:768px){
+    /* flex-wrap: wrap; */
+    width: 80%;
   }
 `;
 

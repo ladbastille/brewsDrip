@@ -3,52 +3,17 @@ import firebase from "../utils/firebase";
 import "firebase/firestore";
 import { useLocation, Link } from "react-router-dom";
 import styled from "styled-components";
-import TutorialCard from "../components/TutorialCardBrew";
+import {TutorialsBrewDiv,CardListDiv,CardListH3,CardListText} from "./TutorialsB01"
 
-const TutorialsBrewDiv = styled.div`
-font-family: Poppins, Arial, Helvetica, sans-serif;
-padding: 20px;
-justify-content: space-around;
-width: 50%;
-min-height: 560px;
-/* background-color: #e5e5e5; */
-`;
-
-const CardListDiv = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  vertical-align: center;
-  font-family: Poppins, Arial, Helvetica, sans-serif;
-  margin: 15px;
-  a:visited{
-      color:#000000;
-  }
-`;
 
 const CardListImg = styled.img`
   max-width: 100%;
   margin-bottom: 20px;
 `;
 
-const CardListH3 = styled.h3`
-  font-size: 28px;
-  line-height: 1.25;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-`;
-
 const CardListH4 = styled.h4`
   font-size: 20px;
   line-height: 24px;
-`;
-
-const CardListText = styled.p`
-
-  margin: 20px 0 24px;
-  padding: 0;
-  font-size: 14px;
-  line-height: 1.6;
 `;
 
 const TutorialsD01 = () => {
@@ -76,31 +41,31 @@ Chambord (optional)<br/>
 Bourbon (optional)
 
 </CardListText>
-<CardListH3>STEP ONE </CardListH3>
+<CardListH4>STEP ONE </CardListH4>
 <CardListText>Combine all the syrup ingredients in a medium pot and bring to a boil. Reduce heat and simmer on low for 10 minutes.</CardListText>
 
-<CardListH3>STEP TWO</CardListH3>
+<CardListH4>STEP TWO</CardListH4>
 <CardListText>Strain the syrup into a glass container through a small mesh strainer and place it to the side to cool.</CardListText>
 
-<CardListH3>STEP THREE </CardListH3>
+<CardListH4>STEP THREE </CardListH4>
 <CardListText>Each drink will need half a packet of Instant Craft Coffee: Streetlevel. Pour the full contents of the packet into a mixing glass, adding 2 ounces of water then gently stirring to dissolve the coffee.</CardListText>
 
 <CardListImg src={"https://cdn.shopify.com/s/files/1/0035/9372/files/holiday_process.png?v=1573608446"}/>
 
-<CardListH3>STEP FOUR</CardListH3>
+<CardListH4>STEP FOUR</CardListH4>
 <CardListText>Fill a Collins glass with ice and add 1 ounce of the dissolved coffee.</CardListText>
 
 <CardListImg src={"https://cdn.shopify.com/s/files/1/0035/9372/files/holiday_process2.png?v=1573608472"}/>
 
-<CardListH3>STEP FIVE</CardListH3>
+<CardListH4>STEP FIVE</CardListH4>
 <CardListText>If going the alcoholic route, skip to step six. Fill the glass about two-thirds of the way with sparkling water then top off with 2 ounces of Jewel Syrup. Continue on to step seven.</CardListText>
 
 <CardListImg src={"https://cdn.shopify.com/s/files/1/0035/9372/files/holiday_sage.png?v=1573608505"}/>
 
-<CardListH3>STEP SIX</CardListH3>
+<CardListH4>STEP SIX</CardListH4>
 <CardListText>If you’re here for the sauce, keep adding to your dissolved coffee and ice base with 2 ounces of Jewel Syrup, 1 ounce Chambord and 2 ounces Bourbon. Gently stir, then strain into a rocks glass over a large ice cube or sphere.</CardListText>
 
-<CardListH3>STEP SEVEN</CardListH3>
+<CardListH4>STEP SEVEN</CardListH4>
 <CardListText>Garnish with a fresh sage leaf.</CardListText>
 
 <CardListImg src={"https://cdn.shopify.com/s/files/1/0035/9372/files/holiday_josh.png?v=1573608526"}/>

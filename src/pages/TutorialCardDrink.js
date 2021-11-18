@@ -30,43 +30,48 @@ const CardListDiv = styled.div`
   vertical-align: center;
   font-family: Poppins, Arial, Helvetica, sans-serif;
   margin: 15px;
+  margin-bottom: 25px;
+
   a,a:visited {
     color: #000000;
   }
+  @media (max-width:768px){
+    /* flex-wrap: wrap; */
+    width: 80%;
+  }
 `;
 
-const TutorialCardCulture = ({ src }) => {
+const TutorialCardDrink = ({ src }) => {
   return (
     <>
       <CardListDiv>
-        <Link to="/tutorials/brew/c01">
+        <Link to="/tutorials/brew/d01">
           <CardListImg
             src={
-              "https://cdn.shopify.com/s/files/1/0035/9372/files/winc_header.png?v=1624899409"
+              "https://cdn.shopify.com/s/files/1/0035/9372/files/holiday_drink_module.jpg?v=1586383943"
             }
           />
           <CardListH3>
-          COFFEE AND WINE: YOUR TWO FAVORITE BEVERAGES HAVE MORE IN COMMON TH...
-
+          HOLIDAY PARTY DRINK RECIPE: THE GOLDEN JEWEL
           </CardListH3>
           <CardListText>
-          Verve’s co-founder Colby Barr and Winc’s winemaker Bobby Daugherty discusses the similarities between coffee and wine, common flavor profiles, and tips for how to select and taste both of these beloved beverages at home like a pro.
+          We’ve developed the perfect coffee-centric drink to spice up your holiday festivities.
+Recipe By: Josh Agbayani
           </CardListText>
         </Link>
       </CardListDiv>
 
       <CardListDiv>
-        <Link to="/tutorials/brew/c02">
+        <Link to="/tutorials/brew/d02">
           <CardListImg
             src={
-              "https://cdn.shopify.com/s/files/1/0035/9372/files/womenincoffee_hero_module.jpg?v=1583433728"
+              "https://cdn.shopify.com/s/files/1/0035/9372/files/de_olla_blog_header_f8469d10-4a7f-4fc8-a698-dbdea50d8a8b.png?v=1606252138"
             }
           />
-          <CardListH3>WOMEN IN THE COFFEE INDUSTRY
-
+          <CardListH3>HOLIDAY DRINK HIGHLIGHT: THE CAFÉ DE OLLA CON PANNA
 </CardListH3>
           <CardListText>
-We touched down in Colombia to pay a special visit to a truly memorable woman and her farm in Chachagüí.
+          Alejandro Catalan, a barista from our Mateo café in Los Angeles, shares his inspiration on creating the Café de Olla con Panna.
           </CardListText>
         </Link>
       </CardListDiv>
@@ -74,4 +79,4 @@ We touched down in Colombia to pay a special visit to a truly memorable woman an
   );
 };
 
-export default TutorialCardCulture;
+export default TutorialCardDrink;
