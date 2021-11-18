@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../utils/firebase";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import "firebase/firestore";
 
@@ -97,8 +97,8 @@ const BigTimeFont = styled.h1`
   margin: 0 auto 5%;
 `;
 
-const ControlBtn=styled.button`
-color: #ffffff;
+const ControlBtn = styled.button`
+  color: #ffffff;
   cursor: pointer;
   background: transparent;
   border: none;
@@ -106,7 +106,7 @@ color: #ffffff;
     opacity: 0.4;
     cursor: not-allowed;
   }
-`
+`;
 
 export const StyledIconDiv = styled.div`
   color: #ffffff;
@@ -159,10 +159,19 @@ const convertTotalCountTotimerString = (totalCounter) => {
   return { computedSecond, computedMinute };
 };
 
-const Timer = ({user}) => {
+const Timer = ({ user }) => {
+  const history = useHistory();
   const { timerId } = useParams();
   const [timer, setTimer] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  // handle Audio delay issue
+  const alertAudio = new Audio(alertSound);
+  const resetAudio = new Audio(resetSound);
+  const doneAudio = new Audio(doneSound);
+
+  alertAudio.volume = 0.4;
+  resetAudio.volume = 0.4;
+  doneAudio.volume = 0.4;
 
   useEffect(() => {
     firebase
@@ -173,6 +182,7 @@ const Timer = ({user}) => {
         const data = docSnapshot.data();
         setTimer(data);
       });
+
     // .get()
     // .then((docSnapshot) => {
     //   const data = docSnapshot.data();
@@ -185,10 +195,15 @@ const Timer = ({user}) => {
   const [isActive, setIsActive] = useState(false);
   const [isPause, setIsPause] = useState(true);
   const [isReset, setIsReset] = useState(false);
+
+  //  test change data of timer
+  const [milliseconds, setMilliseconds] = useState(0);
+
   const [totalCounter, setTotalCounter] = useState(0);
+
   const [pointer, setPointer] = useState(0);
   const [doneAlert, setDoneAlert] = useState(false);
-  const [isMuted,setIsMuted] = useState(false)
+  const [isMuted, setIsMuted] = useState(false);
   // const isMuted = timer?.mutedBy?.includes(firebase.auth().currentUser?.uid);
 
   const useAudio = (url) => {
@@ -223,6 +238,7 @@ const Timer = ({user}) => {
     if (isActive) {
       intervalId = setInterval(() => {
         setTotalCounter((totalCounter) => totalCounter + 1);
+
         if (timer.endTime === totalCounter + 1) {
           setIsActive(false);
           setIsPause(true);
@@ -235,6 +251,14 @@ const Timer = ({user}) => {
 
     return () => clearInterval(intervalId);
   }, [isActive, totalCounter]);
+
+  // test change data type of timer
+  // React.useEffect(() => {
+  //   if (milliseconds === 1000) {
+  //     setTotalCounter((totalCounter) => totalCounter + 1);
+  //     setMilliseconds(0);
+  //   }
+  // }, [milliseconds]);
 
   // useEffect(() => {
   //   const currentStep = TIMER_SCRIPT[pointer];
@@ -253,19 +277,46 @@ const Timer = ({user}) => {
       const currentStep = timer.customSec[pointer];
       const lastStepIndex = timer.customSec.length;
       // const { customSec } = currentStep;
-      // console.log("CurStepSec:" + currentStep);
+      console.log("CurStepSec:" + timer.customSec[pointer]);
 
-      if (totalCounter === currentStep) {
+      if (totalCounter === timer.customSec[0]) {
+        setPointer(1);
+        alertAudio.play();
+      } else if (totalCounter === timer.customSec[0] + timer.customSec[1]) {
+        if (pointer + 1 < lastStepIndex) {
+          setPointer(2);
+        } else {
+        }
+
+        alertAudio.play();
+      } else if (
+        totalCounter ===
+        timer.customSec[0] + timer.customSec[1] + timer.customSec[2]
+      ) {
+        if (pointer + 1 < lastStepIndex) {
+          setPointer(3);
+        } else {
+        }
+        alertAudio.play();
+      } else if (
+        totalCounter ===
+        timer.customSec[0] +
+          timer.customSec[1] +
+          timer.customSec[2] +
+          timer.customSec[3]
+      ) {
         setPointer((pointer) =>
           pointer + 1 < lastStepIndex ? pointer + 1 : pointer
         );
-        if (pointer + 1 <= lastStepIndex - 1) {
-          playAudio(alertSound);
-        }
+        alertAudio.play();
       }
 
-      if (totalCounter!==0 && !playing){
-        toggle(playing)
+      // if (pointer + 1 ) {
+      //   playAudio(alertSound);
+      // }
+
+      if (totalCounter !== 0 && !playing) {
+        toggle(playing);
       }
       // new Audio(alertSound);
     }
@@ -289,26 +340,31 @@ const Timer = ({user}) => {
     setDoneAlert(true);
   }
 
+  async function handlePressLastPage() {
+    await stopTimer();
+    await history.push("/timerlist");
+  }
+
   function resetTimer() {
     setIsActive(false);
     setIsPause(true);
     setIsReset(true);
     setTotalCounter(0);
     setPointer(0);
-    playAudio(resetSound);
+    resetAudio.play();
     // setDoneAlert(true);
     // toggle(false);
   }
 
-  function playAudio (src) {
-    // new Audio(src).play()
-    const alertAudio = new Audio(src);
-    alertAudio.volume=0.4
-    alertAudio.play()
-  };
+  // function playAudio(src) {
+  //   // new Audio(src).play()
+  //   const alertAudio = new Audio(src);
+  //   alertAudio.volume = 0.4;
+  //   alertAudio.play();
+  // }
 
   if (doneAlert && !isReset) {
-    playAudio(doneSound);
+    doneAudio.play();
   }
 
   // useEffect(() => {
@@ -359,18 +415,20 @@ const Timer = ({user}) => {
   // };
 
   function toggleLikeCollect(activeInField, field) {
-    
-    if(!user){console.log("Please login to collect/like this timer.")} else {
+    if (!user) {
+      console.log("Please login to collect/like this timer.");
+    } else {
       const uid = firebase.auth().currentUser.uid;
-    firebase
-      .firestore()
-      .collection("timers")
-      .doc(timerId)
-      .update({
-        [field]: activeInField
-          ? firebase.firestore.FieldValue.arrayRemove(uid)
-          : firebase.firestore.FieldValue.arrayUnion(uid),
-      });}
+      firebase
+        .firestore()
+        .collection("timers")
+        .doc(timerId)
+        .update({
+          [field]: activeInField
+            ? firebase.firestore.FieldValue.arrayRemove(uid)
+            : firebase.firestore.FieldValue.arrayUnion(uid),
+        });
+    }
   }
 
   const isCollected = timer.collectedBy?.includes(
@@ -386,7 +444,7 @@ const Timer = ({user}) => {
   //   new Audio(bgm).volume = 0.5;
   // }
   // console.log(audio.volume)
-// console.log(user)
+  // console.log(user)
   return (
     <>
       {timer && (
@@ -394,13 +452,14 @@ const Timer = ({user}) => {
           <TimerContainer background={customColor}>
             <FlexColumnWrap>
               <Flex100BetweenWrap>
-                <Link to="/timerlist">
+                <ControlBtn>
                   <FaArrowLeft
                     color={"#ffffff"}
                     size={"1.5rem"}
                     style={{ alignSelf: "flex-start" }}
+                    onClick={handlePressLastPage}
                   />
-                </Link>
+                </ControlBtn>
 
                 <HeaderH2 color="#FFFFFF">{timer.timerName}</HeaderH2>
                 <BrewImg src={timerGif}></BrewImg>

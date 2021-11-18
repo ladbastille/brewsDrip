@@ -151,7 +151,7 @@ const AllTimerList = ({ user }) => {
         lastPostSnapshotRef.current =
           collectionSnapshot.docs[collectionSnapshot.docs.length - 1];
         setTimers(data);
-        console.log(data);
+        console.log("data:",data);
       });
   }, []);
 
@@ -177,7 +177,7 @@ const AllTimerList = ({ user }) => {
   const isLiked = timers.likedBy?.includes(firebase.auth().currentUser.uid);
   const currentUserId = firebase.auth().currentUser?.uid;
   // console.log(isLiked);
-  console.log(timers);
+  console.log("Timers:",timers);
   return (
     <>
         <HeaderH1  marginbottom={"3%"} color={"#FFFFFF"}>
@@ -193,7 +193,7 @@ const AllTimerList = ({ user }) => {
           const isCollected = timer.collectedBy?.includes(
     firebase.auth().currentUser?.uid
   );
-          console.log(isLiked);
+
           return (
             <BigTimerlistLink
               key={timer.id}

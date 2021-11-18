@@ -192,7 +192,19 @@ const NewTimer = () => {
       });
   }, []);
 
+  useEffect(() => {
+    if(numValues.endTime){
+      if(numValues.endTime<numValues.stepSec1+numValues.stepSec2+numValues.stepSec3+numValues.stepSec4){
+        window.alert("End Time must over Total Step Time")
+      }
+    }
+  }, [numValues.endTime]);
+
   function createNewTimer() {
+    if(numValues.endTime !== "" && numValues.endTime<numValues.stepSec1+numValues.stepSec2+numValues.stepSec3+numValues.stepSec4){
+      window.alert("End Time must over Total Step Time") 
+      return
+    }
     setIsLoading(true);
     const documentRef = firebase.firestore().collection("timers").doc();
     // const fileRef = firebase.storage().ref("post-images/" + documentRef.id);
