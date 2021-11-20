@@ -89,11 +89,11 @@ export const SubmitButton = styled.button`
   color: #ffffff;
   font-size: 12px;
   font-weight: bold;
-  margin-top:10px;
+  margin-top:5px;
   padding: 12px 45px;
   letter-spacing: 1px;
-  /* text-transform: uppercase; */
   transition: transform 80ms ease-in;
+  align-self:${props=>props.alignSelf}
 `;
 
 export const SignupButton = styled(SubmitButton)`

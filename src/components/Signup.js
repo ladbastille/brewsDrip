@@ -5,7 +5,7 @@ import "firebase/auth";
 import { SiFacebook, SiGoogle } from "react-icons/si";
 import { useHistory } from "react-router-dom";
 import socialMediaAuth from "../utils/auth";
-import ReactLoading from 'react-loading';
+import ReactLoading from "react-loading";
 import { facebookProvider, googleProvider } from "../utils/authMethods";
 import { HeaderH1 } from "./Input";
 import {
@@ -28,16 +28,40 @@ const Signup = ({ toggle, handleOnClick }) => {
 
   const onSignUp = (e) => {
     console.log("signUP");
-
     setIsLoading(true);
+
     e.preventDefault();
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
+      .then((res) => {
+        console.log(res);
+
+        //sign up with default photo
+        const documentRef = firebase
+          .firestore()
+          .collection("members")
+          .doc(firebase.auth().currentUser.uid);
+
+        let dataObj = {
+          createdAt: firebase.firestore.Timestamp.now(),
+          displayName: firebase.auth().currentUser.displayName || "",
+          photoURL:
+            "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/user-pics%2FdefaultProfilePic.png?alt=media&token=121a029d-c2e6-4e32-9312-158d382bd440",
+          uid: firebase.auth().currentUser.uid,
+          email: firebase.auth().currentUser.email,
+        };
+        console.log(dataObj);
+        documentRef.set(dataObj);
+      })
       .then(() => {
         console.log("success");
         history.push("/");
         setIsLoading(false);
+
+        // console.log("success");
+        // history.push("/");
+        // setIsLoading(false);
       })
       .catch((error) => {
         switch (error.code) {
@@ -55,7 +79,6 @@ const Signup = ({ toggle, handleOnClick }) => {
         setIsLoading(false);
       });
   };
-
   return (
     <SignupContainer avtive={toggle}>
       <StyledForm>

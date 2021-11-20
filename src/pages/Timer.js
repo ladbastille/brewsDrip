@@ -4,6 +4,8 @@ import { Link, useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import "firebase/firestore";
 
+import Swal from "sweetalert2";
+
 import {
   FaArrowLeft,
   FaRegHeart,
@@ -14,6 +16,8 @@ import {
   FaRedoAlt,
 } from "react-icons/fa";
 import { GiSoundOff, GiSoundOn } from "react-icons/gi";
+import { FiShare2 } from "react-icons/fi";
+import { BiLinkAlt } from "react-icons/bi";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 
 import { HeaderH2 } from "./NewTimer";
@@ -24,6 +28,13 @@ import resetSound from "../sounds/reset.mp3";
 import alertSound from "../sounds/alert.mp3";
 
 import timerGif from "../images/pourover.gif";
+
+import {
+  FacebookShareButton,
+  LineShareButton,
+  FacebookIcon,
+  LineIcon,
+} from "react-share";
 
 const TimerContainer = styled.div`
   font-family: "Open Sans Condensed", sans-serif;
@@ -72,10 +83,7 @@ const Flex50ColumnWrap = styled(FlexColumnWrap)`
 
 const Flex90BetweenWrap = styled(Flex100BetweenWrap)`
   width: 90%;
-  margin: 5%;
-  /* @media (min-width:768px){
-    width:30%;
-  } */
+  margin: ${(props) => props.margin || "5%"};
 `;
 
 const StepsBigFont = styled.h1`
@@ -124,6 +132,18 @@ const StyledIconDivSound = styled(StyledIconDiv)`
     display: none;
   }
 `;
+
+const ShareBtnDiv = styled(StyledIconDiv)`
+  margin-top: 15px;
+  width: 100px;
+  position: absolute;
+  & svg {
+    margin-left: 8px;
+  }
+  @media (max-width: 768px) {
+    margin-top: 5px;
+  }
+`;
 // let TIMER_SCRIPT = [
 //   {
 //     baseColor: "#FBD850",
@@ -160,10 +180,13 @@ const convertTotalCountTotimerString = (totalCounter) => {
 };
 
 const Timer = ({ user }) => {
+  const Swal = require("sweetalert2");
   const history = useHistory();
   const { timerId } = useParams();
   const [timer, setTimer] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isShareClick, setIsShareClick] = useState(false);
+
   // handle Audio delay issue
   const alertAudio = new Audio(alertSound);
   const resetAudio = new Audio(resetSound);
@@ -416,7 +439,12 @@ const Timer = ({ user }) => {
 
   function toggleLikeCollect(activeInField, field) {
     if (!user) {
-      console.log("Please login to collect/like this timer.");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please login to collect this timer.",
+        footer: '<a href="https://brewsdrip.web.app/login">Click here to login.</a>'
+      });
     } else {
       const uid = firebase.auth().currentUser.uid;
       firebase
@@ -435,7 +463,17 @@ const Timer = ({ user }) => {
     firebase.auth().currentUser?.uid
   );
 
-  const isLiked = timer.likedBy?.includes(firebase.auth().currentUser?.uid);
+  const handleCopyUrl = () => {
+    navigator.clipboard.writeText(window.location.href);
+    Swal.fire("Go share now!", "You've copied the url!", "success");
+    setIsShareClick((prev) => !prev);
+  };
+
+  const onShareWindowClose = () => {
+    Swal.fire("Awesome!", "You've shared this timer!", "success");
+    setIsShareClick((prev) => !prev);
+  };
+  // const isLiked = timer.likedBy?.includes(firebase.auth().currentUser?.uid);
   // const isMuted = timer.mutedBy?.includes(firebase.auth().currentUser.uid);
 
   // if (isMuted) {
@@ -512,20 +550,36 @@ const Timer = ({ user }) => {
               </StyledIconDiv>
             </Flex100CenterWrap>
 
-            <Flex90BetweenWrap>
+            <Flex90BetweenWrap margin={"6%"}>
               <StyledIconDiv>
-                {!isLiked ? (
-                  <FaRegHeart
-                    color={"white"}
-                    size={"1.5rem"}
-                    onClick={() => toggleLikeCollect(isLiked, "likedBy")}
-                  />
-                ) : (
-                  <FaHeart
-                    color={"white"}
-                    size={"1.5rem"}
-                    onClick={() => toggleLikeCollect(isLiked, "likedBy")}
-                  />
+                <FiShare2
+                  color={"white"}
+                  size={"1.5rem"}
+                  onClick={() => setIsShareClick((prev) => !prev)}
+                />
+                {isShareClick && (
+                  <ShareBtnDiv>
+                    <FacebookShareButton
+                      url={window.location.href}
+                      quote={
+                        "I've found an awesome coffee timer. Let's try it!"
+                      }
+                      hashtag={["brewsDrip", "YourBestCoffeePal"]}
+                      onShareWindowClose={() => onShareWindowClose}
+                    >
+                      <FacebookIcon size={25} round />
+                    </FacebookShareButton>
+                    <LineShareButton
+                      url={window.location.href}
+                      title={
+                        "I've found an awesome coffee timer. Let's try it!"
+                      }
+                      onShareWindowClose={onShareWindowClose}
+                    >
+                      <LineIcon size={25} round />
+                    </LineShareButton>
+                    <BiLinkAlt size={25} onClick={handleCopyUrl} />
+                  </ShareBtnDiv>
                 )}
               </StyledIconDiv>
 

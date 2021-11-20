@@ -22,7 +22,7 @@ export const EditIconDiv = styled(StyledIconDiv)`
   padding: 3px;
   top:0;
   right:0;
-  margin:-18px -20px 0 0;
+  margin:-18px -15px 0 0;
   display:none;
 `
 
