@@ -81,7 +81,7 @@ const Flex50ColumnWrap = styled(FlexColumnWrap)`
   width: 50%;
 `;
 
-const Flex90BetweenWrap = styled(Flex100BetweenWrap)`
+export const Flex90BetweenWrap = styled(Flex100BetweenWrap)`
   width: 90%;
   margin: ${(props) => props.margin || "5%"};
 `;
@@ -133,9 +133,9 @@ const StyledIconDivSound = styled(StyledIconDiv)`
   }
 `;
 
-const ShareBtnDiv = styled(StyledIconDiv)`
+export const ShareBtnDiv = styled(StyledIconDiv)`
   margin-top: 15px;
-  width: 100px;
+  width: 120px;
   position: absolute;
   & svg {
     margin-left: 8px;
@@ -192,9 +192,9 @@ const Timer = ({ user }) => {
   const resetAudio = new Audio(resetSound);
   const doneAudio = new Audio(doneSound);
 
-  alertAudio.volume = 0.4;
-  resetAudio.volume = 0.4;
-  doneAudio.volume = 0.4;
+  alertAudio.volume = 0.2;
+  resetAudio.volume = 0.2;
+  doneAudio.volume = 0.2;
 
   useEffect(() => {
     firebase
@@ -240,7 +240,7 @@ const Timer = ({ user }) => {
     }, [playing]);
 
     useEffect(() => {
-      isMuted ? (audio.volume = 0.001) : (audio.volume = 0.5);
+      isMuted ? (audio.volume = 0.001) : (audio.volume = 0.3);
     }, [isMuted]);
 
     useEffect(() => {
@@ -268,6 +268,14 @@ const Timer = ({ user }) => {
           setDoneAlert(true);
           setIsReset(false);
           toggle(false);
+          Swal.fire({
+            title: 'Sweet!',
+            text: 'Enjoy your coffee.',
+            imageUrl: 'https://source.unsplash.com/6VhPY27jdps/',
+            imageWidth: 400,
+            imageHeight: 266.25,
+            imageAlt: 'Cheers Coffee',
+          })
         }
       }, 1000);
     }
@@ -363,8 +371,18 @@ const Timer = ({ user }) => {
     setDoneAlert(true);
   }
 
+  function stopByPressLastPage() {
+    setIsActive(false);
+    setIsPause(true);
+    setIsReset(false);
+    if (playing) {
+      toggle(false);
+    } else if (!playing) {
+    }
+  }
+
   async function handlePressLastPage() {
-    await stopTimer();
+    await stopByPressLastPage();
     await history.push("/timerlist");
   }
 
@@ -443,7 +461,8 @@ const Timer = ({ user }) => {
         icon: "error",
         title: "Oops...",
         text: "Please login to collect this timer.",
-        footer: '<a href="https://brewsdrip.web.app/login">Click here to login.</a>'
+        footer:
+          '<a href="https://brewsdrip.web.app/login">Click here to login.</a>',
       });
     } else {
       const uid = firebase.auth().currentUser.uid;
@@ -465,7 +484,7 @@ const Timer = ({ user }) => {
 
   const handleCopyUrl = () => {
     navigator.clipboard.writeText(window.location.href);
-    Swal.fire("Go share now!", "You've copied the url!", "success");
+    Swal.fire("Go share now!", "You've copied the URL!", "success");
     setIsShareClick((prev) => !prev);
   };
 
@@ -565,7 +584,7 @@ const Timer = ({ user }) => {
                         "I've found an awesome coffee timer. Let's try it!"
                       }
                       hashtag={["brewsDrip", "YourBestCoffeePal"]}
-                      onShareWindowClose={() => onShareWindowClose}
+                      onShareWindowClose={onShareWindowClose}
                     >
                       <FacebookIcon size={25} round />
                     </FacebookShareButton>
@@ -578,7 +597,11 @@ const Timer = ({ user }) => {
                     >
                       <LineIcon size={25} round />
                     </LineShareButton>
-                    <BiLinkAlt size={25} onClick={handleCopyUrl} />
+                    <BiLinkAlt
+                      size={25}
+                      color={"#FFFFFF"}
+                      onClick={handleCopyUrl}
+                    />
                   </ShareBtnDiv>
                 )}
               </StyledIconDiv>

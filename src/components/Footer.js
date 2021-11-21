@@ -243,6 +243,7 @@ const BtnLink = styled(Link)`
 export const FooterCTABtn = styled(TutorialsBtn)`
   padding: 10px 40px;
   margin-top: 10px;
+  margin-right:10px;
   text-align: center;
   background: ${(props) => (props.color ? props.color : "#de6932")};
   /* width: ${(props) => (props.width ? props.width : "60px")}; */

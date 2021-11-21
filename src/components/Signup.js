@@ -45,9 +45,10 @@ const Signup = ({ toggle, handleOnClick }) => {
 
         let dataObj = {
           createdAt: firebase.firestore.Timestamp.now(),
-          displayName: firebase.auth().currentUser.displayName || "",
+          displayName:
+            firebase.auth().currentUser.displayName || "Coffee Lover",
           photoURL:
-            "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/user-pics%2FdefaultProfilePic.png?alt=media&token=121a029d-c2e6-4e32-9312-158d382bd440",
+            "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/user-pics%2FdefaultUser.png?alt=media&token=7e5e71c8-aabb-4bdd-a55c-72ec3659b41d",
           uid: firebase.auth().currentUser.uid,
           email: firebase.auth().currentUser.email,
         };
@@ -72,7 +73,7 @@ const Signup = ({ toggle, handleOnClick }) => {
             setErrorMessage("信箱格式不正確");
             break;
           case "auth/weak-password":
-            setErrorMessage("密碼強度不足");
+            setErrorMessage("密碼強度不足(最少6位數)");
             break;
           default:
         }
@@ -106,7 +107,7 @@ const Signup = ({ toggle, handleOnClick }) => {
           onChange={(e) => setPassword(e.target.value)}
           onFocus={() => setErrorMessage("")}
         />
-        <SubmitButton onClick={(e) => onSignUp(e)}>Sign Up</SubmitButton>
+        <SubmitButton color={"#7E876D"}onClick={(e) => onSignUp(e)}>Sign Up</SubmitButton>
         {errorMessage && <h5>{errorMessage}</h5>}
         {isLoading ? (
           <ReactLoading color="#FBD850" type="spinningBubbles" />

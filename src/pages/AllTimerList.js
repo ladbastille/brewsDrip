@@ -3,6 +3,7 @@ import firebase from "../utils/firebase";
 import "firebase/firestore";
 import { useLocation, Link } from "react-router-dom";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 import { FaArrowLeft, FaRegHeart, FaHeart, FaEdit } from "react-icons/fa";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { AiFillSetting } from "react-icons/ai";
@@ -167,7 +168,13 @@ const AllTimerList = ({ user }) => {
             ? firebase.firestore.FieldValue.arrayRemove(uid)
             : firebase.firestore.FieldValue.arrayUnion(uid),
         });
-    }
+    } else{Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Please login to collect/like this timer.",
+      footer:
+        '<a href="https://brewsdrip.web.app/login">Click here to login.</a>',
+    });}
   }
 
   const isCollected = timers.collectedBy?.includes(

@@ -3,6 +3,7 @@ import firebase from "../utils/firebase";
 import "firebase/firestore";
 import "firebase/storage";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 import {
   FaCameraRetro,
   FaArrowLeft,
@@ -18,6 +19,7 @@ import { SubmitButton } from "../components/Signin";
 import { FooterCTABtn } from "../components/Footer";
 import { Flex100BetweenWrap } from "./Timer";
 import { GiCoffeeBeans } from "react-icons/gi";
+import Tags from "./Tags";
 
 const BREW_OPTIONS = [
   {
@@ -117,6 +119,7 @@ export const HeaderH2 = styled(HeaderH1)`
   font-size: ${(props) => (props.fontSize ? props.fontSize : "1.2rem")};
   margin: ${(props) => (props.margin ? props.margin : "2% auto")};
   text-align: ${(props) => (props.textAlign ? props.textAlign : "center")};
+  height:${props=>props.height}
 `;
 
 const UploadLabel = styled.label`
@@ -149,10 +152,14 @@ export const RatingDiv = styled.div`
 `;
 
 export const ImgWrap = styled.div`
-  width: ${props=>props.width?props.width:"160px"};
+  width: ${(props) => (props.width ? props.width : "160px")};
   height: auto;
-  display:flex;
-  justify-content:center;
+  display: flex;
+  justify-content: center;
+  padding-right: 10%;
+  @media (max-width: 375px) {
+    width: 130px;
+  }
 `;
 
 const NewNote = () => {
@@ -165,9 +172,10 @@ const NewNote = () => {
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
   const [file, setFile] = useState(null);
+  const [selectedTagIds,setSelectedTagIds] = useState([])
 
   const [timerUsed, setTimerUsed] = useState("");
-  const [tags, setTags] = useState([]);
+
 
   // const checkSetNum = (e) => {
   //   const value = parseInt(e.target.value.replace(/\D/g, ""));
@@ -208,6 +216,7 @@ const NewNote = () => {
           brewMethod: brewMethod || null,
           notes: notes || null,
           rating: parseInt(rating) || null,
+          selectedTagIds:selectedTagIds||[],
           place: place || "Unnamed Place",
           createdAt: firebase.firestore.Timestamp.now(),
           author: {
@@ -222,12 +231,13 @@ const NewNote = () => {
         documentRef.set(dataObj).then(() => {
           setIsLoading(false);
           setNotes("");
+          Swal.fire("Awesome!", "You've created a tastenote!", "success");
           history.push("/tastenotelist");
         });
       });
     });
   }
-
+console.log(selectedTagIds)
   return (
     <>
       <NewNoteContainer>
@@ -294,10 +304,10 @@ const NewNote = () => {
           ></NoteTextarea>
         </InsideNotelistWrap>
         <SecondWrap margin={"10px auto 5px 0"} width={"100%"}>
-          <HeaderH2 margin={"2% 10px 1% 0"}>Rating</HeaderH2>
+          <HeaderH2 height={"42px"} margin={"2% 10px 1% 0"}>Rating</HeaderH2>
 
           {[...Array(5)].map((star, index) => {
-            const ratingValue = index += 1;
+            const ratingValue = (index += 1);
             return (
               <RatingDiv>
                 <label>
@@ -335,6 +345,11 @@ const NewNote = () => {
           </SecondWrap> */}
         </InsideNotelistWrap>
 
+
+        <Tags selectedTagIds={selectedTagIds} setSelectedTagIds={setSelectedTagIds}/>
+
+
+
         <SecondWrap margin={"5px auto 5px "} justifyContent={"center"}>
           <FooterCTABtn
             width={"120px"}
@@ -347,6 +362,7 @@ const NewNote = () => {
             Reset
           </FooterCTABtn> */}
         </SecondWrap>
+        
       </NewNoteContainer>
     </>
   );

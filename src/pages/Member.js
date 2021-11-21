@@ -75,9 +75,13 @@ const CardBtnDiv = styled.div`
 
 const ConfirmBtnDiv = styled(CardBtnDiv)`
   position: absolute;
-  margin-top: 190px;
+  margin-top: 250px;
+  align-self:${props=>props.alignSelf};
+  @media (max-width: 768px) {
+    margin-top: 100px;
+  }
   @media (max-width: 375px) {
-    margin-top: 50px;
+    margin-top: 70px;
   }
 `;
 
@@ -109,13 +113,18 @@ const NameInput = styled(Input)`
   font-size: 1.2rem;
   text-align: center;
   padding: 4px 30px;
-  width: 50%;
+  width: 110px;
+  cursor:none;
 `;
 
 const ProfileImage = styled(PreviewImage)`
   border-radius: 50%;
   width: 150px;
   height: 150px;
+  @media (max-width: 768px) {
+    width: 120px;
+    height: 120px;
+  }
   @media (max-width: 375px) {
     width: 100px;
     height: 100px;
@@ -124,13 +133,14 @@ const ProfileImage = styled(PreviewImage)`
 
 const ProfileImgWrap = styled(ImgWrap)`
   margin-bottom: 10px;
+  padding-right:0;
 `;
 
 const LogoutButton = styled(SubmitButton)`
   position: absolute;
   bottom: 12%;
   @media (max-width: 375px) {
-    bottom: 25px;
+    bottom: 20px;
   }
 `;
 
@@ -148,7 +158,7 @@ function Member({ user }) {
     } else if (user.photoURL !== null) {
       return user.photoURL;
     } else {
-      return "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/user-pics%2FdefaultProfilePic.png?alt=media&token=121a029d-c2e6-4e32-9312-158d382bd440";
+      return "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/user-pics%2FdefaultUser.png?alt=media&token=7e5e71c8-aabb-4bdd-a55c-72ec3659b41d";
     }
   };
 
@@ -224,12 +234,13 @@ function Member({ user }) {
             >
               Welcome Back!
             </HeaderH1>
-
-            <NameInput
-              value={user.displayName}
+            
+            {/* <NameInput
+              value={user.displayName ? user.displayName: "Coffee Lover"}
               onChange={(e) => setDisplayName(e.target.value)}
-              readOnly
-            ></NameInput>
+              readOnly></NameInput> */}
+            
+            
 
             <HeaderH2 margin={"5px auto 1%;"}>{user.email}</HeaderH2>
 

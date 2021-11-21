@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import firebase from "../utils/firebase";
 import "firebase/firestore";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 import { FaArrowLeft, FaRegHeart, FaHeart } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import { useLocation, Link } from "react-router-dom";
@@ -259,6 +260,7 @@ const NewTimer = () => {
     console.log(dataObj);
     documentRef.set(dataObj).then(() => {
       setIsLoading(false);
+      Swal.fire("Awesome!", "You've created a timer!", "success");
       history.push("/timerlist");
     });
     //   });

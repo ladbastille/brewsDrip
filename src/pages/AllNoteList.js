@@ -165,7 +165,13 @@ const AllNoteList = ({ user }) => {
             ? firebase.firestore.FieldValue.arrayRemove(uid)
             : firebase.firestore.FieldValue.arrayUnion(uid),
         });
-    }
+    }else{Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Please login to collect/like this timer.",
+      footer:
+        '<a href="https://brewsdrip.web.app/login">Click here to login.</a>',
+    });}
   }
 
   const isCollected = tasteNotes.collectedBy?.includes(

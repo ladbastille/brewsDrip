@@ -85,7 +85,8 @@ export const SubmitButton = styled.button`
   border-radius: 10px;
   cursor: pointer;
   border: 1px solid #de6932;
-  background-color: #de6932;
+  border-color:${props=>props.color||"#de6932"};
+  background-color: ${props=>props.color||"#de6932"};
   color: #ffffff;
   font-size: 12px;
   font-weight: bold;
@@ -93,14 +94,15 @@ export const SubmitButton = styled.button`
   padding: 12px 45px;
   letter-spacing: 1px;
   transition: transform 80ms ease-in;
-  align-self:${props=>props.alignSelf}
+  align-self:${props=>props.alignSelf};
+
 `;
 
 export const SignupButton = styled(SubmitButton)`
   display: none;
   margin-top: 8px;
-  background-color: #ed8f03;
-  border-color: #ffffff;
+  background-color: #7E876D;
+  border-color: #7E876D;
   padding: 12px 43px;
   @media (max-width: 425px) {
     display: block;
