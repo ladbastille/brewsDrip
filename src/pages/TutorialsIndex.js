@@ -16,6 +16,7 @@ const TutorialsDiv = styled.div`
   min-height: 50vh;
   background-color: #e5e5e5;
   margin-bottom: 10px;
+  box-sizing:border-box;
   @media (max-width: 1280px) {
     flex-wrap: wrap;
     padding: 10px;
@@ -29,6 +30,9 @@ const CardDiv = styled.div`
   opacity: 0.75;
   &:hover {
     opacity: 1;
+  }
+  @media (max-width: 1280px) {
+    margin-bottom: 5px;
   }
 `;
 
