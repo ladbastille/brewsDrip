@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../utils/firebase";
-import { Link, useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import "firebase/firestore";
-
+import successCoffeeImg from "../images/swal-success-pic.jpg";
 import Swal from "sweetalert2";
 
 import {
   FaArrowLeft,
-  FaRegHeart,
-  FaHeart,
   FaPlayCircle,
   FaRegPauseCircle,
   FaStop,
@@ -144,28 +142,6 @@ export const ShareBtnDiv = styled(StyledIconDiv)`
     margin-top: 5px;
   }
 `;
-// let TIMER_SCRIPT = [
-//   {
-//     baseColor: "#FBD850",
-//     customStep: "step 1",
-//     customSec: 3,
-//   },
-//   {
-//     baseColor: "#EFABBA",
-//     customStep: "step 2",
-//     customSec: 5,
-//   },
-//   {
-//     baseColor: "#00B790",
-//     customStep: "step 3",
-//     customSec: 7,
-//   },
-//   {
-//     baseColor: "#B4CFCB",
-//     customStep: "step 4",
-//     customSec: 10,
-//   },
-// ];
 
 const convertTotalCountTotimerString = (totalCounter) => {
   const secondCounter = totalCounter % 60;
@@ -180,7 +156,6 @@ const convertTotalCountTotimerString = (totalCounter) => {
 };
 
 const Timer = ({ user }) => {
-  const Swal = require("sweetalert2");
   const history = useHistory();
   const { timerId } = useParams();
   const [timer, setTimer] = useState(null);
@@ -269,13 +244,13 @@ const Timer = ({ user }) => {
           setIsReset(false);
           toggle(false);
           Swal.fire({
-            title: 'Sweet!',
-            text: 'Enjoy your coffee.',
-            imageUrl: 'https://source.unsplash.com/6VhPY27jdps/',
+            title: "Sweet!",
+            text: "Enjoy your coffee!",
+            imageUrl: successCoffeeImg,
             imageWidth: 400,
             imageHeight: 266.25,
-            imageAlt: 'Cheers Coffee',
-          })
+            imageAlt: "Cheers Coffee",
+          });
         }
       }, 1000);
     }
@@ -489,7 +464,7 @@ const Timer = ({ user }) => {
   };
 
   const onShareWindowClose = () => {
-    Swal.fire("Awesome!", "You've shared this timer!", "success");
+    Swal.fire("Awesome!", "Let's share this timer!", "success");
     setIsShareClick((prev) => !prev);
   };
   // const isLiked = timer.likedBy?.includes(firebase.auth().currentUser?.uid);

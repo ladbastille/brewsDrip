@@ -32,8 +32,8 @@ const NoteContainer = styled.div`
     background: #ffffff;
     padding: 10px 20px;
     border-radius: 10px;
-    margin-left:10px;
-    margin-right:5px;
+    margin-left: 10px;
+    margin-right: 5px;
   }
 
   & input:focus {

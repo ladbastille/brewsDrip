@@ -76,7 +76,7 @@ const CardBtnDiv = styled.div`
 const ConfirmBtnDiv = styled(CardBtnDiv)`
   position: absolute;
   margin-top: 250px;
-  align-self:${props=>props.alignSelf};
+  align-self: ${(props) => props.alignSelf};
   @media (max-width: 768px) {
     margin-top: 100px;
   }
@@ -114,7 +114,7 @@ const NameInput = styled(Input)`
   text-align: center;
   padding: 4px 30px;
   width: 110px;
-  cursor:none;
+  cursor: none;
 `;
 
 const ProfileImage = styled(PreviewImage)`
@@ -133,7 +133,7 @@ const ProfileImage = styled(PreviewImage)`
 
 const ProfileImgWrap = styled(ImgWrap)`
   margin-bottom: 10px;
-  padding-right:0;
+  padding-right: 0;
 `;
 
 const LogoutButton = styled(SubmitButton)`
@@ -234,13 +234,11 @@ function Member({ user }) {
             >
               Welcome Back!
             </HeaderH1>
-            
+
             {/* <NameInput
               value={user.displayName ? user.displayName: "Coffee Lover"}
               onChange={(e) => setDisplayName(e.target.value)}
               readOnly></NameInput> */}
-            
-            
 
             <HeaderH2 margin={"5px auto 1%;"}>{user.email}</HeaderH2>
 

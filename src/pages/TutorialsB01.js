@@ -15,7 +15,6 @@ export const TutorialsBrewDiv = styled.div`
     width: 80%;
     iframe {
       width: 100%;
-
     }
   }
   @media (max-width: 768px) {

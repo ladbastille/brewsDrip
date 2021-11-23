@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import firebase from "../utils/firebase";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import FooterLogoImg from "../images/logo_225x50.svg";
 import MobileFooterLogoImg from "../images/footer3DLogo.png";
 import { LogoImg } from "./Header";
 import { TutorialsBtn } from "../pages/Home";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { v4 as uuidv4 } from "uuid";
-import { toLogOut } from "../utils/auth";
 const menu = [
   {
     name: "Coffee Tutorials",
@@ -79,19 +77,18 @@ const Footer = ({ user }) => {
           {user ? (
             <>
               <BtnLink to="/member">
-                <FooterCTABtn >Member</FooterCTABtn>
+                <FooterCTABtn>Member</FooterCTABtn>
               </BtnLink>
               <BtnLink to="/member">
-                <FooterCTABtn  color={"transparent"}>Logout</FooterCTABtn>
+                <FooterCTABtn color={"transparent"}>Logout</FooterCTABtn>
               </BtnLink>
-              
             </>
           ) : (
             <>
               <FooterCTABtn>
                 <BtnLink to="/login">Sign In</BtnLink>
               </FooterCTABtn>
-              <FooterCTABtn  color={"#7E876D"}>
+              <FooterCTABtn color={"#7E876D"}>
                 <BtnLink to="/login">Sign Up</BtnLink>
               </FooterCTABtn>
             </>
@@ -126,8 +123,8 @@ const FooterContainer = styled.div`
   background: #fbd850;
   border-radius: 3px;
   display: inline-block;
-  padding-top:1rem;
-  margin-top:1rem;
+  padding-top: 1rem;
+  margin-top: 1rem;
 
   /* &:hover {
     box-shadow: 0 14px 14px rgba(0, 0, 0, 0.25)
@@ -237,17 +234,17 @@ const FooterLinksWrap = styled.div`
 `;
 
 const BtnLink = styled(Link)`
-  margin-top:5px;
+  margin-top: 5px;
 `;
 
 export const FooterCTABtn = styled(TutorialsBtn)`
   padding: 10px 40px;
   margin-top: 10px;
-  margin-right:10px;
+  margin-right: 10px;
   text-align: center;
   background: ${(props) => (props.color ? props.color : "#de6932")};
   /* width: ${(props) => (props.width ? props.width : "60px")}; */
-  border: ${(props) => (props.border? props.border:"2px solid transparent")};
+  border: ${(props) => (props.border ? props.border : "2px solid transparent")};
 
   &:hover {
     border-color: ${(props) => props.color};
@@ -262,9 +259,8 @@ export const FooterCTABtn = styled(TutorialsBtn)`
   &:hover a {
     color: #000000;
   }
-  @media (max-width: 375px){
+  @media (max-width: 375px) {
     padding: 10px 30px;
-  
   }
 `;
 
@@ -277,7 +273,7 @@ const FooterCTABtnWrap = styled(FooterLinksWrap)`
   }
   @media (max-width: 375px) {
     justify-content: center;
-    margin-bottom:20px;
+    margin-bottom: 20px;
   }
 `;
 

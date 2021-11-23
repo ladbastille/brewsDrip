@@ -28,7 +28,7 @@ const DefaultTimer = ({ user }) => {
       .firestore()
       .collection("timers")
       .where("isDefault", "==", true)
-    //   .orderBy("createdAt", "desc")
+      //   .orderBy("createdAt", "desc")
       .get()
       .then((collectionSnapshot) => {
         //   .onSnapshot((collectionSnapshot) => {

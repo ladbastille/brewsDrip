@@ -10,8 +10,7 @@ import Input, { HeaderH1 } from "../components/Input";
 import Dropdown from "../components/Dropdown";
 import { SubmitButton } from "../components/Signin";
 import { FooterCTABtn } from "../components/Footer";
-import { Flex100BetweenWrap
- } from "./Timer";
+import { Flex100BetweenWrap } from "./Timer";
 
 const COLOR_OPTIONS = [
   {
@@ -68,7 +67,6 @@ const NewTimerContainer = styled.div`
     color: #001a3a;
     opacity: 0.5;
     text-align: center;
-    
   }
 
   & input:focus {
@@ -194,17 +192,30 @@ const NewTimer = () => {
   }, []);
 
   useEffect(() => {
-    if(numValues.endTime){
-      if(numValues.endTime<numValues.stepSec1+numValues.stepSec2+numValues.stepSec3+numValues.stepSec4){
-        window.alert("End Time must over Total Step Time")
+    if (numValues.endTime) {
+      if (
+        numValues.endTime <
+        numValues.stepSec1 +
+          numValues.stepSec2 +
+          numValues.stepSec3 +
+          numValues.stepSec4
+      ) {
+        window.alert("End Time must over Total Step Time");
       }
     }
   }, [numValues.endTime]);
 
   function createNewTimer() {
-    if(numValues.endTime !== "" && numValues.endTime<numValues.stepSec1+numValues.stepSec2+numValues.stepSec3+numValues.stepSec4){
-      window.alert("End Time must over Total Step Time") 
-      return
+    if (
+      numValues.endTime !== "" &&
+      numValues.endTime <
+        numValues.stepSec1 +
+          numValues.stepSec2 +
+          numValues.stepSec3 +
+          numValues.stepSec4
+    ) {
+      window.alert("End Time must over Total Step Time");
+      return;
     }
     setIsLoading(true);
     const documentRef = firebase.firestore().collection("timers").doc();
@@ -270,11 +281,14 @@ const NewTimer = () => {
   return (
     <>
       <NewTimerContainer>
-        
         <Flex100BetweenWrap>
           <Link to="/timerlist">
-          <FaArrowLeft color={"#000000"} size={"1.5rem"} style={{ alignSelf: "flex-start" }} />
-        </Link>
+            <FaArrowLeft
+              color={"#000000"}
+              size={"1.5rem"}
+              style={{ alignSelf: "flex-start" }}
+            />
+          </Link>
         </Flex100BetweenWrap>
         <HeaderH1 marginbottom={"3%"}>Create New Timer</HeaderH1>
         <ShortInput
@@ -294,7 +308,7 @@ const NewTimer = () => {
             />
           </DropdownWrap>
           <DropdownWrap>
-            <HeaderH2 >Timer Method</HeaderH2>
+            <HeaderH2>Timer Method</HeaderH2>
             <Dropdown
               value={brewMethod}
               setValue={setBrewMethod}
@@ -304,7 +318,9 @@ const NewTimer = () => {
           </DropdownWrap>
         </StepAlertOptionWrap>
 
-        <HeaderH2 margin={"20px auto 10px"} fontSize={"1.5rem"}>Step Alert Option</HeaderH2>
+        <HeaderH2 margin={"20px auto 10px"} fontSize={"1.5rem"}>
+          Step Alert Option
+        </HeaderH2>
         <StepAlertOptionWrap>
           <HeaderH2 fontSize={"1rem"}>Step Name</HeaderH2>
           <HeaderH2 fontSize={"1rem"}>Sec to Next Step</HeaderH2>

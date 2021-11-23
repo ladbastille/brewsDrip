@@ -86,39 +86,38 @@ export const InsideTimerlistWrap = styled.div`
 `;
 
 const TimersTagWrap = styled.div`
-display:flex;
-flex-wrap: wrap;
-width:100%;
-justify-content: space-between;
-border-radius:10px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+  border-radius: 10px;
+`;
 
-`
-
-const TimersTag =styled(Link)`
-  background-color:#de6932;
+const TimersTag = styled(Link)`
+  background-color: #de6932;
   opacity: 0.6;
   font-weight: bold;
   font-size: 1.3rem;
   text-align: center;
-  border-radius:50px;
-  padding:.4rem .75rem;
+  border-radius: 50px;
+  padding: 0.4rem 0.75rem;
   margin: 0;
-  margin-bottom: ${(props)=>(props.marginBottom?props.marginBottom:"0")};
-  color:${(props)=>(props.color?props.color:"#000000")};
-  &:hover{
-    background-color:#de6932;
-    opacity:1;
+  margin-bottom: ${(props) => (props.marginBottom ? props.marginBottom : "0")};
+  color: ${(props) => (props.color ? props.color : "#000000")};
+  &:hover {
+    background-color: #de6932;
+    opacity: 1;
   }
-  @media (min-width:768px){
-    padding:1.2rem 2.25rem;
-    font-size:1.8rem;
+  @media (min-width: 768px) {
+    padding: 1.2rem 2.25rem;
+    font-size: 1.8rem;
   }
 
-  @media (min-width:768px){
-    padding:1.5rem 2.8rem;
-    font-size:2rem;
+  @media (min-width: 768px) {
+    padding: 1.5rem 2.8rem;
+    font-size: 2rem;
   }
-  `
+`;
 
 const TimerListNestContainer = ({ user }) => {
   // const [timers, setTimers] = useState([]);
@@ -181,12 +180,10 @@ const TimerListNestContainer = ({ user }) => {
         })}
       </div> */}
       <TimerListContainer>
-        
         {/* <HeaderH1 marginBottom={"3%"} color={"#FFFFFF"}>
           All Timers
         </HeaderH1> */}
 
-        
         {/* here: render timers */}
 
         {/* {timers.map((timer) => {
@@ -251,11 +248,10 @@ const TimerListNestContainer = ({ user }) => {
                 <span>&thinsp;{timer.collectedBy?.length || 0}</span>
                 </StyledIconBtn>
                 {/* <StyledIconBtn>{<FaEdit size={"1.5rem"} />}</StyledIconBtn> */}
-              {/* </InsideTimerlistWrap>
+        {/* </InsideTimerlistWrap>
             </BigTimerlistLink>
           );
         })} */}
-
       </TimerListContainer>
     </>
   );

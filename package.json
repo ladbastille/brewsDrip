@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@u-wave/react-vimeo": "^0.9.5",
+    "eslint": "^7.32.0",
     "firebase": "^8.10.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -36,5 +37,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   }
 }

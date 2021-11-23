@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import "firebase/auth";
@@ -20,7 +20,7 @@ const LoginBody = styled.div`
   }
 `;
 
-function Login({user}) {
+function Login({ user }) {
   const [toggle, setToggle] = useState(true);
   //   const history = useHistory();
   //   const [email, setEmail] = React.useState("");

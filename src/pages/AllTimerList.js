@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import { FaArrowLeft, FaRegHeart, FaHeart, FaEdit } from "react-icons/fa";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { AiFillSetting } from "react-icons/ai";
-import {EditIconDiv} from "./MyTimers"
+import { EditIconDiv } from "./MyTimers";
 import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
 import { StyledIconDiv } from "./Timer";
@@ -75,12 +75,12 @@ export const BigTimerlistLink = styled.div`
   flex-direction: row;
   margin: 1% auto;
   width: 85%;
-  position:relative;
+  position: relative;
   &:hover {
     border: 6px solid #de6932;
   }
-  &:hover ${EditIconDiv}{
-    display:block;
+  &:hover ${EditIconDiv} {
+    display: block;
   }
 `;
 
@@ -93,39 +93,38 @@ export const InsideTimerlistWrap = styled.div`
 `;
 
 export const TimersTagWrap = styled.div`
-display:flex;
-flex-wrap: wrap;
-width:100%;
-justify-content: space-between;
-border-radius:10px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+  border-radius: 10px;
+`;
 
-`
-
-export const TimersTag =styled(Link)`
-  background-color:#de6932;
+export const TimersTag = styled(Link)`
+  background-color: #de6932;
   opacity: 0.6;
   font-weight: bold;
   font-size: 1.3rem;
   text-align: center;
-  border-radius:50px;
-  padding:.4rem .65rem;
+  border-radius: 50px;
+  padding: 0.4rem 0.65rem;
   margin: 0;
-  margin-bottom: ${(props)=>(props.marginbottom?props.marginbottom:"0")};
-  color:${(props)=>(props.color?props.color:"#000000")};
-  &:hover{
-    background-color:#de6932;
-    opacity:1;
+  margin-bottom: ${(props) => (props.marginbottom ? props.marginbottom : "0")};
+  color: ${(props) => (props.color ? props.color : "#000000")};
+  &:hover {
+    background-color: #de6932;
+    opacity: 1;
   }
   /* @media (min-width:768px){
     padding:1.2rem 2.25rem;
     font-size:1.8rem;
   } */
 
-  @media (min-width:768px){
-    padding:1.5rem 2.8rem;
-    font-size:2rem;
+  @media (min-width: 768px) {
+    padding: 1.5rem 2.8rem;
+    font-size: 2rem;
   }
-  `
+`;
 
 const AllTimerList = ({ user }) => {
   const [timers, setTimers] = useState([]);
@@ -152,7 +151,7 @@ const AllTimerList = ({ user }) => {
         lastPostSnapshotRef.current =
           collectionSnapshot.docs[collectionSnapshot.docs.length - 1];
         setTimers(data);
-        console.log("data:",data);
+        console.log("data:", data);
       });
   }, []);
 
@@ -168,13 +167,15 @@ const AllTimerList = ({ user }) => {
             ? firebase.firestore.FieldValue.arrayRemove(uid)
             : firebase.firestore.FieldValue.arrayUnion(uid),
         });
-    } else{Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Please login to collect/like this timer.",
-      footer:
-        '<a href="https://brewsdrip.web.app/login">Click here to login.</a>',
-    });}
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please login to collect/like this timer.",
+        footer:
+          '<a href="https://brewsdrip.web.app/login">Click here to login.</a>',
+      });
+    }
   }
 
   const isCollected = timers.collectedBy?.includes(
@@ -184,82 +185,85 @@ const AllTimerList = ({ user }) => {
   const isLiked = timers.likedBy?.includes(firebase.auth().currentUser.uid);
   const currentUserId = firebase.auth().currentUser?.uid;
   // console.log(isLiked);
-  console.log("Timers:",timers);
+  console.log("Timers:", timers);
   return (
     <>
-        <HeaderH1  marginbottom={"3%"} color={"#FFFFFF"}>
-          All Timers
-        </HeaderH1>
+      <HeaderH1 marginbottom={"3%"} color={"#FFFFFF"}>
+        All Timers
+      </HeaderH1>
 
-        {/* here: render timers */}
+      {/* here: render timers */}
 
-        {timers.map((timer) => {
-          const isLiked = timer.likedBy?.includes(
-            firebase.auth().currentUser?.uid
-          );
-          const isCollected = timer.collectedBy?.includes(
-    firebase.auth().currentUser?.uid
-  );
+      {timers.map((timer) => {
+        const isLiked = timer.likedBy?.includes(
+          firebase.auth().currentUser?.uid
+        );
+        const isCollected = timer.collectedBy?.includes(
+          firebase.auth().currentUser?.uid
+        );
 
-          return (
-            <BigTimerlistLink
-              key={timer.id}
-              background={timer.baseColor.value}
-              color={"#000000"}
-            >
-              <InsideTimerlistWrap as={Link} to={`/timer/${timer.id}`}>
-                <HeaderH2 margin={"1.5% auto 2% 1.5%"} fontSize={"1.8rem"}>
-                  {timer.timerName}
-                </HeaderH2>
-                <HeaderH2
-                  margin={"1.5% auto 2% 1.5%"}
-                  fontSize={"1.4rem"}
-                  color={"#ffffff"}
-                >
-                  {`Steps at ${timer.customSec} secs`}
-                </HeaderH2>
-              </InsideTimerlistWrap>
-              <InsideTimerlistWrap width={"15%"}>
-                <StyledIconDiv>
-                  {!isLiked ? (
-                    <FaRegHeart
-                      color={"white"}
-                      size={"1.5rem"}
-                      onClick={() => toggleLikeCollect(isLiked, "likedBy",timer.id)}
-                    />
-                  ) : (
-                    <FaHeart
-                      color={"white"}
-                      size={"1.5rem"}
-                      onClick={() => toggleLikeCollect(isLiked, "likedBy",timer.id)}
-                    />
-                  )}
+        return (
+          <BigTimerlistLink
+            key={timer.id}
+            background={timer.baseColor.value}
+            color={"#000000"}
+          >
+            <InsideTimerlistWrap as={Link} to={`/timer/${timer.id}`}>
+              <HeaderH2 margin={"1.5% auto 2% 1.5%"} fontSize={"1.8rem"}>
+                {timer.timerName}
+              </HeaderH2>
+              <HeaderH2
+                margin={"1.5% auto 2% 1.5%"}
+                fontSize={"1.4rem"}
+                color={"#ffffff"}
+              >
+                {`Steps at ${timer.customSec} secs`}
+              </HeaderH2>
+            </InsideTimerlistWrap>
+            <InsideTimerlistWrap width={"15%"}>
+              <StyledIconDiv>
+                {!isLiked ? (
+                  <FaRegHeart
+                    color={"white"}
+                    size={"1.5rem"}
+                    onClick={() =>
+                      toggleLikeCollect(isLiked, "likedBy", timer.id)
+                    }
+                  />
+                ) : (
+                  <FaHeart
+                    color={"white"}
+                    size={"1.5rem"}
+                    onClick={() =>
+                      toggleLikeCollect(isLiked, "likedBy", timer.id)
+                    }
+                  />
+                )}
                 <span>&thinsp;{timer.likedBy?.length || 0}</span>
-                </StyledIconDiv>
-                <StyledIconDiv>
-                  {!isCollected ? (
-                    <IoBookmarkOutline
-                      size={"1.5rem"}
-                      onClick={() =>
-                        toggleLikeCollect(isCollected, "collectedBy",timer.id)
-                      }
-                    />
-                  ) : (
-                    <IoBookmark
-                      size={"1.5rem"}
-                      onClick={() =>
-                        toggleLikeCollect(isCollected, "collectedBy",timer.id)
-                      }
-                    />
-                  )}
+              </StyledIconDiv>
+              <StyledIconDiv>
+                {!isCollected ? (
+                  <IoBookmarkOutline
+                    size={"1.5rem"}
+                    onClick={() =>
+                      toggleLikeCollect(isCollected, "collectedBy", timer.id)
+                    }
+                  />
+                ) : (
+                  <IoBookmark
+                    size={"1.5rem"}
+                    onClick={() =>
+                      toggleLikeCollect(isCollected, "collectedBy", timer.id)
+                    }
+                  />
+                )}
                 <span>&thinsp;{timer.collectedBy?.length || 0}</span>
-                </StyledIconDiv>
-                {/* <StyledIconDiv>{<FaEdit size={"1.5rem"} />}</StyledIconDiv> */}
-              </InsideTimerlistWrap>
-            </BigTimerlistLink>
-          );
-        })}
-
+              </StyledIconDiv>
+              {/* <StyledIconDiv>{<FaEdit size={"1.5rem"} />}</StyledIconDiv> */}
+            </InsideTimerlistWrap>
+          </BigTimerlistLink>
+        );
+      })}
     </>
   );
 };

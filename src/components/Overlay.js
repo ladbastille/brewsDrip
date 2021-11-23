@@ -23,7 +23,7 @@ const Overlay = ({ toggle, setToggle }) => {
 };
 
 const OverlayContainer = styled.div`
-font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
   position: absolute;
   top: 0;
   left: 50%;
@@ -34,7 +34,7 @@ font-family: "Poppins", Arial, Helvetica, sans-serif;
   z-index: 100;
   transform: ${(props) => props.active && ` translateX(-100%);`};
   @media (max-width: 425px) {
-    display:none;
+    display: none;
   }
 `;
 

@@ -3,9 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import logo from "../images/logo_180x40.svg";
 import timerLogo from "../images/logo-timer.svg";
-import searchLogo from "../images/logo-search.svg";
 import memberLogo from "../images/logo-member.svg";
-import cartLogo from "../images/logo-cart.svg";
 import mobileMenuLogo from "../images/logo-mobileMenu.svg";
 
 function Header() {
@@ -39,9 +37,24 @@ function Header() {
       </LogoBtnWrap>
 
       <LinksWrap mobileMenuOpen={mobileMenuOpen}>
-        <StyledLink to="/tutorials" onClick={() => setMobileMenuOpen((prev) => !prev)}>COFFEE TUTORIALS</StyledLink>
-        <StyledLink to="/tastenotelist" onClick={() => setMobileMenuOpen((prev) => !prev)}>TASTE NOTE</StyledLink>
-        <StyledLink to="/timerlist" onClick={() => setMobileMenuOpen((prev) => !prev)}>COFFEE TIMER</StyledLink>
+        <StyledLink
+          to="/tutorials"
+          onClick={() => setMobileMenuOpen((prev) => !prev)}
+        >
+          COFFEE TUTORIALS
+        </StyledLink>
+        <StyledLink
+          to="/tastenotelist"
+          onClick={() => setMobileMenuOpen((prev) => !prev)}
+        >
+          TASTE NOTE
+        </StyledLink>
+        <StyledLink
+          to="/timerlist"
+          onClick={() => setMobileMenuOpen((prev) => !prev)}
+        >
+          COFFEE TIMER
+        </StyledLink>
         {/* <StyledLink to="/coffeemap" onClick={() => setMobileMenuOpen((prev) => !prev)}>COFFEE MAP</StyledLink> */}
         {/* <StyledLink to="/shop" onClick={() => setMobileMenuOpen((prev) => !prev)}>SHOP</StyledLink> */}
       </LinksWrap>
@@ -51,7 +64,7 @@ function Header() {
 
 const MainHeader = styled.div`
   width: 100%;
-  min-width:375px;
+  min-width: 375px;
   height: 120px;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   margin-top: 2px;
@@ -65,9 +78,9 @@ const MainHeader = styled.div`
   }
   @media (max-width: 768px) {
     height: 50px;
-    border-radius:0 0 10px 10px;
+    border-radius: 0 0 10px 10px;
   }
-  @media (max-width: 374px){
+  @media (max-width: 374px) {
     min-width: 100%;
   }
 `;
@@ -78,13 +91,13 @@ export const LogoImg = styled.img`
   cursor: pointer;
   @media (max-width: 768px) {
     height: 30px;
-    margin-top:0.6rem;
+    margin-top: 0.6rem;
   }
 `;
 
 export const TimerLogoImg = styled.img`
   height: 35px;
-  align-self:center;
+  align-self: center;
   cursor: pointer;
   @media (max-width: 768px) {
     display: none;
@@ -93,21 +106,11 @@ export const TimerLogoImg = styled.img`
 
 const MenuLogoImg = styled.img`
   height: 35px;
-  width:35px;
-  align-self:center;
+  width: 35px;
+  align-self: center;
   cursor: pointer;
   @media (max-width: 768px) {
     display: none;
-  }
-`;
-
-const CartLogoImg = styled.img`
-  height: 35px;
-  align-self:center;
-  cursor: pointer;
-  @media (max-width: 768px) {
-    height: 25px;
-    margin-left: auto;
   }
 `;
 
@@ -118,7 +121,7 @@ const MenuLogoWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  align-self:center;
+  align-self: center;
 `;
 
 const LogoBtnWrap = styled.div`
@@ -138,8 +141,7 @@ const LinksWrap = styled.div`
   border-top: 1px solid #e7dfd2;
   border-bottom: 1px solid #e7dfd2;
   @media (max-width: 768px) {
-    display: ${(props) =>
-      props.mobileMenuOpen ? "flex" : "none"};
+    display: ${(props) => (props.mobileMenuOpen ? "flex" : "none")};
     height: auto;
     flex-direction: column;
     justify-content: flex-start;
@@ -176,13 +178,12 @@ const MobileMenu = styled.img`
 
   @media (max-width: 768px) {
     display: block;
-    
   }
 `;
 
 const MobileTimerLogo = styled(TimerLogoImg)`
   display: none;
-  align-self:center;
+  align-self: center;
   @media (max-width: 768px) {
     display: block;
   }

@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { SiFacebook, SiGoogle } from "react-icons/si";
-import {StyledSpan} from './Signup'
+import { StyledSpan } from "./Signup";
 import { facebookProvider, googleProvider } from "../utils/authMethods";
 import firebase from "./../utils/firebase";
 import { useHistory } from "react-router-dom";
-import ReactLoading from 'react-loading';
-import Input from './Input'
+import ReactLoading from "react-loading";
 import { HeaderH1 } from "./Input";
 
 export const SigninContainer = styled.div`
@@ -47,7 +46,8 @@ const HeaderSingin = styled(HeaderH1)`
 
 export const SocialContainer = styled.div`
   margin: 20px 0;
-  a {
+  div {
+    background: #ffffff;
     border: 1.5px solid #ecd9bc;
     border-radius: 50%;
     display: inline-flex;
@@ -62,7 +62,7 @@ export const SocialContainer = styled.div`
     @media (max-width: 425px) {
       color: white;
     }
-    a:visited {
+    div:visited {
       color: black;
     }
   }
@@ -85,42 +85,41 @@ export const SubmitButton = styled.button`
   border-radius: 10px;
   cursor: pointer;
   border: 1px solid #de6932;
-  border-color:${props=>props.color||"#de6932"};
-  background-color: ${props=>props.color||"#de6932"};
+  border-color: ${(props) => props.color || "#de6932"};
+  background-color: ${(props) => props.color || "#de6932"};
   color: #ffffff;
   font-size: 12px;
   font-weight: bold;
-  margin-top:5px;
+  margin-top: 5px;
   padding: 12px 45px;
   letter-spacing: 1px;
   transition: transform 80ms ease-in;
-  align-self:${props=>props.alignSelf};
-
+  align-self: ${(props) => props.alignSelf};
 `;
 
 export const SignupButton = styled(SubmitButton)`
   display: none;
   margin-top: 8px;
-  background-color: #7E876D;
-  border-color: #7E876D;
+  background-color: #7e876d;
+  border-color: #7e876d;
   padding: 12px 43px;
   @media (max-width: 425px) {
     display: block;
   }
 `;
 
-const Signin = ({ toggle, handleOnClick, }) => {
+const Signin = ({ toggle, handleOnClick }) => {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onSignUp = (e) => {
     console.log("signUP");
-    
+
     setIsLoading(true);
-    e.preventDefault()
+    e.preventDefault();
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -131,14 +130,14 @@ const Signin = ({ toggle, handleOnClick, }) => {
       })
       .catch((error) => {
         switch (error.code) {
-          case 'auth/email-already-in-use':
-            setErrorMessage('信箱已存在');
+          case "auth/email-already-in-use":
+            setErrorMessage("信箱已存在");
             break;
-          case 'auth/invalid-email':
-            setErrorMessage('信箱格式不正確');
+          case "auth/invalid-email":
+            setErrorMessage("信箱格式不正確");
             break;
-          case 'auth/weak-password':
-            setErrorMessage('密碼強度不足');
+          case "auth/weak-password":
+            setErrorMessage("密碼強度不足");
             break;
           default:
         }
@@ -149,7 +148,7 @@ const Signin = ({ toggle, handleOnClick, }) => {
   const onSignIn = (e) => {
     console.log("signin");
     setIsLoading(true);
-    e.preventDefault()
+    e.preventDefault();
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -160,14 +159,14 @@ const Signin = ({ toggle, handleOnClick, }) => {
       })
       .catch((error) => {
         switch (error.code) {
-          case 'auth/invalid-email':
-            setErrorMessage('信箱格式不正確');
+          case "auth/invalid-email":
+            setErrorMessage("信箱格式不正確");
             break;
-          case 'auth/user-not-found':
-            setErrorMessage('信箱不存在');
+          case "auth/user-not-found":
+            setErrorMessage("信箱不存在");
             break;
-          case 'auth/wrong-password':
-            setErrorMessage('密碼錯誤');
+          case "auth/wrong-password":
+            setErrorMessage("密碼錯誤");
             break;
           default:
         }
@@ -178,18 +177,18 @@ const Signin = ({ toggle, handleOnClick, }) => {
   return (
     <SigninContainer avtive={toggle}>
       <StyledForm>
-      {/* <Input type="email"
+        {/* <Input type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}/> */}
         <HeaderSingin>Welcome!</HeaderSingin>
         <SocialContainer>
-          <a>
+          <div>
             <SiFacebook onClick={() => handleOnClick(facebookProvider)} />
-          </a>
-          <a>
+          </div>
+          <div>
             <SiGoogle onClick={() => handleOnClick(googleProvider)} />
-          </a>
+          </div>
         </SocialContainer>
         <StyledSpan>press buttons above or use email to sign in</StyledSpan>
         <StyledInput
@@ -197,19 +196,23 @@ const Signin = ({ toggle, handleOnClick, }) => {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          onFocus={()=> setErrorMessage('')}
+          onFocus={() => setErrorMessage("")}
         />
         <StyledInput
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          onFocus={()=> setErrorMessage('')}
+          onFocus={() => setErrorMessage("")}
         />
         <SubmitButton onClick={(e) => onSignIn(e)}>Sign In</SubmitButton>
         <SignupButton onClick={(e) => onSignUp(e)}>Sign Up</SignupButton>
-        {errorMessage && <h5 >{errorMessage}</h5>}
-        {isLoading ? (<ReactLoading color="#FBD850" type="spinningBubbles" />) : (<></>) }
+        {errorMessage && <h5>{errorMessage}</h5>}
+        {isLoading ? (
+          <ReactLoading color="#FBD850" type="spinningBubbles" />
+        ) : (
+          <></>
+        )}
       </StyledForm>
     </SigninContainer>
   );

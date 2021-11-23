@@ -24,19 +24,24 @@ const MOCK_TAGS = [
   {
     id: 6,
     label: "Chocolate",
-  },{
+  },
+  {
     id: 7,
     label: "Caramel",
-  },{
+  },
+  {
     id: 8,
     label: "Cane",
-  },{
+  },
+  {
     id: 9,
     label: "Fruity",
-  },{
+  },
+  {
     id: 10,
     label: "Grapefruit",
-  },{
+  },
+  {
     id: 11,
     label: "Floral",
   },

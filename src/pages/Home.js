@@ -41,7 +41,7 @@ const TutorialsParagraph = styled.p`
   width: 20%;
   @media (max-width: 375px) {
     font-size: 2rem;
-    width:70%;
+    width: 70%;
   }
 `;
 

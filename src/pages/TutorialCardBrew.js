@@ -30,10 +30,11 @@ const CardListDiv = styled.div`
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   margin-top: 15px;
   margin-bottom: 25px;
-  a,a:visited {
+  a,
+  a:visited {
     color: #000000;
   }
-  @media (max-width:768px){
+  @media (max-width: 768px) {
     /* flex-wrap: wrap; */
     width: 80%;
   }

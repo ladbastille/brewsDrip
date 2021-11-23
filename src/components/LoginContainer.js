@@ -11,4 +11,4 @@ const LoginContainer = styled.div`
   min-height: 480px;
 `;
 
-export default LoginContainer
+export default LoginContainer;

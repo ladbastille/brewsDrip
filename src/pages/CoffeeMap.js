@@ -1,8 +1,9 @@
-
-function CoffeeMap (){
-    return (<>
-        <div>CoffeeMap</div>
-        </>)
+function CoffeeMap() {
+  return (
+    <>
+      <div>CoffeeMap</div>
+    </>
+  );
 }
 
 export default CoffeeMap;

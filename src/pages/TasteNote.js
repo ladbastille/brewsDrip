@@ -16,7 +16,12 @@ import Input, { HeaderH1 } from "../components/Input";
 import Dropdown from "../components/Dropdown";
 import { SubmitButton } from "../components/Signin";
 import { FooterCTABtn } from "../components/Footer";
-import { Flex100BetweenWrap,Flex90BetweenWrap,StyledIconDiv,ShareBtnDiv } from "./Timer";
+import {
+  Flex100BetweenWrap,
+  Flex90BetweenWrap,
+  StyledIconDiv,
+  ShareBtnDiv,
+} from "./Timer";
 import { GiCoffeeBeans } from "react-icons/gi";
 import { FiShare2 } from "react-icons/fi";
 import { BiLinkAlt } from "react-icons/bi";
@@ -133,7 +138,8 @@ const TasteInput = styled(Input)`
   margin: 2% 3%;
   padding: 5px 10px;
   font-family: Poppins, Arial, Helvetica, sans-serif;
-  background-color: ${props=>props.readOnly ? "#fbd850" : "#ffffff"};
+  background-color: ${(props) => (props.readOnly ? "#fbd850" : "#ffffff")};
+  cursor: ${(props) => (props.readOnly ? "default" : "edit")};
 `;
 
 export const HeaderH2 = styled(HeaderH1)`
@@ -155,7 +161,8 @@ const NoteTextarea = styled.textarea`
   border: transparent;
   border-radius: 10px;
   text-align: center;
-  background-color: ${props=>props.readOnly ? "#fbd850" : "#ffffff"}
+  background-color: ${(props) => (props.readOnly ? "#fbd850" : "#ffffff")};
+  cursor: ${(props) => (props.readOnly ? "default" : "edit")};
 `;
 
 const RatingDiv = styled.div`
@@ -163,7 +170,6 @@ const RatingDiv = styled.div`
   justify-content: center;
   align-items: center;
   margin: 2px 10px;
-
   input[type="radio"] {
     display: none;
   }
@@ -174,23 +180,22 @@ const RatingDiv = styled.div`
 `;
 
 const EditBtn = styled(FooterCTABtn)`
-border: transparent 2px solid;
+  border: transparent 2px solid;
   &:hover {
     color: #000000;
     transition: all 0.3s ease-out;
-    background-color: ${props=>props.color};
+    background-color: ${(props) => props.color};
     border: #fff 2px solid;
   }
 `;
 
-const FlexCenterWrap=styled(Flex90BetweenWrap)`
-justify-content: center;
- ${EditBtn}{
-  margin-top:0px;
-  margin-right:20px;
-}
-
-`
+const FlexCenterWrap = styled(Flex90BetweenWrap)`
+  justify-content: center;
+  ${EditBtn} {
+    margin-top: 0px;
+    margin-right: 20px;
+  }
+`;
 
 function TasteNote({ user }) {
   const Swal = require("sweetalert2");
@@ -239,13 +244,12 @@ function TasteNote({ user }) {
     Swal.fire({
       title: "You are now editing this tastenote.",
       showClass: {
-        popup: 'animate__animated animate__fadeInDown'
+        popup: "animate__animated animate__fadeInDown",
       },
       hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      }
-    })
-    
+        popup: "animate__animated animate__fadeOutUp",
+      },
+    });
   };
 
   const toggleSaveData = () => {
@@ -328,7 +332,7 @@ function TasteNote({ user }) {
         </Flex100BetweenWrap>
         <HeaderH1 marginbottom={"10px"}>Taste Note</HeaderH1>
         <InsideNotelistWrap width={"90%"}>
-          <SecondWrap width={"35%"} flexDirection={"column"}>
+          <SecondWrap width={"50%"} flexDirection={"column"}>
             <ThirdWrap>
               <HeaderH2>Drink</HeaderH2>
               <TasteInput
@@ -399,7 +403,7 @@ function TasteNote({ user }) {
             const ratingValue = (index += 1);
             return (
               <RatingDiv>
-                <label>
+                <label readOnly={readOnly}>
                   <input
                     type="radio"
                     name="rating"
@@ -413,6 +417,7 @@ function TasteNote({ user }) {
                     onMouseEnter={() => setHover(index)}
                     onMouseLeave={() => setHover(rating)}
                     size={25}
+                    className="star"
                   />
                 </label>
               </RatingDiv>
@@ -456,49 +461,47 @@ function TasteNote({ user }) {
           setSelectedTagIds={setSelectedTagIds}
         />
         <FlexCenterWrap margin={"6%"}>
-        {readOnly ? (
-          <EditBtn color={"#FF5741"} onClick={toggleEditable}>Edit</EditBtn>
-        ) : (
-          <EditBtn color={"#00B790"} onClick={toggleSaveData}>
-            Save
-          </EditBtn>
-        )}
-              <StyledIconDiv>
-                <FiShare2
-                  color={"white"}
-                  size={"1.5rem"}
-                  onClick={() => setIsShareClick((prev) => !prev)}
+          {readOnly ? (
+            <EditBtn color={"#FF5741"} onClick={toggleEditable}>
+              Edit
+            </EditBtn>
+          ) : (
+            <EditBtn color={"#00B790"} onClick={toggleSaveData}>
+              Save
+            </EditBtn>
+          )}
+          <StyledIconDiv>
+            <FiShare2
+              color={"white"}
+              size={"1.5rem"}
+              onClick={() => setIsShareClick((prev) => !prev)}
+            />
+            {isShareClick && (
+              <ShareBtnDiv>
+                <FacebookShareButton
+                  url={window.location.href}
+                  quote={"I've created a coffee tastenote. Take a look!"}
+                  hashtag={["brewsDrip", "YourBestCoffeePal"]}
+                  onShareWindowClose={onShareWindowClose}
+                >
+                  <FacebookIcon size={25} round />
+                </FacebookShareButton>
+                <LineShareButton
+                  url={window.location.href}
+                  title={"I've created a coffee tastenote. Take a look!"}
+                  onShareWindowClose={onShareWindowClose}
+                >
+                  <LineIcon size={25} round />
+                </LineShareButton>
+                <BiLinkAlt
+                  size={25}
+                  color={"#FFFFFF"}
+                  onClick={handleCopyUrl}
                 />
-                {isShareClick && (
-                  <ShareBtnDiv>
-                    <FacebookShareButton
-                      url={window.location.href}
-                      quote={
-                        "I've created a coffee tastenote. Take a look!"
-                      }
-                      hashtag={["brewsDrip", "YourBestCoffeePal"]}
-                      onShareWindowClose={onShareWindowClose}
-                    >
-                      <FacebookIcon size={25} round />
-                    </FacebookShareButton>
-                    <LineShareButton
-                      url={window.location.href}
-                      title={
-                        "I've created a coffee tastenote. Take a look!"
-                      }
-                      onShareWindowClose={onShareWindowClose}
-                    >
-                      <LineIcon size={25} round />
-                    </LineShareButton>
-                    <BiLinkAlt
-                      size={25}
-                      color={"#FFFFFF"}
-                      onClick={handleCopyUrl}
-                    />
-                  </ShareBtnDiv>
-                )}
-              </StyledIconDiv>
-              </FlexCenterWrap>
+              </ShareBtnDiv>
+            )}
+          </StyledIconDiv>
+        </FlexCenterWrap>
       </NewNoteContainer>
     </>
   );

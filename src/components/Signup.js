@@ -4,7 +4,6 @@ import firebase from "../utils/firebase";
 import "firebase/auth";
 import { SiFacebook, SiGoogle } from "react-icons/si";
 import { useHistory } from "react-router-dom";
-import socialMediaAuth from "../utils/auth";
 import ReactLoading from "react-loading";
 import { facebookProvider, googleProvider } from "../utils/authMethods";
 import { HeaderH1 } from "./Input";
@@ -30,7 +29,7 @@ const Signup = ({ toggle, handleOnClick }) => {
     console.log("signUP");
     setIsLoading(true);
 
-    e.preventDefault();
+    // e.preventDefault();
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -85,12 +84,12 @@ const Signup = ({ toggle, handleOnClick }) => {
       <StyledForm>
         <HeaderH1>Create Account</HeaderH1>
         <SocialContainer>
-          <a>
+          <div>
             <SiFacebook onClick={() => handleOnClick(facebookProvider)} />
-          </a>
-          <a>
+          </div>
+          <div>
             <SiGoogle onClick={() => handleOnClick(googleProvider)} />
-          </a>
+          </div>
         </SocialContainer>
         <StyledSpan>or use your email for registration</StyledSpan>
         <StyledInput
@@ -107,7 +106,9 @@ const Signup = ({ toggle, handleOnClick }) => {
           onChange={(e) => setPassword(e.target.value)}
           onFocus={() => setErrorMessage("")}
         />
-        <SubmitButton color={"#7E876D"}onClick={(e) => onSignUp(e)}>Sign Up</SubmitButton>
+        <SubmitButton color={"#7E876D"} onClick={(e) => onSignUp(e)}>
+          Sign Up
+        </SubmitButton>
         {errorMessage && <h5>{errorMessage}</h5>}
         {isLoading ? (
           <ReactLoading color="#FBD850" type="spinningBubbles" />

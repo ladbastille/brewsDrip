@@ -3,8 +3,13 @@ import firebase from "../utils/firebase";
 import "firebase/firestore";
 import { useLocation, Link } from "react-router-dom";
 import styled from "styled-components";
-import {TutorialsBrewDiv,CardListDiv,CardListH3,CardListText} from "./TutorialsB01"
-import {CardListH5} from './TutorialsD02'
+import {
+  TutorialsBrewDiv,
+  CardListDiv,
+  CardListH3,
+  CardListText,
+} from "./TutorialsB01";
+import { CardListH5 } from "./TutorialsD02";
 
 const CardListImg = styled.img`
   max-width: 100%;
@@ -213,7 +218,6 @@ const TutorialsD02 = () => {
             and veteran coffee buyer Colby Barr. Stay tuned for another
             Farmlevel adventure.
           </CardListText>
-          
         </CardListDiv>
       </TutorialsBrewDiv>
     </>

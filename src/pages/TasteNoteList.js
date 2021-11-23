@@ -9,7 +9,7 @@ import { HeaderH2 } from "./NewTimer";
 
 const TasteNoteListContainer = styled.div`
   font-family: "Open Sans Condensed", sans-serif;
-  background-color: #AA775B;
+  background-color: #aa775b;
   border-radius: 10px;
   box-shadow: 0 14px 28px rgb(0 0 0 / 25%), 0 10px 10px rgb(0 0 0 / 22%);
   position: relative;
@@ -21,7 +21,6 @@ const TasteNoteListContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
 `;
 
 export const StyledTimerlistLink = styled(Link)`
@@ -36,8 +35,8 @@ export const StyledTimerlistLink = styled(Link)`
   padding: ${(props) => (props.padding ? props.padding : "10px 20px")};
   width: ${(props) => (props.width ? props.width : "50%")};
   text-align: ${(props) => (props.textAlign ? props.textAlign : "center")};
-  &:hover{
-    border: 6px solid #DE6932;
+  &:hover {
+    border: 6px solid #de6932;
   }
 `;
 
@@ -63,14 +62,14 @@ const TimerList = () => {
 
   const location = useLocation();
   const urlSearchParams = new URLSearchParams(location.search);
-  const currentNote = urlSearchParams.get('taste-note');
+  const currentNote = urlSearchParams.get("taste-note");
   const lastPostSnapshotRef = React.useRef();
 
   useEffect(() => {
     firebase
       .firestore()
       .collection("taste-note")
-      .orderBy('createdAt', 'desc')
+      .orderBy("createdAt", "desc")
       .get()
       .then((collectionSnapshot) => {
         const data = collectionSnapshot.docs.map((docSnapshot) => {
@@ -80,10 +79,10 @@ const TimerList = () => {
         lastPostSnapshotRef.current =
           collectionSnapshot.docs[collectionSnapshot.docs.length - 1];
         setTasteNotes(data);
-        console.log(data)
+        console.log(data);
       });
   }, []);
-  
+
   return (
     <>
       <TasteNoteListContainer>
@@ -104,37 +103,44 @@ const TimerList = () => {
           All Notes
         </HeaderH1>
 
-{/* here: render timers */}
+        {/* here: render timers */}
 
-{tasteNotes.map((note) => {
-  return (
-        <BigTimerlistLink
-          key={note.id}
-          to={`/tastenotelist/${note.id}`}
-        //   background={note.baseColor.value}
-          color={"#FFFFFF"}
-        >
-          <InsideTimerlistWrap>
-            <HeaderH2 margin={"1.5% auto 2% 1.5%"} fontSize={"1.8rem"} color={"#FFFFFF"}>
-              {note.coffeeName}．{note.rating ? `${note.rating} stars`: ""}
-            </HeaderH2>
-            <HeaderH2
-              margin={"1.5% auto 2% 1.5%"}
-              fontSize={"1.6rem"}
-              color={"#ffffff"}
+        {tasteNotes.map((note) => {
+          return (
+            <BigTimerlistLink
+              key={note.id}
+              to={`/tastenotelist/${note.id}`}
+              //   background={note.baseColor.value}
+              color={"#FFFFFF"}
             >
-              {note.place} | {`${note.createdAt?.toDate().toLocaleDateString()}`}
-            </HeaderH2>
-          </InsideTimerlistWrap>
-          <InsideTimerlistWrap width={"10%"}>
-            {!isLike ? (
-              <FaRegHeart size={"1.5rem"} />
-            ) : (
-              <FaHeart size={"1.5rem"} />
-            )}
-            <FaEdit size={"1.5rem"} />
-          </InsideTimerlistWrap>
-        </BigTimerlistLink>)})}
+              <InsideTimerlistWrap>
+                <HeaderH2
+                  margin={"1.5% auto 2% 1.5%"}
+                  fontSize={"1.8rem"}
+                  color={"#FFFFFF"}
+                >
+                  {note.coffeeName}．{note.rating ? `${note.rating} stars` : ""}
+                </HeaderH2>
+                <HeaderH2
+                  margin={"1.5% auto 2% 1.5%"}
+                  fontSize={"1.6rem"}
+                  color={"#ffffff"}
+                >
+                  {note.place} |{" "}
+                  {`${note.createdAt?.toDate().toLocaleDateString()}`}
+                </HeaderH2>
+              </InsideTimerlistWrap>
+              <InsideTimerlistWrap width={"10%"}>
+                {!isLike ? (
+                  <FaRegHeart size={"1.5rem"} />
+                ) : (
+                  <FaHeart size={"1.5rem"} />
+                )}
+                <FaEdit size={"1.5rem"} />
+              </InsideTimerlistWrap>
+            </BigTimerlistLink>
+          );
+        })}
       </TasteNoteListContainer>
     </>
   );

@@ -3,7 +3,12 @@ import firebase from "../utils/firebase";
 import "firebase/firestore";
 import { useLocation, Link } from "react-router-dom";
 import styled from "styled-components";
-import {TutorialsBrewDiv,CardListDiv,CardListH3,CardListText} from "./TutorialsB01"
+import {
+  TutorialsBrewDiv,
+  CardListDiv,
+  CardListH3,
+  CardListText,
+} from "./TutorialsB01";
 
 const CardListImg = styled.img`
   max-width: 100%;
@@ -11,19 +16,17 @@ const CardListImg = styled.img`
   width: ${(props) => props.width};
 `;
 
-
 const CardListH4 = styled.h4`
   font-size: 20px;
   line-height: 24px;
-  margin-bottom: ${props=>props.marginbottom};
+  margin-bottom: ${(props) => props.marginbottom};
 `;
 
 export const CardListH5 = styled(CardListH4)`
   font-size: 18px;
   font-weight: 600;
-  margin-bottom:15px;
+  margin-bottom: 15px;
 `;
-
 
 const FlexRowDiv = styled.div`
   display: flex;
@@ -91,28 +94,49 @@ const TutorialsD02 = () => {
             />
           </FlexRowDiv>
           <FlexRowDiv>
-          <CardListH5 marginbottom={"20px"}>Alejandro Catalan</CardListH5>
-          <CardListH5 mmarginbottom={"20px"}>The Café de Olla con Panna</CardListH5>
+            <CardListH5 marginbottom={"20px"}>Alejandro Catalan</CardListH5>
+            <CardListH5 mmarginbottom={"20px"}>
+              The Café de Olla con Panna
+            </CardListH5>
           </FlexRowDiv>
           <CardListH4 style={{ color: "#DE6932" }}>
-          Q: Does your family have a recipe for café de olla?
+            Q: Does your family have a recipe for café de olla?
           </CardListH4>
           <CardListText>
-          A: Not really, I’ll ask my mom, “how did you make it?” and she’ll say “oh, a pinch of this and a pinch of that,” and I’m like “ok how much is a pinch for you?” I’ll try to get her to tell me if it’s in ounces or grams, but she’ll say “no it's just a pinch, you take a guess.” I’ve seen my grandmother make it. She’ll just buy the ingredients, and then visually go by pinches and handfuls. She makes it on the stovetop, puts in a bunch of cinnamon sticks, throws in some chocolates, anise, and piloncillo, lets it all dissolve, and then tastes it. Then she throws in ground coffee, boils it for a while, and filters it through a mesh.
+            A: Not really, I’ll ask my mom, “how did you make it?” and she’ll
+            say “oh, a pinch of this and a pinch of that,” and I’m like “ok how
+            much is a pinch for you?” I’ll try to get her to tell me if it’s in
+            ounces or grams, but she’ll say “no it's just a pinch, you take a
+            guess.” I’ve seen my grandmother make it. She’ll just buy the
+            ingredients, and then visually go by pinches and handfuls. She makes
+            it on the stovetop, puts in a bunch of cinnamon sticks, throws in
+            some chocolates, anise, and piloncillo, lets it all dissolve, and
+            then tastes it. Then she throws in ground coffee, boils it for a
+            while, and filters it through a mesh.
           </CardListText>
           <CardListH4 style={{ color: "#DE6932" }}>
-          Q: How did you develop your recipe?</CardListH4>
+            Q: How did you develop your recipe?
+          </CardListH4>
           <CardListText>
-          A: I wanted to make it unique and different for Verve, so the first thing I considered was how to pair it with espresso. What if I made an espresso con panna with a café de olla twist? So I threw around some ideas that I had with the kitchen staff at Mateo, brought them cinnamon and piloncillo, and gave them directions on what I’d like to do. We came up with a concentrate that’s an incredible syrup, and a whipped cream that has the spice components of traditional café de olla. Combined with the espresso, it is sweet, energetic, and fragrant--, you smell it and want to devour the whole thing instantly.
+            A: I wanted to make it unique and different for Verve, so the first
+            thing I considered was how to pair it with espresso. What if I made
+            an espresso con panna with a café de olla twist? So I threw around
+            some ideas that I had with the kitchen staff at Mateo, brought them
+            cinnamon and piloncillo, and gave them directions on what I’d like
+            to do. We came up with a concentrate that’s an incredible syrup, and
+            a whipped cream that has the spice components of traditional café de
+            olla. Combined with the espresso, it is sweet, energetic, and
+            fragrant--, you smell it and want to devour the whole thing
+            instantly.
           </CardListText>
 
           <CardListText>
-          Thank you, Alejandro, for sharing your recipe with us -  we are so excited to feature it on our menu this holiday season!
-<br/><br/>
-Try Café de Olla today...
+            Thank you, Alejandro, for sharing your recipe with us - we are so
+            excited to feature it on our menu this holiday season!
+            <br />
+            <br />
+            Try Café de Olla today...
           </CardListText>
-
-          
         </CardListDiv>
       </TutorialsBrewDiv>
     </>
