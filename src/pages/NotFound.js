@@ -1,10 +1,10 @@
 import React from "react";
-import { useLocation, Link } from "react-router-dom";
-import NotFoundBg from "../images/404_bg.png";
+import NotFoundCoffee from "../images/coffee-spill-404.png";
 import styled from "styled-components";
 
 const NotFoundDiv = styled.div`
-  width: 50%;
+  font-family: "Poppins", sans-serif;
+  width: 70%;
   margin: 0 auto;
   object-fit: content;
   position: relative;
@@ -17,10 +17,12 @@ const NotFoundImg = styled.img`
   width: 100%;
 `;
 const NotFoundH1 = styled.h1`
+  font-size: 7rem;
   position: absolute;
-  top: 90%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  color: #ffffff;
+  font-weight: bolder;
+  bottom: 20%;
+  right: 10%;
 `;
 const NotFoundH2 = styled.h2`
   position: absolute;
@@ -33,9 +35,9 @@ const NotFound = () => {
   return (
     <>
       <NotFoundDiv>
-        <NotFoundImg src={NotFoundBg}></NotFoundImg>
-        <NotFoundH2>Not Found</NotFoundH2>
-        <NotFoundH1>Go to Homepage.</NotFoundH1>
+        <NotFoundImg src={NotFoundCoffee}></NotFoundImg>
+        <NotFoundH1>Not Found</NotFoundH1>
+        <NotFoundH2>Go to Homepage.</NotFoundH2>
       </NotFoundDiv>
     </>
   );

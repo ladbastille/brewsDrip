@@ -6,62 +6,6 @@ import timerLogo from "../images/logo-timer.svg";
 import memberLogo from "../images/logo-member.svg";
 import mobileMenuLogo from "../images/logo-mobileMenu.svg";
 
-function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  return (
-    <MainHeader>
-      <LogoBtnWrap>
-        <MenuLogoWrap>
-          <MobileMenu
-            src={mobileMenuLogo}
-            onClick={() => setMobileMenuOpen((prev) => !prev)}
-          />
-          <Link to="/timerlist">
-            <TimerLogoImg src={timerLogo} />
-          </Link>
-        </MenuLogoWrap>
-        <Link to="/">
-          <LogoImg path="/" src={logo} />
-        </Link>
-        <MenuLogoWrap>
-          {/* <MenuLogoImg src={searchLogo} /> */}
-          {/* <MenuLogoImg src={cartLogo} /> */}
-          <Link to="/timerlist">
-            <MobileTimerLogo src={timerLogo} />
-          </Link>
-          <Link to="/login">
-            <MenuLogoImg path="/login" src={memberLogo} />
-          </Link>
-        </MenuLogoWrap>
-      </LogoBtnWrap>
-
-      <LinksWrap mobileMenuOpen={mobileMenuOpen}>
-        <StyledLink
-          to="/tutorials"
-          onClick={() => setMobileMenuOpen((prev) => !prev)}
-        >
-          COFFEE TUTORIALS
-        </StyledLink>
-        <StyledLink
-          to="/tastenotelist"
-          onClick={() => setMobileMenuOpen((prev) => !prev)}
-        >
-          TASTE NOTE
-        </StyledLink>
-        <StyledLink
-          to="/timerlist"
-          onClick={() => setMobileMenuOpen((prev) => !prev)}
-        >
-          COFFEE TIMER
-        </StyledLink>
-        {/* <StyledLink to="/coffeemap" onClick={() => setMobileMenuOpen((prev) => !prev)}>COFFEE MAP</StyledLink> */}
-        {/* <StyledLink to="/shop" onClick={() => setMobileMenuOpen((prev) => !prev)}>SHOP</StyledLink> */}
-      </LinksWrap>
-    </MainHeader>
-  );
-}
-
 const MainHeader = styled.div`
   width: 100%;
   min-width: 375px;
@@ -117,7 +61,6 @@ const MenuLogoImg = styled.img`
 const MenuLogoWrap = styled.div`
   width: 135px;
   height: 45px;
-  /* padding-top: 5px; */
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -188,5 +131,57 @@ const MobileTimerLogo = styled(TimerLogoImg)`
     display: block;
   }
 `;
+
+function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  return (
+    <MainHeader>
+      <LogoBtnWrap>
+        <MenuLogoWrap>
+          <MobileMenu
+            src={mobileMenuLogo}
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+          />
+          <Link to="/timerlist">
+            <TimerLogoImg src={timerLogo} />
+          </Link>
+        </MenuLogoWrap>
+        <Link to="/">
+          <LogoImg path="/" src={logo} />
+        </Link>
+        <MenuLogoWrap>
+          <Link to="/timerlist">
+            <MobileTimerLogo src={timerLogo} />
+          </Link>
+          <Link to="/login">
+            <MenuLogoImg path="/login" src={memberLogo} />
+          </Link>
+        </MenuLogoWrap>
+      </LogoBtnWrap>
+
+      <LinksWrap mobileMenuOpen={mobileMenuOpen}>
+        <StyledLink
+          to="/tutorials"
+          onClick={() => setMobileMenuOpen((prev) => !prev)}
+        >
+          COFFEE TUTORIALS
+        </StyledLink>
+        <StyledLink
+          to="/tastenotelist"
+          onClick={() => setMobileMenuOpen((prev) => !prev)}
+        >
+          TASTE NOTE
+        </StyledLink>
+        <StyledLink
+          to="/timerlist"
+          onClick={() => setMobileMenuOpen((prev) => !prev)}
+        >
+          COFFEE TIMER
+        </StyledLink>
+      </LinksWrap>
+    </MainHeader>
+  );
+}
 
 export default Header;

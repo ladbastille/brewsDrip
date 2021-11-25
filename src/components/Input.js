@@ -41,12 +41,6 @@ export const HeaderH1 = styled.h1`
   color: ${(props) => (props.color ? props.color : "#000000")};
 `;
 
-// const HeaderSingin = styled(HeaderH1)`
-//   @media (max-width: 425px) {
-//     color: #ffffff;
-//   }
-// `;
-
 export const SocialContainer = styled.div`
   margin: 20px 0;
   a {

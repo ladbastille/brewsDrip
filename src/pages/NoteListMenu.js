@@ -20,9 +20,7 @@ function NoteListMenu() {
         <NotesTag to="/tastenotelist" marginbottom={"3%"} color={"#FFFFFF"}>
           All
         </NotesTag>
-        {/* <NotesTag to="/timerlist/default" marginbottom={"3%"} color={"#FFFFFF"}>
-          Demo
-        </NotesTag> */}
+
         <NotesTag
           to="/tastenotelist/collected"
           marginbottom={"3%"}

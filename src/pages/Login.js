@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
 import "firebase/auth";
 import socialMediaAuth from "../utils/auth";
 import Signin from "../components/Signin";
 import Signup from "../components/Signup";
 import Overlay from "../components/Overlay";
-import LoginContainer from "../components/LoginContainer";
+
+const LoginContainer = styled.div`
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  position: relative;
+  overflow: hidden;
+  width: 768px;
+  max-width: 100%;
+  min-height: 480px;
+`;
 
 const LoginBody = styled.div`
   box-sizing: border-box;
@@ -22,11 +31,6 @@ const LoginBody = styled.div`
 
 function Login({ user }) {
   const [toggle, setToggle] = useState(true);
-  //   const history = useHistory();
-  //   const [email, setEmail] = React.useState("");
-  //   const [password, setPassword] = React.useState("");
-  //   const [activeItem, setActiveItem] = React.useState("signup");
-
   const handleOnClick = async (provider) => {
     console.log("SNS Btn Login");
     const res = await socialMediaAuth(provider);
@@ -43,4 +47,5 @@ function Login({ user }) {
     </LoginBody>
   );
 }
+
 export default Login;

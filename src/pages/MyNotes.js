@@ -1,27 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import firebase from "../utils/firebase";
 import "firebase/firestore";
-import {
-  TimerListContainer,
-  StyledTimerlistLink,
-  TimersTagWrap,
-  TimersTag,
-  InsideTimerlistWrap,
-} from "./AllTimerList";
+import { InsideTimerlistWrap } from "./AllTimerList";
 import { BigNotelistLink } from "./AllNoteList";
-import { FaArrowLeft, FaRegHeart, FaHeart, FaEdit } from "react-icons/fa";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
-import { TiDeleteOutline, TiDelete } from "react-icons/ti";
-import { FiDelete } from "react-icons/fi";
 import { RiDeleteBack2Fill } from "react-icons/ri";
 import { GiCoffeeBeans } from "react-icons/gi";
 import { RatingDiv, SecondWrap } from "./NewNote";
 import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
 import { StyledIconDiv } from "./Timer";
-import Header from "../components/Header";
 
 export const NoteEditIconDiv = styled(StyledIconDiv)`
   position: absolute;
@@ -46,8 +37,6 @@ function MyTimers({ user }) {
         .collection("taste-note")
         .where("author.uid", "==", firebase.auth().currentUser.uid)
         .orderBy("createdAt", "desc")
-        // .get()
-        // .then((collectionSnapshot) => {
         .onSnapshot((collectionSnapshot) => {
           const data = collectionSnapshot.docs.map((docSnapshot) => {
             const id = docSnapshot.id;
@@ -73,12 +62,6 @@ function MyTimers({ user }) {
     }
   }
 
-  const isCollected = tasteNotes.collectedBy?.includes(
-    firebase.auth().currentUser.uid
-  );
-  const isLiked = tasteNotes.likedBy?.includes(firebase.auth().currentUser.uid);
-  const currentUserId = firebase.auth().currentUser?.uid;
-
   function handleDeleteNote(noteid) {
     firebase.firestore().collection("taste-note").doc(noteid).delete();
   }
@@ -88,7 +71,6 @@ function MyTimers({ user }) {
       <HeaderH1 marginbottom={"3%"} color={"#FFFFFF"}>
         My Notes
       </HeaderH1>
-      {/* here: render timers */}
 
       {tasteNotes.map((note) => {
         const isLiked = note.likedBy?.includes(
@@ -145,7 +127,6 @@ function MyTimers({ user }) {
                     })
                   : ""}
               </SecondWrap>
-              {/* </HeaderH2> */}
             </InsideTimerlistWrap>
 
             <InsideTimerlistWrap width={"15%"}>
@@ -187,7 +168,6 @@ function MyTimers({ user }) {
                 )}
                 <span>&thinsp;{note.collectedBy?.length || 0}</span>
               </StyledIconDiv>
-              {/* <StyledIconDiv>{<FaEdit size={"1.5rem"} />}</StyledIconDiv> */}
             </InsideTimerlistWrap>
             <NoteEditIconDiv
               onClick={(e) => {

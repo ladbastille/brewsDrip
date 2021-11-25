@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 const MOCK_TAGS = [
   {
@@ -47,8 +47,6 @@ const MOCK_TAGS = [
   },
 ];
 
-const SELECTED_TAGS = [1, 3, 5];
-
 const Chip = ({ active, label, handleOnClick }) => {
   return (
     <div
@@ -70,9 +68,7 @@ const Chip = ({ active, label, handleOnClick }) => {
 const Tags = ({ editable = true, selectedTagIds, setSelectedTagIds }) => {
   const handleTagOnClick = (selectedTagId) => {
     if (selectedTagIds.indexOf(selectedTagId) === -1) {
-      const newSelectedTagIds = [].concat(
-        selectedTagIds
-      ); /* [...selectedTagIds] */
+      const newSelectedTagIds = [].concat(selectedTagIds);
       newSelectedTagIds.push(selectedTagId);
       setSelectedTagIds(newSelectedTagIds);
     } else {

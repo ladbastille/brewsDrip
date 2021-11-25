@@ -61,9 +61,7 @@ const OverlayPanelLeft = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  /* padding: 0 40px; */
   text-align: center;
-  /* top: 40px; */
   height: 100%;
   width: 50%;
   transition: transform 0.6s ease-in-out;
@@ -77,9 +75,7 @@ const OverlayPanelRight = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  /* padding: 0 40px; */
   text-align: center;
-  /* top: 40px; */
   height: 100%;
   width: 50%;
   transition: transform 0.6s ease-in-out;

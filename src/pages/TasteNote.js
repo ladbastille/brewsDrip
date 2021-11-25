@@ -4,17 +4,12 @@ import "firebase/firestore";
 import "firebase/storage";
 import styled from "styled-components";
 import {
-  FaCameraRetro,
   FaArrowLeft,
-  FaPlus,
-  FaRegHeart,
-  FaHeart,
 } from "react-icons/fa";
-import { useHistory, useParams } from "react-router-dom";
-import { useLocation, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import Input, { HeaderH1 } from "../components/Input";
-import Dropdown from "../components/Dropdown";
-import { SubmitButton } from "../components/Signin";
 import { FooterCTABtn } from "../components/Footer";
 import {
   Flex100BetweenWrap,
@@ -33,26 +28,6 @@ import {
   FacebookIcon,
   LineIcon,
 } from "react-share";
-import Swal from "sweetalert2";
-
-const BREW_OPTIONS = [
-  {
-    value: "espressoBased",
-    label: "Espresso Based",
-  },
-  {
-    value: "aeroPress",
-    label: "Aero Press",
-  },
-  {
-    value: "pourOver",
-    label: "Pour Over",
-  },
-  {
-    value: "other",
-    label: "Other",
-  },
-];
 
 const NewNoteContainer = styled.div`
   font-family: "Open Sans Condensed", sans-serif;
@@ -115,22 +90,6 @@ export const PreviewImage = styled.img`
   max-width: 100%;
 `;
 
-const DropdownWrap = styled.div`
-  font-family: "Open Sans Condensed", sans-serif;
-  background-color: #fbd850;
-  border-radius: 10px;
-  overflow: hidden;
-  width: ${(props) => (props.width ? props.width : "50%")};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 3px;
-  position: relative;
-  & input {
-    background-color: #ffffff;
-  }
-`;
 
 const TasteInput = styled(Input)`
   width: 65%;
@@ -148,15 +107,6 @@ export const HeaderH2 = styled(HeaderH1)`
   text-align: ${(props) => (props.textAlign ? props.textAlign : "center")};
 `;
 
-const UploadLabel = styled.label`
-  background-color: #fbd850;
-  border: 1px solid #ffffff;
-  margin: 4px 3px 3px 3px;
-  padding: 6px 8px;
-  width: ${(props) => (props.width ? props.width : "70%")};
-  border-radius: 10px;
-  text-align: center;
-`;
 const NoteTextarea = styled.textarea`
   border: transparent;
   border-radius: 10px;
@@ -198,19 +148,16 @@ const FlexCenterWrap = styled(Flex90BetweenWrap)`
 `;
 
 function TasteNote({ user }) {
-  const Swal = require("sweetalert2");
   const [isShareClick, setIsShareClick] = useState(false);
-  const [timerUsed, setTimerUsed] = useState("");
-  const [tags, setTags] = useState([]);
+
   const [isLoading, setIsLoading] = useState(false);
-  const history = useHistory();
   const [readOnly, setReadOnly] = useState(true);
   const [coffeeName, setCoffeeName] = useState("");
   const [place, setPlace] = useState("");
-  const [brewMethod, setBrewMethod] = useState("");
+
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
-  const [file, setFile] = useState(null);
+
   const [selectedTagIds, setSelectedTagIds] = useState([]);
   const [notes, setNotes] = useState("");
   const { noteId } = useParams();
@@ -218,9 +165,6 @@ function TasteNote({ user }) {
     author: {},
   });
 
-  const previewUrl = file
-    ? URL.createObjectURL(file)
-    : "https://react.semantic-ui.com/images/wireframe/image.png";
 
   useEffect(() => {
     firebase
@@ -235,7 +179,7 @@ function TasteNote({ user }) {
         setPlace(data.place);
         setRating(data.rating);
         setSelectedTagIds(data.selectedTagIds ? data.selectedTagIds : []);
-        console.log(data);
+
       });
   }, []);
 
@@ -284,40 +228,6 @@ function TasteNote({ user }) {
     setIsShareClick((prev) => !prev);
   };
 
-  // function createNewNote() {
-  //   setIsLoading(true);
-  //   const documentRef = firebase.firestore().collection("taste-note").doc();
-  //   const fileRef = firebase.storage().ref("taste-pics/" + documentRef.id);
-  //   const metadata = {
-  //     contentType: file?.type || "",
-  //   };
-  //   fileRef.put(file, metadata).then(() => {
-  //     fileRef.getDownloadURL().then((imageUrl) => {
-  //       let dataObj = {
-  //         coffeeName: coffeeName || "Unnamed Note",
-  //         brewMethod: brewMethod || null,
-  //         notes: notes || null,
-  //         rating: parseInt(rating) || null,
-  //         place: place || "Unnamed Place",
-  //         createdAt: firebase.firestore.Timestamp.now(),
-  //         author: {
-  //           displayName: firebase.auth().currentUser.displayName || "",
-  //           photoURL: firebase.auth().currentUser.photoURL || "",
-  //           uid: firebase.auth().currentUser.uid,
-  //           email: firebase.auth().currentUser.email,
-  //         },
-  //         imageUrl: imageUrl || "",
-  //       };
-  //       console.log(dataObj);
-  //       documentRef.set(dataObj).then(() => {
-  //         setIsLoading(false);
-  //         setNotes("");
-  //         history.push("/tastenotelist");
-  //       });
-  //     });
-  //   });
-  // }
-
   return (
     <>
       <NewNoteContainer>
@@ -359,20 +269,6 @@ function TasteNote({ user }) {
             justifyContent={"space-evenly"}
             margin={"0"}
           >
-            {/* {!readOnly && (
-              <>
-                <HeaderH2>Photo</HeaderH2>
-                <UploadLabel>
-                  +&ensp;
-                  <FaCameraRetro />
-                  <TasteInput
-                    type="file"
-                    onChange={(e) => setFile(e.target.files[0])}
-                    style={{ display: "none" }}
-                  ></TasteInput>
-                </UploadLabel>
-              </>
-            )} */}
 
             <ImgWrap>
               <PreviewImage src={note.imageUrl} />
@@ -430,30 +326,11 @@ function TasteNote({ user }) {
             .toLocaleDateString()}`}</HeaderH2>
         </SecondWrap>
         <InsideNotelistWrap>
-          {/* <SecondWrap margin={"5px auto 5px 0"}>
-            <DropdownWrap width={"70%"}>
-              <HeaderH2>Brew Method</HeaderH2>
-              <Dropdown
-                value={brewMethod}
-                setValue={setBrewMethod}
-                options={BREW_OPTIONS}
-                placeholder="- Select Method -"
-              />
-            </DropdownWrap>
-          </SecondWrap> */}
+          
         </InsideNotelistWrap>
 
         <SecondWrap margin={"5px auto 5px "} justifyContent={"center"}>
-          {/* <FooterCTABtn
-            width={"120px"}
-            color={"#00B790"}
-            onClick={createNewNote}
-          >
-            Save
-          </FooterCTABtn> */}
-          {/* <FooterCTABtn width={"50px"} color={"#FF5741"} onClick={resetInput}>
-            Reset
-          </FooterCTABtn> */}
+          
         </SecondWrap>
         <Tags
           editable={!readOnly}

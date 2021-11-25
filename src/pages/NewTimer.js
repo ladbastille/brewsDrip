@@ -3,12 +3,11 @@ import firebase from "../utils/firebase";
 import "firebase/firestore";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import { FaArrowLeft, FaRegHeart, FaHeart } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Input, { HeaderH1 } from "../components/Input";
 import Dropdown from "../components/Dropdown";
-import { SubmitButton } from "../components/Signin";
 import { FooterCTABtn } from "../components/Footer";
 import { Flex100BetweenWrap } from "./Timer";
 
@@ -53,7 +52,6 @@ const NewTimerContainer = styled.div`
   box-shadow: 0 14px 28px rgb(0 0 0 / 25%), 0 10px 10px rgb(0 0 0 / 22%);
   position: relative;
   overflow: hidden;
-  /* width: 7px; */
   max-width: 100%;
   min-height: 480 px;
   padding: 1rem;
@@ -80,9 +78,6 @@ const DropdownWrap = styled.div`
   border-radius: 10px;
   overflow: hidden;
   width: ${(props) => (props.width ? props.width : "50%")};
-  /* padding: 0.3rem;
-
-  margin: 0 4px; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -118,15 +113,6 @@ export const HeaderH2 = styled(HeaderH1)`
 
 const NewTimer = () => {
   const history = useHistory();
-  const [isLoading, setIsLoading] = useState(false);
-
-  // const initialState = {
-  //   timerName: "",
-  //   baseColor: "",
-  //   endTime: "",
-  //   brewMethod: ""
-  // };
-
   const [timerName, setTimerName] = useState("");
   const [baseColor, setBaseColor] = useState("");
   const [brewMethod, setBrewMethod] = useState("");
@@ -141,7 +127,6 @@ const NewTimer = () => {
   const [stepColor3, setStepColor3] = useState("");
   const [stepColor4, setStepColor4] = useState("");
 
-  const [timers, setTimers] = useState([]);
   const numInitialState = {
     endTime: "",
     stepSec1: "",
@@ -151,45 +136,10 @@ const NewTimer = () => {
   };
   const [numValues, setNumValues] = useState(numInitialState);
 
-  //  const changeHandler = e => {
-  //     setAllValues({...allValues, [e.target.name]: e.target.value})
-  //  }
-
   const checkSetNum = (e) => {
     const value = parseInt(e.target.value.replace(/\D/g, ""));
-    // console.log(e);
-    console.log("[onChange:]", e.target.name);
-    console.log("[value is:]", value);
     setNumValues({ ...numValues, [e.target.name]: value });
   };
-
-  // const resetInput = () => {
-  //   setNumValues(numInitialState);
-  //   setTimerName("");
-  //   setBaseColor("");
-  //   setBrewMethod("");
-  //   setStepName1("");
-  //   setStepName2("");
-  //   setStepName3("");
-  //   setStepName4("");
-  //   setStepColor1("");
-  //   setStepColor2("");
-  //   setStepColor3("");
-  //   setStepColor4("");
-  // };
-
-  useEffect(() => {
-    firebase
-      .firestore()
-      .collection("timer")
-      .get()
-      .then((collectionSnapshot) => {
-        const data = collectionSnapshot.docs.map((doc) => {
-          return doc.data();
-        });
-        setTimers(data);
-      });
-  }, []);
 
   useEffect(() => {
     if (numValues.endTime) {
@@ -203,7 +153,13 @@ const NewTimer = () => {
         window.alert("End Time must over Total Step Time");
       }
     }
-  }, [numValues.endTime]);
+  }, [
+    numValues.endTime,
+    numValues.stepSec1,
+    numValues.stepSec2,
+    numValues.stepSec3,
+    numValues.stepSec4,
+  ]);
 
   function createNewTimer() {
     if (
@@ -217,14 +173,8 @@ const NewTimer = () => {
       window.alert("End Time must over Total Step Time");
       return;
     }
-    setIsLoading(true);
     const documentRef = firebase.firestore().collection("timers").doc();
-    // const fileRef = firebase.storage().ref("post-images/" + documentRef.id);
-    // const metadata = {
-    //   contentType: file.type,
-    // };
-    // fileRef.put(file, metadata).then(() => {
-    //   fileRef.getDownloadURL().then((imageUrl) => {
+
     const customColorArr = [stepColor1, stepColor2, stepColor3, stepColor4];
     const customColorArrFiltered = customColorArr.filter(function (el) {
       return el !== null && el !== "";
@@ -243,8 +193,6 @@ const NewTimer = () => {
       return el !== null && el !== "";
     });
 
-    console.log(customColorArrFiltered);
-
     let dataObj = {
       timerName: timerName || "Unnamed Timer",
       baseColor: baseColor || COLOR_OPTIONS[0],
@@ -253,12 +201,7 @@ const NewTimer = () => {
       customColor: customColorArrFiltered,
       customStep: customStepArrFiltered,
       customSec: customSecArrFiltered,
-      // customSec: [
-      //   parseInt(numValues.stepSec1) || 0,
-      //   parseInt(numValues.stepSec2) || null,
-      //   parseInt(numValues.stepSec3) || null,
-      //   parseInt(numValues.stepSec4) || null,
-      // ],
+
       createdAt: firebase.firestore.Timestamp.now(),
       author: {
         displayName: firebase.auth().currentUser.displayName || "",
@@ -266,16 +209,12 @@ const NewTimer = () => {
         uid: firebase.auth().currentUser.uid,
         email: firebase.auth().currentUser.email,
       },
-      // imageUrl,
     };
-    console.log(dataObj);
+
     documentRef.set(dataObj).then(() => {
-      setIsLoading(false);
       Swal.fire("Awesome!", "You've created a timer!", "success");
       history.push("/timerlist");
     });
-    //   });
-    // });
   }
 
   return (
@@ -480,9 +419,6 @@ const NewTimer = () => {
           >
             Save
           </FooterCTABtn>
-          {/* <FooterCTABtn width={"50px"} color={"#FF5741"} onClick={resetInput}>
-            Reset
-          </FooterCTABtn> */}
         </StepAlertOptionWrap>
       </NewTimerContainer>
     </>

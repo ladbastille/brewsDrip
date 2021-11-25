@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../utils/firebase";
 import "firebase/firestore";
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
@@ -30,16 +30,6 @@ export const NoteListContainer = styled.div`
   align-items: center;
   margin-bottom: 20px;
   margin-top: 10px;
-
-  /* & ::placeholder {
-    color: #001a3a;
-    opacity: 0.5;
-    text-align: center;
-  }
-
-  & input:focus {
-    background: #ffffff;
-  } */
 `;
 
 export const StyledTimerlistLink = styled(Link)`
@@ -47,7 +37,6 @@ export const StyledTimerlistLink = styled(Link)`
   background-color: ${(props) =>
     props.background ? props.background : "#FBD850"};
   color: #ffffff;
-  /* margin: 4px 3px 3px 3px; */
   margin: 4% auto;
   border-radius: 10px;
   border: 6px solid transparent;
@@ -64,7 +53,6 @@ export const BigNotelistLink = styled.div`
   background-color: ${(props) =>
     props.background ? props.background : "#9BB2A8"};
   color: #ffffff;
-  /* margin: 4px 3px 3px 3px; */
   margin: 4% auto;
   border-radius: 10px;
   border: 6px solid transparent;
@@ -128,11 +116,6 @@ export const NotesTag = styled(Link)`
 
 const AllNoteList = ({ user }) => {
   const [tasteNotes, setTasteNotes] = useState([]);
-  const location = useLocation();
-  const urlSearchParams = new URLSearchParams(location.search);
-  const currentNote = urlSearchParams.get("taste-note");
-  const [activeTag, setActive] = useState("first");
-
   const lastPostSnapshotRef = React.useRef();
 
   useEffect(() => {
@@ -176,21 +159,11 @@ const AllNoteList = ({ user }) => {
     }
   }
 
-  const isCollected = tasteNotes.collectedBy?.includes(
-    firebase.auth().currentUser.uid
-  );
-
-  const isLiked = tasteNotes.likedBy?.includes(firebase.auth().currentUser.uid);
-  const currentUserId = firebase.auth().currentUser?.uid;
-  // console.log(isLiked);
-  console.log(tasteNotes);
-
   return (
     <>
       <HeaderH1 marginbottom={"3%"} color={"#FFFFFF"}>
         All Notes
       </HeaderH1>
-      {/* here: render timers */}
 
       {tasteNotes.map((note) => {
         const isLiked = note.likedBy?.includes(
@@ -247,7 +220,6 @@ const AllNoteList = ({ user }) => {
                     })
                   : ""}
               </SecondWrap>
-              {/* </HeaderH2> */}
             </InsideTimerlistWrap>
 
             <InsideTimerlistWrap width={"15%"}>
@@ -289,7 +261,6 @@ const AllNoteList = ({ user }) => {
                 )}
                 <span>&thinsp;{note.collectedBy?.length || 0}</span>
               </StyledIconDiv>
-              {/* <StyledIconDiv>{<FaEdit size={"1.5rem"} />}</StyledIconDiv> */}
             </InsideTimerlistWrap>
           </BigNotelistLink>
         );

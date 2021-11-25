@@ -59,7 +59,6 @@ export const SecondWrap = styled.div`
 `;
 
 export const PreviewImage = styled.img`
-  /* max-height: 100%; */
   max-width: 100%;
 `;
 
@@ -127,27 +126,6 @@ const NewNote = () => {
   const [hover, setHover] = useState(null);
   const [file, setFile] = useState(null);
   const [selectedTagIds, setSelectedTagIds] = useState([]);
-
-  // const checkSetNum = (e) => {
-  //   const value = parseInt(e.target.value.replace(/\D/g, ""));
-  //   // console.log(e);
-  //   console.log("[onChange:]", e.target.name);
-  //   console.log("[value is:]", value);
-  //   setRating(value);
-  // };
-
-  // useEffect(() => {
-  //   firebase
-  //     .firestore()
-  //     .collection("taste-note")
-  //     .get()
-  //     .then((collectionSnapshot) => {
-  //       const data = collectionSnapshot.docs.map((doc) => {
-  //         return doc.data();
-  //       });
-  //       setNotes(data);
-  //     });
-  // }, []);
 
   const previewUrl = file
     ? URL.createObjectURL(file)
@@ -296,9 +274,6 @@ const NewNote = () => {
           >
             Save
           </FooterCTABtn>
-          {/* <FooterCTABtn width={"50px"} color={"#FF5741"} onClick={resetInput}>
-            Reset
-          </FooterCTABtn> */}
         </SecondWrap>
       </NewNoteContainer>
     </>

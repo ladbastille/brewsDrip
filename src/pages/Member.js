@@ -2,13 +2,10 @@ import { useState } from "react";
 import firebase from "../utils/firebase";
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
-import { OverlayDiv } from "../components/Overlay";
 import { SubmitButton } from "../components/Signin";
 import { ImgWrap, PreviewImage } from "./NewNote";
-import { Flex100BetweenWrap } from "./Timer";
 import { HeaderH2 } from "./TasteNote";
-import Input, { HeaderH1 } from "../components/Input";
-import timerLogo from "../images/logo-timer.svg";
+import { HeaderH1 } from "../components/Input";
 import { BiTimer, BiNotepad } from "react-icons/bi";
 import ReactLoading from "react-loading";
 
@@ -107,16 +104,6 @@ const ConfirmChangePhoto = styled(ChangePhotoLabel)`
   background: ${(props) => props.background};
 `;
 
-const NameInput = styled(Input)`
-  background: linear-gradient(to right, #ed8f03, #ffb75e);
-  border: solid transparent 1px;
-  font-size: 1.2rem;
-  text-align: center;
-  padding: 4px 30px;
-  width: 110px;
-  cursor: none;
-`;
-
 const ProfileImage = styled(PreviewImage)`
   border-radius: 50%;
   width: 150px;
@@ -146,11 +133,8 @@ const LogoutButton = styled(SubmitButton)`
 
 function Member({ user }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [displayName, setDisplayName] = useState("");
   const [file, setFile] = useState(null);
   const history = useHistory();
-
-  // const previewImageUrl = file ? URL.createObjectURL(file) : user.photoURL;
 
   const previewUrl = () => {
     if (file) {
@@ -188,9 +172,6 @@ function Member({ user }) {
       });
     });
   }
-
-  console.log("[user]", user);
-  // console.log("[user]", user.photoURL);
 
   return (
     <>
@@ -234,11 +215,6 @@ function Member({ user }) {
             >
               Welcome Back!
             </HeaderH1>
-
-            {/* <NameInput
-              value={user.displayName ? user.displayName: "Coffee Lover"}
-              onChange={(e) => setDisplayName(e.target.value)}
-              readOnly></NameInput> */}
 
             <HeaderH2 margin={"5px auto 1%;"}>{user.email}</HeaderH2>
 

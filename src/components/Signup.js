@@ -1,11 +1,9 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import firebase from "../utils/firebase";
 import "firebase/auth";
 import { SiFacebook, SiGoogle } from "react-icons/si";
-import { useHistory } from "react-router-dom";
 import ReactLoading from "react-loading";
-import { facebookProvider, googleProvider } from "../utils/authMethods";
 import { HeaderH1 } from "./Input";
 import {
   SocialContainer,
@@ -13,6 +11,8 @@ import {
   StyledInput,
   SubmitButton,
 } from "./Signin";
+import { facebookProvider, googleProvider } from "../utils/authMethods";
+import firebase from "../utils/firebase";
 
 const Signup = ({ toggle, handleOnClick }) => {
   const history = useHistory();
@@ -20,23 +20,17 @@ const Signup = ({ toggle, handleOnClick }) => {
   const [password, setPassword] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
-  // const handleSubmit = () => {
-  //     setActiveItem('signup');
-  //     dispatch({type: 'email/set'})
-  // }
 
   const onSignUp = (e) => {
     console.log("signUP");
     setIsLoading(true);
 
-    // e.preventDefault();
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then((res) => {
         console.log(res);
 
-        //sign up with default photo
         const documentRef = firebase
           .firestore()
           .collection("members")
@@ -58,10 +52,6 @@ const Signup = ({ toggle, handleOnClick }) => {
         console.log("success");
         history.push("/");
         setIsLoading(false);
-
-        // console.log("success");
-        // history.push("/");
-        // setIsLoading(false);
       })
       .catch((error) => {
         switch (error.code) {

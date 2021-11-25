@@ -1,26 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import firebase from "../utils/firebase";
 import "firebase/firestore";
-import {
-  TimerListContainer,
-  StyledTimerlistLink,
-  TimersTagWrap,
-  TimersTag,
-  BigTimerlistLink,
-  InsideTimerlistWrap,
-} from "./AllTimerList";
-import { FaArrowLeft, FaRegHeart, FaHeart, FaEdit } from "react-icons/fa";
+import { BigTimerlistLink, InsideTimerlistWrap } from "./AllTimerList";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
-import { TiDeleteOutline, TiDelete } from "react-icons/ti";
-import { FiDelete } from "react-icons/fi";
 import { RiDeleteBack2Fill } from "react-icons/ri";
 
 import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
 import { StyledIconDiv } from "./Timer";
-import Header from "../components/Header";
 
 export const EditIconDiv = styled(StyledIconDiv)`
   position: absolute;
@@ -70,12 +60,6 @@ function MyTimers({ user }) {
     }
   }
 
-  // const isCollected = timers.collectedBy?.includes(
-  //   firebase.auth().currentUser.uid
-  // );
-  // const isLiked = timers.likedBy?.includes(firebase.auth().currentUser.uid);
-  // const currentUserId = firebase.auth().currentUser?.uid;
-
   function handleDeleteTimer(timerid) {
     firebase.firestore().collection("timers").doc(timerid).delete();
   }
@@ -85,7 +69,6 @@ function MyTimers({ user }) {
       <HeaderH1 marginbottom={"3%"} color={"#FFFFFF"}>
         My Timers
       </HeaderH1>
-      {/* here: render timers */}
 
       {timers.map((timer) => {
         const isLiked = timer.likedBy?.includes(

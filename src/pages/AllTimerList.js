@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../utils/firebase";
 import "firebase/firestore";
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import { FaArrowLeft, FaRegHeart, FaHeart, FaEdit } from "react-icons/fa";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
-import { AiFillSetting } from "react-icons/ai";
 import { EditIconDiv } from "./MyTimers";
 import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
 import { StyledIconDiv } from "./Timer";
-import Header from "../components/Header";
 
 export const TimerListContainer = styled.div`
   font-family: "Open Sans Condensed", sans-serif;
@@ -29,16 +27,6 @@ export const TimerListContainer = styled.div`
   align-items: center;
   margin-bottom: 20px;
   margin-top: 10px;
-
-  /* & ::placeholder {
-    color: #001a3a;
-    opacity: 0.5;
-    text-align: center;
-  }
-
-  & input:focus {
-    background: #ffffff;
-  } */
 `;
 
 export const StyledTimerlistLink = styled(Link)`
@@ -46,7 +34,6 @@ export const StyledTimerlistLink = styled(Link)`
   background-color: ${(props) =>
     props.background ? props.background : "#FBD850"};
   color: #ffffff;
-  /* margin: 4px 3px 3px 3px; */
   margin: 4% auto;
   border-radius: 10px;
   border: 6px solid transparent;
@@ -63,7 +50,6 @@ export const BigTimerlistLink = styled.div`
   background-color: ${(props) =>
     props.background ? props.background : "#FBD850"};
   color: #ffffff;
-  /* margin: 4px 3px 3px 3px; */
   margin: 4% auto;
   border-radius: 10px;
   border: 6px solid transparent;
@@ -115,10 +101,6 @@ export const TimersTag = styled(Link)`
     background-color: #de6932;
     opacity: 1;
   }
-  /* @media (min-width:768px){
-    padding:1.2rem 2.25rem;
-    font-size:1.8rem;
-  } */
 
   @media (min-width: 768px) {
     padding: 1.5rem 2.8rem;
@@ -126,13 +108,8 @@ export const TimersTag = styled(Link)`
   }
 `;
 
-const AllTimerList = ({ user }) => {
+const AllTimerList = () => {
   const [timers, setTimers] = useState([]);
-  const location = useLocation();
-  const urlSearchParams = new URLSearchParams(location.search);
-  const currentTimer = urlSearchParams.get("timers");
-  const [activeTag, setActive] = useState("first");
-
   const lastPostSnapshotRef = React.useRef();
 
   useEffect(() => {
@@ -178,12 +155,6 @@ const AllTimerList = ({ user }) => {
     }
   }
 
-  const isCollected = timers.collectedBy?.includes(
-    firebase.auth().currentUser.uid
-  );
-
-  const isLiked = timers.likedBy?.includes(firebase.auth().currentUser.uid);
-  const currentUserId = firebase.auth().currentUser?.uid;
   // console.log(isLiked);
   console.log("Timers:", timers);
   return (

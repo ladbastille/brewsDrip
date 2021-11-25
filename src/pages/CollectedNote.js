@@ -3,16 +3,14 @@ import firebase from "../utils/firebase";
 import { InsideTimerlistWrap } from "./AllTimerList";
 import { BigNotelistLink } from "./AllNoteList";
 import "firebase/firestore";
-import { useLocation, Link } from "react-router-dom";
-import styled from "styled-components";
-import { FaArrowLeft, FaRegHeart, FaHeart, FaEdit } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { GiCoffeeBeans } from "react-icons/gi";
 import { RatingDiv, SecondWrap } from "./NewNote";
 import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
 import { StyledIconDiv } from "./Timer";
-import Header from "../components/Header";
 
 function CollectedTimers({ user }) {
   const [tasteNotes, setTasteNotes] = useState([]);
@@ -53,18 +51,11 @@ function CollectedTimers({ user }) {
     }
   }
 
-  const isCollected = tasteNotes.collectedBy?.includes(
-    firebase.auth().currentUser.uid
-  );
-  const isLiked = tasteNotes.likedBy?.includes(firebase.auth().currentUser.uid);
-  const currentUserId = firebase.auth().currentUser?.uid;
-
   return (
     <>
       <HeaderH1 marginbottom={"3%"} color={"#FFFFFF"}>
         Collected Notes
       </HeaderH1>
-      {/* here: render timers */}
 
       {tasteNotes.map((note) => {
         const isLiked = note.likedBy?.includes(
@@ -73,7 +64,7 @@ function CollectedTimers({ user }) {
         const isCollected = note.collectedBy?.includes(
           firebase.auth().currentUser?.uid
         );
-        console.log(isLiked);
+
         return (
           <BigNotelistLink key={note.id} color={"#000000"}>
             <InsideTimerlistWrap as={Link} to={`/tastenote/${note.id}`}>
@@ -121,7 +112,6 @@ function CollectedTimers({ user }) {
                     })
                   : ""}
               </SecondWrap>
-              {/* </HeaderH2> */}
             </InsideTimerlistWrap>
 
             <InsideTimerlistWrap width={"15%"}>
@@ -163,7 +153,6 @@ function CollectedTimers({ user }) {
                 )}
                 <span>&thinsp;{note.collectedBy?.length || 0}</span>
               </StyledIconDiv>
-              {/* <StyledIconDiv>{<FaEdit size={"1.5rem"} />}</StyledIconDiv> */}
             </InsideTimerlistWrap>
           </BigNotelistLink>
         );

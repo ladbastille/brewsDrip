@@ -6,9 +6,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import TasteNotes from "./pages/TasteNote";
-import CoffeeMap from "./pages/CoffeeMap";
 import Timer from "./pages/Timer";
-import Shop from "./pages/Shop";
 import Login from "./pages/Login";
 import Member from "./pages/Member";
 import firebase from "./utils/firebase";
@@ -38,14 +36,6 @@ import TutorialsB01 from "./pages/TutorialsB01";
 import TutorialsB02 from "./pages/TutorialsB02";
 import TutorialsB03 from "./pages/TutorialsB03";
 
-const AppDiv = styled.div`
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
 function App() {
   const [user, setUser] = useState();
 
@@ -59,9 +49,9 @@ function App() {
     <>
       <BrowserRouter>
         <ScrollToTop>
-          <Switch>
-            <AppDiv>
+
               <Header />
+          <Switch>
 
               <Route path="/tutorials" exact component={TutorialsIndex} />
               <Route path="/tutorials/brew" exact component={TutorialsBrew} />
@@ -106,11 +96,7 @@ function App() {
                 exact
                 component={TutorialsC02}
               />
-              {/* <Route path="/tastenotelist/taste" exact component={TasteNoteList} />
-        <Route path="/tastenotelist/favs" exact component={TasteNoteList} />
-        <Route path="/tastenotelist/brew" exact component={TasteNoteList} /> */}
-              <Route path="/coffeemap" exact component={CoffeeMap} />
-              {/* <Route path="/tastenotelist" exact component={TasteNoteList} /> */}
+              
               <Route path="/newnote">
                 {user !== null ? (
                   <NewNote user={user} />
@@ -174,9 +160,7 @@ function App() {
                       ) : (
                         <Redirect to="/login" />
                       )}
-                      {/* <Route path="/tastenotelist/default" exact>
-                <DefaultNote />
-              </Route> */}
+                      
                     </Route>
                   </Switch>
                 </NoteListContainer>
@@ -209,12 +193,12 @@ function App() {
                 <Home />
               </Route>
 
-              {/* <Route path="*">
+              
+          <Route path="*">
                 <NotFound />
-              </Route> */}
-              <Footer user={user} />
-            </AppDiv>
+              </Route>
           </Switch>
+              <Footer user={user} />
         </ScrollToTop>
       </BrowserRouter>
       ,

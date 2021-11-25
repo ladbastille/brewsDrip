@@ -1,12 +1,12 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import ReactLoading from "react-loading";
 import { SiFacebook, SiGoogle } from "react-icons/si";
+import { HeaderH1 } from "./Input";
 import { StyledSpan } from "./Signup";
 import { facebookProvider, googleProvider } from "../utils/authMethods";
 import firebase from "./../utils/firebase";
-import { useHistory } from "react-router-dom";
-import ReactLoading from "react-loading";
-import { HeaderH1 } from "./Input";
 
 export const SigninContainer = styled.div`
   position: absolute;
@@ -177,10 +177,6 @@ const Signin = ({ toggle, handleOnClick }) => {
   return (
     <SigninContainer avtive={toggle}>
       <StyledForm>
-        {/* <Input type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}/> */}
         <HeaderSingin>Welcome!</HeaderSingin>
         <SocialContainer>
           <div>

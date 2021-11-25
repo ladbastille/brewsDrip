@@ -1,30 +1,14 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../utils/firebase";
-import {
-  TimerListContainer,
-  StyledTimerlistLink,
-  TimersTagWrap,
-  TimersTag,
-  BigTimerlistLink,
-  InsideTimerlistWrap,
-} from "./AllTimerList";
+import { BigTimerlistLink, InsideTimerlistWrap } from "./AllTimerList";
 import "firebase/firestore";
-import { useLocation, Link } from "react-router-dom";
-import styled from "styled-components";
-import {
-  FaArrowLeft,
-  FaRegHeart,
-  FaHeart,
-  FaEdit,
-  FaUser,
-} from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
-import { AiFillSetting } from "react-icons/ai";
 
 import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
 import { StyledIconDiv } from "./Timer";
-import Header from "../components/Header";
 
 function CollectedTimers({ user }) {
   const [timers, setTimers] = useState([]);
@@ -67,18 +51,11 @@ function CollectedTimers({ user }) {
     }
   }
 
-  // const isCollected = timers.collectedBy?.includes(
-  //   firebase.auth().currentUser.uid
-  // );
-  // const isLiked = timers.likedBy?.includes(firebase.auth().currentUser.uid);
-  // const currentUserId = firebase.auth().currentUser?.uid;
-  console.log(timers);
   return (
     <>
       <HeaderH1 marginbottom={"3%"} color={"#FFFFFF"}>
         Collected Timers
       </HeaderH1>
-      {/* here: render timers */}
 
       {timers.map((timer) => {
         const isLiked = timer.likedBy?.includes(
@@ -145,7 +122,6 @@ function CollectedTimers({ user }) {
                 )}
                 <span>&thinsp;{timer.collectedBy?.length || 0}</span>
               </StyledIconDiv>
-              {/* <StyledIconDiv>{<FaEdit size={"1.5rem"} />}</StyledIconDiv> */}
             </InsideTimerlistWrap>
           </BigTimerlistLink>
         );
