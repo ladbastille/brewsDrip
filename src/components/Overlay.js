@@ -23,7 +23,7 @@ const Overlay = ({ toggle, setToggle }) => {
 };
 
 const OverlayContainer = styled.div`
-font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
   position: absolute;
   top: 0;
   left: 50%;
@@ -34,7 +34,7 @@ font-family: "Poppins", Arial, Helvetica, sans-serif;
   z-index: 100;
   transform: ${(props) => props.active && ` translateX(-100%);`};
   @media (max-width: 425px) {
-    display:none;
+    display: none;
   }
 `;
 
@@ -61,9 +61,7 @@ const OverlayPanelLeft = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  /* padding: 0 40px; */
   text-align: center;
-  /* top: 40px; */
   height: 100%;
   width: 50%;
   transition: transform 0.6s ease-in-out;
@@ -77,9 +75,7 @@ const OverlayPanelRight = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  /* padding: 0 40px; */
   text-align: center;
-  /* top: 40px; */
   height: 100%;
   width: 50%;
   transition: transform 0.6s ease-in-out;

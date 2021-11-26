@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
-import firebase from "../utils/firebase";
+import React, {  } from "react";
 import "firebase/firestore";
-import { useLocation, Link } from "react-router-dom";
 import styled from "styled-components";
-import TutorialCard from "./TutorialCardBrew";
 
 export const TutorialsBrewDiv = styled.div`
   font-family: Poppins, Arial, Helvetica, sans-serif;
@@ -15,7 +12,6 @@ export const TutorialsBrewDiv = styled.div`
     width: 80%;
     iframe {
       width: 100%;
-
     }
   }
   @media (max-width: 768px) {
@@ -40,16 +36,10 @@ export const CardListDiv = styled.div`
   flex-direction: column;
   vertical-align: center;
   font-family: Poppins, Arial, Helvetica, sans-serif;
-  /* margin: 15px; */
   a:visited {
     color: #000000;
   }
 `;
-
-// const CardListImg = styled.img`
-//   max-width: 100%;
-//   margin-bottom: 20px;
-// `;
 
 export const CardListH3 = styled.h3`
   font-size: 28px;
@@ -71,7 +61,7 @@ const TutorialsB01 = () => {
       <TutorialsBrewDiv>
         <CardListDiv>
           <CardListH3>How to brew at home (or on the go): AeroPress</CardListH3>
-          {/* <CardListIframe></CardListIframe> */}
+
           <iframe
             src="https://player.vimeo.com/video/480909965"
             width="640"
@@ -80,6 +70,7 @@ const TutorialsB01 = () => {
             webkitallowfullscreen=""
             mozallowfullscreen=""
             allowfullscreen=""
+            title="How to brew at home (or on the go): AeroPress"
           ></iframe>
           <CardListText>
             Learn how to brew delicious coffee at home! Today, we're featuring

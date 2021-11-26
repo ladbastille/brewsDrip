@@ -1,12 +1,9 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import firebase from "../utils/firebase";
 import "firebase/auth";
 import { SiFacebook, SiGoogle } from "react-icons/si";
-import { useHistory } from "react-router-dom";
-import socialMediaAuth from "../utils/auth";
-import ReactLoading from 'react-loading';
-import { facebookProvider, googleProvider } from "../utils/authMethods";
+import ReactLoading from "react-loading";
 import { HeaderH1 } from "./Input";
 import {
   SocialContainer,
@@ -14,6 +11,8 @@ import {
   StyledInput,
   SubmitButton,
 } from "./Signin";
+import { facebookProvider, googleProvider } from "../utils/authMethods";
+import firebase from "../utils/firebase";
 
 const Signup = ({ toggle, handleOnClick }) => {
   const history = useHistory();
@@ -21,19 +20,34 @@ const Signup = ({ toggle, handleOnClick }) => {
   const [password, setPassword] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
-  // const handleSubmit = () => {
-  //     setActiveItem('signup');
-  //     dispatch({type: 'email/set'})
-  // }
 
   const onSignUp = (e) => {
     console.log("signUP");
-
     setIsLoading(true);
-    e.preventDefault();
+
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
+      .then((res) => {
+        console.log(res);
+
+        const documentRef = firebase
+          .firestore()
+          .collection("members")
+          .doc(firebase.auth().currentUser.uid);
+
+        let dataObj = {
+          createdAt: firebase.firestore.Timestamp.now(),
+          displayName:
+            firebase.auth().currentUser.displayName || "Coffee Lover",
+          photoURL:
+            "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/user-pics%2FdefaultUser.png?alt=media&token=7e5e71c8-aabb-4bdd-a55c-72ec3659b41d",
+          uid: firebase.auth().currentUser.uid,
+          email: firebase.auth().currentUser.email,
+        };
+        console.log(dataObj);
+        documentRef.set(dataObj);
+      })
       .then(() => {
         console.log("success");
         history.push("/");
@@ -48,25 +62,24 @@ const Signup = ({ toggle, handleOnClick }) => {
             setErrorMessage("信箱格式不正確");
             break;
           case "auth/weak-password":
-            setErrorMessage("密碼強度不足");
+            setErrorMessage("密碼強度不足(最少6位數)");
             break;
           default:
         }
         setIsLoading(false);
       });
   };
-
   return (
     <SignupContainer avtive={toggle}>
       <StyledForm>
         <HeaderH1>Create Account</HeaderH1>
         <SocialContainer>
-          <a>
+          <div>
             <SiFacebook onClick={() => handleOnClick(facebookProvider)} />
-          </a>
-          <a>
+          </div>
+          <div>
             <SiGoogle onClick={() => handleOnClick(googleProvider)} />
-          </a>
+          </div>
         </SocialContainer>
         <StyledSpan>or use your email for registration</StyledSpan>
         <StyledInput
@@ -83,7 +96,9 @@ const Signup = ({ toggle, handleOnClick }) => {
           onChange={(e) => setPassword(e.target.value)}
           onFocus={() => setErrorMessage("")}
         />
-        <SubmitButton onClick={(e) => onSignUp(e)}>Sign Up</SubmitButton>
+        <SubmitButton color={"#7E876D"} onClick={(e) => onSignUp(e)}>
+          Sign Up
+        </SubmitButton>
         {errorMessage && <h5>{errorMessage}</h5>}
         {isLoading ? (
           <ReactLoading color="#FBD850" type="spinningBubbles" />

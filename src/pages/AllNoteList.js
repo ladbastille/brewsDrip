@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../utils/firebase";
 import "firebase/firestore";
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { FaArrowLeft, FaRegHeart, FaHeart, FaEdit } from "react-icons/fa";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { GiCoffeeBeans } from "react-icons/gi";
 import { EditIconDiv } from "./MyTimers";
@@ -11,8 +11,8 @@ import { NoteEditIconDiv } from "./MyNotes";
 import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
 import { StyledIconDiv } from "./Timer";
-import Header from "../components/Header";
-import { RatingDiv,SecondWrap } from "./NewNote";
+import { RatingDiv, SecondWrap } from "./NewNote";
+import Swal from "sweetalert2";
 
 export const NoteListContainer = styled.div`
   font-family: "Open Sans Condensed", sans-serif;
@@ -30,16 +30,6 @@ export const NoteListContainer = styled.div`
   align-items: center;
   margin-bottom: 20px;
   margin-top: 10px;
-
-  /* & ::placeholder {
-    color: #001a3a;
-    opacity: 0.5;
-    text-align: center;
-  }
-
-  & input:focus {
-    background: #ffffff;
-  } */
 `;
 
 export const StyledTimerlistLink = styled(Link)`
@@ -47,7 +37,6 @@ export const StyledTimerlistLink = styled(Link)`
   background-color: ${(props) =>
     props.background ? props.background : "#FBD850"};
   color: #ffffff;
-  /* margin: 4px 3px 3px 3px; */
   margin: 4% auto;
   border-radius: 10px;
   border: 6px solid transparent;
@@ -64,7 +53,6 @@ export const BigNotelistLink = styled.div`
   background-color: ${(props) =>
     props.background ? props.background : "#9BB2A8"};
   color: #ffffff;
-  /* margin: 4px 3px 3px 3px; */
   margin: 4% auto;
   border-radius: 10px;
   border: 6px solid transparent;
@@ -128,11 +116,6 @@ export const NotesTag = styled(Link)`
 
 const AllNoteList = ({ user }) => {
   const [tasteNotes, setTasteNotes] = useState([]);
-  const location = useLocation();
-  const urlSearchParams = new URLSearchParams(location.search);
-  const currentNote = urlSearchParams.get("taste-note");
-  const [activeTag, setActive] = useState("first");
-
   const lastPostSnapshotRef = React.useRef();
 
   useEffect(() => {
@@ -165,24 +148,22 @@ const AllNoteList = ({ user }) => {
             ? firebase.firestore.FieldValue.arrayRemove(uid)
             : firebase.firestore.FieldValue.arrayUnion(uid),
         });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please login to collect/like this timer.",
+        footer:
+          '<a href="https://brewsdrip.web.app/login">Click here to login.</a>',
+      });
     }
   }
-
-  const isCollected = tasteNotes.collectedBy?.includes(
-    firebase.auth().currentUser.uid
-  );
-
-  const isLiked = tasteNotes.likedBy?.includes(firebase.auth().currentUser.uid);
-  const currentUserId = firebase.auth().currentUser?.uid;
-  // console.log(isLiked);
-  console.log(tasteNotes);
 
   return (
     <>
       <HeaderH1 marginbottom={"3%"} color={"#FFFFFF"}>
         All Notes
       </HeaderH1>
-      {/* here: render timers */}
 
       {tasteNotes.map((note) => {
         const isLiked = note.likedBy?.includes(
@@ -200,9 +181,10 @@ const AllNoteList = ({ user }) => {
                 fontSize={"1.5rem"}
                 color={"#FFFFFF"}
               >
-                {note.coffeeName}</HeaderH2>
+                {note.coffeeName}
+              </HeaderH2>
 
-                <HeaderH2
+              <HeaderH2
                 margin={"1.5% auto 2% 1.5%"}
                 fontSize={"1.2rem"}
                 color={"#ffffff"}
@@ -214,30 +196,30 @@ const AllNoteList = ({ user }) => {
               <SecondWrap margin={"5px auto 0 5px"} flexDirection={"row"}>
                 {note.rating
                   ? [...Array(5)].map((star, index) => {
-            const ratingValue = index += 1;
-            return (
-              <RatingDiv margin={"0px 4px"}>
-                <label>
-                  <input
-                    type="radio"
-                    name="rating"
-                    value={ratingValue}
-                    key={index}
-                  />
-                  <GiCoffeeBeans
-                    color={
-                      ratingValue <= (note.rating) ? "#fbd850" : "#e5e5e5"
-                    }
-                    size={20}
-                  />
-                </label>
-              </RatingDiv>
-            );
-          })
+                      const ratingValue = (index += 1);
+                      return (
+                        <RatingDiv margin={"0px 4px"}>
+                          <label>
+                            <input
+                              type="radio"
+                              name="rating"
+                              value={ratingValue}
+                              key={index}
+                            />
+                            <GiCoffeeBeans
+                              color={
+                                ratingValue <= note.rating
+                                  ? "#fbd850"
+                                  : "#e5e5e5"
+                              }
+                              size={20}
+                            />
+                          </label>
+                        </RatingDiv>
+                      );
+                    })
                   : ""}
               </SecondWrap>
-              {/* </HeaderH2> */}
-              
             </InsideTimerlistWrap>
 
             <InsideTimerlistWrap width={"15%"}>
@@ -279,7 +261,6 @@ const AllNoteList = ({ user }) => {
                 )}
                 <span>&thinsp;{note.collectedBy?.length || 0}</span>
               </StyledIconDiv>
-              {/* <StyledIconDiv>{<FaEdit size={"1.5rem"} />}</StyledIconDiv> */}
             </InsideTimerlistWrap>
           </BigNotelistLink>
         );

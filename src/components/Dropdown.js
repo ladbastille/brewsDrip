@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Input from "./Input";
-import styled from "styled-components";
 
 const Dropdown = ({
   placeholder = "",
@@ -25,7 +24,7 @@ const Dropdown = ({
         {...props}
       />
       {open && (
-        <div >
+        <div>
           {options.map((item) => (
             <div
               key={item.value}

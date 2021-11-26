@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../utils/firebase";
-import { Link, useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import "firebase/firestore";
+import successCoffeeImg from "../images/swal-success-pic.jpg";
+import Swal from "sweetalert2";
 
 import {
   FaArrowLeft,
-  FaRegHeart,
-  FaHeart,
   FaPlayCircle,
   FaRegPauseCircle,
   FaStop,
   FaRedoAlt,
 } from "react-icons/fa";
 import { GiSoundOff, GiSoundOn } from "react-icons/gi";
+import { FiShare2 } from "react-icons/fi";
+import { BiLinkAlt } from "react-icons/bi";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 
 import { HeaderH2 } from "./NewTimer";
@@ -24,6 +26,13 @@ import resetSound from "../sounds/reset.mp3";
 import alertSound from "../sounds/alert.mp3";
 
 import timerGif from "../images/pourover.gif";
+
+import {
+  FacebookShareButton,
+  LineShareButton,
+  FacebookIcon,
+  LineIcon,
+} from "react-share";
 
 const TimerContainer = styled.div`
   font-family: "Open Sans Condensed", sans-serif;
@@ -70,12 +79,9 @@ const Flex50ColumnWrap = styled(FlexColumnWrap)`
   width: 50%;
 `;
 
-const Flex90BetweenWrap = styled(Flex100BetweenWrap)`
+export const Flex90BetweenWrap = styled(Flex100BetweenWrap)`
   width: 90%;
-  margin: 5%;
-  /* @media (min-width:768px){
-    width:30%;
-  } */
+  margin: ${(props) => props.margin || "5%"};
 `;
 
 const StepsBigFont = styled.h1`
@@ -97,8 +103,8 @@ const BigTimeFont = styled.h1`
   margin: 0 auto 5%;
 `;
 
-const ControlBtn=styled.button`
-color: #ffffff;
+const ControlBtn = styled.button`
+  color: #ffffff;
   cursor: pointer;
   background: transparent;
   border: none;
@@ -106,7 +112,7 @@ color: #ffffff;
     opacity: 0.4;
     cursor: not-allowed;
   }
-`
+`;
 
 export const StyledIconDiv = styled.div`
   color: #ffffff;
@@ -124,28 +130,18 @@ const StyledIconDivSound = styled(StyledIconDiv)`
     display: none;
   }
 `;
-// let TIMER_SCRIPT = [
-//   {
-//     baseColor: "#FBD850",
-//     customStep: "step 1",
-//     customSec: 3,
-//   },
-//   {
-//     baseColor: "#EFABBA",
-//     customStep: "step 2",
-//     customSec: 5,
-//   },
-//   {
-//     baseColor: "#00B790",
-//     customStep: "step 3",
-//     customSec: 7,
-//   },
-//   {
-//     baseColor: "#B4CFCB",
-//     customStep: "step 4",
-//     customSec: 10,
-//   },
-// ];
+
+export const ShareBtnDiv = styled(StyledIconDiv)`
+  margin-top: 15px;
+  width: 120px;
+  position: absolute;
+  & svg {
+    margin-left: 8px;
+  }
+  @media (max-width: 768px) {
+    margin-top: 5px;
+  }
+`;
 
 const convertTotalCountTotimerString = (totalCounter) => {
   const secondCounter = totalCounter % 60;
@@ -159,10 +155,20 @@ const convertTotalCountTotimerString = (totalCounter) => {
   return { computedSecond, computedMinute };
 };
 
-const Timer = ({user}) => {
+const Timer = ({ user }) => {
+  const history = useHistory();
   const { timerId } = useParams();
   const [timer, setTimer] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isShareClick, setIsShareClick] = useState(false);
+
+  // handle Audio delay issue
+  const alertAudio = new Audio(alertSound);
+  const resetAudio = new Audio(resetSound);
+  const doneAudio = new Audio(doneSound);
+
+  alertAudio.volume = 0.2;
+  resetAudio.volume = 0.2;
+  doneAudio.volume = 0.2;
 
   useEffect(() => {
     firebase
@@ -173,36 +179,28 @@ const Timer = ({user}) => {
         const data = docSnapshot.data();
         setTimer(data);
       });
-    // .get()
-    // .then((docSnapshot) => {
-    //   const data = docSnapshot.data();
-    //   // console.log(timerId)
-    //   console.log(data);
-    //   setTimer(data);
-    // });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [isActive, setIsActive] = useState(false);
-  const [isPause, setIsPause] = useState(true);
   const [isReset, setIsReset] = useState(false);
   const [totalCounter, setTotalCounter] = useState(0);
   const [pointer, setPointer] = useState(0);
   const [doneAlert, setDoneAlert] = useState(false);
-  const [isMuted,setIsMuted] = useState(false)
-  // const isMuted = timer?.mutedBy?.includes(firebase.auth().currentUser?.uid);
+  const [isMuted, setIsMuted] = useState(false);
 
   const useAudio = (url) => {
     const [audio] = useState(new Audio(url));
-    // audio.preload = false;
     const [playing, setPlaying] = useState(false);
     const toggle = () => setPlaying(!playing);
 
     useEffect(() => {
       playing ? audio.play() : audio.pause();
-    }, [playing]);
+    }, [audio, playing]);
 
     useEffect(() => {
-      isMuted ? (audio.volume = 0.001) : (audio.volume = 0.5);
+      isMuted ? (audio.volume = 0.001) : (audio.volume = 0.3);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isMuted]);
 
     useEffect(() => {
@@ -210,7 +208,7 @@ const Timer = ({user}) => {
       return () => {
         audio.removeEventListener("ended", () => setPlaying(false));
       };
-    }, []);
+    }, [audio]);
 
     return [playing, toggle];
   };
@@ -223,59 +221,73 @@ const Timer = ({user}) => {
     if (isActive) {
       intervalId = setInterval(() => {
         setTotalCounter((totalCounter) => totalCounter + 1);
+
         if (timer.endTime === totalCounter + 1) {
           setIsActive(false);
-          setIsPause(true);
           setDoneAlert(true);
           setIsReset(false);
           toggle(false);
+          Swal.fire({
+            title: "Sweet!",
+            text: "Enjoy your coffee!",
+            imageUrl: successCoffeeImg,
+            imageWidth: 400,
+            imageHeight: 266.25,
+            imageAlt: "Cheers Coffee",
+          });
         }
       }, 1000);
     }
 
     return () => clearInterval(intervalId);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isActive, totalCounter]);
-
-  // useEffect(() => {
-  //   const currentStep = TIMER_SCRIPT[pointer];
-  //   const lastStepIndex = TIMER_SCRIPT.length;
-  //   const { customSec } = currentStep;
-  //   if (totalCounter === customSec) {
-  //     setPointer((pointer) =>
-  //       pointer + 1 < lastStepIndex ? pointer + 1 : pointer
-  //     );
-  //     playAudio(alert);
-  //   }
-  // }, [pointer, totalCounter]);
 
   useEffect(() => {
     if (timer !== null) {
-      const currentStep = timer.customSec[pointer];
       const lastStepIndex = timer.customSec.length;
-      // const { customSec } = currentStep;
-      // console.log("CurStepSec:" + currentStep);
 
-      if (totalCounter === currentStep) {
+      if (totalCounter === timer.customSec[0]) {
+        setPointer(1);
+        alertAudio.play();
+      } else if (totalCounter === timer.customSec[0] + timer.customSec[1]) {
+        if (pointer + 1 < lastStepIndex) {
+          setPointer(2);
+        } else {
+        }
+
+        alertAudio.play();
+      } else if (
+        totalCounter ===
+        timer.customSec[0] + timer.customSec[1] + timer.customSec[2]
+      ) {
+        if (pointer + 1 < lastStepIndex) {
+          setPointer(3);
+        } else {
+        }
+        alertAudio.play();
+      } else if (
+        totalCounter ===
+        timer.customSec[0] +
+          timer.customSec[1] +
+          timer.customSec[2] +
+          timer.customSec[3]
+      ) {
         setPointer((pointer) =>
           pointer + 1 < lastStepIndex ? pointer + 1 : pointer
         );
-        if (pointer + 1 <= lastStepIndex - 1) {
-          playAudio(alertSound);
-        }
+        alertAudio.play();
       }
 
-      if (totalCounter!==0 && !playing){
-        toggle(playing)
+      if (totalCounter !== 0 && !playing) {
+        toggle(playing);
       }
-      // new Audio(alertSound);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pointer, totalCounter]);
-
-  // console.log("Pointer:" + pointer);
 
   function startTimer() {
     setIsActive(!isActive);
-    setIsPause((prev) => !prev);
     setIsReset(false);
     setDoneAlert(false);
     toggle(true);
@@ -283,67 +295,43 @@ const Timer = ({user}) => {
 
   function stopTimer() {
     setIsActive(false);
-    setIsPause(true);
     setIsReset(false);
     toggle(false);
     setDoneAlert(true);
   }
 
+  function stopByPressLastPage() {
+    setIsActive(false);
+    setIsReset(false);
+    if (playing) {
+      toggle(false);
+    } else if (!playing) {
+    }
+  }
+
+  async function handlePressLastPage() {
+    await stopByPressLastPage();
+    await history.push("/timerlist");
+  }
+
   function resetTimer() {
     setIsActive(false);
-    setIsPause(true);
     setIsReset(true);
     setTotalCounter(0);
     setPointer(0);
-    playAudio(resetSound);
-    // setDoneAlert(true);
-    // toggle(false);
+    resetAudio.play();
   }
-
-  function playAudio (src) {
-    // new Audio(src).play()
-    const alertAudio = new Audio(src);
-    alertAudio.volume=0.4
-    alertAudio.play()
-  };
 
   if (doneAlert && !isReset) {
-    playAudio(doneSound);
+    doneAudio.play();
   }
-
-  // useEffect(() => {
-  //   let interval;
-  //   if (isActive) {
-  //     interval = window.setInterval(() => {
-  //       countdown();
-  //     }, 1000);
-  //   } else if (!isActive && totalCounter !== 0) {
-  //     clearInterval(interval);
-  //   }
-  //   return () => clearInterval(interval);
-  // }, [isActive, totalCounter]);
-
-  // TODO:
-  // if (timers.length === 0) {
-  //   return <div>Please set a new timer</div>;
-  // }
 
   const { computedMinute, computedSecond } =
     convertTotalCountTotimerString(totalCounter);
 
-  // console.log(TIMER_SCRIPT[pointer]);
-
-  // const { baseColor, customStep } = TIMER_SCRIPT[pointer];
-  // const nexrCustomStep =
-  //   pointer === TIMER_SCRIPT.length - 1
-  //     ? ""
-  //     : TIMER_SCRIPT[pointer + 1].customStep;
-  // const totalSteps = TIMER_SCRIPT.length;
-
   if (!timer) return null;
   const customColor = timer.customColor[pointer]?.value;
   const customStep = timer.customStep[pointer];
-  const customSec = timer.customSec[pointer];
 
   const nextCustomStep =
     pointer === timer.customStep.length - 1
@@ -352,41 +340,44 @@ const Timer = ({user}) => {
 
   const totalSteps = timer.customSec.length;
 
-  // console.log(timer);
-
-  // if(timer.endTime === totalCounter){
-  //   clearInterval(intervalId)
-  // };
-
   function toggleLikeCollect(activeInField, field) {
-    
-    if(!user){console.log("Please login to collect/like this timer.")} else {
+    if (!user) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please login to collect this timer.",
+        footer:
+          '<a href="https://brewsdrip.web.app/login">Click here to login.</a>',
+      });
+    } else {
       const uid = firebase.auth().currentUser.uid;
-    firebase
-      .firestore()
-      .collection("timers")
-      .doc(timerId)
-      .update({
-        [field]: activeInField
-          ? firebase.firestore.FieldValue.arrayRemove(uid)
-          : firebase.firestore.FieldValue.arrayUnion(uid),
-      });}
+      firebase
+        .firestore()
+        .collection("timers")
+        .doc(timerId)
+        .update({
+          [field]: activeInField
+            ? firebase.firestore.FieldValue.arrayRemove(uid)
+            : firebase.firestore.FieldValue.arrayUnion(uid),
+        });
+    }
   }
 
   const isCollected = timer.collectedBy?.includes(
     firebase.auth().currentUser?.uid
   );
 
-  const isLiked = timer.likedBy?.includes(firebase.auth().currentUser?.uid);
-  // const isMuted = timer.mutedBy?.includes(firebase.auth().currentUser.uid);
+  const handleCopyUrl = () => {
+    navigator.clipboard.writeText(window.location.href);
+    Swal.fire("Go share now!", "You've copied the URL!", "success");
+    setIsShareClick((prev) => !prev);
+  };
 
-  // if (isMuted) {
-  //   new Audio(bgm).volume = 0;
-  // } else {
-  //   new Audio(bgm).volume = 0.5;
-  // }
-  // console.log(audio.volume)
-// console.log(user)
+  const onShareWindowClose = () => {
+    Swal.fire("Awesome!", "Let's share this timer!", "success");
+    setIsShareClick((prev) => !prev);
+  };
+
   return (
     <>
       {timer && (
@@ -394,13 +385,14 @@ const Timer = ({user}) => {
           <TimerContainer background={customColor}>
             <FlexColumnWrap>
               <Flex100BetweenWrap>
-                <Link to="/timerlist">
+                <ControlBtn>
                   <FaArrowLeft
                     color={"#ffffff"}
                     size={"1.5rem"}
                     style={{ alignSelf: "flex-start" }}
+                    onClick={handlePressLastPage}
                   />
-                </Link>
+                </ControlBtn>
 
                 <HeaderH2 color="#FFFFFF">{timer.timerName}</HeaderH2>
                 <BrewImg src={timerGif}></BrewImg>
@@ -409,10 +401,9 @@ const Timer = ({user}) => {
               <Flex100AroundWrap>
                 <Flex50ColumnWrap>
                   <StepsBigFont>{customStep}</StepsBigFont>
-                  {/* <div className="currentStep">{`NOW: ${customStep}`}</div> */}
+
                   <StepsSmallFont>
                     {pointer !== timer.customStep.length - 1 && nextCustomStep}
-                    {/* {pointer !== timer.customStep.length - 1 && `next: ${nextCustomStep}`} */}
                   </StepsSmallFont>
                 </Flex50ColumnWrap>
                 <Flex50ColumnWrap style={{ alignItems: "flex-end" }}>
@@ -453,20 +444,40 @@ const Timer = ({user}) => {
               </StyledIconDiv>
             </Flex100CenterWrap>
 
-            <Flex90BetweenWrap>
+            <Flex90BetweenWrap margin={"6%"}>
               <StyledIconDiv>
-                {!isLiked ? (
-                  <FaRegHeart
-                    color={"white"}
-                    size={"1.5rem"}
-                    onClick={() => toggleLikeCollect(isLiked, "likedBy")}
-                  />
-                ) : (
-                  <FaHeart
-                    color={"white"}
-                    size={"1.5rem"}
-                    onClick={() => toggleLikeCollect(isLiked, "likedBy")}
-                  />
+                <FiShare2
+                  color={"white"}
+                  size={"1.5rem"}
+                  onClick={() => setIsShareClick((prev) => !prev)}
+                />
+                {isShareClick && (
+                  <ShareBtnDiv>
+                    <FacebookShareButton
+                      url={window.location.href}
+                      quote={
+                        "I've found an awesome coffee timer. Let's try it!"
+                      }
+                      hashtag={["brewsDrip", "YourBestCoffeePal"]}
+                      onShareWindowClose={onShareWindowClose}
+                    >
+                      <FacebookIcon size={25} round />
+                    </FacebookShareButton>
+                    <LineShareButton
+                      url={window.location.href}
+                      title={
+                        "I've found an awesome coffee timer. Let's try it!"
+                      }
+                      onShareWindowClose={onShareWindowClose}
+                    >
+                      <LineIcon size={25} round />
+                    </LineShareButton>
+                    <BiLinkAlt
+                      size={25}
+                      color={"#FFFFFF"}
+                      onClick={handleCopyUrl}
+                    />
+                  </ShareBtnDiv>
                 )}
               </StyledIconDiv>
 
@@ -476,14 +487,12 @@ const Timer = ({user}) => {
                     color={"white"}
                     size={"2rem"}
                     onClick={() => setIsMuted(true)}
-                    // onClick={() => toggleLikeCollect(isMuted, "mutedBy")}
                   />
                 ) : (
                   <GiSoundOff
                     color={"white"}
                     size={"2rem"}
                     onClick={() => setIsMuted(false)}
-                    // onClick={() => toggleLikeCollect(isMuted, "mutedBy")}
                   />
                 )}
               </StyledIconDivSound>

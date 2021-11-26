@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 export const SigninContainer = styled.div`
@@ -33,19 +33,13 @@ export const StyledForm = styled.form`
 
 export const HeaderH1 = styled.h1`
   font-weight: bold;
-  font-size: ${(props) => props.fontSize?props.fontSize:"2rem"};
+  font-size: ${(props) => (props.fontSize ? props.fontSize : "2rem")};
   text-align: center;
   margin: 0;
   margin-bottom: ${(props) => props.marginbottom};
   margin-top: ${(props) => props.margintop};
   color: ${(props) => (props.color ? props.color : "#000000")};
 `;
-
-// const HeaderSingin = styled(HeaderH1)`
-//   @media (max-width: 425px) {
-//     color: #ffffff;
-//   }
-// `;
 
 export const SocialContainer = styled.div`
   margin: 20px 0;

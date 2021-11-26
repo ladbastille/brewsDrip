@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import BackgroundVideo from "../components/BackgroundVideo";
@@ -14,6 +14,7 @@ const HomeDiv = styled.div`
   justify-content: space-between;
   box-shadow: inset 0 0 0 1000px rgba(0.02);
   object-fit: contain;
+  box-sizing: border-box;
   @media (max-width: 1024px) {
     min-height: 400px;
   }
@@ -41,7 +42,7 @@ const TutorialsParagraph = styled.p`
   width: 20%;
   @media (max-width: 375px) {
     font-size: 2rem;
-    width:70%;
+    width: 70%;
   }
 `;
 

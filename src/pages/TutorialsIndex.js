@@ -1,7 +1,4 @@
-import React, { useState, useEffect } from "react";
-import firebase from "../utils/firebase";
-import "firebase/firestore";
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import BREW from "../images/BREW.jpg";
 import DRINK from "../images/DRINK.jpg";
@@ -16,6 +13,7 @@ const TutorialsDiv = styled.div`
   min-height: 50vh;
   background-color: #e5e5e5;
   margin-bottom: 10px;
+  box-sizing:border-box;
   @media (max-width: 1280px) {
     flex-wrap: wrap;
     padding: 10px;
@@ -24,11 +22,13 @@ const TutorialsDiv = styled.div`
 
 const CardDiv = styled.div`
   width: 33.33.%;
-  /* height: 50vh; */
   position: relative;
   opacity: 0.75;
   &:hover {
     opacity: 1;
+  }
+  @media (max-width: 1280px) {
+    margin-bottom: 5px;
   }
 `;
 
