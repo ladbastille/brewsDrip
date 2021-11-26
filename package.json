@@ -6,13 +6,15 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom"
+    "test": "react-scripts test --env=jsdom",
+    "cypress": "cypress open"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@u-wave/react-vimeo": "^0.9.5",
+    "cypress": "^9.1.0",
     "eslint": "^7.32.0",
     "firebase": "^8.10.0",
     "react": "^17.0.2",
