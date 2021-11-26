@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
-import firebase from "../utils/firebase";
+import React from "react";
 import "firebase/firestore";
-import { useLocation, Link } from "react-router-dom";
 import styled from "styled-components";
 import {
   TutorialsBrewDiv,

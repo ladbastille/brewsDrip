@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import firebase from "../utils/firebase";
+import React, {  } from "react";
 import "firebase/firestore";
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const CardListImg = styled.img`
@@ -36,7 +35,6 @@ const CardListDiv = styled.div`
     color: #000000;
   }
   @media (max-width: 768px) {
-    /* flex-wrap: wrap; */
     width: 80%;
   }
 `;

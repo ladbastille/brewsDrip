@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
-import firebase from "../utils/firebase";
+import React from "react";
 import "firebase/firestore";
-import { useLocation, Link } from "react-router-dom";
 import styled from "styled-components";
 import TutorialCardDrink from "./TutorialCardDrink";
 
@@ -13,7 +11,6 @@ const TutorialsDiv = styled.div`
   justify-content: space-around;
   width: 100%;
   min-height: 560px;
-  /* background-color: #e5e5e5; */
 `;
 
 const TutorialsDrink = () => {

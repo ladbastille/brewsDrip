@@ -1,23 +1,15 @@
-import { FaArrowLeft } from "react-icons/fa";
 import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
 import {
-  TimerListContainer,
   StyledTimerlistLink,
   TimersTagWrap,
   TimersTag,
-  BigTimerlistLink,
-  InsideTimerlistWrap,
 } from "../pages/AllTimerList";
 
 function TimerListMenu() {
   return (
     <>
-      {/* <FaArrowLeft
-          color={"#ffffff"}
-          size={"1.5rem"}
-          style={{ alignSelf: "flex-start" }}
-        /> */}
+      
       <HeaderH1 margintop={"20px"} color={"#ffffff"}>
         Timer List
       </HeaderH1>

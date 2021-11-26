@@ -1,6 +1,3 @@
-import React from "react";
-
-import "firebase/firestore";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import BREW from "../images/BREW.jpg";
@@ -25,7 +22,6 @@ const TutorialsDiv = styled.div`
 
 const CardDiv = styled.div`
   width: 33.33.%;
-  /* height: 50vh; */
   position: relative;
   opacity: 0.75;
   &:hover {

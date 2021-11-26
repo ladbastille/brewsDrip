@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
-import TasteNotes from "./pages/TasteNote";
+
 import Timer from "./pages/Timer";
 import Login from "./pages/Login";
 import Member from "./pages/Member";
@@ -15,7 +14,7 @@ import MyTimers from "./pages/MyTimers";
 import NewTimer from "./pages/NewTimer";
 import CollectedTimer from "./pages/CollectedTimer";
 import DefaultTimer from "./pages/DefaultTimer";
-import TasteNoteList from "./pages/TasteNoteList";
+
 import NewNote from "./pages/NewNote";
 import TasteNote from "./pages/TasteNote";
 import TimerListMenu from "./pages/TimerListMenu";

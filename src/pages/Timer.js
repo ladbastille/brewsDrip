@@ -159,7 +159,6 @@ const Timer = ({ user }) => {
   const history = useHistory();
   const { timerId } = useParams();
   const [timer, setTimer] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [isShareClick, setIsShareClick] = useState(false);
 
   // handle Audio delay issue
@@ -180,42 +179,28 @@ const Timer = ({ user }) => {
         const data = docSnapshot.data();
         setTimer(data);
       });
-
-    // .get()
-    // .then((docSnapshot) => {
-    //   const data = docSnapshot.data();
-    //   // console.log(timerId)
-    //   console.log(data);
-    //   setTimer(data);
-    // });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [isActive, setIsActive] = useState(false);
-  const [isPause, setIsPause] = useState(true);
   const [isReset, setIsReset] = useState(false);
-
-  //  test change data of timer
-  const [milliseconds, setMilliseconds] = useState(0);
-
   const [totalCounter, setTotalCounter] = useState(0);
-
   const [pointer, setPointer] = useState(0);
   const [doneAlert, setDoneAlert] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  // const isMuted = timer?.mutedBy?.includes(firebase.auth().currentUser?.uid);
 
   const useAudio = (url) => {
     const [audio] = useState(new Audio(url));
-    // audio.preload = false;
     const [playing, setPlaying] = useState(false);
     const toggle = () => setPlaying(!playing);
 
     useEffect(() => {
       playing ? audio.play() : audio.pause();
-    }, [playing]);
+    }, [audio, playing]);
 
     useEffect(() => {
       isMuted ? (audio.volume = 0.001) : (audio.volume = 0.3);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isMuted]);
 
     useEffect(() => {
@@ -223,7 +208,7 @@ const Timer = ({ user }) => {
       return () => {
         audio.removeEventListener("ended", () => setPlaying(false));
       };
-    }, []);
+    }, [audio]);
 
     return [playing, toggle];
   };
@@ -239,7 +224,6 @@ const Timer = ({ user }) => {
 
         if (timer.endTime === totalCounter + 1) {
           setIsActive(false);
-          setIsPause(true);
           setDoneAlert(true);
           setIsReset(false);
           toggle(false);
@@ -256,34 +240,12 @@ const Timer = ({ user }) => {
     }
 
     return () => clearInterval(intervalId);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isActive, totalCounter]);
-
-  // test change data type of timer
-  // React.useEffect(() => {
-  //   if (milliseconds === 1000) {
-  //     setTotalCounter((totalCounter) => totalCounter + 1);
-  //     setMilliseconds(0);
-  //   }
-  // }, [milliseconds]);
-
-  // useEffect(() => {
-  //   const currentStep = TIMER_SCRIPT[pointer];
-  //   const lastStepIndex = TIMER_SCRIPT.length;
-  //   const { customSec } = currentStep;
-  //   if (totalCounter === customSec) {
-  //     setPointer((pointer) =>
-  //       pointer + 1 < lastStepIndex ? pointer + 1 : pointer
-  //     );
-  //     playAudio(alert);
-  //   }
-  // }, [pointer, totalCounter]);
 
   useEffect(() => {
     if (timer !== null) {
-      const currentStep = timer.customSec[pointer];
       const lastStepIndex = timer.customSec.length;
-      // const { customSec } = currentStep;
-      console.log("CurStepSec:" + timer.customSec[pointer]);
 
       if (totalCounter === timer.customSec[0]) {
         setPointer(1);
@@ -317,22 +279,15 @@ const Timer = ({ user }) => {
         alertAudio.play();
       }
 
-      // if (pointer + 1 ) {
-      //   playAudio(alertSound);
-      // }
-
       if (totalCounter !== 0 && !playing) {
         toggle(playing);
       }
-      // new Audio(alertSound);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pointer, totalCounter]);
-
-  // console.log("Pointer:" + pointer);
 
   function startTimer() {
     setIsActive(!isActive);
-    setIsPause((prev) => !prev);
     setIsReset(false);
     setDoneAlert(false);
     toggle(true);
@@ -340,7 +295,6 @@ const Timer = ({ user }) => {
 
   function stopTimer() {
     setIsActive(false);
-    setIsPause(true);
     setIsReset(false);
     toggle(false);
     setDoneAlert(true);
@@ -348,7 +302,6 @@ const Timer = ({ user }) => {
 
   function stopByPressLastPage() {
     setIsActive(false);
-    setIsPause(true);
     setIsReset(false);
     if (playing) {
       toggle(false);
@@ -363,59 +316,22 @@ const Timer = ({ user }) => {
 
   function resetTimer() {
     setIsActive(false);
-    setIsPause(true);
     setIsReset(true);
     setTotalCounter(0);
     setPointer(0);
     resetAudio.play();
-    // setDoneAlert(true);
-    // toggle(false);
   }
-
-  // function playAudio(src) {
-  //   // new Audio(src).play()
-  //   const alertAudio = new Audio(src);
-  //   alertAudio.volume = 0.4;
-  //   alertAudio.play();
-  // }
 
   if (doneAlert && !isReset) {
     doneAudio.play();
   }
 
-  // useEffect(() => {
-  //   let interval;
-  //   if (isActive) {
-  //     interval = window.setInterval(() => {
-  //       countdown();
-  //     }, 1000);
-  //   } else if (!isActive && totalCounter !== 0) {
-  //     clearInterval(interval);
-  //   }
-  //   return () => clearInterval(interval);
-  // }, [isActive, totalCounter]);
-
-  // TODO:
-  // if (timers.length === 0) {
-  //   return <div>Please set a new timer</div>;
-  // }
-
   const { computedMinute, computedSecond } =
     convertTotalCountTotimerString(totalCounter);
-
-  // console.log(TIMER_SCRIPT[pointer]);
-
-  // const { baseColor, customStep } = TIMER_SCRIPT[pointer];
-  // const nexrCustomStep =
-  //   pointer === TIMER_SCRIPT.length - 1
-  //     ? ""
-  //     : TIMER_SCRIPT[pointer + 1].customStep;
-  // const totalSteps = TIMER_SCRIPT.length;
 
   if (!timer) return null;
   const customColor = timer.customColor[pointer]?.value;
   const customStep = timer.customStep[pointer];
-  const customSec = timer.customSec[pointer];
 
   const nextCustomStep =
     pointer === timer.customStep.length - 1
@@ -423,12 +339,6 @@ const Timer = ({ user }) => {
       : timer.customStep[pointer + 1];
 
   const totalSteps = timer.customSec.length;
-
-  // console.log(timer);
-
-  // if(timer.endTime === totalCounter){
-  //   clearInterval(intervalId)
-  // };
 
   function toggleLikeCollect(activeInField, field) {
     if (!user) {
@@ -467,16 +377,7 @@ const Timer = ({ user }) => {
     Swal.fire("Awesome!", "Let's share this timer!", "success");
     setIsShareClick((prev) => !prev);
   };
-  // const isLiked = timer.likedBy?.includes(firebase.auth().currentUser?.uid);
-  // const isMuted = timer.mutedBy?.includes(firebase.auth().currentUser.uid);
 
-  // if (isMuted) {
-  //   new Audio(bgm).volume = 0;
-  // } else {
-  //   new Audio(bgm).volume = 0.5;
-  // }
-  // console.log(audio.volume)
-  // console.log(user)
   return (
     <>
       {timer && (
@@ -500,10 +401,9 @@ const Timer = ({ user }) => {
               <Flex100AroundWrap>
                 <Flex50ColumnWrap>
                   <StepsBigFont>{customStep}</StepsBigFont>
-                  {/* <div className="currentStep">{`NOW: ${customStep}`}</div> */}
+
                   <StepsSmallFont>
                     {pointer !== timer.customStep.length - 1 && nextCustomStep}
-                    {/* {pointer !== timer.customStep.length - 1 && `next: ${nextCustomStep}`} */}
                   </StepsSmallFont>
                 </Flex50ColumnWrap>
                 <Flex50ColumnWrap style={{ alignItems: "flex-end" }}>
@@ -587,14 +487,12 @@ const Timer = ({ user }) => {
                     color={"white"}
                     size={"2rem"}
                     onClick={() => setIsMuted(true)}
-                    // onClick={() => toggleLikeCollect(isMuted, "mutedBy")}
                   />
                 ) : (
                   <GiSoundOff
                     color={"white"}
                     size={"2rem"}
                     onClick={() => setIsMuted(false)}
-                    // onClick={() => toggleLikeCollect(isMuted, "mutedBy")}
                   />
                 )}
               </StyledIconDivSound>

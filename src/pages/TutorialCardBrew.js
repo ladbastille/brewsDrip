@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import firebase from "../utils/firebase";
+import React, {  } from "react";
 import "firebase/firestore";
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const CardListImg = styled.img`
@@ -35,7 +34,6 @@ const CardListDiv = styled.div`
     color: #000000;
   }
   @media (max-width: 768px) {
-    /* flex-wrap: wrap; */
     width: 80%;
   }
 `;
@@ -92,27 +90,6 @@ const TutorialCardBrew = ({ src }) => {
           </CardListText>
         </Link>
       </CardListDiv>
-      {/* <CardListDiv>
-        <CardListImg src={"https://cdn.shopify.com/s/files/1/0035/9372/files/kalita_blog_photo.png?v=1607372057"} />
-        <CardListH3>
-          How to brew at home:Chemex / Hario V60 / Kalita Wave
-        </CardListH3>
-        <CardListText>Verve Coffee Pro, Kat Natividad, shows us how she brews coffee at home using the Kalita Wave. This flat-bottom pourover brewing device is what we use in all our cafes.</CardListText>
-      </CardListDiv>
-      <CardListDiv>
-        <CardListImg src={"https://cdn.shopify.com/s/files/1/0035/9372/files/kalita_blog_photo.png?v=1607372057"} />
-        <CardListH3>
-          How to brew at home:Chemex / Hario V60 / Kalita Wave
-        </CardListH3>
-        <CardListText>Verve Coffee Pro, Kat Natividad, shows us how she brews coffee at home using the Kalita Wave. This flat-bottom pourover brewing device is what we use in all our cafes.</CardListText>
-      </CardListDiv>
-      <CardListDiv>
-        <CardListImg src={"https://cdn.shopify.com/s/files/1/0035/9372/files/kalita_blog_photo.png?v=1607372057"} />
-        <CardListH3>
-          How to brew at home:Chemex / Hario V60 / Kalita Wave
-        </CardListH3>
-        <CardListText>Verve Coffee Pro, Kat Natividad, shows us how she brews coffee at home using the Kalita Wave. This flat-bottom pourover brewing device is what we use in all our cafes.</CardListText>
-      </CardListDiv> */}
     </>
   );
 };

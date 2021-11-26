@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
-import firebase from "../utils/firebase";
+import React, {  } from "react";
 import "firebase/firestore";
-import { useLocation, Link } from "react-router-dom";
 import styled from "styled-components";
 import {
   TutorialsBrewDiv,
@@ -26,7 +24,7 @@ const TutorialsD01 = () => {
       <TutorialsBrewDiv>
         <CardListDiv>
           <CardListH3>HOLIDAY PARTY DRINK RECIPE: THE GOLDEN JEWEL</CardListH3>
-          {/* <CardListIframe></CardListIframe> */}
+
           <CardListImg
             src={
               "https://cdn.shopify.com/s/files/1/0035/9372/files/hero.png?v=1573608420"
