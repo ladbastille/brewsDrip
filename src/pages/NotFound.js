@@ -23,6 +23,12 @@ const NotFoundH1 = styled.h1`
   font-weight: bolder;
   bottom: 20%;
   right: 10%;
+  @media (max-width: 768px) {
+    font-size: 6rem;
+  }
+  @media (max-width: 375px) {
+    font-size: 4rem;
+  }
 `;
 const NotFoundH2 = styled.h2`
   position: absolute;
