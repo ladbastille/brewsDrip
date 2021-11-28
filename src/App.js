@@ -45,6 +45,7 @@ function App() {
     firebase.auth().onAuthStateChanged((currentUser) => {
       dispatch(getCurrentUser(currentUser));
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -59,15 +60,23 @@ function App() {
             <Route path="/tutorials/brew/b02" exact component={TutorialsB02} />
             <Route path="/tutorials/brew/b03" exact component={TutorialsB03} />
             <Route path="/tutorials/drink" exact component={TutorialsDrink} />
-            <Route path="/tutorials/brew/d01" exact component={TutorialsD01} />
-            <Route path="/tutorials/brew/d02" exact component={TutorialsD02} />
+            <Route path="/tutorials/drink/d01" exact component={TutorialsD01} />
+            <Route path="/tutorials/drink/d02" exact component={TutorialsD02} />
             <Route
               path="/tutorials/culture"
               exact
               component={TutorialsCulture}
             />
-            <Route path="/tutorials/brew/c01" exact component={TutorialsC01} />
-            <Route path="/tutorials/brew/c02" exact component={TutorialsC02} />
+            <Route
+              path="/tutorials/culture/c01"
+              exact
+              component={TutorialsC01}
+            />
+            <Route
+              path="/tutorials/culture/c02"
+              exact
+              component={TutorialsC02}
+            />
 
             <Route path="/newnote">
               {user !== null ? <NewNote /> : <Redirect to="/login" />}
@@ -84,11 +93,7 @@ function App() {
                     <AllTimerList />
                   </Route>
                   <Route path="/timerlist/mytimers" exact>
-                    {user !== null ? (
-                      <MyTimers />
-                    ) : (
-                      <Redirect to="/login" />
-                    )}
+                    {user !== null ? <MyTimers /> : <Redirect to="/login" />}
                   </Route>
                   <Route path="/timerlist/collected" exact>
                     {user !== null ? (
@@ -113,18 +118,14 @@ function App() {
                 <NoteListMenu />
                 <Switch>
                   <Route path="/tastenotelist" exact>
-                    <AllNoteList user={user} />
+                    <AllNoteList />
                   </Route>
                   <Route path="/tastenotelist/mynotes" exact>
-                    {user !== null ? (
-                      <MyNotes user={user} />
-                    ) : (
-                      <Redirect to="/login" />
-                    )}
+                    {user !== null ? <MyNotes /> : <Redirect to="/login" />}
                   </Route>
                   <Route path="/tastenotelist/collected" exact>
                     {user !== null ? (
-                      <CollectedNote user={user} />
+                      <CollectedNote />
                     ) : (
                       <Redirect to="/login" />
                     )}
@@ -134,26 +135,14 @@ function App() {
             </Route>
 
             <Route path="/newtimer">
-              {user !== null ? (
-                <NewTimer user={user} />
-              ) : (
-                <Redirect to="/login" />
-              )}
+              {user !== null ? <NewTimer /> : <Redirect to="/login" />}
             </Route>
 
             <Route path="/member">
-              {user !== null ? (
-                <Member user={user} />
-              ) : (
-                <Redirect to="/login" />
-              )}
+              {user !== null ? <Member /> : <Redirect to="/login" />}
             </Route>
             <Route path="/login" exact>
-              {user !== null ? (
-                <Redirect to="/member" />
-              ) : (
-                <Login user={user} />
-              )}
+              {user !== null ? <Redirect to="/member" /> : <Login />}
             </Route>
 
             <Route path="/" exact>
@@ -164,7 +153,7 @@ function App() {
               <NotFound />
             </Route>
           </Switch>
-          <Footer user={user} />
+          <Footer />
         </ScrollToTop>
       </BrowserRouter>
       ,

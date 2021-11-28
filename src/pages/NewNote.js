@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux";
 import firebase from "../utils/firebase";
 import "firebase/firestore";
 import "firebase/storage";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import { FaCameraRetro, FaArrowLeft } from "react-icons/fa";
-import { useHistory,Link } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { GiCoffeeBeans } from "react-icons/gi";
 import Input, { HeaderH1 } from "../components/Input";
 import { FooterCTABtn } from "../components/Footer";
@@ -118,7 +118,7 @@ export const ImgWrap = styled.div`
 `;
 
 const NewNote = () => {
-  const currentUser = useSelector((state)=>state.currentUser)
+  const currentUser = useSelector((state) => state.currentUser);
   const history = useHistory();
   const [coffeeName, setCoffeeName] = useState("");
   const [notes, setNotes] = useState("");
@@ -164,7 +164,7 @@ const NewNote = () => {
       });
     });
   }
-console.log(currentUser)
+  console.log(currentUser);
   return (
     <>
       <NewNoteContainer>

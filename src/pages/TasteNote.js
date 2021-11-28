@@ -3,9 +3,7 @@ import firebase from "../utils/firebase";
 import "firebase/firestore";
 import "firebase/storage";
 import styled from "styled-components";
-import {
-  FaArrowLeft,
-} from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -90,7 +88,6 @@ export const PreviewImage = styled.img`
   max-width: 100%;
 `;
 
-
 const TasteInput = styled(Input)`
   width: 65%;
   align-content: center;
@@ -165,7 +162,6 @@ function TasteNote({ user }) {
     author: {},
   });
 
-
   useEffect(() => {
     firebase
       .firestore()
@@ -179,7 +175,6 @@ function TasteNote({ user }) {
         setPlace(data.place);
         setRating(data.rating);
         setSelectedTagIds(data.selectedTagIds ? data.selectedTagIds : []);
-
       });
   }, []);
 
@@ -269,7 +264,6 @@ function TasteNote({ user }) {
             justifyContent={"space-evenly"}
             margin={"0"}
           >
-
             <ImgWrap>
               <PreviewImage src={note.imageUrl} />
             </ImgWrap>
@@ -325,13 +319,12 @@ function TasteNote({ user }) {
             ?.toDate()
             .toLocaleDateString()}`}</HeaderH2>
         </SecondWrap>
-        <InsideNotelistWrap>
-          
-        </InsideNotelistWrap>
+        <InsideNotelistWrap></InsideNotelistWrap>
 
-        <SecondWrap margin={"5px auto 5px "} justifyContent={"center"}>
-          
-        </SecondWrap>
+        <SecondWrap
+          margin={"5px auto 5px "}
+          justifyContent={"center"}
+        ></SecondWrap>
         <Tags
           editable={!readOnly}
           selectedTagIds={selectedTagIds}

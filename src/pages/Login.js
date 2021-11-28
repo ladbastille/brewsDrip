@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import styled from "styled-components";
 import "firebase/auth";
 import socialMediaAuth from "../utils/auth";
@@ -29,10 +30,9 @@ const LoginBody = styled.div`
   }
 `;
 
-function Login({ user }) {
+function Login() {
   const [toggle, setToggle] = useState(true);
   const handleOnClick = async (provider) => {
-    console.log("SNS Btn Login");
     const res = await socialMediaAuth(provider);
     console.log(res);
   };

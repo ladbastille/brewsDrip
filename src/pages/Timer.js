@@ -157,7 +157,7 @@ const convertTotalCountTotimerString = (totalCounter) => {
 };
 
 const Timer = () => {
-  const currentUser = useSelector((state)=>state.currentUser)
+  const currentUser = useSelector((state) => state.currentUser);
   const history = useHistory();
   const { timerId } = useParams();
   const [timer, setTimer] = useState(null);
@@ -365,9 +365,7 @@ const Timer = () => {
     }
   }
 
-  const isCollected = timer.collectedBy?.includes(
-    currentUser?.uid
-  );
+  const isCollected = timer.collectedBy?.includes(currentUser?.uid);
 
   const handleCopyUrl = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -504,17 +502,13 @@ const Timer = () => {
                   <IoBookmarkOutline
                     color={"white"}
                     size={"1.5rem"}
-                    onClick={() =>
-                      toggleCollect(isCollected, "collectedBy")
-                    }
+                    onClick={() => toggleCollect(isCollected, "collectedBy")}
                   />
                 ) : (
                   <IoBookmark
                     color={"white"}
                     size={"1.5rem"}
-                    onClick={() =>
-                      toggleCollect(isCollected, "collectedBy")
-                    }
+                    onClick={() => toggleCollect(isCollected, "collectedBy")}
                   />
                 )}
               </StyledIconDiv>

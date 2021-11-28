@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux";
 import firebase from "../utils/firebase";
 import { BigTimerlistLink, InsideTimerlistWrap } from "./AllTimerList";
 import "firebase/firestore";
@@ -13,19 +13,14 @@ import { StyledIconDiv } from "./Timer";
 
 function CollectedTimers() {
   const [timers, setTimers] = useState([]);
-  const currentUser = useSelector((state)=>state.currentUser)
+  const currentUser = useSelector((state) => state.currentUser);
 
   useEffect(() => {
-
     if (currentUser) {
       firebase
         .firestore()
         .collection("timers")
-        .where(
-          "collectedBy",
-          "array-contains",
-          currentUser?.uid
-        )
+        .where("collectedBy", "array-contains", currentUser?.uid)
         .orderBy("createdAt", "desc")
         .onSnapshot((collectionSnapshot) => {
           const data = collectionSnapshot.docs.map((docSnapshot) => {
@@ -59,12 +54,8 @@ function CollectedTimers() {
       </HeaderH1>
 
       {timers.map((timer) => {
-        const isLiked = timer.likedBy?.includes(
-          currentUser?.uid
-        );
-        const isCollected = timer.collectedBy?.includes(
-          currentUser.uid
-        );
+        const isLiked = timer.likedBy?.includes(currentUser?.uid);
+        const isCollected = timer.collectedBy?.includes(currentUser.uid);
 
         return (
           <BigTimerlistLink

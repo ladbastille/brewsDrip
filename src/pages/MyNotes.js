@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import firebase from "../utils/firebase";
@@ -25,17 +26,16 @@ export const NoteEditIconDiv = styled(StyledIconDiv)`
   display: none;
 `;
 
-function MyTimers({ user }) {
+function MyNotes() {
+  const currentUser = useSelector((state) => state.currentUser);
   const [tasteNotes, setTasteNotes] = useState([]);
 
   useEffect(() => {
-    console.log(user);
-
-    if (user) {
+    if (currentUser) {
       firebase
         .firestore()
         .collection("taste-note")
-        .where("author.uid", "==", firebase.auth().currentUser.uid)
+        .where("author.uid", "==", currentUser.uid)
         .orderBy("createdAt", "desc")
         .onSnapshot((collectionSnapshot) => {
           const data = collectionSnapshot.docs.map((docSnapshot) => {
@@ -45,10 +45,10 @@ function MyTimers({ user }) {
           setTasteNotes(data);
         });
     }
-  }, [user]);
+  }, [currentUser]);
 
   function toggleLikeCollect(activeInField, field, id) {
-    const uid = firebase.auth().currentUser?.uid;
+    const uid = currentUser?.uid;
     if (uid) {
       firebase
         .firestore()
@@ -73,13 +73,9 @@ function MyTimers({ user }) {
       </HeaderH1>
 
       {tasteNotes.map((note) => {
-        const isLiked = note.likedBy?.includes(
-          firebase.auth().currentUser?.uid
-        );
-        const isCollected = note.collectedBy?.includes(
-          firebase.auth().currentUser?.uid
-        );
-        console.log(isLiked);
+        const isLiked = note.likedBy?.includes(currentUser?.uid);
+        const isCollected = note.collectedBy?.includes(currentUser?.uid);
+
         return (
           <BigNotelistLink key={note.id} color={"#000000"}>
             <InsideTimerlistWrap as={Link} to={`/tastenote/${note.id}`}>
@@ -183,4 +179,4 @@ function MyTimers({ user }) {
   );
 }
 
-export default MyTimers;
+export default MyNotes;

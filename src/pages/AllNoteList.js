@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import firebase from "../utils/firebase";
 import "firebase/firestore";
 import { Link } from "react-router-dom";
@@ -114,9 +115,10 @@ export const NotesTag = styled(Link)`
   }
 `;
 
-const AllNoteList = ({ user }) => {
+const AllNoteList = () => {
+  const currentUser = useSelector((state) => state.currentUser);
   const [tasteNotes, setTasteNotes] = useState([]);
-  const lastPostSnapshotRef = React.useRef();
+  const lastPostSnapshotRef = useRef();
 
   useEffect(() => {
     firebase
@@ -136,7 +138,7 @@ const AllNoteList = ({ user }) => {
   }, []);
 
   function toggleLikeCollect(activeInField, field, id) {
-    const uid = firebase.auth().currentUser?.uid;
+    const uid = currentUser?.uid;
 
     if (uid) {
       firebase
@@ -166,13 +168,9 @@ const AllNoteList = ({ user }) => {
       </HeaderH1>
 
       {tasteNotes.map((note) => {
-        const isLiked = note.likedBy?.includes(
-          firebase.auth().currentUser?.uid
-        );
-        const isCollected = note.collectedBy?.includes(
-          firebase.auth().currentUser?.uid
-        );
-        console.log(isLiked);
+        const isLiked = note.likedBy?.includes(currentUser?.uid);
+        const isCollected = note.collectedBy?.includes(currentUser?.uid);
+
         return (
           <BigNotelistLink key={note.id} color={"#000000"}>
             <InsideTimerlistWrap as={Link} to={`/tastenote/${note.id}`}>

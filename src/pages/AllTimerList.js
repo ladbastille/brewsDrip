@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux";
 import firebase from "../utils/firebase";
 import "firebase/firestore";
 import { Link } from "react-router-dom";
@@ -110,7 +110,7 @@ export const TimersTag = styled(Link)`
 `;
 
 const AllTimerList = () => {
-  const currentUser = useSelector((state)=>state.currentUser)
+  const currentUser = useSelector((state) => state.currentUser);
   const [timers, setTimers] = useState([]);
   const lastPostSnapshotRef = React.useRef();
 
@@ -160,12 +160,8 @@ const AllTimerList = () => {
       </HeaderH1>
 
       {timers.map((timer) => {
-        const isLiked = timer.likedBy?.includes(
-          currentUser?.uid
-        );
-        const isCollected = timer.collectedBy?.includes(
-          currentUser?.uid
-        );
+        const isLiked = timer.likedBy?.includes(currentUser?.uid);
+        const isCollected = timer.collectedBy?.includes(currentUser?.uid);
 
         return (
           <BigTimerlistLink

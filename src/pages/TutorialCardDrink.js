@@ -1,4 +1,4 @@
-import React, {  } from "react";
+import React from "react";
 import "firebase/firestore";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -43,7 +43,7 @@ const TutorialCardDrink = ({ src }) => {
   return (
     <>
       <CardListDiv>
-        <Link to="/tutorials/brew/d01">
+        <Link to="/tutorials/drink/d01">
           <CardListImg
             src={
               "https://cdn.shopify.com/s/files/1/0035/9372/files/holiday_drink_module.jpg?v=1586383943"
@@ -58,7 +58,7 @@ const TutorialCardDrink = ({ src }) => {
       </CardListDiv>
 
       <CardListDiv>
-        <Link to="/tutorials/brew/d02">
+        <Link to="/tutorials/drink/d02">
           <CardListImg
             src={
               "https://cdn.shopify.com/s/files/1/0035/9372/files/de_olla_blog_header_f8469d10-4a7f-4fc8-a698-dbdea50d8a8b.png?v=1606252138"

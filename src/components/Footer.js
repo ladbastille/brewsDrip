@@ -1,4 +1,5 @@
 import React from "react";
+import {useSelector} from "react-redux"
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import FooterLogoImg from "../images/logo_225x50.svg";
@@ -219,7 +220,8 @@ const menu = [
   },
 ];
 
-const Footer = ({ user }) => {
+const Footer = () => {
+  const currentUser = useSelector((state)=>state.currentUser)
   return (
     <FooterContainer>
       <FooterContentContainer>
@@ -244,7 +246,7 @@ const Footer = ({ user }) => {
         </FooterLinksWrap>
 
         <FooterCTABtnWrap>
-          {user ? (
+          {currentUser ? (
             <>
               <BtnLink to="/member">
                 <FooterCTABtn>Member</FooterCTABtn>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import firebase from "../utils/firebase";
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
@@ -131,7 +132,8 @@ const LogoutButton = styled(SubmitButton)`
   }
 `;
 
-function Member({ user }) {
+function Member() {
+  const currentUser = useSelector((state) => state.currentUser);
   const [isLoading, setIsLoading] = useState(false);
   const [file, setFile] = useState(null);
   const history = useHistory();
@@ -139,8 +141,8 @@ function Member({ user }) {
   const previewUrl = () => {
     if (file) {
       return URL.createObjectURL(file);
-    } else if (user.photoURL !== null) {
-      return user.photoURL;
+    } else if (currentUser.photoURL !== null) {
+      return currentUser.photoURL;
     } else {
       return "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/user-pics%2FdefaultUser.png?alt=media&token=7e5e71c8-aabb-4bdd-a55c-72ec3659b41d";
     }
@@ -155,13 +157,13 @@ function Member({ user }) {
 
   function onSubmit() {
     setIsLoading(true);
-    const fileRef = firebase.storage().ref("user-photos/" + user.uid);
+    const fileRef = firebase.storage().ref("user-photos/" + currentUser.uid);
     const metadata = {
       contentType: file.type,
     };
     fileRef.put(file, metadata).then(() => {
       fileRef.getDownloadURL().then((imageUrl) => {
-        user
+        currentUser
           .updateProfile({
             photoURL: imageUrl,
           })
@@ -175,7 +177,7 @@ function Member({ user }) {
 
   return (
     <>
-      {user && (
+      {currentUser && (
         <MemberDiv>
           <ProfileCardDiv flexDirection={"column"}>
             <ProfileImgWrap width={"200px"}>
@@ -216,7 +218,7 @@ function Member({ user }) {
               Welcome Back!
             </HeaderH1>
 
-            <HeaderH2 margin={"5px auto 1%;"}>{user.email}</HeaderH2>
+            <HeaderH2 margin={"5px auto 1%;"}>{currentUser.email}</HeaderH2>
 
             <CardBtnDiv justifyContent={"center"}>
               <MemberPageButton backgroundColor={"#fbd850"}>

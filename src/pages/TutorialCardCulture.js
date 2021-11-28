@@ -1,4 +1,4 @@
-import React, {  } from "react";
+import React from "react";
 import "firebase/firestore";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -43,7 +43,7 @@ const TutorialCardCulture = ({ src }) => {
   return (
     <>
       <CardListDiv>
-        <Link to="/tutorials/brew/c01">
+        <Link to="/tutorials/culture/c01">
           <CardListImg
             src={
               "https://cdn.shopify.com/s/files/1/0035/9372/files/winc_header.png?v=1624899409"
@@ -63,7 +63,7 @@ const TutorialCardCulture = ({ src }) => {
       </CardListDiv>
 
       <CardListDiv>
-        <Link to="/tutorials/brew/c02">
+        <Link to="/tutorials/culture/c02">
           <CardListImg
             src={
               "https://cdn.shopify.com/s/files/1/0035/9372/files/womenincoffee_hero_module.jpg?v=1583433728"

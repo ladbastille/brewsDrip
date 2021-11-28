@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import firebase from "../utils/firebase";
@@ -26,10 +26,9 @@ export const EditIconDiv = styled(StyledIconDiv)`
 
 function MyTimers() {
   const [timers, setTimers] = useState([]);
-  const currentUser = useSelector((state)=>state.currentUser)
+  const currentUser = useSelector((state) => state.currentUser);
 
   useEffect(() => {
-
     if (currentUser) {
       firebase
         .firestore()
@@ -72,12 +71,8 @@ function MyTimers() {
       </HeaderH1>
 
       {timers.map((timer) => {
-        const isLiked = timer.likedBy?.includes(
-          currentUser?.uid
-        );
-        const isCollected = timer.collectedBy?.includes(
-          currentUser.uid
-        );
+        const isLiked = timer.likedBy?.includes(currentUser?.uid);
+        const isCollected = timer.collectedBy?.includes(currentUser.uid);
         console.log("isLiked:" + isLiked);
         return (
           <BigTimerlistLink

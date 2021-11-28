@@ -1,8 +1,7 @@
-import React, {  } from "react";
+import React from "react";
 import "firebase/firestore";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-
 
 const TimerListContainer = styled.div`
   font-family: "Open Sans Condensed", sans-serif;
@@ -66,10 +65,7 @@ export const InsideTimerlistWrap = styled.div`
 `;
 
 const TimerListNestContainer = ({ user }) => {
-
-  return (
-      <TimerListContainer />
-  );
+  return <TimerListContainer />;
 };
 
 export default TimerListNestContainer;
