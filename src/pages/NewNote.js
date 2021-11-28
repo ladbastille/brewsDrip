@@ -1,16 +1,16 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import firebase from "../utils/firebase";
 import "firebase/firestore";
 import "firebase/storage";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import { FaCameraRetro, FaArrowLeft } from "react-icons/fa";
-import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
+import { GiCoffeeBeans } from "react-icons/gi";
 import Input, { HeaderH1 } from "../components/Input";
 import { FooterCTABtn } from "../components/Footer";
 import { Flex100BetweenWrap } from "./Timer";
-import { GiCoffeeBeans } from "react-icons/gi";
 import Tags from "./Tags";
 
 const NewNoteContainer = styled.div`
@@ -118,6 +118,7 @@ export const ImgWrap = styled.div`
 `;
 
 const NewNote = () => {
+  const currentUser = useSelector((state) => state.currentUser);
   const history = useHistory();
   const [coffeeName, setCoffeeName] = useState("");
   const [notes, setNotes] = useState("");
@@ -147,10 +148,10 @@ const NewNote = () => {
           place: place || "Unnamed Place",
           createdAt: firebase.firestore.Timestamp.now(),
           author: {
-            displayName: firebase.auth().currentUser.displayName || "",
-            photoURL: firebase.auth().currentUser.photoURL || "",
-            uid: firebase.auth().currentUser.uid,
-            email: firebase.auth().currentUser.email,
+            displayName: currentUser.displayName || "",
+            photoURL: currentUser.photoURL || "",
+            uid: currentUser.uid,
+            email: currentUser.email,
           },
           imageUrl: imageUrl || "",
         };
@@ -163,7 +164,7 @@ const NewNote = () => {
       });
     });
   }
-
+  console.log(currentUser);
   return (
     <>
       <NewNoteContainer>

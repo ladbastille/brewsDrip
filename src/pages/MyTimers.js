@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import firebase from "../utils/firebase";
@@ -23,17 +24,16 @@ export const EditIconDiv = styled(StyledIconDiv)`
   display: none;
 `;
 
-function MyTimers({ user }) {
+function MyTimers() {
   const [timers, setTimers] = useState([]);
+  const currentUser = useSelector((state) => state.currentUser);
 
   useEffect(() => {
-    console.log(user);
-
-    if (user) {
+    if (currentUser) {
       firebase
         .firestore()
         .collection("timers")
-        .where("author.uid", "==", firebase.auth().currentUser.uid)
+        .where("author.uid", "==", currentUser.uid)
         .orderBy("createdAt", "desc")
         .onSnapshot((collectionSnapshot) => {
           const data = collectionSnapshot.docs.map((docSnapshot) => {
@@ -43,10 +43,10 @@ function MyTimers({ user }) {
           setTimers(data);
         });
     }
-  }, [user]);
+  }, [currentUser]);
 
   function toggleLikeCollect(activeInField, field, id) {
-    const uid = firebase.auth().currentUser?.uid;
+    const uid = currentUser?.uid;
     if (uid) {
       firebase
         .firestore()
@@ -71,12 +71,8 @@ function MyTimers({ user }) {
       </HeaderH1>
 
       {timers.map((timer) => {
-        const isLiked = timer.likedBy?.includes(
-          firebase.auth().currentUser?.uid
-        );
-        const isCollected = timer.collectedBy?.includes(
-          firebase.auth().currentUser.uid
-        );
+        const isLiked = timer.likedBy?.includes(currentUser?.uid);
+        const isCollected = timer.collectedBy?.includes(currentUser.uid);
         console.log("isLiked:" + isLiked);
         return (
           <BigTimerlistLink

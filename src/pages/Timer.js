@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import firebase from "../utils/firebase";
 import { useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import "firebase/firestore";
-import successCoffeeImg from "../images/swal-success-pic.jpg";
 import Swal from "sweetalert2";
+import successCoffeeImg from "../images/swal-success-pic.jpg";
 
 import {
   FaArrowLeft,
@@ -155,7 +156,8 @@ const convertTotalCountTotimerString = (totalCounter) => {
   return { computedSecond, computedMinute };
 };
 
-const Timer = ({ user }) => {
+const Timer = () => {
+  const currentUser = useSelector((state) => state.currentUser);
   const history = useHistory();
   const { timerId } = useParams();
   const [timer, setTimer] = useState(null);
@@ -179,7 +181,7 @@ const Timer = ({ user }) => {
         const data = docSnapshot.data();
         setTimer(data);
       });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [isActive, setIsActive] = useState(false);
@@ -200,7 +202,7 @@ const Timer = ({ user }) => {
 
     useEffect(() => {
       isMuted ? (audio.volume = 0.001) : (audio.volume = 0.3);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isMuted]);
 
     useEffect(() => {
@@ -240,7 +242,7 @@ const Timer = ({ user }) => {
     }
 
     return () => clearInterval(intervalId);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isActive, totalCounter]);
 
   useEffect(() => {
@@ -283,7 +285,7 @@ const Timer = ({ user }) => {
         toggle(playing);
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pointer, totalCounter]);
 
   function startTimer() {
@@ -340,8 +342,8 @@ const Timer = ({ user }) => {
 
   const totalSteps = timer.customSec.length;
 
-  function toggleLikeCollect(activeInField, field) {
-    if (!user) {
+  function toggleCollect(activeInField, field) {
+    if (!currentUser) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -350,7 +352,7 @@ const Timer = ({ user }) => {
           '<a href="https://brewsdrip.web.app/login">Click here to login.</a>',
       });
     } else {
-      const uid = firebase.auth().currentUser.uid;
+      const uid = currentUser.uid;
       firebase
         .firestore()
         .collection("timers")
@@ -363,9 +365,7 @@ const Timer = ({ user }) => {
     }
   }
 
-  const isCollected = timer.collectedBy?.includes(
-    firebase.auth().currentUser?.uid
-  );
+  const isCollected = timer.collectedBy?.includes(currentUser?.uid);
 
   const handleCopyUrl = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -502,17 +502,13 @@ const Timer = ({ user }) => {
                   <IoBookmarkOutline
                     color={"white"}
                     size={"1.5rem"}
-                    onClick={() =>
-                      toggleLikeCollect(isCollected, "collectedBy")
-                    }
+                    onClick={() => toggleCollect(isCollected, "collectedBy")}
                   />
                 ) : (
                   <IoBookmark
                     color={"white"}
                     size={"1.5rem"}
-                    onClick={() =>
-                      toggleLikeCollect(isCollected, "collectedBy")
-                    }
+                    onClick={() => toggleCollect(isCollected, "collectedBy")}
                   />
                 )}
               </StyledIconDiv>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import firebase from "../utils/firebase";
 import "firebase/firestore";
 import styled from "styled-components";
@@ -112,6 +113,7 @@ export const HeaderH2 = styled(HeaderH1)`
 `;
 
 const NewTimer = () => {
+  const currentUser = useSelector((state) => state.currentUser);
   const history = useHistory();
   const [timerName, setTimerName] = useState("");
   const [baseColor, setBaseColor] = useState("");
@@ -204,10 +206,10 @@ const NewTimer = () => {
 
       createdAt: firebase.firestore.Timestamp.now(),
       author: {
-        displayName: firebase.auth().currentUser.displayName || "",
-        photoURL: firebase.auth().currentUser.photoURL || "",
-        uid: firebase.auth().currentUser.uid,
-        email: firebase.auth().currentUser.email,
+        displayName: currentUser.displayName || "",
+        photoURL: currentUser.photoURL || "",
+        uid: currentUser.uid,
+        email: currentUser.email,
       },
     };
 

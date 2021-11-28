@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import firebase from "../utils/firebase";
 import { InsideTimerlistWrap } from "./AllTimerList";
 import { BigNotelistLink } from "./AllNoteList";
@@ -12,19 +13,16 @@ import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
 import { StyledIconDiv } from "./Timer";
 
-function CollectedTimers({ user }) {
+function CollectedTimers() {
+  const currentUser = useSelector((state) => state.currentUser);
   const [tasteNotes, setTasteNotes] = useState([]);
 
   useEffect(() => {
-    if (user) {
+    if (currentUser) {
       firebase
         .firestore()
         .collection("taste-note")
-        .where(
-          "collectedBy",
-          "array-contains",
-          firebase.auth().currentUser?.uid
-        )
+        .where("collectedBy", "array-contains", currentUser?.uid)
         .orderBy("createdAt", "desc")
         .onSnapshot((collectionSnapshot) => {
           const data = collectionSnapshot.docs.map((docSnapshot) => {
@@ -34,10 +32,10 @@ function CollectedTimers({ user }) {
           setTasteNotes(data);
         });
     }
-  }, [user]);
+  }, [currentUser]);
 
   function toggleLikeCollect(activeInField, field, id) {
-    const uid = firebase.auth().currentUser?.uid;
+    const uid = currentUser?.uid;
     if (uid) {
       firebase
         .firestore()
@@ -58,12 +56,8 @@ function CollectedTimers({ user }) {
       </HeaderH1>
 
       {tasteNotes.map((note) => {
-        const isLiked = note.likedBy?.includes(
-          firebase.auth().currentUser?.uid
-        );
-        const isCollected = note.collectedBy?.includes(
-          firebase.auth().currentUser?.uid
-        );
+        const isLiked = note.likedBy?.includes(currentUser?.uid);
+        const isCollected = note.collectedBy?.includes(currentUser?.uid);
 
         return (
           <BigNotelistLink key={note.id} color={"#000000"}>
