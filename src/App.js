@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
+import { useDispatch,useSelector } from 'react-redux';
 import ScrollToTop from "./components/ScrollToTop";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -34,13 +35,15 @@ import TutorialsBrew from "./pages/TutorialsBrew";
 import TutorialsB01 from "./pages/TutorialsB01";
 import TutorialsB02 from "./pages/TutorialsB02";
 import TutorialsB03 from "./pages/TutorialsB03";
+import { getCurrentUser } from "./redux/action";
 
 function App() {
-  const [user, setUser] = useState();
+  const user = useSelector((state)=>state.currentUser)
+  const dispatch = useDispatch();
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((currentUser) => {
-      setUser(currentUser);
+      dispatch(getCurrentUser(currentUser))
     });
   }, []);
 
@@ -98,7 +101,7 @@ function App() {
               
               <Route path="/newnote">
                 {user !== null ? (
-                  <NewNote user={user} />
+                  <NewNote />
                 ) : (
                   <Redirect to="/login" />
                 )}

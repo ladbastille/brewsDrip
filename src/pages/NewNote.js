@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {useSelector} from "react-redux"
 import firebase from "../utils/firebase";
 import "firebase/firestore";
 import "firebase/storage";
@@ -118,6 +119,7 @@ export const ImgWrap = styled.div`
 `;
 
 const NewNote = () => {
+  const currentUser = useSelector((state)=>state.currentUser)
   const history = useHistory();
   const [coffeeName, setCoffeeName] = useState("");
   const [notes, setNotes] = useState("");
@@ -163,7 +165,7 @@ const NewNote = () => {
       });
     });
   }
-
+console.log(currentUser)
   return (
     <>
       <NewNoteContainer>
