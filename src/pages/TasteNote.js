@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import firebase from "../utils/firebase";
 import "firebase/firestore";
 import "firebase/storage";
@@ -121,7 +122,7 @@ const RatingDiv = styled.div`
     display: none;
   }
   .star {
-    cursor: pointer;
+    ${({ readOnly }) => readOnly ? "": "cursor:pointer"};
     transition: color 200ms;
   }
 `;
@@ -144,9 +145,9 @@ const FlexCenterWrap = styled(Flex90BetweenWrap)`
   }
 `;
 
-function TasteNote({ user }) {
+function TasteNote() {
+  const currentUser = useSelector((state) => state.currentUser);
   const [isShareClick, setIsShareClick] = useState(false);
-
   const [isLoading, setIsLoading] = useState(false);
   const [readOnly, setReadOnly] = useState(true);
   const [coffeeName, setCoffeeName] = useState("");
@@ -222,7 +223,8 @@ function TasteNote({ user }) {
     Swal.fire("Awesome!", "Thank you for sharing this tastenote!", "success");
     setIsShareClick((prev) => !prev);
   };
-
+  console.log(currentUser);
+  console.log(note);
   return (
     <>
       <NewNoteContainer>
@@ -292,22 +294,23 @@ function TasteNote({ user }) {
           {[...Array(5)].map((star, index) => {
             const ratingValue = (index += 1);
             return (
-              <RatingDiv>
+              <RatingDiv readOnly={readOnly}>
                 <label readOnly={readOnly}>
                   <input
                     type="radio"
                     name="rating"
                     value={ratingValue}
                     key={index}
-                    onClick={() => setRating(ratingValue)}
+                    onClick={readOnly ? () => {} : () => setRating(ratingValue)}
                     readOnly={readOnly}
                   />
                   <GiCoffeeBeans
                     color={ratingValue <= rating ? "#fbd850" : "#e5e5e5"}
-                    onMouseEnter={() => setHover(index)}
-                    onMouseLeave={() => setHover(rating)}
+                    onMouseEnter={readOnly ? () => {} : () => setHover(index)}
+                    onMouseLeave={readOnly ? () => {} : () => setHover(rating)}
                     size={25}
                     className="star"
+                    
                   />
                 </label>
               </RatingDiv>
@@ -331,14 +334,18 @@ function TasteNote({ user }) {
           setSelectedTagIds={setSelectedTagIds}
         />
         <FlexCenterWrap margin={"6%"}>
-          {readOnly ? (
-            <EditBtn color={"#FF5741"} onClick={toggleEditable}>
-              Edit
-            </EditBtn>
+          {currentUser.uid === note.author.uid ? (
+            readOnly ? (
+              <EditBtn color={"#FF5741"} onClick={toggleEditable}>
+                Edit
+              </EditBtn>
+            ) : (
+              <EditBtn color={"#00B790"} onClick={toggleSaveData}>
+                Save
+              </EditBtn>
+            )
           ) : (
-            <EditBtn color={"#00B790"} onClick={toggleSaveData}>
-              Save
-            </EditBtn>
+            <></>
           )}
           <StyledIconDiv>
             <FiShare2
