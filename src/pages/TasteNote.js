@@ -339,7 +339,7 @@ function TasteNote() {
           setSelectedTagIds={setSelectedTagIds}
         />
         <FlexCenterWrap margin={"6%"}>
-          {currentUser.uid === note.author.uid ? (
+          {currentUser?.uid === note.author.uid ? (
             readOnly ? (
               <EditBtn color={"#FF5741"} onClick={toggleEditable}>
                 Edit
