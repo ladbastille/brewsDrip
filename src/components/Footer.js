@@ -1,18 +1,16 @@
-import React,{useState} from "react";
-import {useSelector} from "react-redux"
+import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import FooterLogoImg from "../images/logo_225x50.svg";
 import MobileFooterLogoImg from "../images/footer3DLogo.png";
 import { LogoImg } from "./Header";
 import { TutorialsBtn } from "../pages/Home";
-import { FaFacebook, FaInstagram } from "react-icons/fa";
+
 import { BiLinkAlt } from "react-icons/bi";
 import { v4 as uuidv4 } from "uuid";
-import {
-  ShareBtnDiv,
-} from "../pages/Timer";
+import { ShareBtnDiv } from "../pages/Timer";
 import {
   FacebookShareButton,
   LineShareButton,
@@ -163,6 +161,11 @@ export const FooterCTABtn = styled(TutorialsBtn)`
   }
 `;
 
+const FooterLogoutBtn = styled(FooterCTABtn)`
+  margin-left: 6px;
+  margin-top: 12px;
+`;
+
 const FooterCTABtnWrap = styled(FooterLinksWrap)`
   flex-direction: column;
   justify-content: space-evenly;
@@ -180,23 +183,25 @@ const SNSLinksWrap = styled(FooterLinksWrap)`
   display: flex;
   flex-wrap: no-wrap;
   margin-top: 10px;
-  margin-right:3%;
+  margin-right: 3%;
   height: 40px;
   @media (max-width: 1024px) {
     justify-content: flex-end;
   }
   h6 {
     margin-right: 20px;
-    margin-bottom:5px;
+    margin-bottom: 5px;
     color: #646464;
   }
 `;
 
-const FooterShareBtnDiv=styled(ShareBtnDiv)`
-@media (max-width:768px){
-  margin-top:20px
-}
-`
+const FooterShareBtnDiv = styled(ShareBtnDiv)`
+width:100px;
+margin:15px 20px 0 0;
+  @media (max-width: 768px) {
+    margin-top: 20px;
+  }
+`;
 
 const menu = [
   {
@@ -232,18 +237,12 @@ const menu = [
 ];
 
 const Footer = () => {
-  const [isShareClick, setIsShareClick] = useState(false);
-  const currentUser = useSelector((state)=>state.currentUser)
+  const currentUser = useSelector((state) => state.currentUser);
   const handleCopyUrl = () => {
     navigator.clipboard.writeText(window.location.href);
     Swal.fire("Go share now!", "You've copied the URL!", "success");
-    setIsShareClick((prev) => !prev);
   };
 
-  const onShareWindowClose = () => {
-    Swal.fire("Awesome!", "Thank you for sharing this tastenote!", "success");
-    setIsShareClick((prev) => !prev);
-  };
   return (
     <FooterContainer>
       <FooterContentContainer>
@@ -274,7 +273,7 @@ const Footer = () => {
                 <FooterCTABtn>Member</FooterCTABtn>
               </BtnLink>
               <BtnLink to="/member">
-                <FooterCTABtn color={"transparent"}>Logout</FooterCTABtn>
+                <FooterLogoutBtn color={"transparent"}>Logout</FooterLogoutBtn>
               </BtnLink>
             </>
           ) : (
@@ -295,28 +294,21 @@ const Footer = () => {
         <SNSLinksWrap>
           <h6>Share</h6>
           <FooterShareBtnDiv>
-                <FacebookShareButton
-                  url={window.location.href}
-                  quote={"I've created a coffee tastenote. Take a look!"}
-                  hashtag={["brewsDrip", "YourBestCoffeePal"]}
-                  onShareWindowClose={onShareWindowClose}
-                >
-                  <FacebookIcon size={25} round />
-                </FacebookShareButton>
-                <LineShareButton
-                  url={window.location.href}
-                  title={"I've created a coffee tastenote. Take a look!"}
-                  onShareWindowClose={onShareWindowClose}
-                >
-                  <LineIcon size={25} round />
-                </LineShareButton>
-                <BiLinkAlt
-                  size={25}
-                  color={"#FFFFFF"}
-                  onClick={handleCopyUrl}
-                />
-              </FooterShareBtnDiv>
-          
+            <FacebookShareButton
+              url={window.location.href}
+              quote={"I've created a coffee tastenote. Take a look!"}
+              hashtag={["brewsDrip", "YourBestCoffeePal"]}
+            >
+              <FacebookIcon size={25} round />
+            </FacebookShareButton>
+            <LineShareButton
+              url={window.location.href}
+              title={"I've created a coffee tastenote. Take a look!"}
+            >
+              <LineIcon size={25} round />
+            </LineShareButton>
+            <BiLinkAlt size={25} color={"#FFFFFF"} onClick={handleCopyUrl} />
+          </FooterShareBtnDiv>
         </SNSLinksWrap>
       </FooterContentContainer>
     </FooterContainer>

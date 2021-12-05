@@ -32,7 +32,13 @@ const CTADiv = styled.div`
   display: flex;
   flex-direction: column;
   align-self: center;
-  margin-left: 15px;
+  margin-left: 7%;
+  @media (max-width:1024px){
+    margin-left: 3%;
+  }
+  @media (max-width:768px){
+    margin-left: 2%;
+  }
 `;
 
 const TutorialsParagraph = styled.p`
@@ -40,6 +46,9 @@ const TutorialsParagraph = styled.p`
   font-size: 2.5rem;
   color: #000;
   width: 20%;
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
   @media (max-width: 375px) {
     font-size: 2rem;
     width: 70%;
