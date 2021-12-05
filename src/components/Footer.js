@@ -296,14 +296,14 @@ const Footer = () => {
           <FooterShareBtnDiv>
             <FacebookShareButton
               url={window.location.href}
-              quote={"I've created a coffee tastenote. Take a look!"}
+              quote={"I've found a great coffee pal. Take a look!"}
               hashtag={["brewsDrip", "YourBestCoffeePal"]}
             >
               <FacebookIcon size={25} round />
             </FacebookShareButton>
             <LineShareButton
               url={window.location.href}
-              title={"I've created a coffee tastenote. Take a look!"}
+              title={"I've found a great coffee pal. Take a look!"}
             >
               <LineIcon size={25} round />
             </LineShareButton>
