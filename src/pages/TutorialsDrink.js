@@ -11,6 +11,7 @@ const TutorialsDiv = styled.div`
   justify-content: space-around;
   width: 100%;
   min-height: 560px;
+  box-sizing:border-box;
 `;
 
 const TutorialsDrink = () => {

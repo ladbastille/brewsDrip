@@ -1,5 +1,4 @@
 import React from "react";
-import "firebase/firestore";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { v4 as uuidv4 } from "uuid";
+import { getCollections } from "../utils/firebase";
 import firebase from "../utils/firebase";
 import "firebase/firestore";
 import { InsideTimerlistWrap } from "./AllTimerList";
@@ -32,18 +34,19 @@ function MyNotes() {
 
   useEffect(() => {
     if (currentUser) {
-      firebase
-        .firestore()
-        .collection("taste-note")
-        .where("author.uid", "==", currentUser.uid)
-        .orderBy("createdAt", "desc")
-        .onSnapshot((collectionSnapshot) => {
-          const data = collectionSnapshot.docs.map((docSnapshot) => {
-            const id = docSnapshot.id;
-            return { ...docSnapshot.data(), id };
-          });
-          setTasteNotes(data);
-        });
+      getCollections("taste-note", currentUser, setTasteNotes);
+      // firebase
+      //   .firestore()
+      //   .collection("taste-note")
+      //   .where("author.uid", "==", currentUser.uid)
+      //   .orderBy("createdAt", "desc")
+      //   .onSnapshot((collectionSnapshot) => {
+      //     const data = collectionSnapshot.docs.map((docSnapshot) => {
+      //       const id = docSnapshot.id;
+      //       return { ...docSnapshot.data(), id };
+      //     });
+      //     setTasteNotes(data);
+      //   });
     }
   }, [currentUser]);
 
@@ -89,7 +92,7 @@ function MyNotes() {
 
               <HeaderH2
                 margin={"1.5% auto 2% 1.5%"}
-                fontSize={"1.2rem"}
+                fontSize={"1.1rem"}
                 color={"#ffffff"}
               >
                 {note.place} |{" "}
@@ -101,7 +104,7 @@ function MyNotes() {
                   ? [...Array(5)].map((star, index) => {
                       const ratingValue = (index += 1);
                       return (
-                        <RatingDiv margin={"0px 4px"}>
+                        <RatingDiv key={uuidv4()} margin={"0px 4px"}>
                           <label>
                             <input
                               type="radio"

@@ -63,7 +63,6 @@ function MyTimers() {
   function handleDeleteTimer(timerid) {
     firebase.firestore().collection("timers").doc(timerid).delete();
   }
-  console.log(timers);
   return (
     <>
       <HeaderH1 marginbottom={"3%"} color={"#FFFFFF"}>
@@ -73,7 +72,6 @@ function MyTimers() {
       {timers.map((timer) => {
         const isLiked = timer.likedBy?.includes(currentUser?.uid);
         const isCollected = timer.collectedBy?.includes(currentUser.uid);
-        console.log("isLiked:" + isLiked);
         return (
           <BigTimerlistLink
             key={timer.id}

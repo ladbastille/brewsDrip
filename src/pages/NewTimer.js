@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import firebase from "../utils/firebase";
 import "firebase/firestore";
@@ -112,6 +112,16 @@ export const HeaderH2 = styled(HeaderH1)`
   text-align: ${(props) => (props.textAlign ? props.textAlign : "center")};
 `;
 
+export const getSeconds = (e) => {
+  let second = e.target.value;
+  let parsedSecond = Math.abs(parseInt(second));
+  if (isNaN(parsedSecond)) {
+    return "";
+  } else {
+    return parsedSecond;
+  }
+};
+
 const NewTimer = () => {
   const currentUser = useSelector((state) => state.currentUser);
   const history = useHistory();
@@ -138,43 +148,100 @@ const NewTimer = () => {
   };
   const [numValues, setNumValues] = useState(numInitialState);
 
-  const checkSetNum = (e) => {
-    const value = parseInt(e.target.value.replace(/\D/g, ""));
+  const checkSetNum = (e, isEndTime = false) => {
+    const seconds = getSeconds(e);
+    let value;
+    if (isEndTime) {
+      value = seconds > 4000 ? 4000 : seconds;
+    } else {
+      value = seconds > 999 ? 999 : seconds;
+    }
     setNumValues({ ...numValues, [e.target.name]: value });
   };
+  const checkStepSecEndTime = (numValues) => {
+    let newValues = { ...numValues };
+    delete newValues.endTime;
+    const objectValues = Object.values(newValues);
+    const valuesArr = objectValues.slice(0, objectValues.length - 1);
 
-  useEffect(() => {
-    if (numValues.endTime) {
+    for (let i = 0; i < valuesArr.length; i++) {
+      const currentValue = valuesArr[i];
+      const nextValue = valuesArr[i + 1];
+      const lastValue = valuesArr[valuesArr.length - 1];
+
+      if (i === 0 && (currentValue === 0 || currentValue === "")) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "First step sec can't be 0!",
+        });
+        return;
+      }
+
+      if (currentValue === 0) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Step sec can't be 0!",
+        });
+        return;
+      }
+
+      if ((currentValue === 0 || currentValue === "") && nextValue) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Please enter valid number step by step !",
+        });
+        return;
+      }
+
+      if ((currentValue === 0 || currentValue === "") && lastValue) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Please enter valid number step by step!",
+        });
+        return;
+      }
+
       if (
-        numValues.endTime <
-        numValues.stepSec1 +
-          numValues.stepSec2 +
-          numValues.stepSec3 +
-          numValues.stepSec4
+        (numValues.stepSec3 === 0 || numValues.stepSec3 === "") &&
+        numValues.stepSec4
       ) {
-        window.alert("End Time must over Total Step Time");
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Please enter valid number step by step!",
+        });
+        return;
+      }
+
+      if (lastValue === 0) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Last step can't be 0!",
+        });
+        return;
       }
     }
-  }, [
-    numValues.endTime,
-    numValues.stepSec1,
-    numValues.stepSec2,
-    numValues.stepSec3,
-    numValues.stepSec4,
-  ]);
 
-  function createNewTimer() {
     if (
       numValues.endTime !== "" &&
-      numValues.endTime <
-        numValues.stepSec1 +
-          numValues.stepSec2 +
-          numValues.stepSec3 +
-          numValues.stepSec4
+      numValues.endTime < objectValues.reduce((a, b) => a + b)
     ) {
-      window.alert("End Time must over Total Step Time");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "End Time can't be smaller than total Step Time!",
+      });
       return;
     }
+    createNewTimer();
+  };
+
+  function createNewTimer() {
     const documentRef = firebase.firestore().collection("timers").doc();
 
     const customColorArr = [stepColor1, stepColor2, stepColor3, stepColor4];
@@ -218,6 +285,14 @@ const NewTimer = () => {
       history.push("/timerlist");
     });
   }
+
+  function onSubmit() {
+    checkStepSecEndTime(numValues);
+  }
+
+  const handleOnKeyDown = (e) => {
+    ["e", "E", "+", "-", "."].includes(e.key) && e.preventDefault();
+  };
 
   return (
     <>
@@ -276,13 +351,7 @@ const NewTimer = () => {
           />
           <Input
             width={"10%"}
-            type="number"
-            onKeyPress={(e) => {
-              return e.charCode >= 48;
-            }}
-            min="0"
-            step="1"
-            max="999"
+            onKeyDown={handleOnKeyDown}
             value={numValues.stepSec1}
             name="stepSec1"
             onChange={(e) => checkSetNum(e)}
@@ -309,13 +378,7 @@ const NewTimer = () => {
           />
           <Input
             width={"10%"}
-            type="number"
-            onKeyPress={(e) => {
-              return e.charCode >= 48;
-            }}
-            min="0"
-            step="1"
-            max="999"
+            onKeyDown={handleOnKeyDown}
             value={numValues.stepSec2}
             name="stepSec2"
             onChange={(e) => checkSetNum(e)}
@@ -342,13 +405,7 @@ const NewTimer = () => {
           />
           <Input
             width={"10%"}
-            type="number"
-            onKeyPress={(e) => {
-              return e.charCode >= 48;
-            }}
-            min="0"
-            step="1"
-            max="999"
+            onKeyDown={handleOnKeyDown}
             value={numValues.stepSec3}
             name="stepSec3"
             onChange={(e) => checkSetNum(e)}
@@ -375,13 +432,7 @@ const NewTimer = () => {
           />
           <Input
             width={"10%"}
-            type="number"
-            onKeyPress={(e) => {
-              return e.charCode >= 48;
-            }}
-            min="0"
-            step="1"
-            max="999"
+            onKeyDown={handleOnKeyDown}
             value={numValues.stepSec4}
             name="stepSec4"
             onChange={(e) => checkSetNum(e)}
@@ -402,23 +453,16 @@ const NewTimer = () => {
         <StepAlertOptionWrap justifyContent={"space-between"}>
           <HeaderH2>End Time</HeaderH2>
           <Input
-            type="number"
             width={"55%"}
-            min="1"
-            step="1"
-            max="999"
             value={numValues.endTime}
             name="endTime"
-            onChange={(e) => checkSetNum(e)}
+            onKeyDown={handleOnKeyDown}
+            onChange={(e) => checkSetNum(e, true)}
             placeholder="- Enter Secs (OPTIONAL) -"
           />
         </StepAlertOptionWrap>
         <StepAlertOptionWrap justifyContent={"center"}>
-          <FooterCTABtn
-            width={"50px"}
-            color={"#00B790"}
-            onClick={createNewTimer}
-          >
+          <FooterCTABtn width={"50px"} color={"#00B790"} onClick={onSubmit}>
             Save
           </FooterCTABtn>
         </StepAlertOptionWrap>

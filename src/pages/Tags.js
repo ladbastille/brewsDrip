@@ -79,8 +79,6 @@ const Tags = ({ editable = true, selectedTagIds, setSelectedTagIds }) => {
     }
   };
 
-  console.log(selectedTagIds);
-
   return (
     <div
       style={{

@@ -20,7 +20,7 @@ export const TimerListContainer = styled.div`
   position: relative;
   overflow: hidden;
   width: 768px;
-  max-width: 97%;
+  max-width: 100%;
   min-height: 480 px;
   padding: 1rem;
   display: flex;
@@ -28,6 +28,7 @@ export const TimerListContainer = styled.div`
   align-items: center;
   margin-bottom: 20px;
   margin-top: 10px;
+  box-sizing:border-box;
 `;
 
 export const StyledTimerlistLink = styled(Link)`
@@ -112,7 +113,6 @@ export const TimersTag = styled(Link)`
 const AllTimerList = () => {
   const currentUser = useSelector((state) => state.currentUser);
   const [timers, setTimers] = useState([]);
-  const lastPostSnapshotRef = React.useRef();
 
   useEffect(() => {
     firebase
@@ -124,8 +124,7 @@ const AllTimerList = () => {
           const id = docSnapshot.id;
           return { ...docSnapshot.data(), id };
         });
-        lastPostSnapshotRef.current =
-          collectionSnapshot.docs[collectionSnapshot.docs.length - 1];
+
         setTimers(data);
       });
   }, []);
@@ -220,7 +219,6 @@ const AllTimerList = () => {
                 )}
                 <span>&thinsp;{timer.collectedBy?.length || 0}</span>
               </StyledIconDiv>
-              {/* <StyledIconDiv>{<FaEdit size={"1.5rem"} />}</StyledIconDiv> */}
             </InsideTimerlistWrap>
           </BigTimerlistLink>
         );

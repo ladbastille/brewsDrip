@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import firebase from "../utils/firebase";
 import "firebase/firestore";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { v4 as uuidv4 } from "uuid";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { GiCoffeeBeans } from "react-icons/gi";
@@ -23,7 +24,7 @@ export const NoteListContainer = styled.div`
   position: relative;
   overflow: hidden;
   width: 768px;
-  max-width: 97%;
+  max-width: 100%;
   min-height: 480 px;
   padding: 1rem;
   display: flex;
@@ -31,6 +32,8 @@ export const NoteListContainer = styled.div`
   align-items: center;
   margin-bottom: 20px;
   margin-top: 10px;
+  box-sizing:border-box;
+
 `;
 
 export const StyledTimerlistLink = styled(Link)`
@@ -66,6 +69,7 @@ export const BigNotelistLink = styled.div`
   margin: 1% auto;
   width: 85%;
   position: relative;
+  
   &:hover {
     border: 6px solid #de6932;
   }
@@ -118,7 +122,6 @@ export const NotesTag = styled(Link)`
 const AllNoteList = () => {
   const currentUser = useSelector((state) => state.currentUser);
   const [tasteNotes, setTasteNotes] = useState([]);
-  const lastPostSnapshotRef = useRef();
 
   useEffect(() => {
     firebase
@@ -130,10 +133,9 @@ const AllNoteList = () => {
           const id = docSnapshot.id;
           return { ...docSnapshot.data(), id };
         });
-        lastPostSnapshotRef.current =
-          collectionSnapshot.docs[collectionSnapshot.docs.length - 1];
+        
         setTasteNotes(data);
-        console.log(data);
+
       });
   }, []);
 
@@ -172,7 +174,7 @@ const AllNoteList = () => {
         const isCollected = note.collectedBy?.includes(currentUser?.uid);
 
         return (
-          <BigNotelistLink key={note.id} color={"#000000"}>
+          <BigNotelistLink key={note.id} >
             <InsideTimerlistWrap as={Link} to={`/tastenote/${note.id}`}>
               <HeaderH2
                 margin={"1.5% auto 2% 1.5%"}
@@ -184,7 +186,7 @@ const AllNoteList = () => {
 
               <HeaderH2
                 margin={"1.5% auto 2% 1.5%"}
-                fontSize={"1.2rem"}
+                fontSize={"1.1rem"}
                 color={"#ffffff"}
               >
                 {note.place} |{" "}
@@ -196,7 +198,7 @@ const AllNoteList = () => {
                   ? [...Array(5)].map((star, index) => {
                       const ratingValue = (index += 1);
                       return (
-                        <RatingDiv margin={"0px 4px"}>
+                        <RatingDiv key={uuidv4()} margin={"0px 4px"}>
                           <label>
                             <input
                               type="radio"

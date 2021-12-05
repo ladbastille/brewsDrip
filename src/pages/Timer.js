@@ -37,9 +37,9 @@ import {
 
 const TimerContainer = styled.div`
   font-family: "Open Sans Condensed", sans-serif;
-  width: 90%;
+  width: 100%;
   max-width: 768px;
-  /* height: 70vh; */
+  box-sizing:border-box;
   overflow: hidden;
   margin: 5px auto 10px;
   display: flex;

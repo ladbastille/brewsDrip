@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import firebase from "../utils/firebase";
 import "firebase/firestore";
 import "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 import { FaArrowLeft } from "react-icons/fa";
 import { useParams } from "react-router-dom";
@@ -53,6 +54,10 @@ const NewNoteContainer = styled.div`
   & input:focus {
     background: #ffffff;
   }
+  @media (max-width:375px){
+    width:375px;
+    max-width:90%;
+  }
 `;
 
 const InsideNotelistWrap = styled.div`
@@ -71,7 +76,7 @@ const InsideNotelistWrap = styled.div`
 const ThirdWrap = styled(InsideNotelistWrap)`
   width: ${(props) => props.width};
   @media (max-width: 375px) {
-    width: 55%;
+    width: 100%;
   }
 `;
 
@@ -82,11 +87,14 @@ const SecondWrap = styled.div`
   width: ${(props) => (props.width ? props.width : "70%")};
   justify-content: ${(props) => props.justifyContent};
   align-items: ${(props) => props.alignItems};
+  flex-wrap:${(props) => props.flexWrap};
+
 `;
 
 export const PreviewImage = styled.img`
   max-height: 100%;
   max-width: 100%;
+  margin-right:40px;
 `;
 
 const TasteInput = styled(Input)`
@@ -97,6 +105,9 @@ const TasteInput = styled(Input)`
   font-family: Poppins, Arial, Helvetica, sans-serif;
   background-color: ${(props) => (props.readOnly ? "#fbd850" : "#ffffff")};
   cursor: ${(props) => (props.readOnly ? "default" : "edit")};
+  @media (max-width:375px){
+    width:115px;
+  }
 `;
 
 export const HeaderH2 = styled(HeaderH1)`
@@ -148,12 +159,14 @@ const FlexCenterWrap = styled(Flex90BetweenWrap)`
 function TasteNote() {
   const currentUser = useSelector((state) => state.currentUser);
   const [isShareClick, setIsShareClick] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [isLoading, setIsLoading] = useState(false);
   const [readOnly, setReadOnly] = useState(true);
   const [coffeeName, setCoffeeName] = useState("");
   const [place, setPlace] = useState("");
 
   const [rating, setRating] = useState(null);
+  // eslint-disable-next-line no-unused-vars
   const [hover, setHover] = useState(null);
 
   const [selectedTagIds, setSelectedTagIds] = useState([]);
@@ -177,6 +190,7 @@ function TasteNote() {
         setRating(data.rating);
         setSelectedTagIds(data.selectedTagIds ? data.selectedTagIds : []);
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const toggleEditable = () => {
@@ -223,8 +237,7 @@ function TasteNote() {
     Swal.fire("Awesome!", "Thank you for sharing this tastenote!", "success");
     setIsShareClick((prev) => !prev);
   };
-  console.log(currentUser);
-  console.log(note);
+  
   return (
     <>
       <NewNoteContainer>
@@ -284,17 +297,12 @@ function TasteNote() {
             readOnly={readOnly}
           ></NoteTextarea>
         </InsideNotelistWrap>
-        <SecondWrap margin={"10px auto 5px auto"} width={"90%"}>
+        <SecondWrap flexWrap={"wrap"} margin={"10px auto 5px auto"} width={"90%"}>
           <HeaderH2 margin={"2% 10px 1% 0"}>Rating</HeaderH2>
-          {/* {const activeArr = ['a', 'c']}
-              {['a', 'b', 'c'].map(tag => {
-                const isActive = activeArr.includes(tag);
-                return <Tag isActive={isActive} >{tag}</Tag>
-              })} */}
           {[...Array(5)].map((star, index) => {
             const ratingValue = (index += 1);
             return (
-              <RatingDiv readOnly={readOnly}>
+              <RatingDiv key={uuidv4()} readOnly={readOnly}>
                 <label readOnly={readOnly}>
                   <input
                     type="radio"
@@ -317,10 +325,7 @@ function TasteNote() {
             );
           })}
 
-          <HeaderH2 margin={"2% 1px 1% auto"}>Date</HeaderH2>
-          <HeaderH2 margin={"2% 5px 1% 3%"}>{`${note.createdAt
-            ?.toDate()
-            .toLocaleDateString()}`}</HeaderH2>
+        
         </SecondWrap>
         <InsideNotelistWrap></InsideNotelistWrap>
 

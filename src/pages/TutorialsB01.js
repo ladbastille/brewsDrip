@@ -66,10 +66,10 @@ const TutorialsB01 = () => {
             src="https://player.vimeo.com/video/480909965"
             width="640"
             height="360"
-            frameborder="0"
+            frameBorder="0"
             webkitallowfullscreen=""
             mozallowfullscreen=""
-            allowfullscreen=""
+            allowFullScreen=""
             title="How to brew at home (or on the go): AeroPress"
           ></iframe>
           <CardListText>

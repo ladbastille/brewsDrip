@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 import firebase from "../utils/firebase";
-import { InsideTimerlistWrap } from "./AllTimerList";
-import { BigNotelistLink } from "./AllNoteList";
 import "firebase/firestore";
 import { Link } from "react-router-dom";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { GiCoffeeBeans } from "react-icons/gi";
+import { InsideTimerlistWrap } from "./AllTimerList";
+import { BigNotelistLink } from "./AllNoteList";
 import { RatingDiv, SecondWrap } from "./NewNote";
 import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
@@ -72,7 +73,7 @@ function CollectedTimers() {
 
               <HeaderH2
                 margin={"1.5% auto 2% 1.5%"}
-                fontSize={"1.2rem"}
+                fontSize={"1.1rem"}
                 color={"#ffffff"}
               >
                 {note.place} |{" "}
@@ -84,7 +85,7 @@ function CollectedTimers() {
                   ? [...Array(5)].map((star, index) => {
                       const ratingValue = (index += 1);
                       return (
-                        <RatingDiv margin={"0px 4px"}>
+                        <RatingDiv key={uuidv4()} margin={"0px 4px"}>
                           <label>
                             <input
                               type="radio"

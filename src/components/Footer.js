@@ -1,13 +1,24 @@
-import React from "react";
+import React,{useState} from "react";
 import {useSelector} from "react-redux"
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
+import Swal from "sweetalert2";
 import FooterLogoImg from "../images/logo_225x50.svg";
 import MobileFooterLogoImg from "../images/footer3DLogo.png";
 import { LogoImg } from "./Header";
 import { TutorialsBtn } from "../pages/Home";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
+import { BiLinkAlt } from "react-icons/bi";
 import { v4 as uuidv4 } from "uuid";
+import {
+  ShareBtnDiv,
+} from "../pages/Timer";
+import {
+  FacebookShareButton,
+  LineShareButton,
+  FacebookIcon,
+  LineIcon,
+} from "react-share";
 
 const FooterContainer = styled.div`
   font-family: "Poppins", sans-serif;
@@ -169,23 +180,23 @@ const SNSLinksWrap = styled(FooterLinksWrap)`
   display: flex;
   flex-wrap: no-wrap;
   margin-top: 10px;
-
+  margin-right:3%;
   height: 40px;
   @media (max-width: 1024px) {
     justify-content: flex-end;
   }
   h6 {
     margin-right: 20px;
+    margin-bottom:5px;
     color: #646464;
   }
-  a {
-    margin-right: 30px;
-    color: #000000;
-    &:visited {
-      color: #000000;
-    }
-  }
 `;
+
+const FooterShareBtnDiv=styled(ShareBtnDiv)`
+@media (max-width:768px){
+  margin-top:20px
+}
+`
 
 const menu = [
   {
@@ -221,7 +232,18 @@ const menu = [
 ];
 
 const Footer = () => {
+  const [isShareClick, setIsShareClick] = useState(false);
   const currentUser = useSelector((state)=>state.currentUser)
+  const handleCopyUrl = () => {
+    navigator.clipboard.writeText(window.location.href);
+    Swal.fire("Go share now!", "You've copied the URL!", "success");
+    setIsShareClick((prev) => !prev);
+  };
+
+  const onShareWindowClose = () => {
+    Swal.fire("Awesome!", "Thank you for sharing this tastenote!", "success");
+    setIsShareClick((prev) => !prev);
+  };
   return (
     <FooterContainer>
       <FooterContentContainer>
@@ -272,12 +294,29 @@ const Footer = () => {
         <h5>© brewsDrip, Inc. 2021. We love coffee!</h5>
         <SNSLinksWrap>
           <h6>Share</h6>
-          <BtnLink to="/">
-            <FaFacebook path="/" size="30px" />
-          </BtnLink>
-          <BtnLink to="/">
-            <FaInstagram path="/" size="30px" />
-          </BtnLink>
+          <FooterShareBtnDiv>
+                <FacebookShareButton
+                  url={window.location.href}
+                  quote={"I've created a coffee tastenote. Take a look!"}
+                  hashtag={["brewsDrip", "YourBestCoffeePal"]}
+                  onShareWindowClose={onShareWindowClose}
+                >
+                  <FacebookIcon size={25} round />
+                </FacebookShareButton>
+                <LineShareButton
+                  url={window.location.href}
+                  title={"I've created a coffee tastenote. Take a look!"}
+                  onShareWindowClose={onShareWindowClose}
+                >
+                  <LineIcon size={25} round />
+                </LineShareButton>
+                <BiLinkAlt
+                  size={25}
+                  color={"#FFFFFF"}
+                  onClick={handleCopyUrl}
+                />
+              </FooterShareBtnDiv>
+          
         </SNSLinksWrap>
       </FooterContentContainer>
     </FooterContainer>

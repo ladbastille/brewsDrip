@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import firebase from "../utils/firebase";
 import "firebase/firestore";
 import "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import { FaCameraRetro, FaArrowLeft } from "react-icons/fa";
@@ -20,7 +21,7 @@ const NewNoteContainer = styled.div`
   box-shadow: 0 14px 28px rgb(0 0 0 / 25%), 0 10px 10px rgb(0 0 0 / 22%);
   position: relative;
   width: 768px;
-  max-width: 95%;
+  max-width: 100%;
   min-height: 480px;
   padding: 1rem;
   display: flex;
@@ -28,6 +29,7 @@ const NewNoteContainer = styled.div`
   align-items: center;
   margin-bottom: 20px;
   margin-top: 10px;
+  box-sizing:border-box;
 
   & ::placeholder {
     color: #001a3a;
@@ -164,7 +166,6 @@ const NewNote = () => {
       });
     });
   }
-  console.log(currentUser);
   return (
     <>
       <NewNoteContainer>
@@ -238,7 +239,7 @@ const NewNote = () => {
           {[...Array(5)].map((star, index) => {
             const ratingValue = (index += 1);
             return (
-              <RatingDiv>
+              <RatingDiv key={uuidv4()}>
                 <label>
                   <input
                     type="radio"

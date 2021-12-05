@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 import firebase from "../utils/firebase";
 import { BigTimerlistLink, InsideTimerlistWrap } from "./AllTimerList";
 import "firebase/firestore";
 import { Link } from "react-router-dom";
-
 import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
 
-const DefaultTimer = ({ user }) => {
+const DefaultTimer = () => {
   const [timers, setTimers] = useState([]);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const DefaultTimer = ({ user }) => {
         return (
           <>
             <BigTimerlistLink
-              key={timer.id}
+              key={uuidv4()}
               background={timer.baseColor.value}
               color={"#000000"}
             >

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import styled from "styled-components";
-import "firebase/auth";
 import socialMediaAuth from "../utils/auth";
 import Signin from "../components/Signin";
 import Signup from "../components/Signup";
