@@ -117,6 +117,19 @@ const MenuLink = styled(Link)`
   }
 `;
 
+const ContactA = styled.a`
+  display: block;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.8;
+  color: #646464;
+  @media (max-width: 425px) {
+    width: 100%;
+    font-size: 0.8rem;
+  }
+`;
+
 const FooterLinksWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -137,7 +150,7 @@ const BtnLink = styled(Link)`
 
 const LogoutBtnLink = styled(Link)`
   @media (min-width: 1280px) {
-    margin-top: 15px
+    margin-top: 15px;
   }
 `;
 
@@ -233,13 +246,6 @@ const menu = [
       { title: "My Timer", url: "/timerlist/mytimers" },
     ],
   },
-  {
-    name: "About Us",
-    links: [
-      { title: "Story", url: "/" },
-      { title: "Contact Us", url: "mail-to:liko0165@gmail.com" },
-    ],
-  },
 ];
 
 const Footer = () => {
@@ -248,6 +254,10 @@ const Footer = () => {
     navigator.clipboard.writeText(window.location.href);
     Swal.fire("Go share now!", "You've copied the URL!", "success");
   };
+
+  function handleContactClick() {
+    window.open("https://github.com/ladbastille/brewsDrip", '_blank');
+  }
 
   return (
     <FooterContainer>
@@ -270,6 +280,15 @@ const Footer = () => {
               ))}
             </Menu>
           ))}
+          <Menu key={uuidv4()}>
+            <MenuHead key={uuidv4()}>About Us</MenuHead>
+            <ContactA key={uuidv4()} onClick={handleContactClick}>
+              Story
+            </ContactA>
+            <ContactA key={uuidv4()} onClick={handleContactClick}>
+              Contact Us
+            </ContactA>
+          </Menu>
         </FooterLinksWrap>
 
         <FooterCTABtnWrap>
