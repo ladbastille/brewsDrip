@@ -182,7 +182,7 @@ function TasteNote() {
       .doc(noteId)
       .onSnapshot((docSnapshot) => {
         const data = docSnapshot.data();
-        console.log(data)
+
         setNote(data);
         setNotes(data.notes);
         setCoffeeName(data.coffeeName);
