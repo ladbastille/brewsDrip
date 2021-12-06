@@ -36,18 +36,7 @@ function MyNotes() {
   useEffect(() => {
     if (currentUser) {
       getCollections("taste-note", currentUser, setTasteNotes);
-      // firebase
-      //   .firestore()
-      //   .collection("taste-note")
-      //   .where("author.uid", "==", currentUser.uid)
-      //   .orderBy("createdAt", "desc")
-      //   .onSnapshot((collectionSnapshot) => {
-      //     const data = collectionSnapshot.docs.map((docSnapshot) => {
-      //       const id = docSnapshot.id;
-      //       return { ...docSnapshot.data(), id };
-      //     });
-      //     setTasteNotes(data);
-      //   });
+      
     }
   }, [currentUser]);
 

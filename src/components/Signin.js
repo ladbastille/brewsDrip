@@ -3,10 +3,13 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import ReactLoading from "react-loading";
 import { SiFacebook, SiGoogle } from "react-icons/si";
+import Swal from "sweetalert2";
 import { HeaderH1 } from "./Input";
 import { StyledSpan } from "./Signup";
-import { facebookProvider, googleProvider } from "../utils/authMethods";
-import firebase from "./../utils/firebase";
+import {
+  facebookProvider, googleProvider,signUpWithEmailPassword,
+  signInWithEmailPassword,
+} from "./../utils/firebase";
 
 export const SigninContainer = styled.div`
   position: absolute;
@@ -47,7 +50,6 @@ const HeaderSingin = styled(HeaderH1)`
 export const SocialContainer = styled.div`
   margin: 20px 0;
   div {
-    background: #ffffff;
     border: 1.5px solid #ecd9bc;
     border-radius: 50%;
     display: inline-flex;
@@ -81,7 +83,7 @@ export const StyledInput = styled.input`
   border-radius: 5px;
 `;
 
-export const SubmitButton = styled.button`
+export const SubmitButton = styled.div`
   border-radius: 10px;
   cursor: pointer;
   border: 1px solid #de6932;
@@ -116,16 +118,13 @@ const Signin = ({ toggle, handleOnClick }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const onSignUp = (e) => {
-    console.log("signUP");
-
     setIsLoading(true);
     e.preventDefault();
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
+    
+    signUpWithEmailPassword(email, password)
       .then(() => {
-        console.log("success");
         history.push("/");
+        Swal.fire("Awesome!", "You've created an account!", "success")
         setIsLoading(false);
       })
       .catch((error) => {
@@ -146,15 +145,12 @@ const Signin = ({ toggle, handleOnClick }) => {
   };
 
   const onSignIn = (e) => {
-    console.log("signin");
     setIsLoading(true);
     e.preventDefault();
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
+    signInWithEmailPassword(email, password)
       .then(() => {
-        console.log("success");
         history.push("/");
+        Swal.fire("Hello!", "You've logged in!", "success")
         setIsLoading(false);
       })
       .catch((error) => {

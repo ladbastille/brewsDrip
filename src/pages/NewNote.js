@@ -158,7 +158,7 @@ const NewNote = () => {
           },
           imageUrl: imageUrl || "",
         };
-        console.log(dataObj);
+
         documentRef.set(dataObj).then(() => {
           setNotes("");
           Swal.fire("Awesome!", "You've created a tastenote!", "success");

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import "firebase/auth";
+import Swal from "sweetalert2";
 import { SiFacebook, SiGoogle } from "react-icons/si";
 import ReactLoading from "react-loading";
 import { HeaderH1 } from "./Input";
@@ -11,46 +11,48 @@ import {
   StyledInput,
   SubmitButton,
 } from "./Signin";
-import { facebookProvider, googleProvider } from "../utils/authMethods";
-import firebase from "../utils/firebase";
+import {
+  facebookProvider,
+  googleProvider,
+  signUpWithEmailPassword,
+  getAuthDocumentRef,
+  createSignUpDataObj,
+} from "../utils/firebase";
 
 const Signup = ({ toggle, handleOnClick }) => {
   const history = useHistory();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = React.useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onSignUp = (e) => {
-    console.log("signUP");
     setIsLoading(true);
 
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
+    signUpWithEmailPassword(email, password)
       .then((res) => {
-        console.log(res);
+        const documentRef = getAuthDocumentRef("members");
+        // firebase
+        //   .firestore()
+        //   .collection("members")
+        //   .doc(firebase.auth().currentUser.uid);
 
-        const documentRef = firebase
-          .firestore()
-          .collection("members")
-          .doc(firebase.auth().currentUser.uid);
+        let dataObj = createSignUpDataObj;
+        // {
+        //   createdAt: firebase.firestore.Timestamp.now(),
+        //   displayName:
+        //     firebase.auth().currentUser.displayName || "Coffee Lover",
+        //   photoURL:
+        //     "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/user-pics%2FdefaultUser.png?alt=media&token=7e5e71c8-aabb-4bdd-a55c-72ec3659b41d",
+        //   uid: firebase.auth().currentUser.uid,
+        //   email: firebase.auth().currentUser.email,
+        // };
 
-        let dataObj = {
-          createdAt: firebase.firestore.Timestamp.now(),
-          displayName:
-            firebase.auth().currentUser.displayName || "Coffee Lover",
-          photoURL:
-            "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/user-pics%2FdefaultUser.png?alt=media&token=7e5e71c8-aabb-4bdd-a55c-72ec3659b41d",
-          uid: firebase.auth().currentUser.uid,
-          email: firebase.auth().currentUser.email,
-        };
-        console.log(dataObj);
         documentRef.set(dataObj);
       })
       .then(() => {
-        console.log("success");
         history.push("/");
+        Swal.fire("Awesome!", "You've created an account!", "success");
         setIsLoading(false);
       })
       .catch((error) => {
