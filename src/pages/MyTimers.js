@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 import firebase from "../utils/firebase";
 import "firebase/firestore";
 import { BigTimerlistLink, InsideTimerlistWrap } from "./AllTimerList";
@@ -62,6 +63,7 @@ function MyTimers() {
 
   function handleDeleteTimer(timerid) {
     firebase.firestore().collection("timers").doc(timerid).delete();
+    Swal.fire("Done!", "The coffee timer has been deleted!", "success")
   }
   return (
     <>

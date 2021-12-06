@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { useHistory, Link } from "react-router-dom";
 import firebase from "../utils/firebase";
 import "firebase/firestore";
 import "firebase/storage";
@@ -7,7 +8,6 @@ import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import { FaCameraRetro, FaArrowLeft } from "react-icons/fa";
-import { useHistory, Link } from "react-router-dom";
 import { GiCoffeeBeans } from "react-icons/gi";
 import Input, { HeaderH1 } from "../components/Input";
 import { FooterCTABtn } from "../components/Footer";
@@ -87,6 +87,7 @@ const UploadLabel = styled.label`
   width: ${(props) => (props.width ? props.width : "70%")};
   border-radius: 10px;
   text-align: center;
+  cursor:pointer;
 `;
 const NoteTextarea = styled.textarea`
   border: transparent;

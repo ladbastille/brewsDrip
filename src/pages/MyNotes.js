@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
+import Swal from "sweetalert2";
 import { getCollections } from "../utils/firebase";
 import firebase from "../utils/firebase";
 import "firebase/firestore";
@@ -67,6 +68,7 @@ function MyNotes() {
 
   function handleDeleteNote(noteid) {
     firebase.firestore().collection("taste-note").doc(noteid).delete();
+    Swal.fire("Done!", "The taste note has been deleted!", "success");
   }
 
   return (

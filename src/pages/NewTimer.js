@@ -5,8 +5,7 @@ import "firebase/firestore";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import { FaArrowLeft } from "react-icons/fa";
-import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Input, { HeaderH1 } from "../components/Input";
 import Dropdown from "../components/Dropdown";
 import { FooterCTABtn } from "../components/Footer";
@@ -158,6 +157,7 @@ const NewTimer = () => {
     }
     setNumValues({ ...numValues, [e.target.name]: value });
   };
+
   const checkStepSecEndTime = (numValues) => {
     let newValues = { ...numValues };
     delete newValues.endTime;
@@ -168,7 +168,6 @@ const NewTimer = () => {
       const currentValue = valuesArr[i];
       const nextValue = valuesArr[i + 1];
       const lastValue = valuesArr[valuesArr.length - 1];
-
       if (i === 0 && (currentValue === 0 || currentValue === "")) {
         Swal.fire({
           icon: "error",
@@ -243,7 +242,6 @@ const NewTimer = () => {
 
   function createNewTimer() {
     const documentRef = firebase.firestore().collection("timers").doc();
-
     const customColorArr = [stepColor1, stepColor2, stepColor3, stepColor4];
     const customColorArrFiltered = customColorArr.filter(function (el) {
       return el !== null && el !== "";
@@ -270,7 +268,6 @@ const NewTimer = () => {
       customColor: customColorArrFiltered,
       customStep: customStepArrFiltered,
       customSec: customSecArrFiltered,
-
       createdAt: firebase.firestore.Timestamp.now(),
       author: {
         displayName: currentUser.displayName || "",

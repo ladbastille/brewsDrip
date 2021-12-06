@@ -54,9 +54,9 @@ const NewNoteContainer = styled.div`
   & input:focus {
     background: #ffffff;
   }
-  @media (max-width:375px){
-    width:375px;
-    max-width:90%;
+  @media (max-width: 375px) {
+    width: 375px;
+    max-width: 90%;
   }
 `;
 
@@ -73,6 +73,7 @@ const InsideNotelistWrap = styled.div`
     background-color: #fbd850;
   }
 `;
+
 const ThirdWrap = styled(InsideNotelistWrap)`
   width: ${(props) => props.width};
   @media (max-width: 375px) {
@@ -87,14 +88,13 @@ const SecondWrap = styled.div`
   width: ${(props) => (props.width ? props.width : "70%")};
   justify-content: ${(props) => props.justifyContent};
   align-items: ${(props) => props.alignItems};
-  flex-wrap:${(props) => props.flexWrap};
-
+  flex-wrap: ${(props) => props.flexWrap};
 `;
 
 export const PreviewImage = styled.img`
   max-height: 100%;
   max-width: 100%;
-  margin-right:40px;
+  margin-right: 40px;
 `;
 
 const TasteInput = styled(Input)`
@@ -105,8 +105,8 @@ const TasteInput = styled(Input)`
   font-family: Poppins, Arial, Helvetica, sans-serif;
   background-color: ${(props) => (props.readOnly ? "#fbd850" : "#ffffff")};
   cursor: ${(props) => (props.readOnly ? "default" : "edit")};
-  @media (max-width:375px){
-    width:115px;
+  @media (max-width: 375px) {
+    width: 115px;
   }
 `;
 
@@ -133,7 +133,7 @@ const RatingDiv = styled.div`
     display: none;
   }
   .star {
-    ${({ readOnly }) => readOnly ? "": "cursor:pointer"};
+    ${({ readOnly }) => (readOnly ? "" : "cursor:pointer")};
     transition: color 200ms;
   }
 `;
@@ -164,7 +164,6 @@ function TasteNote() {
   const [readOnly, setReadOnly] = useState(true);
   const [coffeeName, setCoffeeName] = useState("");
   const [place, setPlace] = useState("");
-
   const [rating, setRating] = useState(null);
   // eslint-disable-next-line no-unused-vars
   const [hover, setHover] = useState(null);
@@ -190,7 +189,7 @@ function TasteNote() {
         setRating(data.rating);
         setSelectedTagIds(data.selectedTagIds ? data.selectedTagIds : []);
       });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const toggleEditable = () => {
@@ -237,7 +236,7 @@ function TasteNote() {
     Swal.fire("Awesome!", "Thank you for sharing this tastenote!", "success");
     setIsShareClick((prev) => !prev);
   };
-  
+
   return (
     <>
       <NewNoteContainer>
@@ -297,7 +296,11 @@ function TasteNote() {
             readOnly={readOnly}
           ></NoteTextarea>
         </InsideNotelistWrap>
-        <SecondWrap flexWrap={"wrap"} margin={"10px auto 5px auto"} width={"90%"}>
+        <SecondWrap
+          flexWrap={"wrap"}
+          margin={"10px auto 5px auto"}
+          width={"90%"}
+        >
           <HeaderH2 margin={"2% 10px 1% 0"}>Rating</HeaderH2>
           {[...Array(5)].map((star, index) => {
             const ratingValue = (index += 1);
@@ -318,17 +321,13 @@ function TasteNote() {
                     onMouseLeave={readOnly ? () => {} : () => setHover(rating)}
                     size={25}
                     className="star"
-                    
                   />
                 </label>
               </RatingDiv>
             );
           })}
-
-        
         </SecondWrap>
         <InsideNotelistWrap></InsideNotelistWrap>
-
         <SecondWrap
           margin={"5px auto 5px "}
           justifyContent={"center"}
@@ -388,4 +387,5 @@ function TasteNote() {
     </>
   );
 }
+
 export default TasteNote;

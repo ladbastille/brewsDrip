@@ -16,6 +16,7 @@ const NotFoundDiv = styled.div`
 const NotFoundImg = styled.img`
   width: 100%;
 `;
+
 const NotFoundH1 = styled.h1`
   font-size: 7rem;
   position: absolute;
@@ -30,6 +31,7 @@ const NotFoundH1 = styled.h1`
     font-size: 4rem;
   }
 `;
+
 const NotFoundH2 = styled.h2`
   position: absolute;
   top: 82%;

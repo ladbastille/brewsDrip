@@ -135,6 +135,12 @@ const BtnLink = styled(Link)`
   margin-top: 5px;
 `;
 
+const LogoutBtnLink = styled(Link)`
+  @media (min-width: 1280px) {
+    margin-top: 15px
+  }
+`;
+
 export const FooterCTABtn = styled(TutorialsBtn)`
   padding: 10px 40px;
   margin-top: 10px;
@@ -184,7 +190,7 @@ const SNSLinksWrap = styled(FooterLinksWrap)`
   flex-wrap: no-wrap;
   margin-top: 10px;
   margin-right: 3%;
-  height: 40px;
+  height: 50px;
   @media (max-width: 1024px) {
     justify-content: flex-end;
   }
@@ -196,8 +202,8 @@ const SNSLinksWrap = styled(FooterLinksWrap)`
 `;
 
 const FooterShareBtnDiv = styled(ShareBtnDiv)`
-width:100px;
-margin:15px 20px 0 0;
+  width: 100px;
+  margin: 15px 20px 0 0;
   @media (max-width: 768px) {
     margin-top: 20px;
   }
@@ -272,9 +278,9 @@ const Footer = () => {
               <BtnLink to="/member">
                 <FooterCTABtn>Member</FooterCTABtn>
               </BtnLink>
-              <BtnLink to="/member">
+              <LogoutBtnLink to="/member">
                 <FooterLogoutBtn color={"transparent"}>Logout</FooterLogoutBtn>
-              </BtnLink>
+              </LogoutBtnLink>
             </>
           ) : (
             <>
