@@ -41,29 +41,6 @@ export const HeaderH1 = styled.h1`
   color: ${(props) => (props.color ? props.color : "#000000")};
 `;
 
-export const SocialContainer = styled.div`
-  margin: 20px 0;
-  a {
-    border: 1.5px solid #ecd9bc;
-    border-radius: 50%;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 10px;
-    height: 40px;
-    width: 40px;
-    text-decoration: none;
-    color: black;
-    cursor: pointer;
-    @media (max-width: 425px) {
-      color: white;
-    }
-    a:visited {
-      color: black;
-    }
-  }
-`;
-
 export const SocialLoginButton = styled.i`
   margin-right: 1rem;
 `;

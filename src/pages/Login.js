@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-
 import styled from "styled-components";
-import socialMediaAuth from "../utils/auth";
+import socialMediaAuth from "../utils/firebase";
 import Signin from "../components/Signin";
 import Signup from "../components/Signup";
 import Overlay from "../components/Overlay";
@@ -33,7 +32,6 @@ function Login() {
   const [toggle, setToggle] = useState(true);
   const handleOnClick = async (provider) => {
     const res = await socialMediaAuth(provider);
-    console.log(res);
   };
 
   return (

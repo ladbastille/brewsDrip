@@ -32,7 +32,7 @@ const DefaultTimer = () => {
       </HeaderH1>
       {timers.map((timer) => {
         return (
-          <>
+          
             <BigTimerlistLink
               key={uuidv4()}
               background={timer.baseColor.value}
@@ -51,7 +51,7 @@ const DefaultTimer = () => {
                 </HeaderH2>
               </InsideTimerlistWrap>
             </BigTimerlistLink>
-          </>
+          
         );
       })}
       ;

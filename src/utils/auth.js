@@ -1,8 +1,8 @@
-import firebase from "./firebase";
-import "firebase/auth";
+// import firebase from "./firebase";
+// import "firebase/auth";
 
-const socialMediaAuth = async (provider) => {
-  return await firebase.auth().signInWithPopup(provider);
-};
+// const socialMediaAuth = async (provider) => {
+//   return await firebase.auth().signInWithPopup(provider);
+// };
 
-export default socialMediaAuth;
+// export default socialMediaAuth;
