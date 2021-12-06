@@ -59,7 +59,7 @@ const BtnDiv = styled.div`
   margin-top: 32px;
 `;
 
-export const TutorialsBtn = styled.a`
+export const TutorialsBtn = styled.button`
   font-family: "Poppins", sans-serif;
   cursor: pointer;
   font-weight: 700;

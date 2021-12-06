@@ -31,7 +31,7 @@ const LoginBody = styled.div`
 function Login() {
   const [toggle, setToggle] = useState(true);
   const handleOnClick = async (provider) => {
-    const res = await socialMediaAuth(provider);
+    await socialMediaAuth(provider);
   };
 
   return (

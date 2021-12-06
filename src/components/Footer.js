@@ -118,6 +118,7 @@ const MenuLink = styled(Link)`
 `;
 
 const ContactA = styled.a`
+  cursor:pointer;
   display: block;
   text-decoration: none;
   font-size: 0.8rem;
