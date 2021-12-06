@@ -1,13 +1,13 @@
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 import App from "./App";
-import { BrowserRouter, Switch } from "react-router-dom";
-import './index.css'
+import "./reset.css";
+import "./index.css";
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      <App />
-    </Switch>
-  </BrowserRouter>,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById("root")
 );
