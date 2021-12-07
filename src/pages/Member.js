@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import firebase from "../utils/firebase";
+import {userLogout,getUserPhotoRef} from "../utils/firebase";
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import { SubmitButton } from "../components/Signin";
@@ -137,6 +137,7 @@ function Member() {
   const [isLoading, setIsLoading] = useState(false);
   const [file, setFile] = useState(null);
   const history = useHistory();
+  const defaultUserPhotoUrl = "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/user-pics%2FdefaultUser.png?alt=media&token=7e5e71c8-aabb-4bdd-a55c-72ec3659b41d"
 
   const previewUrl = () => {
     if (file) {
@@ -144,20 +145,20 @@ function Member() {
     } else if (currentUser.photoURL !== null) {
       return currentUser.photoURL;
     } else {
-      return "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/user-pics%2FdefaultUser.png?alt=media&token=7e5e71c8-aabb-4bdd-a55c-72ec3659b41d";
+      return defaultUserPhotoUrl;
     }
   };
 
   const toLogOut = () => {
     setIsLoading(true);
-    firebase.auth().signOut();
+    userLogout()
     history.push("/login");
     setIsLoading(false);
   };
 
   function onSubmit() {
     setIsLoading(true);
-    const fileRef = firebase.storage().ref("user-photos/" + currentUser.uid);
+    const fileRef = getUserPhotoRef("user-photos/",currentUser);
     const metadata = {
       contentType: file.type,
     };

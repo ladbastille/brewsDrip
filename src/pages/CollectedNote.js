@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import firebase from "../utils/firebase";
-import "firebase/firestore";
+import {getCollectedCollections,getCollectionsFieldUpdate} from "../utils/firebase";
 import { Link } from "react-router-dom";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
@@ -20,33 +19,15 @@ function CollectedTimers() {
 
   useEffect(() => {
     if (currentUser) {
-      firebase
-        .firestore()
-        .collection("taste-note")
-        .where("collectedBy", "array-contains", currentUser?.uid)
-        .orderBy("createdAt", "desc")
-        .onSnapshot((collectionSnapshot) => {
-          const data = collectionSnapshot.docs.map((docSnapshot) => {
-            const id = docSnapshot.id;
-            return { ...docSnapshot.data(), id };
-          });
-          setTasteNotes(data);
-        });
+      getCollectedCollections("taste-note", currentUser, setTasteNotes)
+      
     }
   }, [currentUser]);
 
   function toggleLikeCollect(activeInField, field, id) {
     const uid = currentUser?.uid;
     if (uid) {
-      firebase
-        .firestore()
-        .collection("taste-note")
-        .doc(id)
-        .update({
-          [field]: activeInField
-            ? firebase.firestore.FieldValue.arrayRemove(uid)
-            : firebase.firestore.FieldValue.arrayUnion(uid),
-        });
+      getCollectionsFieldUpdate('taste-note', id,field,activeInField,uid)
     }
   }
 

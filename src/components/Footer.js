@@ -216,7 +216,7 @@ const SNSLinksWrap = styled(FooterLinksWrap)`
 `;
 
 const FooterShareBtnDiv = styled(ShareBtnDiv)`
-  width: 100px;
+  width: 120px;
   margin: 15px 20px 0 0;
   @media (max-width: 768px) {
     margin-top: 20px;

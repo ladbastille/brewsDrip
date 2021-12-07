@@ -1,5 +1,4 @@
 import React from "react";
-import "firebase/firestore";
 import styled from "styled-components";
 
 export const TutorialsBrewDiv = styled.div`

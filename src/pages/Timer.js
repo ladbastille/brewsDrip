@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import firebase from "../utils/firebase";
+import {
+  getDocOnSnapShot,
+  getCollectionsFieldUpdate,
+} from "../utils/firebase";
 import { useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
-import "firebase/firestore";
 import Swal from "sweetalert2";
 import successCoffeeImg from "../images/swal-success-pic.jpg";
 
@@ -39,7 +41,7 @@ const TimerContainer = styled.div`
   font-family: "Open Sans Condensed", sans-serif;
   width: 100%;
   max-width: 768px;
-  box-sizing:border-box;
+  box-sizing: border-box;
   overflow: hidden;
   margin: 5px auto 10px;
   display: flex;
@@ -173,14 +175,7 @@ const Timer = () => {
   doneAudio.volume = 0.2;
 
   useEffect(() => {
-    firebase
-      .firestore()
-      .collection("timers")
-      .doc(timerId)
-      .onSnapshot((docSnapshot) => {
-        const data = docSnapshot.data();
-        setTimer(data);
-      });
+    getDocOnSnapShot("timers", timerId, setTimer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -353,15 +348,7 @@ const Timer = () => {
       });
     } else {
       const uid = currentUser.uid;
-      firebase
-        .firestore()
-        .collection("timers")
-        .doc(timerId)
-        .update({
-          [field]: activeInField
-            ? firebase.firestore.FieldValue.arrayRemove(uid)
-            : firebase.firestore.FieldValue.arrayUnion(uid),
-        });
+      getCollectionsFieldUpdate("timers", timerId, field, activeInField, uid);
     }
   }
 

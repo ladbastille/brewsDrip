@@ -4,9 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 import Swal from "sweetalert2";
-import { getCollections } from "../utils/firebase";
-import firebase from "../utils/firebase";
-import "firebase/firestore";
+import { getMyCollections,getCollectionsFieldUpdate,deleteDoc } from "../utils/firebase";
 import { InsideTimerlistWrap } from "./AllTimerList";
 import { BigNotelistLink } from "./AllNoteList";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
@@ -35,7 +33,7 @@ function MyNotes() {
 
   useEffect(() => {
     if (currentUser) {
-      getCollections("taste-note", currentUser, setTasteNotes);
+      getMyCollections("taste-note", currentUser, setTasteNotes);
       
     }
   }, [currentUser]);
@@ -43,20 +41,13 @@ function MyNotes() {
   function toggleLikeCollect(activeInField, field, id) {
     const uid = currentUser?.uid;
     if (uid) {
-      firebase
-        .firestore()
-        .collection("taste-note")
-        .doc(id)
-        .update({
-          [field]: activeInField
-            ? firebase.firestore.FieldValue.arrayRemove(uid)
-            : firebase.firestore.FieldValue.arrayUnion(uid),
-        });
+      getCollectionsFieldUpdate("taste-note", id,field,activeInField,uid)
+      
     }
   }
 
   function handleDeleteNote(noteid) {
-    firebase.firestore().collection("taste-note").doc(noteid).delete();
+    deleteDoc("taste-note", noteid)
     Swal.fire("Done!", "The taste note has been deleted!", "success");
   }
 
@@ -66,7 +57,7 @@ function MyNotes() {
         My Notes
       </HeaderH1>
 
-      {tasteNotes.map((note) => {
+      {tasteNotes?.map((note) => {
         const isLiked = note.likedBy?.includes(currentUser?.uid);
         const isCollected = note.collectedBy?.includes(currentUser?.uid);
 

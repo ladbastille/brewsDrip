@@ -1,5 +1,4 @@
 import React from "react";
-import "firebase/firestore";
 import styled from "styled-components";
 import TutorialCardDrink from "./TutorialCardDrink";
 

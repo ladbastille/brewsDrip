@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import firebase from "../utils/firebase";
-import "firebase/firestore";
+import {getDocumentRef,getCreatedAt} from "../utils/firebase";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import { FaArrowLeft } from "react-icons/fa";
@@ -241,7 +240,7 @@ const NewTimer = () => {
   };
 
   function createNewTimer() {
-    const documentRef = firebase.firestore().collection("timers").doc();
+    const documentRef = getDocumentRef("timers");
     const customColorArr = [stepColor1, stepColor2, stepColor3, stepColor4];
     const customColorArrFiltered = customColorArr.filter(function (el) {
       return el !== null && el !== "";
@@ -268,7 +267,7 @@ const NewTimer = () => {
       customColor: customColorArrFiltered,
       customStep: customStepArrFiltered,
       customSec: customSecArrFiltered,
-      createdAt: firebase.firestore.Timestamp.now(),
+      createdAt: getCreatedAt(),
       author: {
         displayName: currentUser.displayName || "",
         photoURL: currentUser.photoURL || "",

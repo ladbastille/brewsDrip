@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import firebase from "../utils/firebase";
-import "firebase/firestore";
+import {getCollectionsDescOrder,getCollectionsFieldUpdate} from "../utils/firebase";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Swal from "sweetalert2";
@@ -115,32 +114,13 @@ const AllTimerList = () => {
   const [timers, setTimers] = useState([]);
 
   useEffect(() => {
-    firebase
-      .firestore()
-      .collection("timers")
-      .orderBy("createdAt", "desc")
-      .onSnapshot((collectionSnapshot) => {
-        const data = collectionSnapshot.docs.map((docSnapshot) => {
-          const id = docSnapshot.id;
-          return { ...docSnapshot.data(), id };
-        });
-
-        setTimers(data);
-      });
+    getCollectionsDescOrder("timers",setTimers)
   }, []);
 
   function toggleLikeCollect(activeInField, field, id) {
     const uid = currentUser?.uid;
     if (uid) {
-      firebase
-        .firestore()
-        .collection("timers")
-        .doc(id)
-        .update({
-          [field]: activeInField
-            ? firebase.firestore.FieldValue.arrayRemove(uid)
-            : firebase.firestore.FieldValue.arrayUnion(uid),
-        });
+      getCollectionsFieldUpdate("timers",id,field,activeInField,uid)
     } else {
       Swal.fire({
         icon: "error",
