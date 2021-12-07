@@ -123,7 +123,7 @@ const NewNote = () => {
   const history = useHistory();
   const [coffeeName, setCoffeeName] = useState("");
   const [notes, setNotes] = useState("");
-  const [place, setPlace] = useState();
+  const [place, setPlace] = useState("");
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
   const [file, setFile] = useState(null);
@@ -165,7 +165,6 @@ const NewNote = () => {
           return;
         }
         documentRef.set(dataObj).then(() => {
-          setNotes("");
           Swal.fire("Awesome!", "You've created a tastenote!", "success");
           history.push("/tastenotelist");
         });

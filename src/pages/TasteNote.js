@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import {
-  getDoc,
-  getDocOnSnapShot,
-  getFileRef,
-} from "../utils/firebase";
+import { getDoc, getDocOnSnapShot, getFileRef } from "../utils/firebase";
 import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
+import {
+  FacebookShareButton,
+  LineShareButton,
+  FacebookIcon,
+  LineIcon,
+} from "react-share";
 import { FaCameraRetro, FaArrowLeft } from "react-icons/fa";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import Input, { HeaderH1 } from "../components/Input";
 import { FooterCTABtn } from "../components/Footer";
@@ -24,12 +25,6 @@ import { FiShare2 } from "react-icons/fi";
 import { BiLinkAlt } from "react-icons/bi";
 import { ImgWrap, UploadLabel } from "./NewNote";
 import Tags from "./Tags";
-import {
-  FacebookShareButton,
-  LineShareButton,
-  FacebookIcon,
-  LineIcon,
-} from "react-share";
 
 const NewNoteContainer = styled.div`
   font-family: "Open Sans Condensed", sans-serif;
@@ -169,7 +164,6 @@ function TasteNote() {
   const [rating, setRating] = useState(null);
   // eslint-disable-next-line no-unused-vars
   const [hover, setHover] = useState(null);
-
   const [selectedTagIds, setSelectedTagIds] = useState([]);
   const [notes, setNotes] = useState("");
   const { noteId } = useParams();
@@ -178,7 +172,7 @@ function TasteNote() {
   });
   const [file, setFile] = useState(null);
   const [isPhoto, setIsPhoto] = useState(false);
-  const previewUrl = file && URL.createObjectURL(file)
+  const previewUrl = file ? URL.createObjectURL(file) : undefined
   const handleSetData = (data) => {
     setNote(data);
     setNotes(data.notes);
@@ -189,7 +183,6 @@ function TasteNote() {
   };
   useEffect(() => {
     getDocOnSnapShot("taste-note", noteId, handleSetData);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -214,26 +207,35 @@ function TasteNote() {
       contentType: file?.type,
     };
 
-    fileRef.put(file, metadata).then(() => {
-      fileRef.getDownloadURL().then((imageUrl) => {
     let dataObj = {
       coffeeName: coffeeName,
       notes: notes,
       rating: parseInt(rating),
       selectedTagIds: selectedTagIds,
       place: place,
-      imageUrl: file ? imageUrl : "",
+      imageUrl: note.imageUrl,
     };
-    documentRef.update(dataObj).then(() => {
-      setIsLoading(false);
-      setFile(null);
-      setIsPhoto(false)
-      setReadOnly(true);
-    });
-  });
-});
+
+    const handleUpdateData = (dataObj) => {
+      documentRef.update(dataObj).then(() => {
+        setIsLoading(false);
+        setFile(null);
+        setIsPhoto(false);
+        setReadOnly(true);
+      });
+    };
+
+    file
+      ? fileRef.put(file, metadata).then(() => {
+          fileRef.getDownloadURL().then((imageUrl) => {
+            dataObj.imageUrl = imageUrl;
+            handleUpdateData(dataObj);
+          });
+        })
+      : handleUpdateData(dataObj);
+
     Swal.fire("Success!", "You've edited this tastenote!", "success");
-  }
+  };
 
   const handleCopyUrl = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -248,9 +250,8 @@ function TasteNote() {
 
   function handleChoosePhoto(e) {
     setFile(e.target.files[0]);
-    setIsPhoto(true)
+    setIsPhoto(true);
   }
-  
 
   return (
     <>
@@ -304,18 +305,27 @@ function TasteNote() {
                   +&ensp;
                   <FaCameraRetro />
                 </UploadLabel>
-              ):<></>}
-              {readOnly && !isPhoto ? (
-                <PreviewImage
-                  src={
-                    note.imageUrl 
-                      ? note.imageUrl
-                      : "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/taste-pics%2Fno-image-picture.png?alt=media&token=d9f52508-ba2c-4c90-8f80-48b688cdaf76"
-                  }
-                  
-                />
               ) : (
-                isPhoto && <PreviewImage src={previewUrl} />
+                <></>
+              )}
+              {note ? (
+                note.imageUrl && readOnly && !isPhoto 
+                ? (
+                  <PreviewImage src={isPhoto ? previewUrl : note.imageUrl} />
+                ) 
+                : note.imageUrl === null && readOnly && !isPhoto 
+                ? (
+                  <PreviewImage
+                    src={
+                      "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/taste-pics%2Fno-image-picture.png?alt=media&token=d9f52508-ba2c-4c90-8f80-48b688cdaf76"
+                    }
+                  />
+                ) 
+                : (
+                  <PreviewImage src={isPhoto && previewUrl} />
+                )
+              ) : (
+                <></>
               )}
             </ImgWrap>
           </SecondWrap>
