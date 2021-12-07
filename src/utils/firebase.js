@@ -58,8 +58,8 @@ export const getAuthDocumentRef = (collectionName, currentUser) => {
     .doc(firebase.auth().currentUser.uid);
 };
 
-export const getDocumentRef = (collectionName) => {
-  return firestore.collection(collectionName).doc();
+export const getDocumentRef = (collectionName,id) => {
+  return firestore.collection(collectionName).doc(id);
 };
 
 export const createSignUpDataObj = {

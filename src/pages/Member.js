@@ -160,7 +160,7 @@ function Member() {
     setIsLoading(true);
     const fileRef = getUserPhotoRef("user-photos/",currentUser);
     const metadata = {
-      contentType: file.type,
+      contentType: file?.type,
     };
     fileRef.put(file, metadata).then(() => {
       fileRef.getDownloadURL().then((imageUrl) => {
