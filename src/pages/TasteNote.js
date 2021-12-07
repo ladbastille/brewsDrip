@@ -273,9 +273,9 @@ console.log(note)
             <ImgWrap>
               <PreviewImage
                 src={
-                  note.imageUrl!==undefined
+                  note.imageUrl
                     ? note.imageUrl
-                    : "https://react.semantic-ui.com/images/wireframe/image.png"
+                    : "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/taste-pics%2Fno-image-picture.png?alt=media&token=d9f52508-ba2c-4c90-8f80-48b688cdaf76"
                 }
               />
             </ImgWrap>

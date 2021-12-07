@@ -142,7 +142,7 @@ const NewNote = () => {
     fileRef.put(file, metadata).then(() => {
       fileRef.getDownloadURL().then((imageUrl) => {
         let dataObj = {
-          coffeeName: coffeeName || "Unnamed Note",
+          coffeeName: coffeeName,
           notes: notes || null,
           rating: parseInt(rating) || null,
           selectedTagIds: selectedTagIds || [],
@@ -154,9 +154,16 @@ const NewNote = () => {
             uid: currentUser.uid,
             email: currentUser.email,
           },
-          imageUrl: imageUrl || "",
+          imageUrl: file ? imageUrl : "",
         };
-
+        if (!coffeeName) {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Please enter drink name.",
+          });
+          return;
+        }
         documentRef.set(dataObj).then(() => {
           setNotes("");
           Swal.fire("Awesome!", "You've created a tastenote!", "success");
