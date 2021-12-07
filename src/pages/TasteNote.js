@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { getDoc, getDocOnSnapShot } from "../utils/firebase";
+import {
+  getDoc,
+  getDocOnSnapShot,
+  getFileRef,
+} from "../utils/firebase";
 import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaCameraRetro, FaArrowLeft } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -18,7 +22,7 @@ import {
 import { GiCoffeeBeans } from "react-icons/gi";
 import { FiShare2 } from "react-icons/fi";
 import { BiLinkAlt } from "react-icons/bi";
-import { ImgWrap } from "./NewNote";
+import { ImgWrap, UploadLabel } from "./NewNote";
 import Tags from "./Tags";
 import {
   FacebookShareButton,
@@ -172,6 +176,9 @@ function TasteNote() {
   const [note, setNote] = useState({
     author: {},
   });
+  const [file, setFile] = useState(null);
+  const [isPhoto, setIsPhoto] = useState(false);
+  const previewUrl = file && URL.createObjectURL(file)
   const handleSetData = (data) => {
     setNote(data);
     setNotes(data.notes);
@@ -202,21 +209,31 @@ function TasteNote() {
   const toggleSaveData = () => {
     setIsLoading(true);
     const documentRef = getDoc("taste-note", noteId);
+    const fileRef = getFileRef("taste-pics/", documentRef);
+    const metadata = {
+      contentType: file?.type,
+    };
 
+    fileRef.put(file, metadata).then(() => {
+      fileRef.getDownloadURL().then((imageUrl) => {
     let dataObj = {
       coffeeName: coffeeName,
       notes: notes,
       rating: parseInt(rating),
       selectedTagIds: selectedTagIds,
       place: place,
+      imageUrl: file ? imageUrl : "",
     };
-
     documentRef.update(dataObj).then(() => {
       setIsLoading(false);
+      setFile(null);
+      setIsPhoto(false)
       setReadOnly(true);
     });
+  });
+});
     Swal.fire("Success!", "You've edited this tastenote!", "success");
-  };
+  }
 
   const handleCopyUrl = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -228,7 +245,13 @@ function TasteNote() {
     Swal.fire("Awesome!", "Thank you for sharing this tastenote!", "success");
     setIsShareClick((prev) => !prev);
   };
-console.log(note)
+
+  function handleChoosePhoto(e) {
+    setFile(e.target.files[0]);
+    setIsPhoto(true)
+  }
+  
+
   return (
     <>
       <NewNoteContainer>
@@ -271,13 +294,29 @@ console.log(note)
             margin={"0"}
           >
             <ImgWrap>
-              <PreviewImage
-                src={
-                  note.imageUrl
-                    ? note.imageUrl
-                    : "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/taste-pics%2Fno-image-picture.png?alt=media&token=d9f52508-ba2c-4c90-8f80-48b688cdaf76"
-                }
-              />
+              {!readOnly && !isPhoto ? (
+                <UploadLabel readOnly={readOnly}>
+                  <input
+                    type="file"
+                    onChange={(e) => handleChoosePhoto(e)}
+                    style={{ display: "none" }}
+                  />
+                  +&ensp;
+                  <FaCameraRetro />
+                </UploadLabel>
+              ):<></>}
+              {readOnly && !isPhoto ? (
+                <PreviewImage
+                  src={
+                    note.imageUrl 
+                      ? note.imageUrl
+                      : "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/taste-pics%2Fno-image-picture.png?alt=media&token=d9f52508-ba2c-4c90-8f80-48b688cdaf76"
+                  }
+                  
+                />
+              ) : (
+                isPhoto && <PreviewImage src={previewUrl} />
+              )}
             </ImgWrap>
           </SecondWrap>
         </InsideNotelistWrap>

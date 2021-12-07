@@ -77,7 +77,7 @@ export const HeaderH2 = styled(HeaderH1)`
   height: ${(props) => props.height};
 `;
 
-const UploadLabel = styled.label`
+export const UploadLabel = styled.label`
   background-color: #fbd850;
   border: 1px solid #ffffff;
   margin: 4px 3px 3px 3px;
