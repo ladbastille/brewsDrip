@@ -32,22 +32,7 @@ const Signup = ({ toggle, handleOnClick }) => {
     signUpWithEmailPassword(email, password)
       .then((res) => {
         const documentRef = getAuthDocumentRef("members");
-        // firebase
-        //   .firestore()
-        //   .collection("members")
-        //   .doc(firebase.auth().currentUser.uid);
-
         let dataObj = createSignUpDataObj;
-        // {
-        //   createdAt: firebase.firestore.Timestamp.now(),
-        //   displayName:
-        //     firebase.auth().currentUser.displayName || "Coffee Lover",
-        //   photoURL:
-        //     "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/user-pics%2FdefaultUser.png?alt=media&token=7e5e71c8-aabb-4bdd-a55c-72ec3659b41d",
-        //   uid: firebase.auth().currentUser.uid,
-        //   email: firebase.auth().currentUser.email,
-        // };
-
         documentRef.set(dataObj);
       })
       .then(() => {

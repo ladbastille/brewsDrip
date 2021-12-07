@@ -3,8 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import firebase from "../utils/firebase";
-import "firebase/firestore";
+import { getMyCollections,getCollectionsFieldUpdate,deleteDoc } from "../utils/firebase";
 import { BigTimerlistLink, InsideTimerlistWrap } from "./AllTimerList";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
@@ -31,38 +30,19 @@ function MyTimers() {
 
   useEffect(() => {
     if (currentUser) {
-      firebase
-        .firestore()
-        .collection("timers")
-        .where("author.uid", "==", currentUser.uid)
-        .orderBy("createdAt", "desc")
-        .onSnapshot((collectionSnapshot) => {
-          const data = collectionSnapshot.docs.map((docSnapshot) => {
-            const id = docSnapshot.id;
-            return { ...docSnapshot.data(), id };
-          });
-          setTimers(data);
-        });
+      getMyCollections("timers", currentUser, setTimers);
     }
   }, [currentUser]);
 
   function toggleLikeCollect(activeInField, field, id) {
     const uid = currentUser?.uid;
     if (uid) {
-      firebase
-        .firestore()
-        .collection("timers")
-        .doc(id)
-        .update({
-          [field]: activeInField
-            ? firebase.firestore.FieldValue.arrayRemove(uid)
-            : firebase.firestore.FieldValue.arrayUnion(uid),
-        });
+      getCollectionsFieldUpdate("timers", id,field,activeInField,uid)
     }
   }
 
   function handleDeleteTimer(timerid) {
-    firebase.firestore().collection("timers").doc(timerid).delete();
+    deleteDoc("timers", timerid)
     Swal.fire("Done!", "The coffee timer has been deleted!", "success")
   }
   return (

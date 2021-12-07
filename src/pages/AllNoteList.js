@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import firebase from "../utils/firebase";
-import "firebase/firestore";
+import {getCollectionsDescOrder,getCollectionsFieldUpdate} from "../utils/firebase";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
@@ -124,34 +123,15 @@ const AllNoteList = () => {
   const [tasteNotes, setTasteNotes] = useState([]);
 
   useEffect(() => {
-    firebase
-      .firestore()
-      .collection("taste-note")
-      .orderBy("createdAt", "desc")
-      .onSnapshot((collectionSnapshot) => {
-        const data = collectionSnapshot.docs.map((docSnapshot) => {
-          const id = docSnapshot.id;
-          return { ...docSnapshot.data(), id };
-        });
-        
-        setTasteNotes(data);
-
-      });
+    getCollectionsDescOrder("taste-note",setTasteNotes)
   }, []);
 
   function toggleLikeCollect(activeInField, field, id) {
     const uid = currentUser?.uid;
 
     if (uid) {
-      firebase
-        .firestore()
-        .collection("taste-note")
-        .doc(id)
-        .update({
-          [field]: activeInField
-            ? firebase.firestore.FieldValue.arrayRemove(uid)
-            : firebase.firestore.FieldValue.arrayUnion(uid),
-        });
+      getCollectionsFieldUpdate("taste-note",id,field,activeInField,uid)
+      
     } else {
       Swal.fire({
         icon: "error",

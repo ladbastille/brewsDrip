@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/storage";
 
 const apiKey = process.env.REACT_APP_API_KEY;
 const authDomain = process.env.REACT_APP_AUTH_DOMAIN;
@@ -37,11 +38,28 @@ export const signInWithEmailPassword = (email, password) => {
   return firebase.auth().signInWithEmailAndPassword(email, password);
 };
 
+export const userLogout = () => {
+  firebase.auth().signOut();
+};
+
+export const getUserPhotoRef = (refName, currentUser) => {
+  return firebase.storage().ref(refName + currentUser.uid);
+};
+
+export const getFileRef = (refName, documentRef) => {
+  return firebase.storage().ref(refName + documentRef.id);
+};
+
+const firestore = firebase.firestore();
+
 export const getAuthDocumentRef = (collectionName, currentUser) => {
-  firebase
-    .firestore()
+  return firestore
     .collection(collectionName)
     .doc(firebase.auth().currentUser.uid);
+};
+
+export const getDocumentRef = (collectionName) => {
+  return firestore.collection(collectionName).doc();
 };
 
 export const createSignUpDataObj = {
@@ -53,9 +71,8 @@ export const createSignUpDataObj = {
   email: firebase.auth().currentUser?.email,
 };
 
-export const getCollections = (collectionName, currentUser, setContents) => {
-  firebase
-    .firestore()
+export const getMyCollections = (collectionName, currentUser, setContents) => {
+  firestore
     .collection(collectionName)
     .where("author.uid", "==", currentUser?.uid)
     .orderBy("createdAt", "desc")
@@ -66,6 +83,87 @@ export const getCollections = (collectionName, currentUser, setContents) => {
       });
       setContents(data);
     });
+};
+
+export const getCollectedCollections = (
+  collectionName,
+  currentUser,
+  setContents
+) => {
+  firestore
+    .collection(collectionName)
+    .where("collectedBy", "array-contains", currentUser?.uid)
+    .orderBy("createdAt", "desc")
+    .onSnapshot((collectionSnapshot) => {
+      const data = collectionSnapshot.docs.map((docSnapshot) => {
+        const id = docSnapshot.id;
+        return { ...docSnapshot.data(), id };
+      });
+      setContents(data);
+    });
+};
+
+export const getDefaultCollections = (collectionName, setContents) => {
+  firestore
+    .collection(collectionName)
+    .where("isDefault", "==", true)
+    .get()
+    .then((collectionSnapshot) => {
+      const data = collectionSnapshot.docs.map((docSnapshot) => {
+        const id = docSnapshot.id;
+        return { ...docSnapshot.data(), id };
+      });
+      setContents(data);
+    });
+};
+
+export const getCollectionsDescOrder = (collectionName, setContents) => {
+  firestore
+    .collection(collectionName)
+    .orderBy("createdAt", "desc")
+    .onSnapshot((collectionSnapshot) => {
+      const data = collectionSnapshot.docs.map((docSnapshot) => {
+        const id = docSnapshot.id;
+        return { ...docSnapshot.data(), id };
+      });
+      setContents(data);
+    });
+};
+
+export const getCollectionsFieldUpdate = (
+  collectionName,
+  id,
+  field,
+  activeInField,
+  uid
+) => {
+  firestore
+    .collection(collectionName)
+    .doc(id)
+    .update({
+      [field]: activeInField
+        ? firebase.firestore.FieldValue.arrayRemove(uid)
+        : firebase.firestore.FieldValue.arrayUnion(uid),
+    });
+};
+
+export const getDoc = (collectionName, idName) => {
+  return firestore.collection(collectionName).doc(idName);
+};
+
+export const getDocOnSnapShot = (collectionName, idName, setContent) => {
+  getDoc(collectionName, idName).onSnapshot((docSnapshot) => {
+    const data = docSnapshot.data();
+    data && setContent(data);
+  });
+};
+
+export const deleteDoc = (collectionName, idName) => {
+  getDoc(collectionName, idName).delete();
+};
+
+export const getCreatedAt = () => {
+  return firebase.firestore.Timestamp.now();
 };
 
 export default firebase;

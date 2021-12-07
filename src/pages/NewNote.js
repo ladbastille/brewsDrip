@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
-import firebase from "../utils/firebase";
-import "firebase/firestore";
-import "firebase/storage";
+import { getDocumentRef, getFileRef, getCreatedAt } from "../utils/firebase";
 import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 import Swal from "sweetalert2";
@@ -29,7 +27,7 @@ const NewNoteContainer = styled.div`
   align-items: center;
   margin-bottom: 20px;
   margin-top: 10px;
-  box-sizing:border-box;
+  box-sizing: border-box;
 
   & ::placeholder {
     color: #001a3a;
@@ -87,7 +85,7 @@ const UploadLabel = styled.label`
   width: ${(props) => (props.width ? props.width : "70%")};
   border-radius: 10px;
   text-align: center;
-  cursor:pointer;
+  cursor: pointer;
 `;
 const NoteTextarea = styled.textarea`
   border: transparent;
@@ -136,8 +134,8 @@ const NewNote = () => {
     : "https://react.semantic-ui.com/images/wireframe/image.png";
 
   function createNewNote() {
-    const documentRef = firebase.firestore().collection("taste-note").doc();
-    const fileRef = firebase.storage().ref("taste-pics/" + documentRef.id);
+    const documentRef = getDocumentRef("taste-note");
+    const fileRef = getFileRef("taste-pics/", documentRef);
     const metadata = {
       contentType: file?.type || "",
     };
@@ -149,7 +147,7 @@ const NewNote = () => {
           rating: parseInt(rating) || null,
           selectedTagIds: selectedTagIds || [],
           place: place || "Unnamed Place",
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: getCreatedAt(),
           author: {
             displayName: currentUser.displayName || "",
             photoURL: currentUser.photoURL || "",

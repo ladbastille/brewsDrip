@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import firebase from "../utils/firebase";
-import "firebase/firestore";
-import "firebase/storage";
+import { getDoc, getDocOnSnapShot } from "../utils/firebase";
 import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 import { FaArrowLeft } from "react-icons/fa";
@@ -174,22 +172,17 @@ function TasteNote() {
   const [note, setNote] = useState({
     author: {},
   });
-
+  const handleSetData = (data) => {
+    setNote(data);
+    setNotes(data.notes);
+    setCoffeeName(data.coffeeName);
+    setPlace(data.place);
+    setRating(data.rating);
+    setSelectedTagIds(data.selectedTagIds ? data.selectedTagIds : []);
+  };
   useEffect(() => {
-    firebase
-      .firestore()
-      .collection("taste-note")
-      .doc(noteId)
-      .onSnapshot((docSnapshot) => {
-        const data = docSnapshot.data();
+    getDocOnSnapShot("taste-note", noteId, handleSetData);
 
-        setNote(data);
-        setNotes(data.notes);
-        setCoffeeName(data.coffeeName);
-        setPlace(data.place);
-        setRating(data.rating);
-        setSelectedTagIds(data.selectedTagIds ? data.selectedTagIds : []);
-      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -208,10 +201,7 @@ function TasteNote() {
 
   const toggleSaveData = () => {
     setIsLoading(true);
-    const documentRef = firebase
-      .firestore()
-      .collection("taste-note")
-      .doc(noteId);
+    const documentRef = getDoc("taste-note", noteId);
 
     let dataObj = {
       coffeeName: coffeeName,
@@ -220,6 +210,7 @@ function TasteNote() {
       selectedTagIds: selectedTagIds,
       place: place,
     };
+
     documentRef.update(dataObj).then(() => {
       setIsLoading(false);
       setReadOnly(true);
@@ -237,7 +228,7 @@ function TasteNote() {
     Swal.fire("Awesome!", "Thank you for sharing this tastenote!", "success");
     setIsShareClick((prev) => !prev);
   };
-
+console.log(note)
   return (
     <>
       <NewNoteContainer>
@@ -280,7 +271,13 @@ function TasteNote() {
             margin={"0"}
           >
             <ImgWrap>
-              <PreviewImage src={note.imageUrl} />
+              <PreviewImage
+                src={
+                  note.imageUrl!==undefined
+                    ? note.imageUrl
+                    : "https://react.semantic-ui.com/images/wireframe/image.png"
+                }
+              />
             </ImgWrap>
           </SecondWrap>
         </InsideNotelistWrap>
