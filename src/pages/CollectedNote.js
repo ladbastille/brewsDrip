@@ -19,8 +19,8 @@ function CollectedTimers() {
 
   useEffect(() => {
     if (currentUser) {
-      getCollectedCollections("taste-note", currentUser, setTasteNotes)
-      
+      const unsub = getCollectedCollections("taste-note", currentUser, setTasteNotes)
+      return unsub;
     }
   }, [currentUser]);
 

@@ -33,8 +33,9 @@ function MyNotes() {
 
   useEffect(() => {
     if (currentUser) {
+      const unsub =
       getMyCollections("taste-note", currentUser, setTasteNotes);
-      
+      return unsub
     }
   }, [currentUser]);
 

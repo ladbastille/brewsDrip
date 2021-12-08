@@ -30,7 +30,9 @@ function MyTimers() {
 
   useEffect(() => {
     if (currentUser) {
+      const unsub =
       getMyCollections("timers", currentUser, setTimers);
+      return unsub
     }
   }, [currentUser]);
 

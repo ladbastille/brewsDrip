@@ -114,7 +114,8 @@ const AllTimerList = () => {
   const [timers, setTimers] = useState([]);
 
   useEffect(() => {
-    getCollectionsDescOrder("timers",setTimers)
+    const unsub = getCollectionsDescOrder("timers",setTimers)
+    return unsub;
   }, []);
 
   function toggleLikeCollect(activeInField, field, id) {

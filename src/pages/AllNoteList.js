@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import {getCollectionsDescOrder,getCollectionsFieldUpdate} from "../utils/firebase";
+import {
+  getCollectionsDescOrder,
+  getCollectionsFieldUpdate,
+} from "../utils/firebase";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
@@ -31,8 +34,7 @@ export const NoteListContainer = styled.div`
   align-items: center;
   margin-bottom: 20px;
   margin-top: 10px;
-  box-sizing:border-box;
-
+  box-sizing: border-box;
 `;
 
 export const StyledTimerlistLink = styled(Link)`
@@ -68,7 +70,7 @@ export const BigNotelistLink = styled.div`
   margin: 1% auto;
   width: 85%;
   position: relative;
-  
+
   &:hover {
     border: 6px solid #de6932;
   }
@@ -123,15 +125,15 @@ const AllNoteList = () => {
   const [tasteNotes, setTasteNotes] = useState([]);
 
   useEffect(() => {
-    getCollectionsDescOrder("taste-note",setTasteNotes)
+    const unsub = getCollectionsDescOrder("taste-note", setTasteNotes);
+    return unsub;
   }, []);
 
   function toggleLikeCollect(activeInField, field, id) {
     const uid = currentUser?.uid;
 
     if (uid) {
-      getCollectionsFieldUpdate("taste-note",id,field,activeInField,uid)
-      
+      getCollectionsFieldUpdate("taste-note", id, field, activeInField, uid);
     } else {
       Swal.fire({
         icon: "error",
@@ -154,7 +156,7 @@ const AllNoteList = () => {
         const isCollected = note.collectedBy?.includes(currentUser?.uid);
 
         return (
-          <BigNotelistLink key={note.id} >
+          <BigNotelistLink key={note.id}>
             <InsideTimerlistWrap as={Link} to={`/tastenote/${note.id}`}>
               <HeaderH2
                 margin={"1.5% auto 2% 1.5%"}
