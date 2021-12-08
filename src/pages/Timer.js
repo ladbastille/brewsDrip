@@ -175,7 +175,9 @@ const Timer = () => {
   doneAudio.volume = 0.2;
 
   useEffect(() => {
+    const unsub =
     getDocOnSnapShot("timers", timerId, setTimer);
+    return unsub
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -244,7 +246,7 @@ const Timer = () => {
     if (timer !== null) {
       const lastStepIndex = timer.customSec.length;
 
-      if (totalCounter === timer.customSec[0]) {
+      if (totalCounter === timer.customSec[0] && timer.customSec[1]) {
         setPointer(1);
         alertAudio.play();
       } else if (totalCounter === timer.customSec[0] + timer.customSec[1]) {

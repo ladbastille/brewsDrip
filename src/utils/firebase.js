@@ -72,6 +72,7 @@ export const createSignUpDataObj = {
 };
 
 export const getMyCollections = (collectionName, currentUser, setContents) => {
+  const unsub =
   firestore
     .collection(collectionName)
     .where("author.uid", "==", currentUser?.uid)
@@ -83,6 +84,7 @@ export const getMyCollections = (collectionName, currentUser, setContents) => {
       });
       setContents(data);
     });
+    return unsub
 };
 
 export const getCollectedCollections = (
@@ -90,6 +92,7 @@ export const getCollectedCollections = (
   currentUser,
   setContents
 ) => {
+  const unsub =
   firestore
     .collection(collectionName)
     .where("collectedBy", "array-contains", currentUser?.uid)
@@ -101,6 +104,7 @@ export const getCollectedCollections = (
       });
       setContents(data);
     });
+    return unsub
 };
 
 export const getDefaultCollections = (collectionName, setContents) => {
@@ -154,10 +158,11 @@ export const getDoc = (collectionName, idName) => {
 };
 
 export const getDocOnSnapShot = (collectionName, idName, setContent) => {
-  getDoc(collectionName, idName).onSnapshot((docSnapshot) => {
+  const unsub = getDoc(collectionName, idName).onSnapshot((docSnapshot) => {
     const data = docSnapshot.data();
     data && setContent(data);
   });
+  return unsub
 };
 
 export const deleteDoc = (collectionName, idName) => {

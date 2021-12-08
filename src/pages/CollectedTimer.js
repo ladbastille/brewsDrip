@@ -16,7 +16,9 @@ function CollectedTimers() {
 
   useEffect(() => {
     if (currentUser) {
+      const unsub =
       getCollectedCollections("timers", currentUser, setTimers)
+      return unsub
     }
   }, [currentUser]);
 

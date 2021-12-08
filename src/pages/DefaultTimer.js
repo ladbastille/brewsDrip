@@ -11,7 +11,6 @@ const DefaultTimer = () => {
 
   useEffect(() => {
     getDefaultCollections("timers", setTimers)
-    
   }, []);
 
   return (

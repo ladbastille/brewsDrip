@@ -180,7 +180,9 @@ function TasteNote() {
     setSelectedTagIds(data.selectedTagIds ? data.selectedTagIds : []);
   };
   useEffect(() => {
+    const unsub =
     getDocOnSnapShot("taste-note", noteId, handleSetData);
+    return unsub
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -259,7 +261,6 @@ function TasteNote() {
     setIsPhoto(true);
   }
 
-  console.log(note);
   return (
     <>
       <NewNoteContainer>
