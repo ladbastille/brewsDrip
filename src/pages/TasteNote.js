@@ -180,9 +180,8 @@ function TasteNote() {
     setSelectedTagIds(data.selectedTagIds ? data.selectedTagIds : []);
   };
   useEffect(() => {
-    const unsub =
-    getDocOnSnapShot("taste-note", noteId, handleSetData);
-    return unsub
+    const unsub = getDocOnSnapShot("taste-note", noteId, handleSetData);
+    return unsub;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -261,6 +260,9 @@ function TasteNote() {
     setIsPhoto(true);
   }
 
+  const defaultNoteImg =
+    "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/taste-pics%2Fno-image-picture.png?alt=media&token=d9f52508-ba2c-4c90-8f80-48b688cdaf76";
+
   return (
     <>
       <NewNoteContainer>
@@ -320,13 +322,9 @@ function TasteNote() {
                 note.imageUrl && readOnly ? (
                   <PreviewImage src={isPhoto ? previewUrl : note.imageUrl} />
                 ) : readOnly && !isPhoto ? (
-                  <PreviewImage
-                    src={
-                      "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/taste-pics%2Fno-image-picture.png?alt=media&token=d9f52508-ba2c-4c90-8f80-48b688cdaf76"
-                    }
-                  />
+                  <PreviewImage src={defaultNoteImg} />
                 ) : (
-                  <PreviewImage src={isPhoto && previewUrl} />
+                  <PreviewImage src={isPhoto ? previewUrl : ""} />
                 )
               ) : (
                 <></>
