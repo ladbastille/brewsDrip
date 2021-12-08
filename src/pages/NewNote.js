@@ -143,7 +143,7 @@ const NewNote = () => {
       fileRef.getDownloadURL().then((imageUrl) => {
         let dataObj = {
           coffeeName: coffeeName,
-          notes: notes || null,
+          notes: notes || "",
           rating: parseInt(rating) || null,
           selectedTagIds: selectedTagIds || [],
           place: place || "Unnamed Place",

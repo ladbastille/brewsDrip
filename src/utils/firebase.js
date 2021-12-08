@@ -58,7 +58,7 @@ export const getAuthDocumentRef = (collectionName, currentUser) => {
     .doc(firebase.auth().currentUser.uid);
 };
 
-export const getDocumentRef = (collectionName,id) => {
+export const getDocumentRef = (collectionName, id) => {
   return firestore.collection(collectionName).doc(id);
 };
 
@@ -118,7 +118,7 @@ export const getDefaultCollections = (collectionName, setContents) => {
 };
 
 export const getCollectionsDescOrder = (collectionName, setContents) => {
-  firestore
+  const unsub = firestore
     .collection(collectionName)
     .orderBy("createdAt", "desc")
     .onSnapshot((collectionSnapshot) => {
@@ -128,6 +128,8 @@ export const getCollectionsDescOrder = (collectionName, setContents) => {
       });
       setContents(data);
     });
+
+  return unsub;
 };
 
 export const getCollectionsFieldUpdate = (

@@ -167,12 +167,10 @@ function TasteNote() {
   const [selectedTagIds, setSelectedTagIds] = useState([]);
   const [notes, setNotes] = useState("");
   const { noteId } = useParams();
-  const [note, setNote] = useState({
-    author: {},
-  });
+  const [note, setNote] = useState(null);
   const [file, setFile] = useState(null);
   const [isPhoto, setIsPhoto] = useState(false);
-  const previewUrl = file ? URL.createObjectURL(file) : undefined
+  const previewUrl = file ? URL.createObjectURL(file) : "";
   const handleSetData = (data) => {
     setNote(data);
     setNotes(data.notes);
@@ -216,6 +214,14 @@ function TasteNote() {
       imageUrl: note.imageUrl,
     };
 
+    if (!dataObj.coffeeName) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please enter drink name.",
+      });
+      return;
+    }
     const handleUpdateData = (dataObj) => {
       documentRef.update(dataObj).then(() => {
         setIsLoading(false);
@@ -253,6 +259,7 @@ function TasteNote() {
     setIsPhoto(true);
   }
 
+  console.log(note);
   return (
     <>
       <NewNoteContainer>
@@ -309,19 +316,15 @@ function TasteNote() {
                 <></>
               )}
               {note ? (
-                note.imageUrl && readOnly && !isPhoto 
-                ? (
+                note.imageUrl && readOnly ? (
                   <PreviewImage src={isPhoto ? previewUrl : note.imageUrl} />
-                ) 
-                : note.imageUrl === null && readOnly && !isPhoto 
-                ? (
+                ) : readOnly && !isPhoto ? (
                   <PreviewImage
                     src={
                       "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/taste-pics%2Fno-image-picture.png?alt=media&token=d9f52508-ba2c-4c90-8f80-48b688cdaf76"
                     }
                   />
-                ) 
-                : (
+                ) : (
                   <PreviewImage src={isPhoto && previewUrl} />
                 )
               ) : (
@@ -385,7 +388,7 @@ function TasteNote() {
           setSelectedTagIds={setSelectedTagIds}
         />
         <FlexCenterWrap margin={"6%"}>
-          {currentUser?.uid === note.author.uid ? (
+          {currentUser?.uid === note?.author.uid ? (
             readOnly ? (
               <EditBtn color={"#FF5741"} onClick={toggleEditable}>
                 Edit
