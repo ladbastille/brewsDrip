@@ -8,7 +8,7 @@ import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 
 import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
-import { StyledIconDiv } from "./Timer";
+import { StyledIconDiv } from "../components/ContainerAndWrap"
 
 function CollectedTimers() {
   const [timers, setTimers] = useState([]);

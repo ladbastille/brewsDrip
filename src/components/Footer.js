@@ -7,10 +7,9 @@ import FooterLogoImg from "../images/logo_225x50.svg";
 import MobileFooterLogoImg from "../images/footer3DLogo.png";
 import { LogoImg } from "./Header";
 import { TutorialsBtn } from "../pages/Home";
-
 import { BiLinkAlt } from "react-icons/bi";
 import { v4 as uuidv4 } from "uuid";
-import { ShareBtnDiv } from "../pages/Timer";
+import { ShareBtnDiv } from "./ContainerAndWrap";
 import {
   FacebookShareButton,
   LineShareButton,

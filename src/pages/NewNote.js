@@ -9,7 +9,7 @@ import { FaCameraRetro, FaArrowLeft } from "react-icons/fa";
 import { GiCoffeeBeans } from "react-icons/gi";
 import Input, { HeaderH1 } from "../components/Input";
 import { FooterCTABtn } from "../components/Footer";
-import { Flex100BetweenWrap } from "./Timer";
+import { Flex100BetweenWrap } from "../components/ContainerAndWrap"
 import Tags from "./Tags";
 
 const NewNoteContainer = styled.div`

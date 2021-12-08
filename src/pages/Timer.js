@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import {
-  getDocOnSnapShot,
-  getCollectionsFieldUpdate,
-} from "../utils/firebase";
 import { useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import successCoffeeImg from "../images/swal-success-pic.jpg";
-
 import {
   FaArrowLeft,
   FaPlayCircle,
@@ -20,71 +14,34 @@ import { GiSoundOff, GiSoundOn } from "react-icons/gi";
 import { FiShare2 } from "react-icons/fi";
 import { BiLinkAlt } from "react-icons/bi";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
-
-import { HeaderH2 } from "./NewTimer";
-
-import bgm from "../sounds/DonnieOzone-ReturnOfTheGucciGhost.mp3";
-import doneSound from "../sounds/done.mp3";
-import resetSound from "../sounds/reset.mp3";
-import alertSound from "../sounds/alert.mp3";
-
-import timerGif from "../images/pourover.gif";
-
 import {
   FacebookShareButton,
   LineShareButton,
   FacebookIcon,
   LineIcon,
 } from "react-share";
-
-const TimerContainer = styled.div`
-  font-family: "Open Sans Condensed", sans-serif;
-  width: 100%;
-  max-width: 768px;
-  box-sizing: border-box;
-  overflow: hidden;
-  margin: 5px auto 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  padding: 1rem;
-  border-radius: 10px;
-  background: ${(props) => (props.background ? props.background : "#FBD850")};
-`;
+import { getDocOnSnapShot, getCollectionsFieldUpdate } from "../utils/firebase";
+import { HeaderH2 } from "./NewTimer";
+import bgm from "../sounds/DonnieOzone-ReturnOfTheGucciGhost.mp3";
+import doneSound from "../sounds/done.mp3";
+import resetSound from "../sounds/reset.mp3";
+import alertSound from "../sounds/alert.mp3";
+import successCoffeeImg from "../images/swal-success-pic.jpg";
+import timerGif from "../images/pourover.gif";
+import {
+  TimerContainer,
+  Flex50ColumnWrap,
+  Flex90BetweenWrap,
+  Flex100BetweenWrap,
+  FlexColumnWrap,
+  Flex100AroundWrap,
+  Flex100CenterWrap,
+  StyledIconDiv,
+  ShareBtnDiv,
+} from "../components/ContainerAndWrap";
 
 const BrewImg = styled.img`
   border-radius: 10px;
-`;
-
-export const Flex100BetweenWrap = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const FlexColumnWrap = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin: 1% auto;
-`;
-
-const Flex100AroundWrap = styled(Flex100BetweenWrap)`
-  justify-content: space-around;
-`;
-
-const Flex100CenterWrap = styled(Flex100BetweenWrap)`
-  justify-content: center;
-`;
-
-const Flex50ColumnWrap = styled(FlexColumnWrap)`
-  width: 50%;
-`;
-
-export const Flex90BetweenWrap = styled(Flex100BetweenWrap)`
-  width: 90%;
-  margin: ${(props) => props.margin || "5%"};
 `;
 
 const StepsBigFont = styled.h1`
@@ -117,44 +74,19 @@ const ControlBtn = styled.button`
   }
 `;
 
-export const StyledIconDiv = styled.div`
-  color: #ffffff;
-  cursor: pointer;
-  background: transparent;
-  border: none;
-  &:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
-`;
-
 const StyledIconDivSound = styled(StyledIconDiv)`
   @media (max-width: 768px) {
     display: none;
   }
 `;
 
-export const ShareBtnDiv = styled(StyledIconDiv)`
-  margin-top: 15px;
-  width: 120px;
-  position: absolute;
-  & svg {
-    margin-left: 8px;
-  }
-  @media (max-width: 768px) {
-    margin-top: 5px;
-  }
-`;
-
 const convertTotalCountTotimerString = (totalCounter) => {
   const secondCounter = totalCounter % 60;
   const minuteCounter = Math.floor(totalCounter / 60);
-
   let computedSecond =
     String(secondCounter).length === 1 ? `0${secondCounter}` : secondCounter;
   let computedMinute =
     String(minuteCounter).length === 1 ? `0${minuteCounter}` : minuteCounter;
-
   return { computedSecond, computedMinute };
 };
 
@@ -164,7 +96,6 @@ const Timer = () => {
   const { timerId } = useParams();
   const [timer, setTimer] = useState(null);
   const [isShareClick, setIsShareClick] = useState(false);
-
   // handle Audio delay issue
   const alertAudio = new Audio(alertSound);
   const resetAudio = new Audio(resetSound);
@@ -175,9 +106,8 @@ const Timer = () => {
   doneAudio.volume = 0.2;
 
   useEffect(() => {
-    const unsub =
-    getDocOnSnapShot("timers", timerId, setTimer);
-    return unsub
+    const unsub = getDocOnSnapShot("timers", timerId, setTimer);
+    return unsub;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -208,7 +138,6 @@ const Timer = () => {
         audio.removeEventListener("ended", () => setPlaying(false));
       };
     }, [audio]);
-
     return [playing, toggle];
   };
 
@@ -216,11 +145,9 @@ const Timer = () => {
 
   useEffect(() => {
     let intervalId;
-
     if (isActive) {
       intervalId = setInterval(() => {
         setTotalCounter((totalCounter) => totalCounter + 1);
-
         if (timer.endTime === totalCounter + 1) {
           setIsActive(false);
           setDoneAlert(true);
@@ -245,7 +172,6 @@ const Timer = () => {
   useEffect(() => {
     if (timer !== null) {
       const lastStepIndex = timer.customSec.length;
-
       if (totalCounter === timer.customSec[0] && timer.customSec[1]) {
         setPointer(1);
         alertAudio.play();
@@ -254,7 +180,6 @@ const Timer = () => {
           setPointer(2);
         } else {
         }
-
         alertAudio.play();
       } else if (
         totalCounter ===
@@ -331,12 +256,10 @@ const Timer = () => {
   if (!timer) return null;
   const customColor = timer.customColor[pointer]?.value;
   const customStep = timer.customStep[pointer];
-
   const nextCustomStep =
     pointer === timer.customStep.length - 1
       ? ""
       : timer.customStep[pointer + 1];
-
   const totalSteps = timer.customSec.length;
 
   function toggleCollect(activeInField, field) {
@@ -382,7 +305,6 @@ const Timer = () => {
                     onClick={handlePressLastPage}
                   />
                 </ControlBtn>
-
                 <HeaderH2 color="#FFFFFF">{timer.timerName}</HeaderH2>
                 <BrewImg src={timerGif}></BrewImg>
               </Flex100BetweenWrap>
@@ -390,7 +312,6 @@ const Timer = () => {
               <Flex100AroundWrap>
                 <Flex50ColumnWrap>
                   <StepsBigFont>{customStep}</StepsBigFont>
-
                   <StepsSmallFont>
                     {pointer !== timer.customStep.length - 1 && nextCustomStep}
                   </StepsSmallFont>

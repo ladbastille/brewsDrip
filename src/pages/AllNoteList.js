@@ -14,7 +14,7 @@ import { EditIconDiv } from "./MyTimers";
 import { NoteEditIconDiv } from "./MyNotes";
 import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
-import { StyledIconDiv } from "./Timer";
+import { StyledIconDiv } from "../components/ContainerAndWrap"
 import { RatingDiv, SecondWrap } from "./NewNote";
 import Swal from "sweetalert2";
 

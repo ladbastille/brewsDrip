@@ -11,7 +11,7 @@ import { RiDeleteBack2Fill } from "react-icons/ri";
 
 import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
-import { StyledIconDiv } from "./Timer";
+import { StyledIconDiv } from "../components/ContainerAndWrap"
 
 export const EditIconDiv = styled(StyledIconDiv)`
   position: absolute;
