@@ -127,10 +127,6 @@ export const StyledIconDiv = styled.div`
   cursor: pointer;
   background: transparent;
   border: none;
-  &:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
 `;
 
 export const ShareBtnDiv = styled(StyledIconDiv)`

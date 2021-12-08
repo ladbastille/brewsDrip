@@ -68,6 +68,7 @@ const ControlBtn = styled.button`
   cursor: pointer;
   background: transparent;
   border: none;
+  padding:0;
   &:disabled {
     opacity: 0.4;
     cursor: not-allowed;
@@ -297,14 +298,14 @@ const Timer = () => {
           <TimerContainer background={customColor}>
             <FlexColumnWrap>
               <Flex100BetweenWrap>
-                <ControlBtn>
+                <StyledIconDiv>
                   <FaArrowLeft
                     color={"#ffffff"}
                     size={"1.5rem"}
                     style={{ alignSelf: "flex-start" }}
                     onClick={handlePressLastPage}
                   />
-                </ControlBtn>
+                </StyledIconDiv>
                 <HeaderH2 color="#FFFFFF">{timer.timerName}</HeaderH2>
                 <BrewImg src={timerGif}></BrewImg>
               </Flex100BetweenWrap>
