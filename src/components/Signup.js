@@ -98,6 +98,7 @@ const Signup = ({ toggle, handleOnClick }) => {
 };
 
 const SignupContainer = styled.div`
+  font-family: "Poppins", sans-serif;
   position: absolute;
   top: 0;
   height: 100%;

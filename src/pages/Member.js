@@ -42,7 +42,7 @@ const MemberDiv = styled.div`
     min-height: 55vh;
   }
   @media (max-width: 375px) {
-    min-height: 65vh;
+    min-height: 450px;
   }
 `;
 
@@ -137,7 +137,7 @@ const LogoutButton = styled(SubmitButton)`
     bottom: 8%;
   }
   @media (max-width: 768px) {
-    bottom: 30px;
+    bottom: 20px;
   }
 `;
 

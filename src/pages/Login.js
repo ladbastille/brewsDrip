@@ -18,7 +18,7 @@ const LoginContainer = styled.div`
 
 const LoginBody = styled.div`
   box-sizing: border-box;
-  font-family: "Poppins”, sans-serif";
+  font-family: "Poppins", sans-serif;
   background: #f6f5f7;
   margin: 20px auto;
   @media (max-width: 768px) {
