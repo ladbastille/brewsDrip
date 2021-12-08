@@ -12,6 +12,7 @@ import {
 } from "./../utils/firebase";
 
 export const SigninContainer = styled.div`
+  font-family: "Poppins", sans-serif;
   position: absolute;
   top: 0;
   height: 100%;
