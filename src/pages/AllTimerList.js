@@ -9,7 +9,7 @@ import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { EditIconDiv } from "./MyTimers";
 import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
-import { StyledIconDiv } from "./Timer";
+import { StyledIconDiv } from "../components/ContainerAndWrap"
 
 export const TimerListContainer = styled.div`
   font-family: "Open Sans Condensed", sans-serif;

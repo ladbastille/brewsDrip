@@ -14,7 +14,7 @@ import { GiCoffeeBeans } from "react-icons/gi";
 import { RatingDiv, SecondWrap } from "./NewNote";
 import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
-import { StyledIconDiv } from "./Timer";
+import { StyledIconDiv } from "../components/ContainerAndWrap"
 
 export const NoteEditIconDiv = styled(StyledIconDiv)`
   position: absolute;

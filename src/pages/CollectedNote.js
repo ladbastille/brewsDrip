@@ -11,7 +11,7 @@ import { BigNotelistLink } from "./AllNoteList";
 import { RatingDiv, SecondWrap } from "./NewNote";
 import { HeaderH1 } from "../components/Input";
 import { HeaderH2 } from "./NewTimer";
-import { StyledIconDiv } from "./Timer";
+import { StyledIconDiv } from "../components/ContainerAndWrap"
 
 function CollectedTimers() {
   const currentUser = useSelector((state) => state.currentUser);

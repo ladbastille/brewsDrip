@@ -8,7 +8,7 @@ import { Link, useHistory } from "react-router-dom";
 import Input, { HeaderH1 } from "../components/Input";
 import Dropdown from "../components/Dropdown";
 import { FooterCTABtn } from "../components/Footer";
-import { Flex100BetweenWrap } from "./Timer";
+import { Flex100BetweenWrap } from "../components/ContainerAndWrap"
 
 const COLOR_OPTIONS = [
   {

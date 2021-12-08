@@ -91,4 +91,17 @@ const Input = ({ onChange, type, placeholder, value, ...props }) => {
   );
 };
 
+export const TasteInput = styled(Input)`
+  width: 65%;
+  align-content: center;
+  margin: 2% 3%;
+  padding: 5px 10px;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+  background-color: ${(props) => (props.readOnly ? "#fbd850" : "#ffffff")};
+  cursor: ${(props) => (props.readOnly ? "default" : "edit")};
+  @media (max-width: 375px) {
+    width: 115px;
+  }
+`;
+
 export default Input;

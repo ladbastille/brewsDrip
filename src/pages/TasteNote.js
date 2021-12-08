@@ -12,98 +12,31 @@ import {
 import { FaCameraRetro, FaArrowLeft } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import Input, { HeaderH1 } from "../components/Input";
+import { GiCoffeeBeans } from "react-icons/gi";
+import { FiShare2 } from "react-icons/fi";
+import { BiLinkAlt } from "react-icons/bi";
+import { HeaderH1, TasteInput } from "../components/Input";
 import { FooterCTABtn } from "../components/Footer";
+import { ImgWrap, UploadLabel } from "./NewNote";
+import Tags from "../components/Tags";
 import {
+  NewNoteContainer,
+  InsideNotelistWrap,
+  ThirdWrap,
+  SecondWrap,
+  RatingDiv,
   Flex100BetweenWrap,
   Flex90BetweenWrap,
   StyledIconDiv,
   ShareBtnDiv,
-} from "./Timer";
-import { GiCoffeeBeans } from "react-icons/gi";
-import { FiShare2 } from "react-icons/fi";
-import { BiLinkAlt } from "react-icons/bi";
-import { ImgWrap, UploadLabel } from "./NewNote";
-import Tags from "./Tags";
-
-const NewNoteContainer = styled.div`
-  font-family: "Open Sans Condensed", sans-serif;
-  background-color: #b4cfcb;
-  border-radius: 10px;
-  box-shadow: 0 14px 28px rgb(0 0 0 / 25%), 0 10px 10px rgb(0 0 0 / 22%);
-  position: relative;
-  width: 768px;
-  max-width: 95%;
-  min-height: 480px;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
-  margin-top: 10px;
-
-  & ::placeholder {
-    color: #001a3a;
-    opacity: 0.5;
-    text-align: center;
-  }
-
-  & input:focus {
-    background: #ffffff;
-  }
-  @media (max-width: 375px) {
-    width: 375px;
-    max-width: 90%;
-  }
-`;
-
-const InsideNotelistWrap = styled.div`
-  display: flex;
-  flex-direction: ${(props) =>
-    props.flexDirection ? props.flexDirection : "row"};
-  width: ${(props) => (props.width ? props.width : "100%")};
-  justify-content: space-between;
-  @media (max-width: 375px) {
-    width: 95%;
-  }
-  & input:focus {
-    background-color: #fbd850;
-  }
-`;
-
-const ThirdWrap = styled(InsideNotelistWrap)`
-  width: ${(props) => props.width};
-  @media (max-width: 375px) {
-    width: 100%;
-  }
-`;
-
-const SecondWrap = styled.div`
-  display: flex;
-  flex-direction: ${(props) => props.flexDirection};
-  margin: ${(props) => (props.margin ? props.margin : "20px 0")};
-  width: ${(props) => (props.width ? props.width : "70%")};
-  justify-content: ${(props) => props.justifyContent};
-  align-items: ${(props) => props.alignItems};
-  flex-wrap: ${(props) => props.flexWrap};
-`;
+} from "../components/ContainerAndWrap";
 
 export const PreviewImage = styled.img`
   max-height: 100%;
   max-width: 100%;
   margin-right: 40px;
-`;
-
-const TasteInput = styled(Input)`
-  width: 65%;
-  align-content: center;
-  margin: 2% 3%;
-  padding: 5px 10px;
-  font-family: Poppins, Arial, Helvetica, sans-serif;
-  background-color: ${(props) => (props.readOnly ? "#fbd850" : "#ffffff")};
-  cursor: ${(props) => (props.readOnly ? "default" : "edit")};
-  @media (max-width: 375px) {
-    width: 115px;
+  @media (max-width:375px){
+    margin-right:25px;
   }
 `;
 
@@ -119,20 +52,6 @@ const NoteTextarea = styled.textarea`
   text-align: center;
   background-color: ${(props) => (props.readOnly ? "#fbd850" : "#ffffff")};
   cursor: ${(props) => (props.readOnly ? "default" : "edit")};
-`;
-
-const RatingDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2px 10px;
-  input[type="radio"] {
-    display: none;
-  }
-  .star {
-    ${({ readOnly }) => (readOnly ? "" : "cursor:pointer")};
-    transition: color 200ms;
-  }
 `;
 
 const EditBtn = styled(FooterCTABtn)`
@@ -171,6 +90,8 @@ function TasteNote() {
   const [file, setFile] = useState(null);
   const [isPhoto, setIsPhoto] = useState(false);
   const previewUrl = file ? URL.createObjectURL(file) : "";
+  const defaultNoteImg =
+    "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/taste-pics%2Fno-image-picture.png?alt=media&token=d9f52508-ba2c-4c90-8f80-48b688cdaf76";
   const handleSetData = (data) => {
     setNote(data);
     setNotes(data.notes);
@@ -259,9 +180,6 @@ function TasteNote() {
     setFile(e.target.files[0]);
     setIsPhoto(true);
   }
-
-  const defaultNoteImg =
-    "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/taste-pics%2Fno-image-picture.png?alt=media&token=d9f52508-ba2c-4c90-8f80-48b688cdaf76";
 
   return (
     <>

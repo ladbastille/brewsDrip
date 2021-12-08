@@ -22,8 +22,9 @@ const MemberDiv = styled.div`
   margin-bottom: 20px;
   margin-top: 10px;
   padding: 1rem;
-  width: 768px;
-  max-width: 95%;
+  box-sizing:border-box;
+  width: 100%;
+  max-width: 768px;
   min-height: 65vh;
   display: flex;
   flex-direction: row;
@@ -37,6 +38,11 @@ const MemberDiv = styled.div`
   @media (max-width: 768px) {
     flex-direction: column;
     align-content: center;
+    padding-bottom: 30px;
+    min-height: 55vh;
+  }
+  @media (max-width: 375px) {
+    min-height: 65vh;
   }
 `;
 
@@ -127,8 +133,11 @@ const ProfileImgWrap = styled(ImgWrap)`
 const LogoutButton = styled(SubmitButton)`
   position: absolute;
   bottom: 12%;
-  @media (max-width: 375px) {
-    bottom: 20px;
+  @media (max-width: 768px) {
+    bottom: 8%;
+  }
+  @media (max-width: 768px) {
+    bottom: 30px;
   }
 `;
 
