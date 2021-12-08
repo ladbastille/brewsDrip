@@ -35,13 +35,19 @@ const FooterContentContainer = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   border-bottom: #939597 1px solid;
+  @media (max-width: 1440px) {
+    justify-content: space-around;
+  }
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
   h5 {
     margin-left: 3%;
     margin-top: 10px;
     color: #646464;
+    @media (max-width: 1440px) {
+    margin-right:5%;
   }
-  @media (max-width: 1024px) {
-    flex-direction: column;
   }
 `;
 
@@ -117,7 +123,7 @@ const MenuLink = styled(Link)`
 `;
 
 const ContactA = styled.a`
-  cursor:pointer;
+  cursor: pointer;
   display: block;
   text-decoration: none;
   font-size: 0.8rem;
@@ -204,21 +210,28 @@ const SNSLinksWrap = styled(FooterLinksWrap)`
   margin-top: 10px;
   margin-right: 3%;
   height: 50px;
-  @media (max-width: 1024px) {
-    justify-content: flex-end;
-  }
   h6 {
     margin-right: 20px;
     margin-bottom: 5px;
     color: #646464;
   }
+  @media (max-width: 1024px) {
+    justify-content: flex-end;
+  }
+  @media (max-width: 1440px) {
+    margin-left: 40%;
+  }
 `;
 
 const FooterShareBtnDiv = styled(ShareBtnDiv)`
   width: 120px;
-  margin: 15px 20px 0 0;
+  margin: 15px 0 0 0;
+  padding-right: 20px;
   @media (max-width: 768px) {
     margin-top: 20px;
+  }
+  @media (min-width: 768px) {
+    padding-right: 0px;
   }
 `;
 
@@ -256,7 +269,7 @@ const Footer = () => {
   };
 
   function handleContactClick() {
-    window.open("https://github.com/ladbastille/brewsDrip", '_blank');
+    window.open("https://github.com/ladbastille/brewsDrip", "_blank");
   }
 
   return (

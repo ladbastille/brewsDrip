@@ -6,8 +6,9 @@ export const NewNoteContainer = styled.div`
   border-radius: 10px;
   box-shadow: 0 14px 28px rgb(0 0 0 / 25%), 0 10px 10px rgb(0 0 0 / 22%);
   position: relative;
-  width: 768px;
-  max-width: 95%;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 768px;
   min-height: 480px;
   padding: 1rem;
   display: flex;
@@ -15,7 +16,6 @@ export const NewNoteContainer = styled.div`
   align-items: center;
   margin-bottom: 20px;
   margin-top: 10px;
-
   & ::placeholder {
     color: #001a3a;
     opacity: 0.5;
@@ -24,10 +24,6 @@ export const NewNoteContainer = styled.div`
 
   & input:focus {
     background: #ffffff;
-  }
-  @media (max-width: 375px) {
-    width: 375px;
-    max-width: 90%;
   }
 `;
 

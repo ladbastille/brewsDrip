@@ -18,7 +18,7 @@ import { BiLinkAlt } from "react-icons/bi";
 import { HeaderH1, TasteInput } from "../components/Input";
 import { FooterCTABtn } from "../components/Footer";
 import { ImgWrap, UploadLabel } from "./NewNote";
-import Tags from "./Tags";
+import Tags from "../components/Tags";
 import {
   NewNoteContainer,
   InsideNotelistWrap,
@@ -35,6 +35,9 @@ export const PreviewImage = styled.img`
   max-height: 100%;
   max-width: 100%;
   margin-right: 40px;
+  @media (max-width:375px){
+    margin-right:25px;
+  }
 `;
 
 export const HeaderH2 = styled(HeaderH1)`

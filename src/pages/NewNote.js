@@ -10,7 +10,7 @@ import { GiCoffeeBeans } from "react-icons/gi";
 import Input, { HeaderH1 } from "../components/Input";
 import { FooterCTABtn } from "../components/Footer";
 import { Flex100BetweenWrap } from "../components/ContainerAndWrap"
-import Tags from "./Tags";
+import Tags from "../components/Tags";
 
 const NewNoteContainer = styled.div`
   font-family: "Open Sans Condensed", sans-serif;
@@ -114,7 +114,7 @@ export const ImgWrap = styled.div`
   justify-content: center;
   padding-right: 10%;
   @media (max-width: 375px) {
-    width: 130px;
+    width: 110px;
   }
 `;
 

@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 
 const MOCK_TAGS = [
   {
@@ -46,22 +47,32 @@ const MOCK_TAGS = [
     label: "Floral",
   },
 ];
+const ChipDiv = styled.div`
+  background: ${(props) => (props.active ? "#FBD850" : "white")};
+  color: #000;
+  border-radius: 10px;
+  padding: 4px 10px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+`;
+
+const ChipContainer = styled.div`
+  width: 90%;
+        display: flex;
+        flex-wrap: wrap;
+        pointer-events: ${props=>props.editable ? "auto" : "none"};
+        cursor: ${props=>props.editable ? "pointer" : "default"};
+`;
 
 const Chip = ({ active, label, handleOnClick }) => {
   return (
-    <div
-      style={{
-        background: active ? "#FBD850" : "white",
-        color: "#000",
-        borderRadius: "10px",
-        padding: "4px 10px",
-        marginRight: "8px",
-        marginBottom: "8px",
-      }}
+    <ChipDiv
+      
       onClick={handleOnClick}
+      active={active}
     >
       {label}
-    </div>
+    </ChipDiv>
   );
 };
 
@@ -80,14 +91,8 @@ const Tags = ({ editable = true, selectedTagIds, setSelectedTagIds }) => {
   };
 
   return (
-    <div
-      style={{
-        width: "90%",
-        display: "flex",
-        flexWrap: "wrap",
-        pointerEvents: editable ? "auto" : "none",
-        cursor: editable ? "pointer" : "default",
-      }}
+    <ChipContainer
+      editable={editable}
     >
       {MOCK_TAGS.map((tag) => (
         <Chip
@@ -98,7 +103,7 @@ const Tags = ({ editable = true, selectedTagIds, setSelectedTagIds }) => {
           handleOnClick={() => handleTagOnClick(tag.id)}
         />
       ))}
-    </div>
+    </ChipContainer>
   );
 };
 export default Tags;
