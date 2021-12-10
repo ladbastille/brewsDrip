@@ -17,9 +17,19 @@ const Video = styled((props) => <Vimeo {...props} />)`
 
 function BackgroundVideo() {
   const [isLoading, setIsLoading] = useState(true);
+  const centerStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  };
   return (
     <>
-      {isLoading && <ReactLoading color="#FBD850" type="spinningBubbles" />}
+      {isLoading && (
+        <div style={centerStyle}>
+          <ReactLoading color="#FBD850" type="spinningBubbles" />
+        </div>
+      )}
       <Video
         background={true}
         loop={true}

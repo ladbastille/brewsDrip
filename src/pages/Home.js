@@ -14,6 +14,7 @@ const HomeDiv = styled.div`
   box-shadow: inset 0 0 0 1000px rgba(0.02);
   object-fit: contain;
   box-sizing: border-box;
+  position:relative;
   @media (max-width: 1024px) {
     min-height: 400px;
   }

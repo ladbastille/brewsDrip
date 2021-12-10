@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
+import ReactLoading from "react-loading";
 import Swal from "sweetalert2";
 import { FaCameraRetro, FaArrowLeft } from "react-icons/fa";
 import { GiCoffeeBeans } from "react-icons/gi";
@@ -49,6 +50,7 @@ const InsideNotelistWrap = styled.div`
 `;
 
 export const SecondWrap = styled.div`
+  position: ${(props)=>props.position};
   display: flex;
   flex-direction: ${(props) => props.flexDirection};
   margin: ${(props) => (props.margin ? props.margin : "20px 0")};
@@ -128,6 +130,13 @@ const NewNote = () => {
   const [hover, setHover] = useState(null);
   const [file, setFile] = useState(null);
   const [selectedTagIds, setSelectedTagIds] = useState([]);
+  const [isLoading, setIsLoading] = useState();
+  const centerStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  };
 
   const previewUrl = file
     ? URL.createObjectURL(file)
@@ -139,6 +148,7 @@ const NewNote = () => {
     const metadata = {
       contentType: file?.type || "",
     };
+    setIsLoading(true);
     fileRef.put(file, metadata).then(() => {
       fileRef.getDownloadURL().then((imageUrl) => {
         let dataObj = {
@@ -162,10 +172,12 @@ const NewNote = () => {
             title: "Oops...",
             text: "Please enter drink name.",
           });
+          setIsLoading(false);
           return;
         }
         documentRef.set(dataObj).then(() => {
           Swal.fire("Awesome!", "You've created a tastenote!", "success");
+          setIsLoading(false);
           history.push("/tastenotelist");
         });
       });
@@ -273,7 +285,7 @@ const NewNote = () => {
           setSelectedTagIds={setSelectedTagIds}
         />
 
-        <SecondWrap margin={"5px auto 5px "} justifyContent={"center"}>
+        <SecondWrap position={"relative"} margin={"5px auto 5px "} justifyContent={"center"}>
           <FooterCTABtn
             width={"120px"}
             color={"#00B790"}
@@ -281,6 +293,11 @@ const NewNote = () => {
           >
             Save
           </FooterCTABtn>
+          {isLoading && (
+            <div style={centerStyle}>
+              <ReactLoading color="#FBD850" type="spinningBubbles" />
+            </div>
+          )}
         </SecondWrap>
       </NewNoteContainer>
     </>

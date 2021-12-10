@@ -274,6 +274,7 @@ export const DropdownWrap = styled.div`
 `;
 
 export const StepAlertOptionWrap = styled.div`
+  position:${(props)=>props.position};
   display: flex;
   width: 100%;
   justify-content: ${(props) =>
