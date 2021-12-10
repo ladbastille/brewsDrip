@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 const MOCK_TAGS = [
@@ -47,6 +46,7 @@ const MOCK_TAGS = [
     label: "Floral",
   },
 ];
+
 const ChipDiv = styled.div`
   background: ${(props) => (props.active ? "#FBD850" : "white")};
   color: #000;
@@ -57,20 +57,17 @@ const ChipDiv = styled.div`
 `;
 
 const ChipContainer = styled.div`
+  margin-top: 20px;
   width: 90%;
-        display: flex;
-        flex-wrap: wrap;
-        pointer-events: ${props=>props.editable ? "auto" : "none"};
-        cursor: ${props=>props.editable ? "pointer" : "default"};
+  display: flex;
+  flex-wrap: wrap;
+  pointer-events: ${(props) => (props.editable ? "auto" : "none")};
+  cursor: ${(props) => (props.editable ? "pointer" : "default")};
 `;
 
 const Chip = ({ active, label, handleOnClick }) => {
   return (
-    <ChipDiv
-      
-      onClick={handleOnClick}
-      active={active}
-    >
+    <ChipDiv onClick={handleOnClick} active={active}>
       {label}
     </ChipDiv>
   );
@@ -91,9 +88,7 @@ const Tags = ({ editable = true, selectedTagIds, setSelectedTagIds }) => {
   };
 
   return (
-    <ChipContainer
-      editable={editable}
-    >
+    <ChipContainer editable={editable}>
       {MOCK_TAGS.map((tag) => (
         <Chip
           key={tag.id}

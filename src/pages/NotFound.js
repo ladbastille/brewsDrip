@@ -1,4 +1,3 @@
-import React from "react";
 import NotFoundCoffee from "../images/coffee-spill-404.png";
 import styled from "styled-components";
 

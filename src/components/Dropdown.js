@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Input from "./Input";
+import { Input } from "./SubElements";
 
 const Dropdown = ({
   placeholder = "",
@@ -15,7 +15,7 @@ const Dropdown = ({
     <>
       <Input
         readOnly
-        value={value.label}
+        value={value ? value.label : ""}
         placeholder={placeholder}
         onClick={() => setOpen((prev) => !prev)}
         style={{
@@ -32,7 +32,7 @@ const Dropdown = ({
                 backgroundColor: valueIsColor ? item.value : "#eee ",
                 width: "120px",
               }}
-              value={item.value}
+              // value={item.value}
               onClick={() => {
                 setValue(item);
                 setOpen(false);

@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 export const SigninContainer = styled.div`
@@ -41,6 +40,12 @@ export const HeaderH1 = styled.h1`
   color: ${(props) => (props.color ? props.color : "#000000")};
 `;
 
+export const HeaderH2 = styled(HeaderH1)`
+  font-size: ${(props) => (props.fontSize ? props.fontSize : "1.2rem")};
+  margin: ${(props) => (props.margin ? props.margin : "2% auto")};
+  text-align: ${(props) => (props.textAlign ? props.textAlign : "center")};
+`;
+
 export const SocialLoginButton = styled.i`
   margin-right: 1rem;
 `;
@@ -79,7 +84,7 @@ export const SignupButton = styled(SubmitButton)`
   }
 `;
 
-const Input = ({ onChange, type, placeholder, value, ...props }) => {
+export const Input = ({ onChange, type, placeholder, value, ...props }) => {
   return (
     <StyledInput
       type={type}
@@ -90,6 +95,13 @@ const Input = ({ onChange, type, placeholder, value, ...props }) => {
     />
   );
 };
+
+export const ShortInput = styled(Input)`
+  width: 50%;
+  align-content: center;
+  margin: 4% auto;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+`;
 
 export const TasteInput = styled(Input)`
   width: 65%;
@@ -104,4 +116,11 @@ export const TasteInput = styled(Input)`
   }
 `;
 
-export default Input;
+export const PreviewImage = styled.img`
+  max-height: 100%;
+  max-width: 100%;
+  margin-right: 40px;
+  @media (max-width: 375px) {
+    margin-right: 25px;
+  }
+`;

@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import {getCollectionsDescOrder,getCollectionsFieldUpdate} from "../utils/firebase";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { EditIconDiv } from "./MyTimers";
-import { HeaderH1 } from "../components/Input";
-import { HeaderH2 } from "./NewTimer";
-import { StyledIconDiv } from "../components/ContainerAndWrap"
+import { HeaderH1, HeaderH2 } from "../components/SubElements";
+import { StyledIconDiv } from "../components/ContainerAndWrap";
+import {
+  getCollectionsDescOrder,
+  getCollectionsFieldUpdate,
+} from "../utils/firebase";
 
 export const TimerListContainer = styled.div`
   font-family: "Open Sans Condensed", sans-serif;
@@ -27,7 +29,7 @@ export const TimerListContainer = styled.div`
   align-items: center;
   margin-bottom: 20px;
   margin-top: 10px;
-  box-sizing:border-box;
+  box-sizing: border-box;
 `;
 
 export const StyledTimerlistLink = styled(Link)`
@@ -114,14 +116,14 @@ const AllTimerList = () => {
   const [timers, setTimers] = useState([]);
 
   useEffect(() => {
-    const unsub = getCollectionsDescOrder("timers",setTimers)
+    const unsub = getCollectionsDescOrder("timers", setTimers);
     return unsub;
   }, []);
 
   function toggleLikeCollect(activeInField, field, id) {
     const uid = currentUser?.uid;
     if (uid) {
-      getCollectionsFieldUpdate("timers",id,field,activeInField,uid)
+      getCollectionsFieldUpdate("timers", id, field, activeInField, uid);
     } else {
       Swal.fire({
         icon: "error",

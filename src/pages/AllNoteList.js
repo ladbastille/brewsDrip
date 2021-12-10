@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import {
-  getCollectionsDescOrder,
-  getCollectionsFieldUpdate,
-} from "../utils/firebase";
+import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
@@ -12,11 +9,13 @@ import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { GiCoffeeBeans } from "react-icons/gi";
 import { EditIconDiv } from "./MyTimers";
 import { NoteEditIconDiv } from "./MyNotes";
-import { HeaderH1 } from "../components/Input";
-import { HeaderH2 } from "./NewTimer";
-import { StyledIconDiv } from "../components/ContainerAndWrap"
+import { HeaderH1, HeaderH2 } from "../components/SubElements";
+import { StyledIconDiv } from "../components/ContainerAndWrap";
 import { RatingDiv, SecondWrap } from "./NewNote";
-import Swal from "sweetalert2";
+import {
+  getCollectionsDescOrder,
+  getCollectionsFieldUpdate,
+} from "../utils/firebase";
 
 export const NoteListContainer = styled.div`
   font-family: "Open Sans Condensed", sans-serif;
@@ -35,22 +34,6 @@ export const NoteListContainer = styled.div`
   margin-bottom: 20px;
   margin-top: 10px;
   box-sizing: border-box;
-`;
-
-export const StyledTimerlistLink = styled(Link)`
-  font-family: "Open Sans Condensed", sans-serif;
-  background-color: ${(props) =>
-    props.background ? props.background : "#FBD850"};
-  color: #ffffff;
-  margin: 4% auto;
-  border-radius: 10px;
-  border: 6px solid transparent;
-  padding: ${(props) => (props.padding ? props.padding : "10px 20px")};
-  width: ${(props) => (props.width ? props.width : "50%")};
-  text-align: ${(props) => (props.textAlign ? props.textAlign : "center")};
-  &:hover {
-    border: 6px solid #de6932;
-  }
 `;
 
 export const BigNotelistLink = styled.div`
@@ -250,4 +233,5 @@ const AllNoteList = () => {
     </>
   );
 };
+
 export default AllNoteList;

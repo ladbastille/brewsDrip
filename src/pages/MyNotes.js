@@ -4,17 +4,20 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 import Swal from "sweetalert2";
-import { getMyCollections,getCollectionsFieldUpdate,deleteDoc } from "../utils/firebase";
-import { InsideTimerlistWrap } from "./AllTimerList";
-import { BigNotelistLink } from "./AllNoteList";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { RiDeleteBack2Fill } from "react-icons/ri";
 import { GiCoffeeBeans } from "react-icons/gi";
+import {
+  getMyCollections,
+  getCollectionsFieldUpdate,
+  deleteDoc,
+} from "../utils/firebase";
+import { InsideTimerlistWrap } from "./AllTimerList";
+import { BigNotelistLink } from "./AllNoteList";
 import { RatingDiv, SecondWrap } from "./NewNote";
-import { HeaderH1 } from "../components/Input";
-import { HeaderH2 } from "./NewTimer";
-import { StyledIconDiv } from "../components/ContainerAndWrap"
+import { HeaderH1, HeaderH2 } from "../components/SubElements";
+import { StyledIconDiv } from "../components/ContainerAndWrap";
 
 export const NoteEditIconDiv = styled(StyledIconDiv)`
   position: absolute;
@@ -33,22 +36,20 @@ function MyNotes() {
 
   useEffect(() => {
     if (currentUser) {
-      const unsub =
-      getMyCollections("taste-note", currentUser, setTasteNotes);
-      return unsub
+      const unsub = getMyCollections("taste-note", currentUser, setTasteNotes);
+      return unsub;
     }
   }, [currentUser]);
 
   function toggleLikeCollect(activeInField, field, id) {
     const uid = currentUser?.uid;
     if (uid) {
-      getCollectionsFieldUpdate("taste-note", id,field,activeInField,uid)
-      
+      getCollectionsFieldUpdate("taste-note", id, field, activeInField, uid);
     }
   }
 
   function handleDeleteNote(noteid) {
-    deleteDoc("taste-note", noteid)
+    deleteDoc("taste-note", noteid);
     Swal.fire("Done!", "The taste note has been deleted!", "success");
   }
 

@@ -1,61 +1,32 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import FooterLogoImg from "../images/logo_225x50.svg";
-import MobileFooterLogoImg from "../images/footer3DLogo.png";
-import { LogoImg } from "./Header";
-import { TutorialsBtn } from "../pages/Home";
 import { BiLinkAlt } from "react-icons/bi";
 import { v4 as uuidv4 } from "uuid";
-import { ShareBtnDiv } from "./ContainerAndWrap";
 import {
   FacebookShareButton,
   LineShareButton,
   FacebookIcon,
   LineIcon,
 } from "react-share";
-
-const FooterContainer = styled.div`
-  font-family: "Poppins", sans-serif;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  background: #fbd850;
-  border-radius: 3px;
-  display: inline-block;
-  padding-top: 1rem;
-  margin-top: 1rem;
-`;
-
-const FooterContentContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  border-bottom: #939597 1px solid;
-  @media (max-width: 1440px) {
-    justify-content: space-around;
-  }
-  @media (max-width: 1024px) {
-    flex-direction: column;
-  }
-  h5 {
-    margin-left: 3%;
-    margin-top: 10px;
-    color: #646464;
-    @media (max-width: 1440px) {
-    margin-right:5%;
-  }
-  }
-`;
+import FooterLogoImg from "../images/logo_225x50.svg";
+import MobileFooterLogoImg from "../images/footer3DLogo.png";
+import { LogoImg } from "./Header";
+import { TutorialsBtn } from "../pages/Home";
+import {
+  FooterContainer,
+  FooterContentContainer,
+  FooterLinksWrap,
+  SNSLinksWrap,
+  FooterCTABtnWrap,
+  FooterShareBtnDiv,
+} from "./ContainerAndWrap";
 
 const FooterLogo = styled(LogoImg)`
   height: 50px;
   margin: 15%;
   display: block;
-
   @media (max-width: 1024px) {
     height: 35px;
     margin: 2%;
@@ -68,13 +39,11 @@ const FooterLogo = styled(LogoImg)`
 
 const MobileFooterLogo = styled(LogoImg)`
   display: none;
-
   @media (max-width: 768px) {
     display: block;
     height: 60px;
     margin: 3%;
   }
-
   @media (max-width: 425px) {
     margin: 2% auto;
   }
@@ -136,20 +105,6 @@ const ContactA = styled.a`
   }
 `;
 
-const FooterLinksWrap = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-top: 10px;
-  @media (max-width: 1024px) {
-    justify-content: center;
-  }
-  @media (max-width: 768px) {
-    justify-content: space-between;
-    padding: 3%;
-  }
-`;
-
 const BtnLink = styled(Link)`
   margin-top: 5px;
 `;
@@ -168,8 +123,13 @@ export const FooterCTABtn = styled(TutorialsBtn)`
   background: ${(props) => (props.color ? props.color : "#de6932")};
   border: ${(props) => (props.border ? props.border : "2px solid transparent")};
 
-  &:hover {
-    border-color: ${(props) => props.color};
+  @media (min-width: 1024px) {
+    &:hover {
+      border-color: ${(props) => props.color};
+    }
+    &:hover a {
+      color: #000000;
+    }
   }
   & a {
     color: #ffffff;
@@ -178,9 +138,6 @@ export const FooterCTABtn = styled(TutorialsBtn)`
     color: #ffffff;
   }
 
-  &:hover a {
-    color: #000000;
-  }
   @media (max-width: 375px) {
     padding: 10px 30px;
   }
@@ -189,50 +146,6 @@ export const FooterCTABtn = styled(TutorialsBtn)`
 const FooterLogoutBtn = styled(FooterCTABtn)`
   margin-left: 6px;
   margin-top: 12px;
-`;
-
-const FooterCTABtnWrap = styled(FooterLinksWrap)`
-  flex-direction: column;
-  justify-content: space-evenly;
-  margin: 2%;
-  @media (max-width: 1024px) {
-    flex-direction: row;
-  }
-  @media (max-width: 375px) {
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-`;
-
-const SNSLinksWrap = styled(FooterLinksWrap)`
-  display: flex;
-  flex-wrap: no-wrap;
-  margin-top: 10px;
-  margin-right: 3%;
-  height: 50px;
-  h6 {
-    margin-right: 20px;
-    margin-bottom: 5px;
-    color: #646464;
-  }
-  @media (max-width: 1024px) {
-    justify-content: flex-end;
-  }
-  @media (max-width: 1440px) {
-    margin-left: 40%;
-  }
-`;
-
-const FooterShareBtnDiv = styled(ShareBtnDiv)`
-  width: 120px;
-  margin: 15px 0 0 0;
-  padding-right: 20px;
-  @media (max-width: 768px) {
-    margin-top: 20px;
-  }
-  @media (min-width: 768px) {
-    padding-right: 0px;
-  }
 `;
 
 const menu = [

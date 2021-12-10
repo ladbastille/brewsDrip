@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { BigTimerlistLink, InsideTimerlistWrap } from "./AllTimerList";
-import {getCollectedCollections,getCollectionsFieldUpdate} from "../utils/firebase";
 import { Link } from "react-router-dom";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
-
-import { HeaderH1 } from "../components/Input";
-import { HeaderH2 } from "./NewTimer";
-import { StyledIconDiv } from "../components/ContainerAndWrap"
+import { HeaderH1, HeaderH2 } from "../components/SubElements";
+import { StyledIconDiv } from "../components/ContainerAndWrap";
+import { BigTimerlistLink, InsideTimerlistWrap } from "./AllTimerList";
+import {
+  getCollectedCollections,
+  getCollectionsFieldUpdate,
+} from "../utils/firebase";
 
 function CollectedTimers() {
   const [timers, setTimers] = useState([]);
@@ -16,16 +17,15 @@ function CollectedTimers() {
 
   useEffect(() => {
     if (currentUser) {
-      const unsub =
-      getCollectedCollections("timers", currentUser, setTimers)
-      return unsub
+      const unsub = getCollectedCollections("timers", currentUser, setTimers);
+      return unsub;
     }
   }, [currentUser]);
 
   function toggleLikeCollect(activeInField, field, id) {
     const uid = currentUser?.uid;
     if (uid) {
-      getCollectionsFieldUpdate("timers", id,field,activeInField,uid)
+      getCollectionsFieldUpdate("timers", id, field, activeInField, uid);
     }
   }
 

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
-import { getDocumentRef, getFileRef, getCreatedAt } from "../utils/firebase";
 import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import { FaCameraRetro, FaArrowLeft } from "react-icons/fa";
 import { GiCoffeeBeans } from "react-icons/gi";
-import Input, { HeaderH1 } from "../components/Input";
+import { Input, HeaderH1 } from "../components/SubElements";
 import { FooterCTABtn } from "../components/Footer";
-import { Flex100BetweenWrap } from "../components/ContainerAndWrap"
+import { Flex100BetweenWrap } from "../components/ContainerAndWrap";
 import Tags from "../components/Tags";
+import { getDocumentRef, getFileRef, getCreatedAt } from "../utils/firebase";
 
 const NewNoteContainer = styled.div`
   font-family: "Open Sans Condensed", sans-serif;

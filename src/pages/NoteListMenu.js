@@ -1,5 +1,4 @@
-import { HeaderH1 } from "../components/Input";
-import { HeaderH2 } from "./NewTimer";
+import { HeaderH1, HeaderH2 } from "../components/SubElements";
 import { StyledTimerlistLink } from "./AllTimerList";
 import { NotesTagWrap, NotesTag } from "./AllNoteList";
 

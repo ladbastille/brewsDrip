@@ -1,7 +1,6 @@
-import React from "react";
 import styled from "styled-components";
 import { SubmitButton } from "./Signin";
-import { HeaderH1 } from "./Input";
+import { HeaderH1 } from "./SubElements";
 
 const Overlay = ({ toggle, setToggle }) => {
   return (
