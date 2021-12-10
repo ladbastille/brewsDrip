@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import {getCollectedCollections,getCollectionsFieldUpdate} from "../utils/firebase";
 import { Link } from "react-router-dom";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
@@ -9,9 +8,12 @@ import { GiCoffeeBeans } from "react-icons/gi";
 import { InsideTimerlistWrap } from "./AllTimerList";
 import { BigNotelistLink } from "./AllNoteList";
 import { RatingDiv, SecondWrap } from "./NewNote";
-import { HeaderH1 } from "../components/Input";
-import { HeaderH2 } from "./NewTimer";
-import { StyledIconDiv } from "../components/ContainerAndWrap"
+import { HeaderH1, HeaderH2 } from "../components/SubElements";
+import { StyledIconDiv } from "../components/ContainerAndWrap";
+import {
+  getCollectedCollections,
+  getCollectionsFieldUpdate,
+} from "../utils/firebase";
 
 function CollectedTimers() {
   const currentUser = useSelector((state) => state.currentUser);
@@ -19,7 +21,11 @@ function CollectedTimers() {
 
   useEffect(() => {
     if (currentUser) {
-      const unsub = getCollectedCollections("taste-note", currentUser, setTasteNotes)
+      const unsub = getCollectedCollections(
+        "taste-note",
+        currentUser,
+        setTasteNotes
+      );
       return unsub;
     }
   }, [currentUser]);
@@ -27,7 +33,7 @@ function CollectedTimers() {
   function toggleLikeCollect(activeInField, field, id) {
     const uid = currentUser?.uid;
     if (uid) {
-      getCollectionsFieldUpdate('taste-note', id,field,activeInField,uid)
+      getCollectionsFieldUpdate("taste-note", id, field, activeInField, uid);
     }
   }
 

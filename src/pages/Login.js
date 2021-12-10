@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
-import {socialMediaAuth} from "../utils/firebase";
+import { socialMediaAuth } from "../utils/firebase";
 import Signin from "../components/Signin";
 import Signup from "../components/Signup";
 import Overlay from "../components/Overlay";

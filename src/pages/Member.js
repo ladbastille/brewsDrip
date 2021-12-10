@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import {userLogout,getUserPhotoRef} from "../utils/firebase";
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
+import ReactLoading from "react-loading";
+import { BiTimer, BiNotepad } from "react-icons/bi";
 import { SubmitButton } from "../components/Signin";
 import { ImgWrap, PreviewImage } from "./NewNote";
-import { HeaderH2 } from "./TasteNote";
-import { HeaderH1 } from "../components/Input";
-import { BiTimer, BiNotepad } from "react-icons/bi";
-import ReactLoading from "react-loading";
+import { HeaderH1, HeaderH2 } from "../components/SubElements";
+import { userLogout, getUserPhotoRef } from "../utils/firebase";
 
 const MemberDiv = styled.div`
   font-family: "Poppins", sans-serif;
@@ -22,7 +21,7 @@ const MemberDiv = styled.div`
   margin-bottom: 20px;
   margin-top: 10px;
   padding: 1rem;
-  box-sizing:border-box;
+  box-sizing: border-box;
   width: 100%;
   max-width: 768px;
   min-height: 65vh;
@@ -146,7 +145,8 @@ function Member() {
   const [isLoading, setIsLoading] = useState(false);
   const [file, setFile] = useState(null);
   const history = useHistory();
-  const defaultUserPhotoUrl = "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/user-pics%2FdefaultUser.png?alt=media&token=7e5e71c8-aabb-4bdd-a55c-72ec3659b41d"
+  const defaultUserPhotoUrl =
+    "https://firebasestorage.googleapis.com/v0/b/brewsdrip.appspot.com/o/user-pics%2FdefaultUser.png?alt=media&token=7e5e71c8-aabb-4bdd-a55c-72ec3659b41d";
 
   const previewUrl = () => {
     if (file) {
@@ -160,14 +160,14 @@ function Member() {
 
   const toLogOut = () => {
     setIsLoading(true);
-    userLogout()
+    userLogout();
     history.push("/login");
     setIsLoading(false);
   };
 
   function onSubmit() {
     setIsLoading(true);
-    const fileRef = getUserPhotoRef("user-photos/",currentUser);
+    const fileRef = getUserPhotoRef("user-photos/", currentUser);
     const metadata = {
       contentType: file?.type,
     };

@@ -1,21 +1,19 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import firebase from "./utils/firebase";
 import ScrollToTop from "./components/ScrollToTop";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
-
 import Timer from "./pages/Timer";
 import Login from "./pages/Login";
 import Member from "./pages/Member";
-import firebase from "./utils/firebase";
 import AllTimerList, { TimerListContainer } from "./pages/AllTimerList";
 import MyTimers from "./pages/MyTimers";
 import NewTimer from "./pages/NewTimer";
 import CollectedTimer from "./pages/CollectedTimer";
 import DefaultTimer from "./pages/DefaultTimer";
-
 import NewNote from "./pages/NewNote";
 import TasteNote from "./pages/TasteNote";
 import TimerListMenu from "./pages/TimerListMenu";

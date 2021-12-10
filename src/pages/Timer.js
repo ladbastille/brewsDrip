@@ -21,7 +21,7 @@ import {
   LineIcon,
 } from "react-share";
 import { getDocOnSnapShot, getCollectionsFieldUpdate } from "../utils/firebase";
-import { HeaderH2 } from "./NewTimer";
+import { HeaderH2 } from "../components/SubElements";
 import bgm from "../sounds/DonnieOzone-ReturnOfTheGucciGhost.mp3";
 import doneSound from "../sounds/done.mp3";
 import resetSound from "../sounds/reset.mp3";
@@ -50,6 +50,7 @@ const StepsBigFont = styled.h1`
   font-size: 2.5rem;
   margin: 5px 0;
 `;
+
 const StepsSmallFont = styled.h1`
   color: #ffffff;
   font-size: 1.2rem;
@@ -68,7 +69,7 @@ const ControlBtn = styled.button`
   cursor: pointer;
   background: transparent;
   border: none;
-  padding:0;
+  padding: 0;
   &:disabled {
     opacity: 0.4;
     cursor: not-allowed;
@@ -76,7 +77,7 @@ const ControlBtn = styled.button`
 `;
 
 const StyledIconDivSound = styled(StyledIconDiv)`
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     display: none;
   }
 `;
@@ -97,11 +98,9 @@ const Timer = () => {
   const { timerId } = useParams();
   const [timer, setTimer] = useState(null);
   const [isShareClick, setIsShareClick] = useState(false);
-  // handle Audio delay issue
   const alertAudio = new Audio(alertSound);
   const resetAudio = new Audio(resetSound);
   const doneAudio = new Audio(doneSound);
-
   alertAudio.volume = 0.2;
   resetAudio.volume = 0.2;
   doneAudio.volume = 0.2;
@@ -129,7 +128,7 @@ const Timer = () => {
     }, [audio, playing]);
 
     useEffect(() => {
-      isMuted ? (audio.volume = 0.001) : (audio.volume = 0.3);
+      isMuted ? (audio.volume = 0) : (audio.volume = 0.3);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isMuted]);
 
@@ -162,6 +161,7 @@ const Timer = () => {
             imageHeight: 266.25,
             imageAlt: "Cheers Coffee",
           });
+          setDoneAlert(false);
         }
       }, 1000);
     }
@@ -212,17 +212,30 @@ const Timer = () => {
   }, [pointer, totalCounter]);
 
   function startTimer() {
+    toggle(true);
     setIsActive(!isActive);
     setIsReset(false);
     setDoneAlert(false);
-    toggle(true);
   }
 
   function stopTimer() {
-    setIsActive(false);
+    setDoneAlert(true);
     setIsReset(false);
     toggle(false);
-    setDoneAlert(true);
+    setIsActive(false);
+    Swal.fire({
+      title: "Sweet!",
+      text: "Enjoy your coffee!",
+      imageUrl: successCoffeeImg,
+      imageWidth: 400,
+      imageHeight: 266.25,
+      imageAlt: "Cheers Coffee",
+    });
+  }
+
+  async function handlePressStop() {
+    await stopTimer();
+    await setDoneAlert(false);
   }
 
   function stopByPressLastPage() {
@@ -339,7 +352,7 @@ const Timer = () => {
               </ControlBtn>
               <ControlBtn
                 disabled={!isActive ? "disabled" : ""}
-                onClick={stopTimer}
+                onClick={handlePressStop}
               >
                 <FaStop color="#FFFFFF" size="1.5rem" />
               </ControlBtn>
@@ -430,4 +443,5 @@ const Timer = () => {
     </>
   );
 };
+
 export default Timer;

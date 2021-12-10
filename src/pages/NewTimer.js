@@ -1,118 +1,27 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import {getDocumentRef,getCreatedAt} from "../utils/firebase";
-import styled from "styled-components";
 import Swal from "sweetalert2";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link, useHistory } from "react-router-dom";
-import Input, { HeaderH1 } from "../components/Input";
+import {
+  Input,
+  ShortInput,
+  HeaderH1,
+  HeaderH2,
+} from "../components/SubElements";
 import Dropdown from "../components/Dropdown";
 import { FooterCTABtn } from "../components/Footer";
-import { Flex100BetweenWrap } from "../components/ContainerAndWrap"
+import {
+  Flex100BetweenWrap,
+  NewTimerContainer,
+  DropdownWrap,
+  StepAlertOptionWrap,
+} from "../components/ContainerAndWrap";
+import { getDocumentRef, getCreatedAt } from "../utils/firebase";
+import { COLOR_OPTIONS, BREW_OPTIONS } from "../components/NewTimerOptions";
 
-const COLOR_OPTIONS = [
-  {
-    value: "#FBD850",
-    label: "yellow",
-  },
-  {
-    value: "#EFABBA",
-    label: "pink",
-  },
-  {
-    value: "#00B790",
-    label: "green",
-  },
-  {
-    value: "#B4CFCB",
-    label: "mint",
-  },
-];
-
-const BREW_OPTIONS = [
-  {
-    value: "timer",
-    label: "Timer",
-  },
-  {
-    value: "aeroPress",
-    label: "Aero Press",
-  },
-  {
-    value: "pourOver",
-    label: "Pour Over",
-  },
-];
-
-const NewTimerContainer = styled.div`
-  font-family: "Open Sans Condensed", sans-serif;
-  background-color: #ccc;
-  border-radius: 10px;
-  box-shadow: 0 14px 28px rgb(0 0 0 / 25%), 0 10px 10px rgb(0 0 0 / 22%);
-  position: relative;
-  overflow: hidden;
-  max-width: 100%;
-  min-height: 480 px;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
-  margin-top: 10px;
-
-  & ::placeholder {
-    color: #001a3a;
-    opacity: 0.5;
-    text-align: center;
-  }
-
-  & input:focus {
-    background: #ffffff;
-  }
-`;
-
-const DropdownWrap = styled.div`
-  font-family: "Open Sans Condensed", sans-serif;
-  background-color: #fbd850;
-  border-radius: 10px;
-  overflow: hidden;
-  width: ${(props) => (props.width ? props.width : "50%")};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 3px;
-  position: relative;
-  & input {
-    background-color: #ffffff;
-  }
-`;
-
-const StepAlertOptionWrap = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: ${(props) =>
-    props.justifyContent ? props.justifyContent : ""};
-  flex-direction: ${(props) =>
-    props.flexDirection ? props.flexDirection : ""};
-`;
-
-const ShortInput = styled(Input)`
-  width: 50%;
-  align-content: center;
-  margin: 4% auto;
-  font-family: Poppins, Arial, Helvetica, sans-serif;
-`;
-
-export const HeaderH2 = styled(HeaderH1)`
-  font-size: ${(props) => (props.fontSize ? props.fontSize : "1.2rem")};
-  margin: ${(props) => (props.margin ? props.margin : "2% auto")};
-  text-align: ${(props) => (props.textAlign ? props.textAlign : "center")};
-`;
-
-export const getSeconds = (e) => {
-  let second = e.target.value;
-  let parsedSecond = Math.abs(parseInt(second));
+export const getSeconds = (inputValue) => {
+  let parsedSecond = Math.abs(parseInt(inputValue));
   if (isNaN(parsedSecond)) {
     return "";
   } else {
@@ -147,7 +56,8 @@ const NewTimer = () => {
   const [numValues, setNumValues] = useState(numInitialState);
 
   const checkSetNum = (e, isEndTime = false) => {
-    const seconds = getSeconds(e);
+    const inputValue = e.target.value;
+    const seconds = getSeconds(inputValue);
     let value;
     if (isEndTime) {
       value = seconds > 4000 ? 4000 : seconds;

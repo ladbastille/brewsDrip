@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import BackgroundVideo from "../components/BackgroundVideo";
@@ -33,10 +32,10 @@ const CTADiv = styled.div`
   flex-direction: column;
   align-self: center;
   margin-left: 7%;
-  @media (max-width:1024px){
+  @media (max-width: 1024px) {
     margin-left: 3%;
   }
-  @media (max-width:768px){
+  @media (max-width: 768px) {
     margin-left: 2%;
   }
 `;
@@ -71,12 +70,13 @@ export const TutorialsBtn = styled.button`
   transition: all 0.3s ease-out;
   font-size: 0.9rem;
   border: none;
-
-  &:hover {
-    color: #000000;
-    transition: all 0.3s ease-out;
-    background-color: transparent;
-    border: #de6932 2px solid;
+  @media (min-width: 1024px) {
+    &:hover {
+      color: #000000;
+      transition: all 0.3s ease-out;
+      background-color: transparent;
+      border: #de6932 2px solid;
+    }
   }
 
   @media (max-width: 375px) {
@@ -96,7 +96,6 @@ function Home() {
             </Link>
           </BtnDiv>
         </CTADiv>
-
         <BackgroundVideo />
       </HomeDiv>
     </>

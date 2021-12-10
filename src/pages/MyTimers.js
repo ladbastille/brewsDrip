@@ -3,15 +3,17 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import { getMyCollections,getCollectionsFieldUpdate,deleteDoc } from "../utils/firebase";
-import { BigTimerlistLink, InsideTimerlistWrap } from "./AllTimerList";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { RiDeleteBack2Fill } from "react-icons/ri";
-
-import { HeaderH1 } from "../components/Input";
-import { HeaderH2 } from "./NewTimer";
-import { StyledIconDiv } from "../components/ContainerAndWrap"
+import {
+  getMyCollections,
+  getCollectionsFieldUpdate,
+  deleteDoc,
+} from "../utils/firebase";
+import { BigTimerlistLink, InsideTimerlistWrap } from "./AllTimerList";
+import { HeaderH1, HeaderH2 } from "../components/SubElements";
+import { StyledIconDiv } from "../components/ContainerAndWrap";
 
 export const EditIconDiv = styled(StyledIconDiv)`
   position: absolute;
@@ -30,22 +32,21 @@ function MyTimers() {
 
   useEffect(() => {
     if (currentUser) {
-      const unsub =
-      getMyCollections("timers", currentUser, setTimers);
-      return unsub
+      const unsub = getMyCollections("timers", currentUser, setTimers);
+      return unsub;
     }
   }, [currentUser]);
 
   function toggleLikeCollect(activeInField, field, id) {
     const uid = currentUser?.uid;
     if (uid) {
-      getCollectionsFieldUpdate("timers", id,field,activeInField,uid)
+      getCollectionsFieldUpdate("timers", id, field, activeInField, uid);
     }
   }
 
   function handleDeleteTimer(timerid) {
-    deleteDoc("timers", timerid)
-    Swal.fire("Done!", "The coffee timer has been deleted!", "success")
+    deleteDoc("timers", timerid);
+    Swal.fire("Done!", "The coffee timer has been deleted!", "success");
   }
   return (
     <>

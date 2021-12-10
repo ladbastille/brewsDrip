@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import ReactLoading from "react-loading";
 import { SiFacebook, SiGoogle } from "react-icons/si";
 import Swal from "sweetalert2";
-import { HeaderH1 } from "./Input";
+import { HeaderH1 } from "./SubElements";
 import { StyledSpan } from "./Signup";
 import {
-  facebookProvider, googleProvider,signUpWithEmailPassword,
+  facebookProvider,
+  googleProvider,
+  signUpWithEmailPassword,
   signInWithEmailPassword,
 } from "./../utils/firebase";
 
@@ -121,11 +123,11 @@ const Signin = ({ toggle, handleOnClick }) => {
   const onSignUp = (e) => {
     setIsLoading(true);
     e.preventDefault();
-    
+
     signUpWithEmailPassword(email, password)
       .then(() => {
         history.push("/");
-        Swal.fire("Awesome!", "You've created an account!", "success")
+        Swal.fire("Awesome!", "You've created an account!", "success");
         setIsLoading(false);
       })
       .catch((error) => {
@@ -151,7 +153,7 @@ const Signin = ({ toggle, handleOnClick }) => {
     signInWithEmailPassword(email, password)
       .then(() => {
         history.push("/");
-        Swal.fire("Hello!", "You've logged in!", "success")
+        Swal.fire("Hello!", "You've logged in!", "success");
         setIsLoading(false);
       })
       .catch((error) => {

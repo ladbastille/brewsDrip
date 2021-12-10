@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { getDoc, getDocOnSnapShot, getFileRef } from "../utils/firebase";
 import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 import {
@@ -15,7 +14,12 @@ import Swal from "sweetalert2";
 import { GiCoffeeBeans } from "react-icons/gi";
 import { FiShare2 } from "react-icons/fi";
 import { BiLinkAlt } from "react-icons/bi";
-import { HeaderH1, TasteInput } from "../components/Input";
+import {
+  HeaderH1,
+  HeaderH2,
+  TasteInput,
+  PreviewImage,
+} from "../components/SubElements";
 import { FooterCTABtn } from "../components/Footer";
 import { ImgWrap, UploadLabel } from "./NewNote";
 import Tags from "../components/Tags";
@@ -30,21 +34,7 @@ import {
   StyledIconDiv,
   ShareBtnDiv,
 } from "../components/ContainerAndWrap";
-
-export const PreviewImage = styled.img`
-  max-height: 100%;
-  max-width: 100%;
-  margin-right: 40px;
-  @media (max-width:375px){
-    margin-right:25px;
-  }
-`;
-
-export const HeaderH2 = styled(HeaderH1)`
-  font-size: ${(props) => (props.fontSize ? props.fontSize : "1.2rem")};
-  margin: ${(props) => (props.margin ? props.margin : "2% auto")};
-  text-align: ${(props) => (props.textAlign ? props.textAlign : "center")};
-`;
+import { getDoc, getDocOnSnapShot, getFileRef } from "../utils/firebase";
 
 const NoteTextarea = styled.textarea`
   border: transparent;
@@ -294,11 +284,7 @@ function TasteNote() {
             );
           })}
         </SecondWrap>
-        <InsideNotelistWrap></InsideNotelistWrap>
-        <SecondWrap
-          margin={"5px auto 5px "}
-          justifyContent={"center"}
-        ></SecondWrap>
+
         <Tags
           editable={!readOnly}
           selectedTagIds={selectedTagIds}

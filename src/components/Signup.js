@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import { SiFacebook, SiGoogle } from "react-icons/si";
 import ReactLoading from "react-loading";
-import { HeaderH1 } from "./Input";
+import { HeaderH1 } from "./SubElements";
 import {
   SocialContainer,
   StyledForm,
