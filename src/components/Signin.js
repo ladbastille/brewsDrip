@@ -113,7 +113,7 @@ export const SignupButton = styled(SubmitButton)`
   }
 `;
 
-const Signin = ({ toggle, handleOnClick }) => {
+const   Signin = ({ toggle, handleOnClick }) => {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

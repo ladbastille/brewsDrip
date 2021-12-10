@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import ReactLoading from "react-loading";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link, useHistory } from "react-router-dom";
 import {
@@ -32,6 +33,13 @@ export const getSeconds = (inputValue) => {
 const NewTimer = () => {
   const currentUser = useSelector((state) => state.currentUser);
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState();
+  const centerStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  };
   const [timerName, setTimerName] = useState("");
   const [baseColor, setBaseColor] = useState("");
   const [brewMethod, setBrewMethod] = useState("");
@@ -83,6 +91,7 @@ const NewTimer = () => {
           title: "Oops...",
           text: "First step sec can't be 0!",
         });
+
         return;
       }
 
@@ -92,6 +101,7 @@ const NewTimer = () => {
           title: "Oops...",
           text: "Step sec can't be 0!",
         });
+
         return;
       }
 
@@ -101,6 +111,7 @@ const NewTimer = () => {
           title: "Oops...",
           text: "Please enter valid number step by step !",
         });
+
         return;
       }
 
@@ -110,6 +121,7 @@ const NewTimer = () => {
           title: "Oops...",
           text: "Please enter valid number step by step!",
         });
+
         return;
       }
 
@@ -122,6 +134,7 @@ const NewTimer = () => {
           title: "Oops...",
           text: "Please enter valid number step by step!",
         });
+
         return;
       }
 
@@ -131,6 +144,7 @@ const NewTimer = () => {
           title: "Oops...",
           text: "Last step can't be 0!",
         });
+
         return;
       }
     }
@@ -144,6 +158,7 @@ const NewTimer = () => {
         title: "Oops...",
         text: "End Time can't be smaller than total Step Time!",
       });
+
       return;
     }
     createNewTimer();
@@ -185,10 +200,11 @@ const NewTimer = () => {
         email: currentUser.email,
       },
     };
-
+    setIsLoading(true)
     documentRef.set(dataObj).then(() => {
       Swal.fire("Awesome!", "You've created a timer!", "success");
       history.push("/timerlist");
+      setIsLoading(false)
     });
   }
 
@@ -367,10 +383,15 @@ const NewTimer = () => {
             placeholder="- Enter Secs (OPTIONAL) -"
           />
         </StepAlertOptionWrap>
-        <StepAlertOptionWrap justifyContent={"center"}>
+        <StepAlertOptionWrap position={"relative"} justifyContent={"center"}>
           <FooterCTABtn width={"50px"} color={"#00B790"} onClick={onSubmit}>
             Save
           </FooterCTABtn>
+          {isLoading && (
+            <div style={centerStyle}>
+              <ReactLoading color="#FBD850" type="spinningBubbles" />
+            </div>
+          )}
         </StepAlertOptionWrap>
       </NewTimerContainer>
     </>

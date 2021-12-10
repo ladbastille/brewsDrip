@@ -61,7 +61,10 @@ const BigTimeFont = styled.h1`
   color: #ffffff;
   font-size: 11rem;
   font-weight: 500;
-  margin: 0 auto 5%;
+  margin: 0 auto 5px;
+  @media(max-width:375px){
+    margin: 0 auto 10px;
+  }
 `;
 
 const ControlBtn = styled.button`
@@ -150,7 +153,6 @@ const Timer = () => {
         setTotalCounter((totalCounter) => totalCounter + 1);
         if (timer.endTime === totalCounter + 1) {
           setIsActive(false);
-          setDoneAlert(true);
           setIsReset(false);
           toggle(false);
           Swal.fire({
@@ -161,6 +163,7 @@ const Timer = () => {
             imageHeight: 266.25,
             imageAlt: "Cheers Coffee",
           });
+          setDoneAlert(true);
           setDoneAlert(false);
         }
       }, 1000);
@@ -219,7 +222,6 @@ const Timer = () => {
   }
 
   function stopTimer() {
-    setDoneAlert(true);
     setIsReset(false);
     toggle(false);
     setIsActive(false);
@@ -231,6 +233,7 @@ const Timer = () => {
       imageHeight: 266.25,
       imageAlt: "Cheers Coffee",
     });
+    setDoneAlert(true);
   }
 
   async function handlePressStop() {
@@ -343,7 +346,7 @@ const Timer = () => {
               </BigTimeFont>
             </Flex100CenterWrap>
 
-            <Flex90BetweenWrap>
+            <Flex90BetweenWrap margin={"4%"}>
               <ControlBtn
                 disabled={isActive ? "disabled" : ""}
                 onClick={() => resetTimer()}
@@ -368,7 +371,7 @@ const Timer = () => {
               </StyledIconDiv>
             </Flex100CenterWrap>
 
-            <Flex90BetweenWrap margin={"6%"}>
+            <Flex90BetweenWrap margin={"4%"}>
               <StyledIconDiv>
                 <FiShare2
                   color={"white"}
