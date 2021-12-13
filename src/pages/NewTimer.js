@@ -384,7 +384,7 @@ const NewTimer = () => {
           />
         </StepAlertOptionWrap>
         <StepAlertOptionWrap position={"relative"} justifyContent={"center"}>
-          <FooterCTABtn width={"50px"} color={"#00B790"} onClick={onSubmit}>
+          <FooterCTABtn marginRight={"0"} width={"50px"} color={"#00B790"} onClick={onSubmit}>
             Save
           </FooterCTABtn>
           {isLoading && (

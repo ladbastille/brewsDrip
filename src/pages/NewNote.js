@@ -46,7 +46,7 @@ const InsideNotelistWrap = styled.div`
   flex-direction: ${(props) =>
     props.flexDirection ? props.flexDirection : "row"};
   width: ${(props) => (props.width ? props.width : "100%")};
-  justify-content: space-between;
+  justify-content: ${props=>props.justifyContent? props.justifyContent:"space-between"};
 `;
 
 const TasteInput = styled(Input)`
@@ -54,7 +54,7 @@ const TasteInput = styled(Input)`
   align-content: center;
   margin: 2% 3%;
   padding: 5px 10px;
-  font-family: Poppins, Arial, Helvetica, sans-serif;
+  display: ${props=>props.display};
 `;
 
 export const UploadLabel = styled.label`
@@ -185,14 +185,16 @@ const NewNote = () => {
               <TasteInput
                 type="file"
                 onChange={(e) => setFile(e.target.files[0])}
-                style={{ display: "none" }}
+                display={"none"}
               ></TasteInput>
             </UploadLabel>
           </SecondWrap>
         </InsideNotelistWrap>
-        <ImgWrap>
+        <InsideNotelistWrap justifyContent={"center"}>
+        <ImgWrap paddingRight={"0"}>
           <NewNotePreviewImage src={previewUrl} />
         </ImgWrap>
+        </InsideNotelistWrap>
 
         <InsideNotelistWrap flexDirection={"column"}>
           <HeaderH2 margin={"2% auto 2% 0"}>Note</HeaderH2>
@@ -246,6 +248,7 @@ const NewNote = () => {
             width={"120px"}
             color={"#00B790"}
             onClick={createNewNote}
+            marginRight={"0"}
           >
             Save
           </FooterCTABtn>

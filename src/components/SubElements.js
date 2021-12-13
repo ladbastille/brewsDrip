@@ -135,7 +135,7 @@ export const ImgWrap = styled.div`
   height: auto;
   display: flex;
   justify-content: center;
-  padding-right: 10%;
+  padding-right: ${props=>props.paddingRight?props.paddingRight:"10%"};
   @media (max-width: 375px) {
     width: 110px;
   }

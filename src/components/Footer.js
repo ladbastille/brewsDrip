@@ -118,7 +118,7 @@ const LogoutBtnLink = styled(Link)`
 export const FooterCTABtn = styled(TutorialsBtn)`
   padding: 10px 40px;
   margin-top: 10px;
-  margin-right: 10px;
+  margin-right: ${(props) => (props.marginRight?props.marginRight:"10px")};
   text-align: center;
   background: ${(props) => (props.color ? props.color : "#de6932")};
   border: ${(props) => (props.border ? props.border : "2px solid transparent")};
