@@ -13,7 +13,6 @@ import {
 import FooterLogoImg from "../images/logo_225x50.svg";
 import MobileFooterLogoImg from "../images/footer3DLogo.png";
 import { LogoImg } from "./Header";
-import { TutorialsBtn } from "../pages/Home";
 import {
   FooterContainer,
   FooterContentContainer,
@@ -22,6 +21,8 @@ import {
   FooterCTABtnWrap,
   FooterShareBtnDiv,
 } from "./ContainerAndWrap";
+
+import {CTABtn} from "./SubElements"
 
 const FooterLogo = styled(LogoImg)`
   height: 50px;
@@ -115,35 +116,7 @@ const LogoutBtnLink = styled(Link)`
   }
 `;
 
-export const FooterCTABtn = styled(TutorialsBtn)`
-  padding: 10px 40px;
-  margin-top: 10px;
-  margin-right: 10px;
-  text-align: center;
-  background: ${(props) => (props.color ? props.color : "#de6932")};
-  border: ${(props) => (props.border ? props.border : "2px solid transparent")};
-
-  @media (min-width: 1024px) {
-    &:hover {
-      border-color: ${(props) => props.color};
-    }
-    &:hover a {
-      color: #000000;
-    }
-  }
-  & a {
-    color: #ffffff;
-  }
-  & a:visited {
-    color: #ffffff;
-  }
-
-  @media (max-width: 375px) {
-    padding: 10px 30px;
-  }
-`;
-
-const FooterLogoutBtn = styled(FooterCTABtn)`
+const FooterLogoutBtn = styled(CTABtn)`
   margin-left: 6px;
   margin-top: 12px;
 `;
@@ -221,7 +194,7 @@ const Footer = () => {
           {currentUser ? (
             <>
               <BtnLink to="/member">
-                <FooterCTABtn>Member</FooterCTABtn>
+                <CTABtn>Member</CTABtn>
               </BtnLink>
               <LogoutBtnLink to="/member">
                 <FooterLogoutBtn color={"transparent"}>Logout</FooterLogoutBtn>
@@ -229,12 +202,12 @@ const Footer = () => {
             </>
           ) : (
             <>
-              <FooterCTABtn>
+              <CTABtn>
                 <BtnLink to="/login">Sign In</BtnLink>
-              </FooterCTABtn>
-              <FooterCTABtn color={"#7E876D"}>
+              </CTABtn>
+              <CTABtn color={"#7E876D"}>
                 <BtnLink to="/login">Sign Up</BtnLink>
-              </FooterCTABtn>
+              </CTABtn>
             </>
           )}
         </FooterCTABtnWrap>
