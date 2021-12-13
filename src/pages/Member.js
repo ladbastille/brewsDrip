@@ -5,8 +5,12 @@ import { Link, useHistory } from "react-router-dom";
 import ReactLoading from "react-loading";
 import { BiTimer, BiNotepad } from "react-icons/bi";
 import { SubmitButton } from "../components/Signin";
-import { ImgWrap, PreviewImage } from "./NewNote";
-import { HeaderH1, HeaderH2 } from "../components/SubElements";
+import {
+  HeaderH1,
+  HeaderH2,
+  ImgWrap,
+  SimplePreviewImage,
+} from "../components/SubElements";
 import { userLogout, getUserPhotoRef } from "../utils/firebase";
 
 const MemberDiv = styled.div`
@@ -110,7 +114,7 @@ const ConfirmChangePhoto = styled(ChangePhotoLabel)`
   background: ${(props) => props.background};
 `;
 
-const ProfileImage = styled(PreviewImage)`
+const ProfileImage = styled(SimplePreviewImage)`
   border-radius: 50%;
   width: 150px;
   height: 150px;

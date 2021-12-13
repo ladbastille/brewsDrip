@@ -10,8 +10,7 @@ import { GiCoffeeBeans } from "react-icons/gi";
 import { EditIconDiv } from "./MyTimers";
 import { NoteEditIconDiv } from "./MyNotes";
 import { HeaderH1, HeaderH2 } from "../components/SubElements";
-import { StyledIconDiv } from "../components/ContainerAndWrap";
-import { RatingDiv, SecondWrap } from "./NewNote";
+import { StyledIconDiv,RatingDiv,SecondWrap } from "../components/ContainerAndWrap";
 import {
   getCollectionsDescOrder,
   getCollectionsFieldUpdate,

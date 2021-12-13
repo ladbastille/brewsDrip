@@ -19,9 +19,10 @@ import {
   HeaderH2,
   TasteInput,
   PreviewImage,
+  ImgWrap
 } from "../components/SubElements";
 import { FooterCTABtn } from "../components/Footer";
-import { ImgWrap, UploadLabel } from "./NewNote";
+import { UploadLabel } from "./NewNote";
 import Tags from "../components/Tags";
 import {
   NewNoteContainer,

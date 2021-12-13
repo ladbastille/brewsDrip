@@ -1,69 +1,47 @@
-import React from "react";
-import styled from "styled-components";
 import {
-  TutorialsBrewDiv,
-  CardListDiv,
-  CardListH3,
-  CardListText,
-} from "./TutorialsB01";
-
-const CardListImg = styled.img`
-  max-width: 100%;
-  margin-bottom: 20px;
-  width: ${(props) => props.width};
-`;
-
-const CardListH4 = styled.h4`
-  font-size: 20px;
-  line-height: 24px;
-  margin-bottom: ${(props) => props.marginbottom};
-`;
-
-export const CardListH5 = styled(CardListH4)`
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 15px;
-`;
-
-const FlexRowDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-`;
+  TutorialsArticleDiv,
+  ArticleCardListDiv,
+  ArticleCardListH3,
+  ArticleCardListText,
+  FlexRowDiv,
+  ArticleCardListImg,
+  ArticleCardListH4,
+  ArticleCardListH5,
+} from "../components/TutorialsComponents";
 
 const TutorialsD02 = () => {
   return (
     <>
-      <TutorialsBrewDiv>
-        <CardListDiv>
-          <CardListH3>
+      <TutorialsArticleDiv>
+        <ArticleCardListDiv>
+          <ArticleCardListH3>
             HOLIDAY DRINK HIGHLIGHT: THE CAFÉ DE OLLA CON PANNA
-          </CardListH3>
-          <CardListImg
+          </ArticleCardListH3>
+          <ArticleCardListImg
             src={
               "https://cdn.shopify.com/s/files/1/0035/9372/files/de_olla_blog_header_f8469d10-4a7f-4fc8-a698-dbdea50d8a8b.png?v=1606252138"
             }
           />
-          <CardListText>
+          <ArticleCardListText>
             This year, we decided to build our holiday signature beverage menu
             through an open call to our very talented baristas to submit drink
             recipes for the holidays. We should have anticipated how difficult
             it would be to narrow down from all of the amazing submissions we
             received, but we certainly had fun in the process. It’s a tough job
             tasting all this coffee, but someone’s gotta do it ;)
-          </CardListText>
-          <CardListText>
+          </ArticleCardListText>
+          <ArticleCardListText>
             A stand-out recipe came from Alejandro Catalan, a barista from our
             Mateo café in Los Angeles. He proposed the Café de Olla con Panna, a
             shot of espresso sweetened with spiced piloncillo syrup and topped
             with cinnamon whipped cream. His recipe is at the top of our
             signature holiday beverage menu this year, so we wanted to hear more
             from Alejandro about his inspiration for the beverage...
-          </CardListText>
-          <CardListH4 style={{ color: "#DE6932" }}>
+          </ArticleCardListText>
+          <ArticleCardListH4 style={{ color: "#DE6932" }}>
             Q: What was your inspiration for this drink?
-          </CardListH4>
-          <CardListText>
+          </ArticleCardListH4>
+          <ArticleCardListText>
             A: Café de olla is a staple served at Latino breakfasts here in LA,
             and I thought it’d be great to see it represented at Verve. It is
             made with ground coffee, piloncillo (aka panela), cinnamon sticks,
@@ -75,15 +53,15 @@ const TutorialsD02 = () => {
             Revolution, Adelitas (women soldiers) fought together with the men
             and also served them. Café de olla was given to soldiers in the
             morning to sustain their energy and vitality throughout the day.
-          </CardListText>
+          </ArticleCardListText>
           <FlexRowDiv>
-            <CardListImg
+            <ArticleCardListImg
               width={"48%"}
               src={
                 "https://cdn.shopify.com/s/files/1/0035/9372/files/Alejandro.png?v=1606246231"
               }
             />
-            <CardListImg
+            <ArticleCardListImg
               width={"48%"}
               src={
                 "https://cdn.shopify.com/s/files/1/0035/9372/files/de_olla_drink.png?v=1606246283"
@@ -91,15 +69,17 @@ const TutorialsD02 = () => {
             />
           </FlexRowDiv>
           <FlexRowDiv>
-            <CardListH5 marginbottom={"20px"}>Alejandro Catalan</CardListH5>
-            <CardListH5 mmarginbottom={"20px"}>
+            <ArticleCardListH5 marginbottom={"20px"}>
+              Alejandro Catalan
+            </ArticleCardListH5>
+            <ArticleCardListH5 mmarginbottom={"20px"}>
               The Café de Olla con Panna
-            </CardListH5>
+            </ArticleCardListH5>
           </FlexRowDiv>
-          <CardListH4 style={{ color: "#DE6932" }}>
+          <ArticleCardListH4 style={{ color: "#DE6932" }}>
             Q: Does your family have a recipe for café de olla?
-          </CardListH4>
-          <CardListText>
+          </ArticleCardListH4>
+          <ArticleCardListText>
             A: Not really, I’ll ask my mom, “how did you make it?” and she’ll
             say “oh, a pinch of this and a pinch of that,” and I’m like “ok how
             much is a pinch for you?” I’ll try to get her to tell me if it’s in
@@ -110,11 +90,11 @@ const TutorialsD02 = () => {
             some chocolates, anise, and piloncillo, lets it all dissolve, and
             then tastes it. Then she throws in ground coffee, boils it for a
             while, and filters it through a mesh.
-          </CardListText>
-          <CardListH4 style={{ color: "#DE6932" }}>
+          </ArticleCardListText>
+          <ArticleCardListH4 style={{ color: "#DE6932" }}>
             Q: How did you develop your recipe?
-          </CardListH4>
-          <CardListText>
+          </ArticleCardListH4>
+          <ArticleCardListText>
             A: I wanted to make it unique and different for Verve, so the first
             thing I considered was how to pair it with espresso. What if I made
             an espresso con panna with a café de olla twist? So I threw around
@@ -125,17 +105,17 @@ const TutorialsD02 = () => {
             olla. Combined with the espresso, it is sweet, energetic, and
             fragrant--, you smell it and want to devour the whole thing
             instantly.
-          </CardListText>
+          </ArticleCardListText>
 
-          <CardListText>
+          <ArticleCardListText>
             Thank you, Alejandro, for sharing your recipe with us - we are so
             excited to feature it on our menu this holiday season!
             <br />
             <br />
             Try Café de Olla today...
-          </CardListText>
-        </CardListDiv>
-      </TutorialsBrewDiv>
+          </ArticleCardListText>
+        </ArticleCardListDiv>
+      </TutorialsArticleDiv>
     </>
   );
 };

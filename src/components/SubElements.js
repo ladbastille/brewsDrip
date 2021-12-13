@@ -44,6 +44,7 @@ export const HeaderH2 = styled(HeaderH1)`
   font-size: ${(props) => (props.fontSize ? props.fontSize : "1.2rem")};
   margin: ${(props) => (props.margin ? props.margin : "2% auto")};
   text-align: ${(props) => (props.textAlign ? props.textAlign : "center")};
+  height: ${(props) => props.height};
 `;
 
 export const SocialLoginButton = styled.i`
@@ -122,5 +123,20 @@ export const PreviewImage = styled.img`
   margin-right: 40px;
   @media (max-width: 375px) {
     margin-right: 25px;
+  }
+`;
+
+export const SimplePreviewImage = styled.img`
+  max-width: 100%;
+`;
+
+export const ImgWrap = styled.div`
+  width: ${(props) => (props.width ? props.width : "160px")};
+  height: auto;
+  display: flex;
+  justify-content: center;
+  padding-right: 10%;
+  @media (max-width: 375px) {
+    width: 110px;
   }
 `;

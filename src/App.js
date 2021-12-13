@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import firebase from "./utils/firebase";
@@ -39,12 +39,17 @@ function App() {
   const user = useSelector((state) => state.currentUser);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((currentUser) => {
-      dispatch(getCurrentUser(currentUser));
-    });
+  useEffect(
+    () => {
+      const unsub = firebase.auth().onAuthStateChanged((currentUser) => {
+        dispatch(getCurrentUser(currentUser));
+      });
+
+      return unsub;
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    []
+  );
 
   return (
     <>
