@@ -5,34 +5,38 @@ import firebase from "./utils/firebase";
 import ScrollToTop from "./components/ScrollToTop";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Home from "./pages/Home";
-import Timer from "./pages/Timer";
-import Login from "./pages/Login";
-import Member from "./pages/Member";
-import AllTimerList, { TimerListContainer } from "./pages/AllTimerList";
-import MyTimers from "./pages/MyTimers";
-import NewTimer from "./pages/NewTimer";
-import CollectedTimer from "./pages/CollectedTimer";
-import DefaultTimer from "./pages/DefaultTimer";
-import NewNote from "./pages/NewNote";
-import TasteNote from "./pages/TasteNote";
-import TimerListMenu from "./pages/TimerListMenu";
+import Home from "./pages/Home/Home";
+import Timer from "./pages/CoffeeTimer/Timer";
+import Login from "./pages/MemberAndLogin/Login";
+import Member from "./pages/MemberAndLogin/Member";
+import AllTimerList, {
+  TimerListContainer,
+} from "./pages/CoffeeTimer/AllTimerList";
+import MyTimers from "./pages/CoffeeTimer/MyTimers";
+import NewTimer from "./pages/CoffeeTimer/NewTimer";
+import CollectedTimer from "./pages/CoffeeTimer/CollectedTimer";
+import DefaultTimer from "./pages/CoffeeTimer/DefaultTimer";
+import NewNote from "./pages/CoffeeTasteNote/NewNote";
+import TasteNote from "./pages/CoffeeTasteNote/TasteNote";
+import TimerListMenu from "./pages/CoffeeTimer/components/TimerListMenu";
 import NotFound from "./pages/NotFound";
-import AllNoteList, { NoteListContainer } from "./pages/AllNoteList";
-import MyNotes from "./pages/MyNotes";
-import CollectedNote from "./pages/CollectedNote";
-import NoteListMenu from "./pages/NoteListMenu";
-import TutorialsIndex from "./pages/TutorialsIndex";
-import TutorialsCulture from "./pages/TutorialsCulture";
-import TutorialsC01 from "./pages/TutorialsC01";
-import TutorialsC02 from "./pages/TutorialsC02";
-import TutorialsDrink from "./pages/TutorialsDrink";
-import TutorialsD01 from "./pages/TutorialsD01";
-import TutorialsD02 from "./pages/TutorialsD02";
-import TutorialsBrew from "./pages/TutorialsBrew";
-import TutorialsB01 from "./pages/TutorialsB01";
-import TutorialsB02 from "./pages/TutorialsB02";
-import TutorialsB03 from "./pages/TutorialsB03";
+import AllNoteList, {
+  NoteListContainer,
+} from "./pages/CoffeeTasteNote/AllNoteList";
+import MyNotes from "./pages/CoffeeTasteNote/MyNotes";
+import CollectedNote from "./pages/CoffeeTasteNote/CollectedNote";
+import NoteListMenu from "./pages/CoffeeTasteNote/components/NoteListMenu";
+import TutorialsIndex from "./pages/Tutorials/TutorialsIndex";
+import TutorialsCulture from "./pages/Tutorials/TutorialsCulture";
+import TutorialsC01 from "./pages/Tutorials/TutorialsC01";
+import TutorialsC02 from "./pages/Tutorials/TutorialsC02";
+import TutorialsDrink from "./pages/Tutorials/TutorialsDrink";
+import TutorialsD01 from "./pages/Tutorials/TutorialsD01";
+import TutorialsD02 from "./pages/Tutorials/TutorialsD02";
+import TutorialsBrew from "./pages/Tutorials/TutorialsBrew";
+import TutorialsB01 from "./pages/Tutorials/TutorialsB01";
+import TutorialsB02 from "./pages/Tutorials/TutorialsB02";
+import TutorialsB03 from "./pages/Tutorials/TutorialsB03";
 import { getCurrentUser } from "./redux/action";
 
 function App() {

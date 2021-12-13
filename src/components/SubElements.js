@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { StyledIconDiv } from "./ContainerAndWrap";
 
 export const SigninContainer = styled.div`
   position: absolute;
@@ -135,8 +137,140 @@ export const ImgWrap = styled.div`
   height: auto;
   display: flex;
   justify-content: center;
-  padding-right: ${props=>props.paddingRight?props.paddingRight:"10%"};
+  padding-right: ${(props) =>
+    props.paddingRight ? props.paddingRight : "10%"};
   @media (max-width: 375px) {
     width: 110px;
+  }
+`;
+
+export const StyledTimerlistLink = styled(Link)`
+  font-family: "Open Sans Condensed", sans-serif;
+  background-color: ${(props) =>
+    props.background ? props.background : "#FBD850"};
+  color: #ffffff;
+  margin: 4% auto;
+  border-radius: 10px;
+  border: 6px solid transparent;
+  padding: ${(props) => (props.padding ? props.padding : "10px 20px")};
+  width: ${(props) => (props.width ? props.width : "50%")};
+  text-align: ${(props) => (props.textAlign ? props.textAlign : "center")};
+  &:hover {
+    border: 6px solid #de6932;
+  }
+`;
+
+export const ListContainer = styled.div`
+  font-family: "Open Sans Condensed", sans-serif;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgb(0 0 0 / 25%), 0 10px 10px rgb(0 0 0 / 22%);
+  position: relative;
+  overflow: hidden;
+  width: 768px;
+  max-width: 100%;
+  min-height: 480 px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  box-sizing: border-box;
+`;
+
+export const EditIconDiv = styled(StyledIconDiv)`
+  position: absolute;
+  background: #d42927;
+  border-radius: 50px;
+  padding: 3px;
+  top: 0;
+  right: 0;
+  margin: -18px -15px 0 0;
+  display: none;
+`;
+
+export const NoteEditIconDiv = styled(EditIconDiv)`
+  margin: -18px -20px 0 0;
+`;
+
+export const BiglistLink = styled.div`
+  font-family: "Open Sans Condensed", sans-serif;
+  color: #ffffff;
+  margin: 4% auto;
+  border-radius: 10px;
+  border: 6px solid transparent;
+  padding: ${(props) => (props.padding ? props.padding : "10px 20px")};
+  width: ${(props) => (props.width ? props.width : "50%")};
+  text-align: ${(props) => (props.textAlign ? props.textAlign : "center")};
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: row;
+  margin: 1% auto;
+  width: 85%;
+  position: relative;
+
+  &:hover {
+    border: 6px solid #de6932;
+  }
+
+  &:hover ${NoteEditIconDiv} {
+    display: block;
+  }
+`;
+
+export const InsideListWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: ${(props) => (props.width ? props.width : "85%")};
+  align-items: flex-end;
+  justify-content: space-around;
+`;
+export const TutorialsBtn = styled.button`
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: #de6932;
+  border-radius: 10px;
+  outline: none;
+  padding: 12px 45px;
+  transition: all 0.3s ease-out;
+  font-size: 0.9rem;
+  border: none;
+  @media (min-width: 1024px) {
+    &:hover {
+      color: #000000;
+      transition: all 0.3s ease-out;
+      background-color: transparent;
+      border: #de6932 2px solid;
+    }
+  }
+
+  @media (max-width: 375px) {
+    padding: 10px 30px;
+  }
+`;
+
+export const CTABtn = styled(TutorialsBtn)`
+  padding: 10px 40px;
+  margin-top: 10px;
+  margin-right: ${(props) => (props.marginRight ? props.marginRight : "10px")};
+  text-align: center;
+  background: ${(props) => (props.color ? props.color : "#de6932")};
+  border: ${(props) => (props.border ? props.border : "2px solid transparent")};
+
+  @media (min-width: 1024px) {
+    &:hover {
+      border-color: ${(props) => props.color};
+    }
+    &:hover a {
+      color: #000000;
+    }
+  }
+  & a {
+    color: #ffffff;
+  }
+  & a:visited {
+    color: #ffffff;
   }
 `;
