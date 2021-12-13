@@ -62,7 +62,7 @@ const BigTimeFont = styled.h1`
   font-size: 11rem;
   font-weight: 500;
   margin: 0 auto 5px;
-  @media(max-width:375px){
+  @media (max-width: 375px) {
     margin: 0 auto 10px;
   }
 `;

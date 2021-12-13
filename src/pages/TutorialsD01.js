@@ -1,35 +1,27 @@
-import React from "react";
-import styled from "styled-components";
 import {
-  TutorialsBrewDiv,
-  CardListDiv,
-  CardListH3,
-  CardListText,
-} from "./TutorialsB01";
-
-const CardListImg = styled.img`
-  max-width: 100%;
-  margin-bottom: 20px;
-`;
-
-const CardListH4 = styled.h4`
-  font-size: 20px;
-  line-height: 24px;
-`;
+  TutorialsArticleDiv,
+  ArticleCardListDiv,
+  ArticleCardListH3,
+  ArticleCardListText,
+  ArticleCardListImg,
+  ArticleCardListH4,
+} from "../components/TutorialsComponents";
 
 const TutorialsD01 = () => {
   return (
     <>
-      <TutorialsBrewDiv>
-        <CardListDiv>
-          <CardListH3>HOLIDAY PARTY DRINK RECIPE: THE GOLDEN JEWEL</CardListH3>
+      <TutorialsArticleDiv>
+        <ArticleCardListDiv>
+          <ArticleCardListH3>
+            HOLIDAY PARTY DRINK RECIPE: THE GOLDEN JEWEL
+          </ArticleCardListH3>
 
-          <CardListImg
+          <ArticleCardListImg
             src={
               "https://cdn.shopify.com/s/files/1/0035/9372/files/hero.png?v=1573608420"
             }
           />
-          <CardListText>
+          <ArticleCardListText>
             There are two critical essentials of any great party; delicious
             drinks and choice music. Thankfully, we’re ticking off the first box
             right here with The Golden Jewel: the perfect holiday-inspired
@@ -38,11 +30,11 @@ const TutorialsD01 = () => {
             transforms our classic coffee blend into a winter wonderland. This
             recipe is ultra-versatile and able to be enjoyed with or without
             alcohol. Relax, we’ve got the whole party covered.
-          </CardListText>
-          <CardListH4 style={{ color: "#DE6932" }}>
+          </ArticleCardListText>
+          <ArticleCardListH4 style={{ color: "#DE6932" }}>
             SYRUP INGREDIENT LIST [yields about 5 servings]
-          </CardListH4>
-          <CardListText>
+          </ArticleCardListH4>
+          <ArticleCardListText>
             1/2 Teaspoon Cinnamon
             <br />
             1/2 Teaspoon Nutmeg
@@ -54,11 +46,11 @@ const TutorialsD01 = () => {
             100g Orange Marmalade
             <br />
             50ml Dark Maple Syrup{" "}
-          </CardListText>
-          <CardListH4 style={{ color: "#DE6932" }}>
+          </ArticleCardListText>
+          <ArticleCardListH4 style={{ color: "#DE6932" }}>
             ADDITIONAL INGREDIENTS
-          </CardListH4>
-          <CardListText>
+          </ArticleCardListH4>
+          <ArticleCardListText>
             Streetlevel Instant Craft Coffee
             <br />
             Sparkling Water
@@ -68,80 +60,82 @@ const TutorialsD01 = () => {
             Chambord (optional)
             <br />
             Bourbon (optional)
-          </CardListText>
-          <CardListH4>STEP ONE </CardListH4>
-          <CardListText>
+          </ArticleCardListText>
+          <ArticleCardListH4>STEP ONE </ArticleCardListH4>
+          <ArticleCardListText>
             Combine all the syrup ingredients in a medium pot and bring to a
             boil. Reduce heat and simmer on low for 10 minutes.
-          </CardListText>
+          </ArticleCardListText>
 
-          <CardListH4>STEP TWO</CardListH4>
-          <CardListText>
+          <ArticleCardListH4>STEP TWO</ArticleCardListH4>
+          <ArticleCardListText>
             Strain the syrup into a glass container through a small mesh
             strainer and place it to the side to cool.
-          </CardListText>
+          </ArticleCardListText>
 
-          <CardListH4>STEP THREE </CardListH4>
-          <CardListText>
+          <ArticleCardListH4>STEP THREE </ArticleCardListH4>
+          <ArticleCardListText>
             Each drink will need half a packet of Instant Craft Coffee:
             Streetlevel. Pour the full contents of the packet into a mixing
             glass, adding 2 ounces of water then gently stirring to dissolve the
             coffee.
-          </CardListText>
+          </ArticleCardListText>
 
-          <CardListImg
+          <ArticleCardListImg
             src={
               "https://cdn.shopify.com/s/files/1/0035/9372/files/holiday_process.png?v=1573608446"
             }
           />
 
-          <CardListH4>STEP FOUR</CardListH4>
-          <CardListText>
+          <ArticleCardListH4>STEP FOUR</ArticleCardListH4>
+          <ArticleCardListText>
             Fill a Collins glass with ice and add 1 ounce of the dissolved
             coffee.
-          </CardListText>
+          </ArticleCardListText>
 
-          <CardListImg
+          <ArticleCardListImg
             src={
               "https://cdn.shopify.com/s/files/1/0035/9372/files/holiday_process2.png?v=1573608472"
             }
           />
 
-          <CardListH4>STEP FIVE</CardListH4>
-          <CardListText>
+          <ArticleCardListH4>STEP FIVE</ArticleCardListH4>
+          <ArticleCardListText>
             If going the alcoholic route, skip to step six. Fill the glass about
             two-thirds of the way with sparkling water then top off with 2
             ounces of Jewel Syrup. Continue on to step seven.
-          </CardListText>
+          </ArticleCardListText>
 
-          <CardListImg
+          <ArticleCardListImg
             src={
               "https://cdn.shopify.com/s/files/1/0035/9372/files/holiday_sage.png?v=1573608505"
             }
           />
 
-          <CardListH4>STEP SIX</CardListH4>
-          <CardListText>
+          <ArticleCardListH4>STEP SIX</ArticleCardListH4>
+          <ArticleCardListText>
             If you’re here for the sauce, keep adding to your dissolved coffee
             and ice base with 2 ounces of Jewel Syrup, 1 ounce Chambord and 2
             ounces Bourbon. Gently stir, then strain into a rocks glass over a
             large ice cube or sphere.
-          </CardListText>
+          </ArticleCardListText>
 
-          <CardListH4>STEP SEVEN</CardListH4>
-          <CardListText>Garnish with a fresh sage leaf.</CardListText>
+          <ArticleCardListH4>STEP SEVEN</ArticleCardListH4>
+          <ArticleCardListText>
+            Garnish with a fresh sage leaf.
+          </ArticleCardListText>
 
-          <CardListImg
+          <ArticleCardListImg
             src={
               "https://cdn.shopify.com/s/files/1/0035/9372/files/holiday_josh.png?v=1573608526"
             }
           />
-          <CardListText>
+          <ArticleCardListText>
             Our Golden Jewel holiday drink recipe is best served as an
             after-dinner coffee cocktail.
-          </CardListText>
-        </CardListDiv>
-      </TutorialsBrewDiv>
+          </ArticleCardListText>
+        </ArticleCardListDiv>
+      </TutorialsArticleDiv>
     </>
   );
 };

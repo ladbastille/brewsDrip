@@ -15,9 +15,12 @@ import {
 } from "../utils/firebase";
 import { InsideTimerlistWrap } from "./AllTimerList";
 import { BigNotelistLink } from "./AllNoteList";
-import { RatingDiv, SecondWrap } from "./NewNote";
 import { HeaderH1, HeaderH2 } from "../components/SubElements";
-import { StyledIconDiv } from "../components/ContainerAndWrap";
+import {
+  StyledIconDiv,
+  RatingDiv,
+  SecondWrap,
+} from "../components/ContainerAndWrap";
 
 export const NoteEditIconDiv = styled(StyledIconDiv)`
   position: absolute;

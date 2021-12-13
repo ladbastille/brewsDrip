@@ -62,7 +62,7 @@ export const RatingDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 2px 10px;
+  margin: ${(props) => (props.margin ? props.margin : "2px 10px")};
   input[type="radio"] {
     display: none;
   }
@@ -274,7 +274,7 @@ export const DropdownWrap = styled.div`
 `;
 
 export const StepAlertOptionWrap = styled.div`
-  position:${(props)=>props.position};
+  position: ${(props) => props.position};
   display: flex;
   width: 100%;
   justify-content: ${(props) =>

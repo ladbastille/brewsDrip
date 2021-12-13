@@ -1,41 +1,10 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
-
-const CardListImg = styled.img`
-  max-width: 100%;
-  margin-bottom: 20px;
-`;
-const CardListH3 = styled.h3`
-  font-size: 28px;
-  line-height: 1.25;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-`;
-const CardListText = styled.p`
-  margin-bottom: 24 px;
-  margin: 0 0 15 px;
-  padding: 0;
-  font-size: 14px;
-  line-height: 1.6;
-`;
-
-const CardListDiv = styled.div`
-  width: 30%;
-  display: flex;
-  flex-direction: column;
-  vertical-align: center;
-  font-family: "Poppins", Arial, Helvetica, sans-serif;
-  margin-top: 15px;
-  margin-bottom: 25px;
-  a,
-  a:visited {
-    color: #000000;
-  }
-  @media (max-width: 768px) {
-    width: 80%;
-  }
-`;
+import {
+  CardListDiv,
+  CardListImg,
+  CardListH3,
+  CardListText,
+} from "../components/TutorialsComponents";
 
 const TutorialCardBrew = ({ src }) => {
   return (

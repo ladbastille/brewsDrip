@@ -230,7 +230,7 @@ const NewTimer = () => {
         </Flex100BetweenWrap>
         <HeaderH1 marginbottom={"3%"}>Create New Timer</HeaderH1>
         <ShortInput
-          placeholder="- ENTER TIMER NAME　-"
+          placeholder="- ENTER TIMER NAME -"
           value={timerName}
           onChange={(e) => setTimerName(e.target.value)}
         />

@@ -1,17 +1,18 @@
-import React from "react";
 import {
-  TutorialsBrewDiv,
-  CardListDiv,
-  CardListH3,
-  CardListText,
-} from "./TutorialsB01";
+  TutorialsArticleDiv,
+  ArticleCardListDiv,
+  ArticleCardListH3,
+  ArticleCardListText,
+} from "../components/TutorialsComponents";
 
 const TutorialsB02 = () => {
   return (
     <>
-      <TutorialsBrewDiv>
-        <CardListDiv>
-          <CardListH3>How to brew at home: Kalita Wave</CardListH3>
+      <TutorialsArticleDiv>
+        <ArticleCardListDiv>
+          <ArticleCardListH3>
+            How to brew at home: Kalita Wave
+          </ArticleCardListH3>
           <iframe
             width="560"
             height="315"
@@ -21,15 +22,15 @@ const TutorialsB02 = () => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
-          <CardListText>
+          <ArticleCardListText>
             Learn how to brew delicious coffee at home! Today, we're featuring
             the Kalita Wave in our step-by-step guide. The wave-shaped brewer is
             built for even extraction and immersion while making it easy to play
             with brew ratios and contact time to pull out whatever flavor
             profiles maximize the cup.
-          </CardListText>
-        </CardListDiv>
-      </TutorialsBrewDiv>
+          </ArticleCardListText>
+        </ArticleCardListDiv>
+      </TutorialsArticleDiv>
     </>
   );
 };

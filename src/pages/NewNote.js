@@ -7,9 +7,9 @@ import ReactLoading from "react-loading";
 import Swal from "sweetalert2";
 import { FaCameraRetro, FaArrowLeft } from "react-icons/fa";
 import { GiCoffeeBeans } from "react-icons/gi";
-import { Input, HeaderH1 } from "../components/SubElements";
+import { Input, HeaderH1,HeaderH2,SimplePreviewImage,ImgWrap } from "../components/SubElements";
 import { FooterCTABtn } from "../components/Footer";
-import { Flex100BetweenWrap } from "../components/ContainerAndWrap";
+import { Flex100BetweenWrap,SecondWrap,RatingDiv } from "../components/ContainerAndWrap";
 import Tags from "../components/Tags";
 import { getDocumentRef, getFileRef, getCreatedAt } from "../utils/firebase";
 
@@ -49,34 +49,12 @@ const InsideNotelistWrap = styled.div`
   justify-content: space-between;
 `;
 
-export const SecondWrap = styled.div`
-  position: ${(props)=>props.position};
-  display: flex;
-  flex-direction: ${(props) => props.flexDirection};
-  margin: ${(props) => (props.margin ? props.margin : "20px 0")};
-  width: ${(props) => (props.width ? props.width : "70%")};
-  justify-content: ${(props) =>
-    props.justifyContent ? props.justifyContent : ""};
-  align-items: ${(props) => (props.alignItems ? props.alignItems : "")};
-`;
-
-export const PreviewImage = styled.img`
-  max-width: 100%;
-`;
-
 const TasteInput = styled(Input)`
   width: 65%;
   align-content: center;
   margin: 2% 3%;
   padding: 5px 10px;
   font-family: Poppins, Arial, Helvetica, sans-serif;
-`;
-
-export const HeaderH2 = styled(HeaderH1)`
-  font-size: ${(props) => (props.fontSize ? props.fontSize : "1.2rem")};
-  margin: ${(props) => (props.margin ? props.margin : "2% auto")};
-  text-align: ${(props) => (props.textAlign ? props.textAlign : "center")};
-  height: ${(props) => props.height};
 `;
 
 export const UploadLabel = styled.label`
@@ -94,31 +72,9 @@ const NoteTextarea = styled.textarea`
   border-radius: 10px;
 `;
 
-export const RatingDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: ${(props) => (props.margin ? props.margin : "2px 10px")};
-
-  input[type="radio"] {
-    display: none;
-  }
-  .star {
-    cursor: pointer;
-    transition: color 200ms;
-  }
-`;
-
-export const ImgWrap = styled.div`
-  width: ${(props) => (props.width ? props.width : "160px")};
-  height: auto;
-  display: flex;
-  justify-content: center;
-  padding-right: 10%;
-  @media (max-width: 375px) {
-    width: 110px;
-  }
-`;
+const NewNotePreviewImage = styled(SimplePreviewImage)`
+  margin:0 auto;
+`
 
 const NewNote = () => {
   const currentUser = useSelector((state) => state.currentUser);
@@ -235,7 +191,7 @@ const NewNote = () => {
           </SecondWrap>
         </InsideNotelistWrap>
         <ImgWrap>
-          <PreviewImage src={previewUrl} />
+          <NewNotePreviewImage src={previewUrl} />
         </ImgWrap>
 
         <InsideNotelistWrap flexDirection={"column"}>

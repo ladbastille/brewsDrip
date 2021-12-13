@@ -7,9 +7,12 @@ import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { GiCoffeeBeans } from "react-icons/gi";
 import { InsideTimerlistWrap } from "./AllTimerList";
 import { BigNotelistLink } from "./AllNoteList";
-import { RatingDiv, SecondWrap } from "./NewNote";
 import { HeaderH1, HeaderH2 } from "../components/SubElements";
-import { StyledIconDiv } from "../components/ContainerAndWrap";
+import {
+  StyledIconDiv,
+  RatingDiv,
+  SecondWrap,
+} from "../components/ContainerAndWrap";
 import {
   getCollectedCollections,
   getCollectionsFieldUpdate,

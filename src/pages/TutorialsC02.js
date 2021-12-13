@@ -1,37 +1,25 @@
-import React from "react";
-import styled from "styled-components";
 import {
-  TutorialsBrewDiv,
-  CardListDiv,
-  CardListH3,
-  CardListText,
-} from "./TutorialsB01";
-import { CardListH5 } from "./TutorialsD02";
-
-const CardListImg = styled.img`
-  max-width: 100%;
-  margin-bottom: 20px;
-  width: ${(props) => props.width};
-`;
-
-const CardListH4 = styled.h4`
-  font-size: 20px;
-  line-height: 24px;
-  margin-bottom: ${(props) => props.marginbottom};
-`;
+  TutorialsArticleDiv,
+  ArticleCardListDiv,
+  ArticleCardListH3,
+  ArticleCardListText,
+  ArticleCardListImg,
+  ArticleCardListH4,
+  ArticleCardListH5,
+} from "../components/TutorialsComponents";
 
 const TutorialsD02 = () => {
   return (
     <>
-      <TutorialsBrewDiv>
-        <CardListDiv>
-          <CardListH3>WOMEN IN THE COFFEE INDUSTRY</CardListH3>
-          <CardListImg
+      <TutorialsArticleDiv>
+        <ArticleCardListDiv>
+          <ArticleCardListH3>WOMEN IN THE COFFEE INDUSTRY</ArticleCardListH3>
+          <ArticleCardListImg
             src={
               "https://cdn.shopify.com/s/files/1/0035/9372/files/amp_4-2.jpg?v=1583433815"
             }
           />
-          <CardListText>
+          <ArticleCardListText>
             We would guess that a large portion of coffee drinkers might think
             operations are overseen by large estates equipped with the most
             robust mills and modern technology. But did you know that 70% of the
@@ -52,13 +40,13 @@ const TutorialsD02 = () => {
             When it was time to wrap and head back home, we all walked away
             buzzing with inspiration from her words of wisdom and excited to
             share our experience and her story with you all.
-          </CardListText>
-          <CardListImg
+          </ArticleCardListText>
+          <ArticleCardListImg
             src={
               "https://cdn.shopify.com/s/files/1/0035/9372/files/amp_2-2.jpg?v=1583433885"
             }
           />
-          <CardListText>
+          <ArticleCardListText>
             Amparo’s farm, El Convento, grows avocados and citrus fruits
             alongside the beautiful rows of coffee trees. The combination of
             high altitude and moderate temperatures slow the rate of maturation
@@ -70,19 +58,24 @@ const TutorialsD02 = () => {
             surrounding space and her commitment to and connection with the land
             is a palatable force. Her dedication and guiding principles are
             reflected in her coffee.
-          </CardListText>
+          </ArticleCardListText>
 
-          <CardListH4 marginbottom={"20px"} style={{ fontStytle: "italic" }}>
+          <ArticleCardListH4
+            marginbottom={"20px"}
+            style={{ fontStytle: "italic" }}
+          >
             “It begins with the earth. In the earth is where we begin and we
             have to make the connection with the earth. We have to see it, feel
             it, and listen to it to find what it tells you. There is so much to
             learn behind the coffee: I take a sip from this coffee and 'Wow, I
             need to share it.”
-          </CardListH4>
+          </ArticleCardListH4>
 
-          <CardListH4>Q: What has growing coffee taught you?</CardListH4>
+          <ArticleCardListH4 color={"#DE6932"}>
+            Q: What has growing coffee taught you?
+          </ArticleCardListH4>
 
-          <CardListText>
+          <ArticleCardListText>
             A: I have been farming coffee for 35 years. I really didn't know
             anything about coffee. It begins with the earth. In the earth is
             where we begin and we have to make the connection with the earth. We
@@ -102,18 +95,20 @@ const TutorialsD02 = () => {
             anything different between us. They are as strong and beautiful as a
             woman. Sometimes in the field when a woman feels tired, it is
             frowned upon. Men feel the same way: however, they do not show it.
-          </CardListText>
-          <CardListH5>
+          </ArticleCardListText>
+          <ArticleCardListH5>
             "When the whole world tells you that you can't, you begin to believe
             that you can't. But there is a moment where you have a glimmer of
             belief inside yourself that says 'you can' that you have to hold on
             to. Anything you have in your mind you can create. Everything in our
             mind is able to be unraveled and actualized."{" "}
-          </CardListH5>
+          </ArticleCardListH5>
 
-          <CardListH4>Q: How has coffee impacted your life?</CardListH4>
+          <ArticleCardListH4 color={"#DE6932"}>
+            Q: How has coffee impacted your life?
+          </ArticleCardListH4>
 
-          <CardListText>
+          <ArticleCardListText>
             A: Before I started farming coffee 35 years ago, I really didn't
             know anything about it. You cannot sit back and dwell on your
             misfortune. There is a learning in all of it. What is interesting
@@ -122,11 +117,11 @@ const TutorialsD02 = () => {
             all your problems are nothing more than a silly scare. Behind the
             problem lies your fear. The problem is our opportunity to overcome
             the difficulties in the world. People die from fear.
-          </CardListText>
-          <CardListH4>
+          </ArticleCardListText>
+          <ArticleCardListH4 color={"#DE6932"}>
             Q: What makes your connection with coffee so unique?
-          </CardListH4>
-          <CardListText>
+          </ArticleCardListH4>
+          <ArticleCardListText>
             A: Coffee is a cultivar and apart from the highs and lows that is
             has and that it is not the easiest to manage. When I started in
             coffee, it felt impossible to make a difference. The biggest
@@ -136,12 +131,12 @@ const TutorialsD02 = () => {
             you. It presents an amazing opportunity and we want to provide an
             incredible product. It's a perfect opportunity to share and
             communicate with the world through the end product.
-          </CardListText>
-          <CardListH5>
+          </ArticleCardListText>
+          <ArticleCardListH5>
             "You are the one behind the coffee cup. You are the essence, you are
             the one drinking it. My desire to give the world something good."
-          </CardListH5>
-          <CardListText>
+          </ArticleCardListH5>
+          <ArticleCardListText>
             A: Coffee is a cultivar and apart from the highs and lows that is
             has and that it is not the easiest to manage. When I started in
             coffee, it felt impossible to make a difference. The biggest
@@ -151,23 +146,25 @@ const TutorialsD02 = () => {
             you. It presents an amazing opportunity and we want to provide an
             incredible product. It's a perfect opportunity to share and
             communicate with the world through the end product.
-          </CardListText>
+          </ArticleCardListText>
 
-          <CardListText>
+          <ArticleCardListText>
             It is my opportunity to share my work with the people. It's an equal
             exchange between the drinker and me. You are drinking the final
             product of 35 years of work. You are drinking my strength and my
             love for life. It is my opportunity to share my work with the
             people. It's an equal exchange between the drinker and me.
-          </CardListText>
-          <CardListImg
+          </ArticleCardListText>
+          <ArticleCardListImg
             src={
               "https://cdn.shopify.com/s/files/1/0035/9372/files/amp_3-2.jpg?v=1583434819"
             }
           />
 
-          <CardListH4>Q: Do you have any plans for the future?</CardListH4>
-          <CardListText>
+          <ArticleCardListH4 color={"#DE6932"}>
+            Q: Do you have any plans for the future?
+          </ArticleCardListH4>
+          <ArticleCardListText>
             A: I want to finish planting the farm. There is one more section to
             complete. But more importantly, my mission is to feed the people in
             Colombia. There are many that are suffering from hunger. I want to
@@ -179,9 +176,9 @@ const TutorialsD02 = () => {
             is such an intense force. It's a part of the unconscious of the
             world. But I know in my heart that we are all the same and we are
             all searching for the opportunity to unravel ourselves.
-          </CardListText>
+          </ArticleCardListText>
 
-          <CardListText>
+          <ArticleCardListText>
             Gender inequality is an issue all industries are facing, not just
             the coffee industry. Consumers are becoming more aware of the
             disparities throughout the supply chain. Verve Coffee Roasters
@@ -199,13 +196,13 @@ const TutorialsD02 = () => {
             Direct trade relationships allow you to experience the most
             incredible coffees in the world while knowing that you’ve positively
             impacted global communities with every sip.
-          </CardListText>
-          <CardListImg
+          </ArticleCardListText>
+          <ArticleCardListImg
             src={
               "https://cdn.shopify.com/s/files/1/0035/9372/files/Farmlevel-Colombia-AmparoMaya-5919_1.jpg?v=1583435180"
             }
           />
-          <CardListText>
+          <ArticleCardListText>
             The stories from Farmlevel are always pushing us forward so we can
             continue to discover the next best coffees on earth. “If you can
             accept the weight of the unknown, have the stamina to always play
@@ -214,9 +211,9 @@ const TutorialsD02 = () => {
             next ridge, then this job might just be for you,” says co-founder
             and veteran coffee buyer Colby Barr. Stay tuned for another
             Farmlevel adventure.
-          </CardListText>
-        </CardListDiv>
-      </TutorialsBrewDiv>
+          </ArticleCardListText>
+        </ArticleCardListDiv>
+      </TutorialsArticleDiv>
     </>
   );
 };
