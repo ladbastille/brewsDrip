@@ -31,7 +31,7 @@ const TutorialsD01 = () => {
             recipe is ultra-versatile and able to be enjoyed with or without
             alcohol. Relax, we’ve got the whole party covered.
           </ArticleCardListText>
-          <ArticleCardListH4 style={{ color: "#DE6932" }}>
+          <ArticleCardListH4 color={"#DE6932"}>
             SYRUP INGREDIENT LIST [yields about 5 servings]
           </ArticleCardListH4>
           <ArticleCardListText>
@@ -47,7 +47,7 @@ const TutorialsD01 = () => {
             <br />
             50ml Dark Maple Syrup{" "}
           </ArticleCardListText>
-          <ArticleCardListH4 style={{ color: "#DE6932" }}>
+          <ArticleCardListH4 color={"#DE6932"}>
             ADDITIONAL INGREDIENTS
           </ArticleCardListH4>
           <ArticleCardListText>

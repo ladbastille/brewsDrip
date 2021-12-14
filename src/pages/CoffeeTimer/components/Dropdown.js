@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Input } from "../../../components/SubElements";
 
 const Dropdown = ({
@@ -32,7 +32,6 @@ const Dropdown = ({
                 backgroundColor: valueIsColor ? item.value : "#eee ",
                 width: "120px",
               }}
-              // value={item.value}
               onClick={() => {
                 setValue(item);
                 setOpen(false);

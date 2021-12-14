@@ -10,7 +10,8 @@ import {
   HeaderH1,
   HeaderH2,
   ListContainer,
-  BiglistLink,InsideListWrap,
+  BiglistLink,
+  InsideListWrap,
 } from "../../components/SubElements";
 import { StyledIconDiv } from "../../components/ContainerAndWrap";
 import {

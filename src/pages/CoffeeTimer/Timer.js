@@ -20,7 +20,10 @@ import {
   FacebookIcon,
   LineIcon,
 } from "react-share";
-import { getDocOnSnapShot, getCollectionsFieldUpdate } from "../../utils/firebase";
+import {
+  getDocOnSnapShot,
+  getCollectionsFieldUpdate,
+} from "../../utils/firebase";
 import { HeaderH2 } from "../../components/SubElements";
 import bgm from "../../sounds/DonnieOzone-ReturnOfTheGucciGhost.mp3";
 import doneSound from "../../sounds/done.mp3";
@@ -95,12 +98,38 @@ const convertTotalCountTotimerString = (totalCounter) => {
   return { computedSecond, computedMinute };
 };
 
+const useAudio = (url, isMuted) => {
+  const [audio] = useState(new Audio(url));
+  const [playing, setPlaying] = useState(false);
+  const toggle = () => setPlaying(!playing);
+
+  useEffect(() => {
+    playing ? audio.play() : audio.pause();
+  }, [audio, playing]);
+
+  useEffect(() => {
+    isMuted ? (audio.volume = 0) : (audio.volume = 0.3);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMuted]);
+
+  useEffect(() => {
+    audio.addEventListener("ended", () => setPlaying(false));
+    return () => {
+      audio.removeEventListener("ended", () => setPlaying(false));
+      audio.pause();
+    };
+  }, [audio]);
+
+  return [playing, toggle];
+};
+
 const Timer = () => {
   const currentUser = useSelector((state) => state.currentUser);
   const history = useHistory();
   const { timerId } = useParams();
   const [timer, setTimer] = useState(null);
   const [isShareClick, setIsShareClick] = useState(false);
+
   const alertAudio = new Audio(alertSound);
   const resetAudio = new Audio(resetSound);
   const doneAudio = new Audio(doneSound);
@@ -108,43 +137,19 @@ const Timer = () => {
   resetAudio.volume = 0.2;
   doneAudio.volume = 0.2;
 
-  useEffect(() => {
-    const unsub = getDocOnSnapShot("timers", timerId, setTimer);
-    return unsub;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const [isActive, setIsActive] = useState(false);
   const [isReset, setIsReset] = useState(false);
   const [totalCounter, setTotalCounter] = useState(0);
   const [pointer, setPointer] = useState(0);
   const [doneAlert, setDoneAlert] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
+  const [playing, toggle] = useAudio(bgm, isMuted);
 
-  const useAudio = (url) => {
-    const [audio] = useState(new Audio(url));
-    const [playing, setPlaying] = useState(false);
-    const toggle = () => setPlaying(!playing);
-
-    useEffect(() => {
-      playing ? audio.play() : audio.pause();
-    }, [audio, playing]);
-
-    useEffect(() => {
-      isMuted ? (audio.volume = 0) : (audio.volume = 0.3);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isMuted]);
-
-    useEffect(() => {
-      audio.addEventListener("ended", () => setPlaying(false));
-      return () => {
-        audio.removeEventListener("ended", () => setPlaying(false));
-      };
-    }, [audio]);
-    return [playing, toggle];
-  };
-
-  const [playing, toggle] = useAudio(bgm);
+  useEffect(() => {
+    const unsub = getDocOnSnapShot("timers", timerId, setTimer);
+    return unsub;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     let intervalId;
@@ -222,6 +227,7 @@ const Timer = () => {
   }
 
   function stopTimer() {
+    setDoneAlert(true);
     setIsReset(false);
     toggle(false);
     setIsActive(false);
@@ -233,7 +239,6 @@ const Timer = () => {
       imageHeight: 266.25,
       imageAlt: "Cheers Coffee",
     });
-    setDoneAlert(true);
   }
 
   async function handlePressStop() {
@@ -333,7 +338,7 @@ const Timer = () => {
                     {pointer !== timer.customStep.length - 1 && nextCustomStep}
                   </StepsSmallFont>
                 </Flex50ColumnWrap>
-                <Flex50ColumnWrap style={{ alignItems: "flex-end" }}>
+                <Flex50ColumnWrap alignItems={"flex-end"}>
                   <StepsBigFont>{`${pointer + 1}/${totalSteps}`}</StepsBigFont>
                   <StepsSmallFont>STEP</StepsSmallFont>
                 </Flex50ColumnWrap>

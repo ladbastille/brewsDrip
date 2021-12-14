@@ -38,7 +38,7 @@ const TutorialsD02 = () => {
             signature holiday beverage menu this year, so we wanted to hear more
             from Alejandro about his inspiration for the beverage...
           </ArticleCardListText>
-          <ArticleCardListH4 style={{ color: "#DE6932" }}>
+          <ArticleCardListH4 color={"#DE6932"}>
             Q: What was your inspiration for this drink?
           </ArticleCardListH4>
           <ArticleCardListText>
@@ -76,7 +76,7 @@ const TutorialsD02 = () => {
               The Café de Olla con Panna
             </ArticleCardListH5>
           </FlexRowDiv>
-          <ArticleCardListH4 style={{ color: "#DE6932" }}>
+          <ArticleCardListH4 color={"#DE6932"}>
             Q: Does your family have a recipe for café de olla?
           </ArticleCardListH4>
           <ArticleCardListText>
@@ -91,7 +91,7 @@ const TutorialsD02 = () => {
             then tastes it. Then she throws in ground coffee, boils it for a
             while, and filters it through a mesh.
           </ArticleCardListText>
-          <ArticleCardListH4 style={{ color: "#DE6932" }}>
+          <ArticleCardListH4 color={"#DE6932"}>
             Q: How did you develop your recipe?
           </ArticleCardListH4>
           <ArticleCardListText>
