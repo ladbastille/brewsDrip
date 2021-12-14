@@ -162,10 +162,10 @@ const Footer = () => {
     <FooterContainer>
       <FooterContentContainer>
         <Link to="/">
-          <FooterLogo path="/" src={FooterLogoImg} />
+          <FooterLogo path="/" src={FooterLogoImg} alt="footerLogo"/>
         </Link>
         <Link to="/">
-          <MobileFooterLogo path="/" src={MobileFooterLogoImg} />
+          <MobileFooterLogo path="/" src={MobileFooterLogoImg} alt="mobileFooterLogo"/>
         </Link>
 
         <FooterLinksWrap>

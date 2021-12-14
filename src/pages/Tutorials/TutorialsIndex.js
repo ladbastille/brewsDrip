@@ -16,21 +16,21 @@ const TutorialsIndex = () => {
         <Link to="/tutorials/brew">
           <CardDiv>
             <CategoryH2>BREW</CategoryH2>
-            <CategoryImg src={BREW} />
+            <CategoryImg src={BREW} alt="brewImg"/>
           </CardDiv>
         </Link>
 
         <Link to="/tutorials/drink">
           <CardDiv>
             <CategoryH2>DRINK</CategoryH2>
-            <CategoryImg src={DRINK} />
+            <CategoryImg src={DRINK} alt="drinkImg"/>
           </CardDiv>
         </Link>
 
         <Link to="/tutorials/culture">
           <CardDiv>
             <CategoryH2>CULTURE</CategoryH2>
-            <CategoryImg src={CULTURE} />
+            <CategoryImg src={CULTURE} alt="cultureImg"/>
           </CardDiv>
         </Link>
       </TutorialsDiv>
