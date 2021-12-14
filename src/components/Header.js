@@ -144,18 +144,19 @@ function Header() {
             onClick={() => setMobileMenuOpen((prev) => !prev)}
           />
           <Link to="/timerlist">
-            <TimerLogoImg src={timerLogo} />
+            <TimerLogoImg src={timerLogo} alt="timerLogo"/>
           </Link>
         </MenuLogoWrap>
         <Link to="/">
-          <LogoImg path="/" src={logo} />
+          <LogoImg path="/" src={logo} alt="brewsDripLogo"
+          />
         </Link>
         <MenuLogoWrap>
           <Link to="/timerlist">
-            <MobileTimerLogo src={timerLogo} />
+            <MobileTimerLogo src={timerLogo} alt="mobileTimerLogo"/>
           </Link>
           <Link to="/login">
-            <MenuLogoImg path="/login" src={memberLogo} />
+            <MenuLogoImg path="/login" src={memberLogo} alt="memberLogo"/>
           </Link>
         </MenuLogoWrap>
       </LogoBtnWrap>
