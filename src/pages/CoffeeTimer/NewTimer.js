@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import styled from "styled-components";
+import { v4 as uuidv4 } from "uuid";
 import Swal from "sweetalert2";
 import ReactLoading from "react-loading";
 import { FaArrowLeft } from "react-icons/fa";
@@ -9,9 +11,9 @@ import {
   Input,
   ShortInput,
   HeaderH1,
-  HeaderH2,CTABtn
+  HeaderH2,
+  CTABtn,
 } from "../../components/SubElements";
-
 import {
   Flex100BetweenWrap,
   NewTimerContainer,
@@ -20,6 +22,14 @@ import {
 } from "../../components/ContainerAndWrap";
 import { getDocumentRef, getCreatedAt } from "../../utils/firebase";
 import { COLOR_OPTIONS, BREW_OPTIONS } from "./components/NewTimerOptions";
+
+const EndTimeInput = styled(Input)`
+  width: 46.5%;
+  margin: 3px;
+  @media (max-width: 375px) {
+    width: 41.5%;
+  }
+`;
 
 export const getSeconds = (inputValue) => {
   let parsedSecond = Math.abs(parseInt(inputValue));
@@ -216,6 +226,127 @@ const NewTimer = () => {
     ["e", "E", "+", "-", "."].includes(e.key) && e.preventDefault();
   };
 
+  const renderColorAndMethod = () => {
+    return (
+      <StepAlertOptionWrap>
+        <DropdownWrap>
+          <HeaderH2>Color in List</HeaderH2>
+          <Dropdown
+            value={baseColor}
+            setValue={setBaseColor}
+            options={COLOR_OPTIONS}
+            placeholder="- Select Color -"
+            valueIsColor
+          />
+        </DropdownWrap>
+        <DropdownWrap>
+          <HeaderH2>Timer Method</HeaderH2>
+          <Dropdown
+            value={brewMethod}
+            setValue={setBrewMethod}
+            options={BREW_OPTIONS}
+            placeholder="- Select Method -"
+          />
+        </DropdownWrap>
+      </StepAlertOptionWrap>
+    );
+  };
+
+  const step1 = {
+    nameValue: stepName1,
+    nameOnChange: setStepName1,
+    namePlaceholder: "Step 1",
+    secValue: numValues.stepSec1,
+    secName: "stepSec1",
+    colorValue: stepColor1,
+    colorSetValue: setStepColor1,
+  };
+  const step2 = {
+    nameValue: stepName2,
+    nameOnChange: setStepName2,
+    namePlaceholder: "Step 2",
+    secValue: numValues.stepSec2,
+    secName: "stepSec2",
+    colorValue: stepColor2,
+    colorSetValue: setStepColor2,
+  };
+
+  const step3 = {
+    nameValue: stepName3,
+    nameOnChange: setStepName3,
+    namePlaceholder: "Step 3",
+    secValue: numValues.stepSec3,
+    secName: "stepSec3",
+    colorValue: stepColor3,
+    colorSetValue: setStepColor3,
+  };
+  const step4 = {
+    nameValue: stepName4,
+    nameOnChange: setStepName4,
+    namePlaceholder: "Step 4",
+    secValue: numValues.stepSec4,
+    secName: "stepSec4",
+    colorValue: stepColor4,
+    colorSetValue: setStepColor4,
+  };
+
+  const stepArr = [step1, step2, step3, step4];
+
+  const renderStep = (
+    nameValue,
+    nameOnChange,
+    namePlaceholder,
+    secValue,
+    secName,
+    colorValue,
+    colorSetValue
+  ) => {
+    return (
+      <StepAlertOptionWrap>
+        <Input
+          width={"30%"}
+          value={nameValue}
+          onChange={(e) => nameOnChange(e.target.value)}
+          placeholder={namePlaceholder}
+        />
+        <Input
+          width={"10%"}
+          onKeyDown={handleOnKeyDown}
+          value={secValue}
+          name={secName}
+          onChange={(e) => checkSetNum(e)}
+          placeholder="Sec"
+        />
+        <DropdownWrap>
+          <Dropdown
+            width={"60%"}
+            padding={"6px 12px"}
+            value={colorValue}
+            setValue={colorSetValue}
+            options={COLOR_OPTIONS}
+            placeholder="- Select Color -"
+            valueIsColor
+          />
+        </DropdownWrap>
+      </StepAlertOptionWrap>
+    );
+  };
+
+  const renderEndTime = () => {
+    return (
+      <StepAlertOptionWrap justifyContent={"space-between"}>
+        <HeaderH2>End Time (optional)</HeaderH2>
+        <EndTimeInput
+          value={numValues.endTime}
+          name="endTime"
+          onKeyDown={handleOnKeyDown}
+          onChange={(e) => checkSetNum(e, true)}
+          placeholder="- Enter Secs -"
+        />
+      </StepAlertOptionWrap>
+    );
+  };
+
   return (
     <>
       <NewTimerContainer>
@@ -234,27 +365,8 @@ const NewTimer = () => {
           value={timerName}
           onChange={(e) => setTimerName(e.target.value)}
         />
-        <StepAlertOptionWrap>
-          <DropdownWrap>
-            <HeaderH2>Color in List</HeaderH2>
-            <Dropdown
-              value={baseColor}
-              setValue={setBaseColor}
-              options={COLOR_OPTIONS}
-              placeholder="- Select Color -"
-              valueIsColor
-            />
-          </DropdownWrap>
-          <DropdownWrap>
-            <HeaderH2>Timer Method</HeaderH2>
-            <Dropdown
-              value={brewMethod}
-              setValue={setBrewMethod}
-              options={BREW_OPTIONS}
-              placeholder="- Select Method -"
-            />
-          </DropdownWrap>
-        </StepAlertOptionWrap>
+
+        {renderColorAndMethod()}
 
         <HeaderH2 margin={"20px auto 10px"} fontSize={"1.5rem"}>
           Step Alert Option
@@ -264,125 +376,25 @@ const NewTimer = () => {
           <HeaderH2 fontSize={"1rem"}>Sec to Next Step</HeaderH2>
           <HeaderH2 fontSize={"1rem"}>Background Color</HeaderH2>
         </StepAlertOptionWrap>
-        <StepAlertOptionWrap>
-          <Input
-            width={"30%"}
-            value={stepName1}
-            onChange={(e) => setStepName1(e.target.value)}
-            placeholder="Step 1"
-          />
-          <Input
-            width={"10%"}
-            onKeyDown={handleOnKeyDown}
-            value={numValues.stepSec1}
-            name="stepSec1"
-            onChange={(e) => checkSetNum(e)}
-            placeholder="Sec"
-          />
-          <DropdownWrap>
-            <Dropdown
-              width={"60%"}
-              padding={"6px 12px"}
-              value={stepColor1}
-              setValue={setStepColor1}
-              options={COLOR_OPTIONS}
-              placeholder="- Select Color -"
-              valueIsColor
-            />
-          </DropdownWrap>
-        </StepAlertOptionWrap>
-        <StepAlertOptionWrap>
-          <Input
-            width={"30%"}
-            value={stepName2}
-            onChange={(e) => setStepName2(e.target.value)}
-            placeholder="Step 2"
-          />
-          <Input
-            width={"10%"}
-            onKeyDown={handleOnKeyDown}
-            value={numValues.stepSec2}
-            name="stepSec2"
-            onChange={(e) => checkSetNum(e)}
-            placeholder="Sec"
-          />
-          <DropdownWrap>
-            <Dropdown
-              width={"60%"}
-              padding={"6px 12px"}
-              value={stepColor2}
-              setValue={setStepColor2}
-              options={COLOR_OPTIONS}
-              placeholder="- Select Color -"
-              valueIsColor
-            />
-          </DropdownWrap>
-        </StepAlertOptionWrap>
-        <StepAlertOptionWrap>
-          <Input
-            width={"30%"}
-            value={stepName3}
-            onChange={(e) => setStepName3(e.target.value)}
-            placeholder="Step 3"
-          />
-          <Input
-            width={"10%"}
-            onKeyDown={handleOnKeyDown}
-            value={numValues.stepSec3}
-            name="stepSec3"
-            onChange={(e) => checkSetNum(e)}
-            placeholder="Sec"
-          />
-          <DropdownWrap>
-            <Dropdown
-              width={"60%"}
-              padding={"6px 12px"}
-              value={stepColor3}
-              setValue={setStepColor3}
-              options={COLOR_OPTIONS}
-              placeholder="- Select Color -"
-              valueIsColor
-            />
-          </DropdownWrap>
-        </StepAlertOptionWrap>
-        <StepAlertOptionWrap>
-          <Input
-            width={"30%"}
-            value={stepName4}
-            onChange={(e) => setStepName4(e.target.value)}
-            placeholder="Step 4"
-          />
-          <Input
-            width={"10%"}
-            onKeyDown={handleOnKeyDown}
-            value={numValues.stepSec4}
-            name="stepSec4"
-            onChange={(e) => checkSetNum(e)}
-            placeholder="Sec"
-          />
-          <DropdownWrap>
-            <Dropdown
-              width={"60%"}
-              padding={"6px 12px"}
-              value={stepColor4}
-              setValue={setStepColor4}
-              options={COLOR_OPTIONS}
-              placeholder="- Select Color -"
-              valueIsColor
-            />
-          </DropdownWrap>
-        </StepAlertOptionWrap>
-        <StepAlertOptionWrap justifyContent={"space-between"}>
-          <HeaderH2>End Time</HeaderH2>
-          <Input
-            width={"55%"}
-            value={numValues.endTime}
-            name="endTime"
-            onKeyDown={handleOnKeyDown}
-            onChange={(e) => checkSetNum(e, true)}
-            placeholder="- Enter Secs (OPTIONAL) -"
-          />
-        </StepAlertOptionWrap>
+
+        {stepArr.map((step) => {
+          return (
+            <div key={uuidv4()}>
+              {renderStep(
+                step.nameValue,
+                step.nameOnChange,
+                step.namePlaceholder,
+                step.secValue,
+                step.secName,
+                step.colorValue,
+                step.colorSetValue
+              )}
+            </div>
+          );
+        })}
+
+        {renderEndTime()}
+
         <StepAlertOptionWrap position={"relative"} justifyContent={"center"}>
           <CTABtn
             marginRight={"0"}

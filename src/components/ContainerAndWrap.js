@@ -95,6 +95,7 @@ export const Flex100CenterWrap = styled(Flex100BetweenWrap)`
 
 export const Flex50ColumnWrap = styled(FlexColumnWrap)`
   width: 50%;
+  align-items:${props=>props.alignItems}
 `;
 
 export const Flex90BetweenWrap = styled(Flex100BetweenWrap)`
