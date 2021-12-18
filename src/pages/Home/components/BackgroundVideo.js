@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import Vimeo from "@u-wave/react-vimeo";
 import ReactLoading from "react-loading";
+import { centerStyle } from "../../../components/SubElements";
 
 const Video = styled((props) => <Vimeo {...props} />)`
   object-fit: cover;
@@ -10,19 +11,14 @@ const Video = styled((props) => <Vimeo {...props} />)`
   @media (max-width: 1024px) {
     width: 150%;
   }
-  @media (max-width: 375px) {
+  @media (max-width: 768px) {
     width: 100%;
   }
 `;
 
 function BackgroundVideo() {
   const [isLoading, setIsLoading] = useState(true);
-  const centerStyle = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-  };
+
   return (
     <>
       {isLoading && (

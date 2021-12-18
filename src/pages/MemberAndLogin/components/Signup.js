@@ -19,6 +19,44 @@ import {
   createSignUpDataObj,
 } from "../../../utils/firebase";
 
+const SignupContainer = styled.div`
+  font-family: "Poppins", sans-serif;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+  left: 50%;
+  width: 50%;
+  transform: ${(props) => props.active && `translateX(100%)`};
+  opacity: ${(props) => (props.active ? `0` : `1`)};
+  z-index: ${(props) => (props.active ? `5` : `1`)};
+  animation: ${(props) => props.active && `show 0.6s`};
+
+  @keyframes show {
+    0%,
+    49.99% {
+      opacity: 0;
+      z-index: 1;
+    }
+
+    50%,
+    100% {
+      opacity: 1;
+      z-index: 5;
+    }
+  }
+`;
+
+export const StyledSpan = styled.span`
+  font-size: 12px;
+  font-weight: 450;
+  color: #646464;
+
+  @media (max-width: 425px) {
+    color: #ffffff;
+  }
+`;
+
 const Signup = ({ toggle, handleOnClick }) => {
   const history = useHistory();
   const [email, setEmail] = useState("");
@@ -28,7 +66,6 @@ const Signup = ({ toggle, handleOnClick }) => {
 
   const onSignUp = (e) => {
     setIsLoading(true);
-    
     signUpWithEmailPassword(email, password)
       .then((res) => {
         const documentRef = getAuthDocumentRef("members");
@@ -96,43 +133,5 @@ const Signup = ({ toggle, handleOnClick }) => {
     </SignupContainer>
   );
 };
-
-const SignupContainer = styled.div`
-  font-family: "Poppins", sans-serif;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  transition: all 0.6s ease-in-out;
-  left: 50%;
-  width: 50%;
-  transform: ${(props) => props.active && `translateX(100%)`};
-  opacity: ${(props) => (props.active ? `0` : `1`)};
-  z-index: ${(props) => (props.active ? `5` : `1`)};
-  animation: ${(props) => props.active && `show 0.6s`};
-
-  @keyframes show {
-    0%,
-    49.99% {
-      opacity: 0;
-      z-index: 1;
-    }
-
-    50%,
-    100% {
-      opacity: 1;
-      z-index: 5;
-    }
-  }
-`;
-
-export const StyledSpan = styled.span`
-  font-size: 12px;
-  font-weight: 450;
-  color: #646464;
-
-  @media (max-width: 425px) {
-    color: #ffffff;
-  }
-`;
 
 export default Signup;

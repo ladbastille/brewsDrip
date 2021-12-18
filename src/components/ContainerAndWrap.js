@@ -56,6 +56,7 @@ export const SecondWrap = styled.div`
   justify-content: ${(props) => props.justifyContent};
   align-items: ${(props) => props.alignItems};
   flex-wrap: ${(props) => props.flexWrap};
+  position: ${(props) => props.position};
 `;
 
 export const RatingDiv = styled.div`
@@ -81,6 +82,7 @@ export const FlexColumnWrap = styled.div`
 
 export const Flex100BetweenWrap = styled.div`
   width: 100%;
+  height: ${(props) => props.height};
   display: flex;
   justify-content: space-between;
 `;
@@ -95,7 +97,7 @@ export const Flex100CenterWrap = styled(Flex100BetweenWrap)`
 
 export const Flex50ColumnWrap = styled(FlexColumnWrap)`
   width: 50%;
-  align-items:${props=>props.alignItems}
+  align-items: ${(props) => props.alignItems};
 `;
 
 export const Flex90BetweenWrap = styled(Flex100BetweenWrap)`
@@ -238,7 +240,7 @@ export const NewTimerContainer = styled.div`
   position: relative;
   overflow: hidden;
   max-width: 100%;
-  min-height: 480 px;
+  min-height: 480px;
   padding: 1rem;
   display: flex;
   flex-direction: column;

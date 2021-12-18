@@ -4,7 +4,7 @@ import {
   CardListImg,
   CardListH3,
   CardListText,
-} from "./components/TutorialsComponents";
+} from "./components/TutorialsStyledComponents";
 
 const TutorialCardCulture = ({ src }) => {
   return (

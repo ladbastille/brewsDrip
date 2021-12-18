@@ -164,11 +164,11 @@ export const ArticleCardListH5 = styled(ArticleCardListH4)`
 `;
 
 export const ArticleCultureCardListH4 = styled.h4`
-font-size: 20px;
-line-height: 24px;
-margin-bottom: ${(props) => props.marginbottom || "20px"};
-margin-top: ${(props) => props.margintop};
-color: ${(props) => props.color};
+  font-size: 20px;
+  line-height: 24px;
+  margin-bottom: ${(props) => props.marginbottom || "20px"};
+  margin-top: ${(props) => props.margintop};
+  color: ${(props) => props.color};
 `;
 
 export const FlexRowDiv = styled.div`

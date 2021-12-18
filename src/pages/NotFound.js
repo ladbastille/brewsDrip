@@ -40,13 +40,11 @@ const NotFoundH2 = styled.h2`
 
 const NotFound = () => {
   return (
-    <>
-      <NotFoundDiv>
-        <NotFoundImg src={NotFoundCoffee}></NotFoundImg>
-        <NotFoundH1>Not Found</NotFoundH1>
-        <NotFoundH2>Go to Homepage.</NotFoundH2>
-      </NotFoundDiv>
-    </>
+    <NotFoundDiv>
+      <NotFoundImg src={NotFoundCoffee}></NotFoundImg>
+      <NotFoundH1>Not Found</NotFoundH1>
+      <NotFoundH2>Go to Homepage.</NotFoundH2>
+    </NotFoundDiv>
   );
 };
 

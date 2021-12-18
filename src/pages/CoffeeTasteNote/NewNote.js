@@ -22,6 +22,8 @@ import {
 } from "../../components/ContainerAndWrap";
 import Tags from "./components/Tags";
 import { getDocumentRef, getFileRef, getCreatedAt } from "../../utils/firebase";
+import { UploadLabel } from "./components/NoteStyledComponents";
+import { centerStyle } from "../../components/SubElements";
 
 const NewNoteContainer = styled.div`
   font-family: "Open Sans Condensed", sans-serif;
@@ -68,16 +70,6 @@ const TasteInput = styled(Input)`
   display: ${(props) => props.display};
 `;
 
-export const UploadLabel = styled.label`
-  background-color: #fbd850;
-  border: 1px solid #ffffff;
-  margin: 4px 3px 3px 3px;
-  padding: 6px 8px;
-  width: ${(props) => (props.width ? props.width : "70%")};
-  border-radius: 10px;
-  text-align: center;
-  cursor: pointer;
-`;
 const NoteTextarea = styled.textarea`
   border: transparent;
   border-radius: 10px;
@@ -98,12 +90,6 @@ const NewNote = () => {
   const [file, setFile] = useState(null);
   const [selectedTagIds, setSelectedTagIds] = useState([]);
   const [isLoading, setIsLoading] = useState();
-  const centerStyle = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-  };
 
   const previewUrl = file
     ? URL.createObjectURL(file)
@@ -151,130 +137,127 @@ const NewNote = () => {
     });
   }
   return (
-    <>
-      <NewNoteContainer>
-        <Flex100BetweenWrap>
-          <Link to="/tastenotelist">
-            <FaArrowLeft
-              color={"#000000"}
-              size={"1.5rem"}
-              style={{ alignSelf: "flex-start" }}
+    <NewNoteContainer>
+      <Flex100BetweenWrap>
+        <Link to="/tastenotelist">
+          <FaArrowLeft
+            color={"#000000"}
+            size={"1.5rem"}
+            style={{ alignSelf: "flex-start" }}
+          />
+        </Link>
+      </Flex100BetweenWrap>
+      <HeaderH1 marginbottom={"10px"}>Create New Note</HeaderH1>
+      <InsideNotelistWrap>
+        <SecondWrap flexDirection={"column"}>
+          <InsideNotelistWrap>
+            <HeaderH2>Drink</HeaderH2>
+            <TasteInput
+              placeholder="- ENTER DRINK -"
+              value={coffeeName}
+              onChange={(e) => setCoffeeName(e.target.value)}
             />
-          </Link>
-        </Flex100BetweenWrap>
-        <HeaderH1 marginbottom={"10px"}>Create New Note</HeaderH1>
-        <InsideNotelistWrap>
-          <SecondWrap flexDirection={"column"}>
-            <InsideNotelistWrap>
-              <HeaderH2>Drink</HeaderH2>
-              <TasteInput
-                placeholder="- ENTER DRINK -"
-                value={coffeeName}
-                onChange={(e) => setCoffeeName(e.target.value)}
-              />
-            </InsideNotelistWrap>
-            <InsideNotelistWrap>
-              <HeaderH2>Place</HeaderH2>
-              <TasteInput
-                placeholder="- ENTER PLACE -"
-                value={place}
-                onChange={(e) => setPlace(e.target.value)}
-              />
-            </InsideNotelistWrap>
-          </SecondWrap>
-          <SecondWrap
-            width={"25%"}
-            flexDirection={"column"}
-            alignItems={"center"}
-            justifyContent={"space-evenly"}
-            margin={"0"}
-          >
-            <HeaderH2>Photo</HeaderH2>
-            <UploadLabel>
-              +&ensp;
-              <FaCameraRetro />
-              <TasteInput
-                type="file"
-                onChange={(e) => setFile(e.target.files[0])}
-                display={"none"}
-              ></TasteInput>
-            </UploadLabel>
-          </SecondWrap>
-        </InsideNotelistWrap>
-        <InsideNotelistWrap justifyContent={"center"}>
-          <ImgWrap paddingRight={"0"}>
-            <NewNotePreviewImage src={previewUrl} />
-          </ImgWrap>
-        </InsideNotelistWrap>
-
-        <InsideNotelistWrap flexDirection={"column"}>
-          <HeaderH2 margin={"2% auto 2% 0"}>Note</HeaderH2>
-          <NoteTextarea
-            cols="3"
-            rows="3"
-            placeholder="- ENTER NOTES HERE -"
-            value={notes}
-            onChange={(e) => setNotes(e.target.value)}
-          ></NoteTextarea>
-        </InsideNotelistWrap>
-        <SecondWrap margin={"10px auto 5px 0"} width={"100%"}>
-          <HeaderH2 height={"42px"} margin={"2% 10px 1% 0"}>
-            Rating
-          </HeaderH2>
-
-          {[...Array(5)].map((star, index) => {
-            const ratingValue = (index += 1);
-            return (
-              <RatingDiv key={uuidv4()}>
-                <label>
-                  <input
-                    type="radio"
-                    name="rating"
-                    value={ratingValue}
-                    key={index}
-                    onClick={() => setRating(ratingValue)}
-                  />
-                  <GiCoffeeBeans
-                    color={
-                      ratingValue <= (hover || rating) ? "#fbd850" : "#e5e5e5"
-                    }
-                    onMouseEnter={() => setHover(index)}
-                    onMouseLeave={() => setHover(rating)}
-                    size={25}
-                    className="star"
-                  />
-                </label>
-              </RatingDiv>
-            );
-          })}
+          </InsideNotelistWrap>
+          <InsideNotelistWrap>
+            <HeaderH2>Place</HeaderH2>
+            <TasteInput
+              placeholder="- ENTER PLACE -"
+              value={place}
+              onChange={(e) => setPlace(e.target.value)}
+            />
+          </InsideNotelistWrap>
         </SecondWrap>
-
-        <Tags
-          selectedTagIds={selectedTagIds}
-          setSelectedTagIds={setSelectedTagIds}
-        />
-
         <SecondWrap
-          position={"relative"}
-          margin={"5px auto 5px "}
-          justifyContent={"center"}
+          width={"25%"}
+          flexDirection={"column"}
+          alignItems={"center"}
+          justifyContent={"space-evenly"}
+          margin={"0"}
         >
-          <CTABtn
-            width={"120px"}
-            color={"#00B790"}
-            onClick={createNewNote}
-            marginRight={"0"}
-          >
-            Save
-          </CTABtn>
-          {isLoading && (
-            <div style={centerStyle}>
-              <ReactLoading color="#FBD850" type="spinningBubbles" />
-            </div>
-          )}
+          <HeaderH2>Photo</HeaderH2>
+          <UploadLabel>
+            +&ensp;
+            <FaCameraRetro />
+            <TasteInput
+              type="file"
+              onChange={(e) => setFile(e.target.files[0])}
+              display={"none"}
+            ></TasteInput>
+          </UploadLabel>
         </SecondWrap>
-      </NewNoteContainer>
-    </>
+      </InsideNotelistWrap>
+      <InsideNotelistWrap justifyContent={"center"}>
+        <ImgWrap paddingRight={"0"}>
+          <NewNotePreviewImage src={previewUrl} />
+        </ImgWrap>
+      </InsideNotelistWrap>
+
+      <InsideNotelistWrap flexDirection={"column"}>
+        <HeaderH2 margin={"2% auto 2% 0"}>Note</HeaderH2>
+        <NoteTextarea
+          cols="3"
+          rows="3"
+          placeholder="- ENTER NOTES HERE -"
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+        ></NoteTextarea>
+      </InsideNotelistWrap>
+      <SecondWrap margin={"10px auto 5px 0"} width={"100%"}>
+        <HeaderH2 height={"42px"} margin={"2% 10px 1% 0"}>
+          Rating
+        </HeaderH2>
+
+        {[...Array(5)].map((star, index) => {
+          const ratingValue = (index += 1);
+          return (
+            <RatingDiv key={uuidv4()}>
+              <label>
+                <input
+                  type="radio"
+                  name="rating"
+                  value={ratingValue}
+                  onClick={() => setRating(ratingValue)}
+                />
+                <GiCoffeeBeans
+                  color={
+                    ratingValue <= (hover || rating) ? "#fbd850" : "#e5e5e5"
+                  }
+                  onMouseEnter={() => setHover(index)}
+                  onMouseLeave={() => setHover(rating)}
+                  size={25}
+                  className="star"
+                />
+              </label>
+            </RatingDiv>
+          );
+        })}
+      </SecondWrap>
+
+      <Tags
+        selectedTagIds={selectedTagIds}
+        setSelectedTagIds={setSelectedTagIds}
+      />
+
+      <SecondWrap
+        position={"relative"}
+        margin={"5px auto 5px "}
+        justifyContent={"center"}
+      >
+        <CTABtn
+          width={"120px"}
+          color={"#00B790"}
+          onClick={createNewNote}
+          marginRight={"0"}
+        >
+          Save
+        </CTABtn>
+        {isLoading && (
+          <div style={centerStyle}>
+            <ReactLoading color="#FBD850" type="spinningBubbles" />
+          </div>
+        )}
+      </SecondWrap>
+    </NewNoteContainer>
   );
 };
 

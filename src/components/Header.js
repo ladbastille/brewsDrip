@@ -48,14 +48,8 @@ export const TimerLogoImg = styled.img`
   }
 `;
 
-const MenuLogoImg = styled.img`
-  height: 35px;
+const MenuLogoImg = styled(TimerLogoImg)`
   width: 35px;
-  align-self: center;
-  cursor: pointer;
-  @media (max-width: 768px) {
-    display: none;
-  }
 `;
 
 const MenuLogoWrap = styled.div`
@@ -144,19 +138,18 @@ function Header() {
             onClick={() => setMobileMenuOpen((prev) => !prev)}
           />
           <Link to="/timerlist">
-            <TimerLogoImg src={timerLogo} alt="timerLogo"/>
+            <TimerLogoImg src={timerLogo} alt="timerLogo" />
           </Link>
         </MenuLogoWrap>
         <Link to="/">
-          <LogoImg path="/" src={logo} alt="brewsDripLogo"
-          />
+          <LogoImg path="/" src={logo} alt="brewsDripLogo" />
         </Link>
         <MenuLogoWrap>
           <Link to="/timerlist">
-            <MobileTimerLogo src={timerLogo} alt="mobileTimerLogo"/>
+            <MobileTimerLogo src={timerLogo} alt="mobileTimerLogo" />
           </Link>
           <Link to="/login">
-            <MenuLogoImg path="/login" src={memberLogo} alt="memberLogo"/>
+            <MenuLogoImg path="/login" src={memberLogo} alt="memberLogo" />
           </Link>
         </MenuLogoWrap>
       </LogoBtnWrap>

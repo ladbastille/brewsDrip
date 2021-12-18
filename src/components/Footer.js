@@ -171,7 +171,7 @@ const Footer = () => {
         <FooterLinksWrap>
           {menu.map(({ name, links }) => (
             <Menu key={uuidv4()}>
-              <MenuHead key={uuidv4()}>{name}</MenuHead>
+              <MenuHead>{name}</MenuHead>
               {links.map(({ title, url }) => (
                 <MenuLink key={uuidv4()} to={url}>
                   {title}
@@ -179,12 +179,12 @@ const Footer = () => {
               ))}
             </Menu>
           ))}
-          <Menu key={uuidv4()}>
-            <MenuHead key={uuidv4()}>About Us</MenuHead>
-            <ContactA key={uuidv4()} onClick={handleContactClick}>
+          <Menu>
+            <MenuHead>About Us</MenuHead>
+            <ContactA onClick={handleContactClick}>
               Story
             </ContactA>
-            <ContactA key={uuidv4()} onClick={handleContactClick}>
+            <ContactA onClick={handleContactClick}>
               Contact Us
             </ContactA>
           </Menu>
