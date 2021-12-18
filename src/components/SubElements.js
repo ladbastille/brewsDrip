@@ -274,3 +274,21 @@ export const CTABtn = styled(TutorialsBtn)`
     color: #ffffff;
   }
 `;
+
+export const LoadingFixHeight = styled.div`
+  position: relative;
+  height: 556px;
+  @media (min-width: 768px) {
+    height: 647px;
+  }
+  @media (min-width: 1440px) {
+    height: 652px;
+  }
+`;
+
+export const centerStyle = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+};

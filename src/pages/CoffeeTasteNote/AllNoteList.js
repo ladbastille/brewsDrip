@@ -107,7 +107,7 @@ const AllNoteList = () => {
                               type="radio"
                               name="rating"
                               value={ratingValue}
-                              key={index}
+                              
                             />
                             <GiCoffeeBeans
                               color={

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import {CTABtn} from "../../../components/SubElements";
-import {Flex90BetweenWrap} from "../../../components/ContainerAndWrap"
+import { CTABtn } from "../../../components/SubElements";
+import { Flex90BetweenWrap } from "../../../components/ContainerAndWrap";
 
 export const NotesTagWrap = styled.div`
   display: flex;
@@ -57,4 +57,17 @@ export const FlexCenterWrap = styled(Flex90BetweenWrap)`
     margin-top: 0px;
     margin-right: 20px;
   }
+  align-items: ${(props) => props.alighItems};
+  position: ${(props) => props.position};
+`;
+
+export const UploadLabel = styled.label`
+  background-color: #fbd850;
+  border: 1px solid #ffffff;
+  margin: 4px 3px 3px 3px;
+  padding: 6px 8px;
+  width: ${(props) => (props.width ? props.width : "70%")};
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
 `;

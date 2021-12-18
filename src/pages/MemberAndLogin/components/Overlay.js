@@ -2,25 +2,6 @@ import styled from "styled-components";
 import { SubmitButton } from "./Signin";
 import { HeaderH1 } from "../../../components/SubElements";
 
-const Overlay = ({ toggle, setToggle }) => {
-  return (
-    <OverlayContainer active={toggle}>
-      <OverlayDiv active={toggle}>
-        <OverlayPanelLeft active={toggle}>
-          <HeaderH1 color={"#FFFFFF"}>Hello, There!</HeaderH1>
-          <OverlayParagraph>Press the button to continue</OverlayParagraph>
-          <OverlayBtn onClick={() => setToggle(!toggle)}>Sign In</OverlayBtn>
-        </OverlayPanelLeft>
-        <OverlayPanelRight active={toggle}>
-          <HeaderH1 color={"#FFFFFF"}>Join Us!</HeaderH1>
-          <OverlayParagraph>Don't be shy!</OverlayParagraph>
-          <OverlayBtn onClick={() => setToggle(!toggle)}>Sign Up</OverlayBtn>
-        </OverlayPanelRight>
-      </OverlayDiv>
-    </OverlayContainer>
-  );
-};
-
 const OverlayContainer = styled.div`
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   position: absolute;
@@ -95,5 +76,24 @@ const OverlayBtn = styled(SubmitButton)`
   border-color: #ffffff;
   cursor: pointer;
 `;
+
+const Overlay = ({ toggle, setToggle }) => {
+  return (
+    <OverlayContainer active={toggle}>
+      <OverlayDiv active={toggle}>
+        <OverlayPanelLeft active={toggle}>
+          <HeaderH1 color={"#FFFFFF"}>Hello, There!</HeaderH1>
+          <OverlayParagraph>Press the button to continue</OverlayParagraph>
+          <OverlayBtn onClick={() => setToggle(!toggle)}>Sign In</OverlayBtn>
+        </OverlayPanelLeft>
+        <OverlayPanelRight active={toggle}>
+          <HeaderH1 color={"#FFFFFF"}>Join Us!</HeaderH1>
+          <OverlayParagraph>Don't be shy!</OverlayParagraph>
+          <OverlayBtn onClick={() => setToggle(!toggle)}>Sign Up</OverlayBtn>
+        </OverlayPanelRight>
+      </OverlayDiv>
+    </OverlayContainer>
+  );
+};
 
 export default Overlay;

@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import BackgroundVideo from "./components/BackgroundVideo";
-import {TutorialsBtn} from "../../components/SubElements"
+import { TutorialsBtn } from "../../components/SubElements";
 
 const HomeDiv = styled.div`
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   width: 100%;
-  min-height: 450px;
+  min-height: 490px;
   padding: 0.5%;
   text-decoration: none;
   display: flex;
@@ -15,17 +15,26 @@ const HomeDiv = styled.div`
   box-shadow: inset 0 0 0 1000px rgba(0.02);
   object-fit: contain;
   box-sizing: border-box;
-  position:relative;
-  @media (max-width: 1024px) {
-    min-height: 400px;
-  }
-  @media (max-width: 768px) {
-    min-height: 350px;
-  }
-  @media (max-width: 375px) {
+  position: relative;
+  @media (min-width: 375px) {
     flex-direction: column-reverse;
-    min-height: 490px;
     justify-content: space-evenly;
+  }
+  @media (min-width: 768px) {
+    min-height: 320px;
+    flex-direction: row;
+  }
+  @media (min-width: 1024px) {
+    min-height: 450px;
+  }
+  @media (min-width: 1440px) {
+    min-height: 600px;
+  }
+  @media (min-width: 1920px) {
+    min-height: 845px;
+  }
+  @media (min-width: 2560px) {
+    min-height: 1175px;
   }
 `;
 
@@ -51,7 +60,6 @@ const TutorialsParagraph = styled.p`
     font-size: 2rem;
   }
   @media (max-width: 375px) {
-    font-size: 2rem;
     width: 70%;
   }
 `;
@@ -62,19 +70,17 @@ const BtnDiv = styled.div`
 
 function Home() {
   return (
-    <>
-      <HomeDiv>
-        <CTADiv>
-          <TutorialsParagraph>Let’s brew together!</TutorialsParagraph>
-          <BtnDiv>
-            <Link to="/tutorials">
-              <TutorialsBtn>Tutorials</TutorialsBtn>
-            </Link>
-          </BtnDiv>
-        </CTADiv>
-        <BackgroundVideo />
-      </HomeDiv>
-    </>
+    <HomeDiv>
+      <CTADiv>
+        <TutorialsParagraph>Let’s brew together!</TutorialsParagraph>
+        <BtnDiv>
+          <Link to="/tutorials">
+            <TutorialsBtn>Tutorials</TutorialsBtn>
+          </Link>
+        </BtnDiv>
+      </CTADiv>
+      <BackgroundVideo />
+    </HomeDiv>
   );
 }
 

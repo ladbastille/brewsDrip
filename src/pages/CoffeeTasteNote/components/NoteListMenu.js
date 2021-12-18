@@ -3,7 +3,7 @@ import {
   HeaderH2,
   StyledTimerlistLink,
 } from "../../../components/SubElements";
-import { NotesTagWrap, NotesTag } from "./NoteComponents";
+import { NotesTagWrap, NotesTag } from "./NoteStyledComponents";
 
 function NoteListMenu() {
   return (

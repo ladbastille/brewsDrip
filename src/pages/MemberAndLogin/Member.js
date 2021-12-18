@@ -188,7 +188,6 @@ function Member() {
       });
     });
   }
-
   return (
     <>
       {currentUser && (

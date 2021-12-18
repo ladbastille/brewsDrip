@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 import { getDefaultCollections } from "../../utils/firebase";
 import { BigTimerlistLink } from "./AllTimerList";
 import {
@@ -24,7 +23,7 @@ const DefaultTimer = () => {
       {timers.map((timer) => {
         return (
           <BigTimerlistLink
-            key={uuidv4()}
+            key={timer.id}
             background={timer.baseColor.value}
             color={"#000000"}
           >
