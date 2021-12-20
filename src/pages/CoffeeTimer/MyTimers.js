@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { Waypoint } from "react-waypoint";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
@@ -10,6 +11,7 @@ import {
   getMyCollections,
   getCollectionsFieldUpdate,
   deleteDoc,
+  getMyCollectionsWaypoint,
 } from "../../utils/firebase";
 import { BigTimerlistLink } from "./AllTimerList";
 import {
@@ -33,10 +35,16 @@ export const EditIconDiv = styled(StyledIconDiv)`
 function MyTimers() {
   const [timers, setTimers] = useState([]);
   const currentUser = useSelector((state) => state.currentUser);
+  const lastNoteSnapshotRef = useRef();
 
   useEffect(() => {
     if (currentUser) {
-      const unsub = getMyCollections("timers", currentUser, setTimers);
+      const unsub = getMyCollections(
+        "timers",
+        currentUser,
+        setTimers,
+        lastNoteSnapshotRef
+      );
       return unsub;
     }
   }, [currentUser]);
@@ -129,6 +137,19 @@ function MyTimers() {
           </BigTimerlistLink>
         );
       })}
+      <Waypoint
+        onEnter={() => {
+          if (lastNoteSnapshotRef.current) {
+            getMyCollectionsWaypoint(
+              "timers",
+              currentUser,
+              timers,
+              setTimers,
+              lastNoteSnapshotRef
+            );
+          }
+        }}
+      />
     </>
   );
 }

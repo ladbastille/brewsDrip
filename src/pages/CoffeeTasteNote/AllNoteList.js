@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { Waypoint } from "react-waypoint";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
@@ -23,6 +24,7 @@ import {
 import {
   getCollectionsDescOrder,
   getCollectionsFieldUpdate,
+  getCollectionsDescOrderWaypoint,
 } from "../../utils/firebase";
 
 export const NoteListContainer = styled(ListContainer)`
@@ -44,9 +46,14 @@ export const BigNotelistLink = styled(BiglistLink)`
 const AllNoteList = () => {
   const currentUser = useSelector((state) => state.currentUser);
   const [tasteNotes, setTasteNotes] = useState([]);
+  const lastNoteSnapshotRef = useRef();
 
   useEffect(() => {
-    const unsub = getCollectionsDescOrder("taste-note", setTasteNotes);
+    const unsub = getCollectionsDescOrder(
+      "taste-note",
+      setTasteNotes,
+      lastNoteSnapshotRef
+    );
     return unsub;
   }, []);
 
@@ -107,7 +114,6 @@ const AllNoteList = () => {
                               type="radio"
                               name="rating"
                               value={ratingValue}
-                              
                             />
                             <GiCoffeeBeans
                               color={
@@ -168,6 +174,18 @@ const AllNoteList = () => {
           </BigNotelistLink>
         );
       })}
+      <Waypoint
+        onEnter={() => {
+          if (lastNoteSnapshotRef.current) {
+            getCollectionsDescOrderWaypoint(
+              "taste-note",
+              tasteNotes,
+              setTasteNotes,
+              lastNoteSnapshotRef
+            );
+          }
+        }}
+      />
     </>
   );
 };

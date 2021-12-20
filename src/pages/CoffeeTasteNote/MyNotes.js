@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { Waypoint } from "react-waypoint";
 import { v4 as uuidv4 } from "uuid";
 import Swal from "sweetalert2";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
@@ -11,6 +12,7 @@ import {
   getMyCollections,
   getCollectionsFieldUpdate,
   deleteDoc,
+  getMyCollectionsWaypoint,
 } from "../../utils/firebase";
 import { BigNotelistLink } from "./AllNoteList";
 import {
@@ -28,10 +30,16 @@ import {
 function MyNotes() {
   const currentUser = useSelector((state) => state.currentUser);
   const [tasteNotes, setTasteNotes] = useState([]);
+  const lastNoteSnapshotRef = useRef();
 
   useEffect(() => {
     if (currentUser) {
-      const unsub = getMyCollections("taste-note", currentUser, setTasteNotes);
+      const unsub = getMyCollections(
+        "taste-note",
+        currentUser,
+        setTasteNotes,
+        lastNoteSnapshotRef
+      );
       return unsub;
     }
   }, [currentUser]);
@@ -156,6 +164,19 @@ function MyNotes() {
           </BigNotelistLink>
         );
       })}
+      <Waypoint
+        onEnter={() => {
+          if (lastNoteSnapshotRef.current) {
+            getMyCollectionsWaypoint(
+              "taste-note",
+              currentUser,
+              tasteNotes,
+              setTasteNotes,
+              lastNoteSnapshotRef
+            );
+          }
+        }}
+      />
     </>
   );
 }
