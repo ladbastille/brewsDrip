@@ -1,0 +1,13 @@
+# https://brewsdrip.web.app/robots.txt
+# Tell Google not to crawl any URLs in the component that need to login.
+# because they won't be useful in Google Search results.
+
+User-agent: googlebot
+Disallow: /member/
+Disallow: /login/
+Disallow: /newtimer/
+Disallow: /newnote/
+Disallow: /tastenotelist/collected/
+Disallow: /tastenotelist/mynotes/
+Disallow: /timerlist/collected/
+Disallow: /timerlist/mytimers/

@@ -1,47 +1,33 @@
-import React from "react";
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import { BiLinkAlt } from "react-icons/bi";
+import { v4 as uuidv4 } from "uuid";
+import {
+  FacebookShareButton,
+  LineShareButton,
+  FacebookIcon,
+  LineIcon,
+} from "react-share";
 import FooterLogoImg from "../images/logo_225x50.svg";
 import MobileFooterLogoImg from "../images/footer3DLogo.png";
 import { LogoImg } from "./Header";
-import { TutorialsBtn } from "../pages/Home";
-import { FaFacebook, FaInstagram } from "react-icons/fa";
-import { v4 as uuidv4 } from "uuid";
+import {
+  FooterContainer,
+  FooterContentContainer,
+  FooterLinksWrap,
+  SNSLinksWrap,
+  FooterCTABtnWrap,
+  FooterShareBtnDiv,
+} from "./ContainerAndWrap";
 
-const FooterContainer = styled.div`
-  font-family: "Poppins", sans-serif;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  background: #fbd850;
-  border-radius: 3px;
-  display: inline-block;
-  padding-top: 1rem;
-  margin-top: 1rem;
-`;
-
-const FooterContentContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  border-bottom: #939597 1px solid;
-  h5 {
-    margin-left: 3%;
-    margin-top: 10px;
-    color: #646464;
-  }
-  @media (max-width: 1024px) {
-    flex-direction: column;
-  }
-`;
+import {CTABtn} from "./SubElements"
 
 const FooterLogo = styled(LogoImg)`
   height: 50px;
   margin: 15%;
   display: block;
-
   @media (max-width: 1024px) {
     height: 35px;
     margin: 2%;
@@ -54,13 +40,11 @@ const FooterLogo = styled(LogoImg)`
 
 const MobileFooterLogo = styled(LogoImg)`
   display: none;
-
   @media (max-width: 768px) {
     display: block;
     height: 60px;
     margin: 3%;
   }
-
   @media (max-width: 425px) {
     margin: 2% auto;
   }
@@ -108,17 +92,17 @@ const MenuLink = styled(Link)`
   }
 `;
 
-const FooterLinksWrap = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-top: 10px;
-  @media (max-width: 1024px) {
-    justify-content: center;
-  }
-  @media (max-width: 768px) {
-    justify-content: space-between;
-    padding: 3%;
+const ContactA = styled.a`
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.8;
+  color: #646464;
+  @media (max-width: 425px) {
+    width: 100%;
+    font-size: 0.8rem;
   }
 `;
 
@@ -126,65 +110,15 @@ const BtnLink = styled(Link)`
   margin-top: 5px;
 `;
 
-export const FooterCTABtn = styled(TutorialsBtn)`
-  padding: 10px 40px;
-  margin-top: 10px;
-  margin-right: 10px;
-  text-align: center;
-  background: ${(props) => (props.color ? props.color : "#de6932")};
-  border: ${(props) => (props.border ? props.border : "2px solid transparent")};
-
-  &:hover {
-    border-color: ${(props) => props.color};
-  }
-  & a {
-    color: #ffffff;
-  }
-  & a:visited {
-    color: #ffffff;
-  }
-
-  &:hover a {
-    color: #000000;
-  }
-  @media (max-width: 375px) {
-    padding: 10px 30px;
+const LogoutBtnLink = styled(Link)`
+  @media (min-width: 1280px) {
+    margin-top: 15px;
   }
 `;
 
-const FooterCTABtnWrap = styled(FooterLinksWrap)`
-  flex-direction: column;
-  justify-content: space-evenly;
-  margin: 2%;
-  @media (max-width: 1024px) {
-    flex-direction: row;
-  }
-  @media (max-width: 375px) {
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-`;
-
-const SNSLinksWrap = styled(FooterLinksWrap)`
-  display: flex;
-  flex-wrap: no-wrap;
-  margin-top: 10px;
-
-  height: 40px;
-  @media (max-width: 1024px) {
-    justify-content: flex-end;
-  }
-  h6 {
-    margin-right: 20px;
-    color: #646464;
-  }
-  a {
-    margin-right: 30px;
-    color: #000000;
-    &:visited {
-      color: #000000;
-    }
-  }
+const FooterLogoutBtn = styled(CTABtn)`
+  margin-left: 6px;
+  margin-top: 12px;
 `;
 
 const menu = [
@@ -211,31 +145,33 @@ const menu = [
       { title: "My Timer", url: "/timerlist/mytimers" },
     ],
   },
-  {
-    name: "About Us",
-    links: [
-      { title: "Story", url: "/" },
-      { title: "Contact Us", url: "mail-to:liko0165@gmail.com" },
-    ],
-  },
 ];
 
 const Footer = () => {
-  const currentUser = useSelector((state)=>state.currentUser)
+  const currentUser = useSelector((state) => state.currentUser);
+  const handleCopyUrl = () => {
+    navigator.clipboard.writeText(window.location.href);
+    Swal.fire("Go share now!", "You've copied the URL!", "success");
+  };
+
+  function handleContactClick() {
+    window.open("https://github.com/ladbastille/brewsDrip", "_blank");
+  }
+
   return (
     <FooterContainer>
       <FooterContentContainer>
         <Link to="/">
-          <FooterLogo path="/" src={FooterLogoImg} />
+          <FooterLogo path="/" src={FooterLogoImg} alt="footerLogo"/>
         </Link>
         <Link to="/">
-          <MobileFooterLogo path="/" src={MobileFooterLogoImg} />
+          <MobileFooterLogo path="/" src={MobileFooterLogoImg} alt="mobileFooterLogo"/>
         </Link>
 
         <FooterLinksWrap>
           {menu.map(({ name, links }) => (
             <Menu key={uuidv4()}>
-              <MenuHead key={uuidv4()}>{name}</MenuHead>
+              <MenuHead>{name}</MenuHead>
               {links.map(({ title, url }) => (
                 <MenuLink key={uuidv4()} to={url}>
                   {title}
@@ -243,26 +179,35 @@ const Footer = () => {
               ))}
             </Menu>
           ))}
+          <Menu>
+            <MenuHead>About Us</MenuHead>
+            <ContactA onClick={handleContactClick}>
+              Story
+            </ContactA>
+            <ContactA onClick={handleContactClick}>
+              Contact Us
+            </ContactA>
+          </Menu>
         </FooterLinksWrap>
 
         <FooterCTABtnWrap>
           {currentUser ? (
             <>
               <BtnLink to="/member">
-                <FooterCTABtn>Member</FooterCTABtn>
+                <CTABtn>Member</CTABtn>
               </BtnLink>
-              <BtnLink to="/member">
-                <FooterCTABtn color={"transparent"}>Logout</FooterCTABtn>
-              </BtnLink>
+              <LogoutBtnLink to="/member">
+                <FooterLogoutBtn color={"transparent"}>Logout</FooterLogoutBtn>
+              </LogoutBtnLink>
             </>
           ) : (
             <>
-              <FooterCTABtn>
+              <CTABtn>
                 <BtnLink to="/login">Sign In</BtnLink>
-              </FooterCTABtn>
-              <FooterCTABtn color={"#7E876D"}>
+              </CTABtn>
+              <CTABtn color={"#7E876D"}>
                 <BtnLink to="/login">Sign Up</BtnLink>
-              </FooterCTABtn>
+              </CTABtn>
             </>
           )}
         </FooterCTABtnWrap>
@@ -272,12 +217,22 @@ const Footer = () => {
         <h5>© brewsDrip, Inc. 2021. We love coffee!</h5>
         <SNSLinksWrap>
           <h6>Share</h6>
-          <BtnLink to="/">
-            <FaFacebook path="/" size="30px" />
-          </BtnLink>
-          <BtnLink to="/">
-            <FaInstagram path="/" size="30px" />
-          </BtnLink>
+          <FooterShareBtnDiv>
+            <FacebookShareButton
+              url={window.location.href}
+              quote={"I've found a great coffee pal. Take a look!"}
+              hashtag={["brewsDrip", "YourBestCoffeePal"]}
+            >
+              <FacebookIcon size={25} round />
+            </FacebookShareButton>
+            <LineShareButton
+              url={window.location.href}
+              title={"I've found a great coffee pal. Take a look!"}
+            >
+              <LineIcon size={25} round />
+            </LineShareButton>
+            <BiLinkAlt size={25} color={"#FFFFFF"} onClick={handleCopyUrl} />
+          </FooterShareBtnDiv>
         </SNSLinksWrap>
       </FooterContentContainer>
     </FooterContainer>

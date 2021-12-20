@@ -1,4 +1,3 @@
-import React from "react";
 import NotFoundCoffee from "../images/coffee-spill-404.png";
 import styled from "styled-components";
 
@@ -16,6 +15,7 @@ const NotFoundDiv = styled.div`
 const NotFoundImg = styled.img`
   width: 100%;
 `;
+
 const NotFoundH1 = styled.h1`
   font-size: 7rem;
   position: absolute;
@@ -30,6 +30,7 @@ const NotFoundH1 = styled.h1`
     font-size: 4rem;
   }
 `;
+
 const NotFoundH2 = styled.h2`
   position: absolute;
   top: 82%;
@@ -39,13 +40,11 @@ const NotFoundH2 = styled.h2`
 
 const NotFound = () => {
   return (
-    <>
-      <NotFoundDiv>
-        <NotFoundImg src={NotFoundCoffee}></NotFoundImg>
-        <NotFoundH1>Not Found</NotFoundH1>
-        <NotFoundH2>Go to Homepage.</NotFoundH2>
-      </NotFoundDiv>
-    </>
+    <NotFoundDiv>
+      <NotFoundImg src={NotFoundCoffee}></NotFoundImg>
+      <NotFoundH1>Not Found</NotFoundH1>
+      <NotFoundH2>Go to Homepage.</NotFoundH2>
+    </NotFoundDiv>
   );
 };
 
