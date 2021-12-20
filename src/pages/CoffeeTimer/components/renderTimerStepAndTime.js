@@ -40,7 +40,7 @@ const renderStepAndTime = (
             />
           </StyledIconDiv>
           <HeaderH2 color="#FFFFFF">{timer.timerName}</HeaderH2>
-          {isActive && <BrewImg src={timerGif}></BrewImg>}
+          <BrewImg src={timerGif} isActive={isActive}></BrewImg>
         </Flex100BetweenWrap>
         <Flex100AroundWrap>
           <Flex50ColumnWrap>

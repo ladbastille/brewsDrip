@@ -1,4 +1,4 @@
-import { HeaderH2, TasteInput } from "../../../components/SubElements";
+import { TasteInput, NoteTitle } from "../../../components/SubElements";
 import { ThirdWrap, SecondWrap } from "../../../components/ContainerAndWrap";
 
 const renderDrinkAndPlace = (
@@ -9,9 +9,9 @@ const renderDrinkAndPlace = (
   setPlace
 ) => {
   return (
-    <SecondWrap width={"50%"} flexDirection={"column"}>
+    <SecondWrap margin={"20px 0 0"} width={"50%"} flexDirection={"column"}>
       <ThirdWrap>
-        <HeaderH2>Drink</HeaderH2>
+        <NoteTitle>Drink</NoteTitle>
         <TasteInput
           placeholder="- ENTER DRINK -"
           value={coffeeName}
@@ -20,7 +20,7 @@ const renderDrinkAndPlace = (
         />
       </ThirdWrap>
       <ThirdWrap>
-        <HeaderH2>Place</HeaderH2>
+        <NoteTitle>Place</NoteTitle>
         <TasteInput
           placeholder="- ENTER PLACE -"
           value={place}

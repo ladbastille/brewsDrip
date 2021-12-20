@@ -6,7 +6,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import Swal from "sweetalert2";
 import ReactLoading from "react-loading";
 import { GiCoffeeBeans } from "react-icons/gi";
-import { HeaderH1, HeaderH2 } from "../../components/SubElements";
+import { HeaderH1, HeaderH2, centerStyle } from "../../components/SubElements";
 import Tags from "./components/Tags";
 import {
   NewNoteContainer,
@@ -24,7 +24,6 @@ import { getDoc, getDocOnSnapShot, getFileRef } from "../../utils/firebase";
 import renderDrinkAndPlace from "./components/renderDrinkAndPlace";
 import renderPhoto from "./components/renderPhoto";
 import renderShare from "./components/renderShare";
-import { centerStyle } from "../../components/SubElements";
 
 function TasteNote() {
   const currentUser = useSelector((state) => state.currentUser);
@@ -166,7 +165,7 @@ function TasteNote() {
       </InsideNotelistWrap>
 
       <InsideNotelistWrap width={"90%"} flexDirection={"column"}>
-        <HeaderH2 margin={"2% auto 2% 0"}>Note</HeaderH2>
+        <HeaderH2 margin={"15px auto 2% 0"}>Note</HeaderH2>
         <NoteTextarea
           cols="3"
           rows="3"
@@ -176,8 +175,13 @@ function TasteNote() {
           readOnly={readOnly}
         ></NoteTextarea>
       </InsideNotelistWrap>
-      <SecondWrap flexWrap={"wrap"} margin={"10px auto 5px auto"} width={"90%"}>
-        <HeaderH2 margin={"2% 10px 1% 0"}>Rating</HeaderH2>
+      <SecondWrap
+        flexWrap={"wrap"}
+        alignItems={"center"}
+        margin={"15px auto 5px auto"}
+        width={"90%"}
+      >
+        <HeaderH2 margin={"0 20px 1% 0"}>Rating</HeaderH2>
         {[...Array(5)].map((star, index) => {
           const ratingValue = (index += 1);
           return (
@@ -214,15 +218,17 @@ function TasteNote() {
             <EditBtn color={"#FF5741"} onClick={toggleEditable}>
               Edit
             </EditBtn>
-          ) : (<>
-            <EditBtn color={"#00B790"} onClick={toggleSaveData}>
-              Save
-            </EditBtn>
-            {isLoading && (
-          <div style={centerStyle}>
-            <ReactLoading color="#FBD850" type="spinningBubbles" />
-          </div>
-        )}</>
+          ) : (
+            <>
+              <EditBtn color={"#00B790"} onClick={toggleSaveData}>
+                Save
+              </EditBtn>
+              {isLoading && (
+                <div style={centerStyle}>
+                  <ReactLoading color="#FBD850" type="spinningBubbles" />
+                </div>
+              )}
+            </>
           )
         ) : null}
         {renderShare(

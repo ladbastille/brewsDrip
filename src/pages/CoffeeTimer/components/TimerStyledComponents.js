@@ -3,6 +3,7 @@ import { StyledIconDiv } from "../../../components/ContainerAndWrap";
 
 export const BrewImg = styled.img`
   border-radius: 10px;
+  visibility: ${(props) => (props.isActive ? "visible" : "hidden")};
 `;
 
 export const StepsBigFont = styled.h1`

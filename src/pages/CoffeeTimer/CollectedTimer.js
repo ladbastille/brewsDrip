@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { Waypoint } from "react-waypoint";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import {
@@ -13,15 +14,22 @@ import { BigTimerlistLink } from "./AllTimerList";
 import {
   getCollectedCollections,
   getCollectionsFieldUpdate,
+  getCollectedCollectionsWaypoint,
 } from "../../utils/firebase";
 
 function CollectedTimers() {
   const [timers, setTimers] = useState([]);
   const currentUser = useSelector((state) => state.currentUser);
+  const lastNoteSnapshotRef = useRef();
 
   useEffect(() => {
     if (currentUser) {
-      const unsub = getCollectedCollections("timers", currentUser, setTimers);
+      const unsub = getCollectedCollections(
+        "timers",
+        currentUser,
+        setTimers,
+        lastNoteSnapshotRef
+      );
       return unsub;
     }
   }, [currentUser]);
@@ -104,6 +112,19 @@ function CollectedTimers() {
           </BigTimerlistLink>
         );
       })}
+      <Waypoint
+        onEnter={() => {
+          if (lastNoteSnapshotRef.current) {
+            getCollectedCollectionsWaypoint(
+              "timers",
+              currentUser,
+              timers,
+              setTimers,
+              lastNoteSnapshotRef
+            );
+          }
+        }}
+      />
     </>
   );
 }

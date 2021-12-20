@@ -43,8 +43,13 @@ export const InsideNotelistWrap = styled.div`
 
 export const ThirdWrap = styled(InsideNotelistWrap)`
   width: ${(props) => props.width};
-  @media (max-width: 375px) {
+  align-items: baseline;
+  @media (max-width: 428px) {
+    flex-direction: column;
     width: 100%;
+    & h1 {
+      text-align: left;
+    }
   }
 `;
 

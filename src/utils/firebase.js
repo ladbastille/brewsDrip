@@ -71,17 +71,50 @@ export const createSignUpDataObj = {
   email: firebase.auth().currentUser?.email,
 };
 
-export const getMyCollections = (collectionName, currentUser, setContents) => {
+export const getMyCollections = (
+  collectionName,
+  currentUser,
+  setContents,
+  lastCollectionSnapshotRef
+) => {
   const unsub = firestore
     .collection(collectionName)
     .where("author.uid", "==", currentUser?.uid)
     .orderBy("createdAt", "desc")
+    .limit(4)
     .onSnapshot((collectionSnapshot) => {
       const data = collectionSnapshot.docs.map((docSnapshot) => {
         const id = docSnapshot.id;
         return { ...docSnapshot.data(), id };
       });
+      lastCollectionSnapshotRef.current =
+        collectionSnapshot.docs[collectionSnapshot.docs.length - 1];
       setContents(data);
+    });
+  return unsub;
+};
+
+export const getMyCollectionsWaypoint = (
+  collectionName,
+  currentUser,
+  contents,
+  setContents,
+  lastCollectionSnapshotRef
+) => {
+  const unsub = firestore
+    .collection(collectionName)
+    .where("author.uid", "==", currentUser?.uid)
+    .orderBy("createdAt", "desc")
+    .startAfter(lastCollectionSnapshotRef.current)
+    .limit(4)
+    .onSnapshot((collectionSnapshot) => {
+      const data = collectionSnapshot.docs.map((docSnapshot) => {
+        const id = docSnapshot.id;
+        return { ...docSnapshot.data(), id };
+      });
+      lastCollectionSnapshotRef.current =
+        collectionSnapshot.docs[collectionSnapshot.docs.length - 1];
+      setContents([...contents, ...data]);
     });
   return unsub;
 };
@@ -89,18 +122,47 @@ export const getMyCollections = (collectionName, currentUser, setContents) => {
 export const getCollectedCollections = (
   collectionName,
   currentUser,
-  setContents
+  setContents,
+  lastCollectionSnapshotRef
 ) => {
   const unsub = firestore
     .collection(collectionName)
     .where("collectedBy", "array-contains", currentUser?.uid)
     .orderBy("createdAt", "desc")
+    .limit(4)
     .onSnapshot((collectionSnapshot) => {
       const data = collectionSnapshot.docs.map((docSnapshot) => {
         const id = docSnapshot.id;
         return { ...docSnapshot.data(), id };
       });
+      lastCollectionSnapshotRef.current =
+        collectionSnapshot.docs[collectionSnapshot.docs.length - 1];
       setContents(data);
+    });
+  return unsub;
+};
+
+export const getCollectedCollectionsWaypoint = (
+  collectionName,
+  currentUser,
+  contents,
+  setContents,
+  lastCollectionSnapshotRef
+) => {
+  const unsub = firestore
+    .collection(collectionName)
+    .where("collectedBy", "array-contains", currentUser?.uid)
+    .orderBy("createdAt", "desc")
+    .startAfter(lastCollectionSnapshotRef.current)
+    .limit(4)
+    .onSnapshot((collectionSnapshot) => {
+      const data = collectionSnapshot.docs.map((docSnapshot) => {
+        const id = docSnapshot.id;
+        return { ...docSnapshot.data(), id };
+      });
+      lastCollectionSnapshotRef.current =
+        collectionSnapshot.docs[collectionSnapshot.docs.length - 1];
+      setContents([...contents, ...data]);
     });
   return unsub;
 };
@@ -119,16 +181,47 @@ export const getDefaultCollections = (collectionName, setContents) => {
     });
 };
 
-export const getCollectionsDescOrder = (collectionName, setContents) => {
+export const getCollectionsDescOrder = (
+  collectionName,
+  setContents,
+  lastCollectionSnapshotRef
+) => {
   const unsub = firestore
     .collection(collectionName)
     .orderBy("createdAt", "desc")
+    .limit(4)
     .onSnapshot((collectionSnapshot) => {
       const data = collectionSnapshot.docs.map((docSnapshot) => {
         const id = docSnapshot.id;
         return { ...docSnapshot.data(), id };
       });
+      lastCollectionSnapshotRef.current =
+        collectionSnapshot.docs[collectionSnapshot.docs.length - 1];
       setContents(data);
+    });
+
+  return unsub;
+};
+
+export const getCollectionsDescOrderWaypoint = (
+  collectionName,
+  contents,
+  setContents,
+  lastCollectionSnapshotRef
+) => {
+  const unsub = firestore
+    .collection(collectionName)
+    .orderBy("createdAt", "desc")
+    .startAfter(lastCollectionSnapshotRef.current)
+    .limit(4)
+    .onSnapshot((collectionSnapshot) => {
+      const data = collectionSnapshot.docs.map((docSnapshot) => {
+        const id = docSnapshot.id;
+        return { ...docSnapshot.data(), id };
+      });
+      lastCollectionSnapshotRef.current =
+        collectionSnapshot.docs[collectionSnapshot.docs.length - 1];
+      setContents([...contents, ...data]);
     });
 
   return unsub;

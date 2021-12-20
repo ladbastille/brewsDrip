@@ -11,8 +11,10 @@ const Video = styled((props) => <Vimeo {...props} />)`
   @media (max-width: 1024px) {
     width: 150%;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     width: 100%;
+    position: absolute;
+    top: 5%;
   }
 `;
 

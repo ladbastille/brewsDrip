@@ -49,6 +49,13 @@ export const HeaderH2 = styled(HeaderH1)`
   height: ${(props) => props.height};
 `;
 
+export const NoteTitle = styled(HeaderH2)`
+  margin: 0;
+  @media (max-width: 425px) {
+    margin: 4% 0;
+  }
+`;
+
 export const SocialLoginButton = styled.i`
   margin-right: 1rem;
 `;
