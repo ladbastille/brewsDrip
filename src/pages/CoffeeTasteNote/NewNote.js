@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
+import Compressor from "compressorjs";
 import ReactLoading from "react-loading";
 import Swal from "sweetalert2";
 import { FaCameraRetro, FaArrowLeft } from "react-icons/fa";
@@ -95,6 +96,17 @@ const NewNote = () => {
     ? URL.createObjectURL(file)
     : "https://react.semantic-ui.com/images/wireframe/image.png";
 
+  const handleCompressedUpload = (e) => {
+    const image = e.target.files[0];
+    new Compressor(image, {
+      quality: 0.2,
+      convertSize: 1000000,
+      success: (res) => {
+        setFile(res);
+      },
+    });
+  };
+
   function createNewNote() {
     const documentRef = getDocumentRef("taste-note");
     const fileRef = getFileRef("taste-pics/", documentRef);
@@ -131,6 +143,7 @@ const NewNote = () => {
         documentRef.set(dataObj).then(() => {
           Swal.fire("Awesome!", "You've created a tastenote!", "success");
           setIsLoading(false);
+          setFile(null);
           history.push("/tastenotelist");
         });
       });
@@ -180,7 +193,7 @@ const NewNote = () => {
             <FaCameraRetro />
             <TasteInput
               type="file"
-              onChange={(e) => setFile(e.target.files[0])}
+              onChange={(e) => handleCompressedUpload(e)}
               display={"none"}
             ></TasteInput>
           </UploadLabel>

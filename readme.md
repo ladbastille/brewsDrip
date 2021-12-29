@@ -42,6 +42,7 @@ brewsDrip website Link [Click here](https://brewsdrip.web.app/)
 
 ### Miscellaneous
 
+- compressorjs
 - dotenv
 - eslint
 - @u-wave/react-vimeo
