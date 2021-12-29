@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "@u-wave/react-vimeo": "^0.9.5",
+    "compressorjs": "^1.1.1",
     "cypress": "^9.1.0",
     "dotenv": "^10.0.0",
     "eslint": "^7.32.0",
