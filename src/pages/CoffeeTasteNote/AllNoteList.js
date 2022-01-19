@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { Waypoint } from "react-waypoint";
 import styled from "styled-components";
@@ -8,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { GiCoffeeBeans } from "react-icons/gi";
+import { swalLoginModal } from "../../utils/swals";
 import {
   HeaderH1,
   HeaderH2,
@@ -63,13 +63,7 @@ const AllNoteList = () => {
     if (uid) {
       getCollectionsFieldUpdate("taste-note", id, field, activeInField, uid);
     } else {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Please login to collect/like this timer.",
-        footer:
-          '<a href="https://brewsdrip.web.app/login">Click here to login.</a>',
-      });
+      swalLoginModal("collect/like this note.")
     }
   }
 

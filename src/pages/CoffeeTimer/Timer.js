@@ -7,11 +7,11 @@ import {
   getDocOnSnapShot,
   getCollectionsFieldUpdate,
 } from "../../utils/firebase";
+import { swalLoginModal,timerFinishModal } from "../../utils/swals";
 import bgm from "../../sounds/DonnieOzone-ReturnOfTheGucciGhost.mp3";
 import doneSound from "../../sounds/done.mp3";
 import resetSound from "../../sounds/reset.mp3";
 import alertSound from "../../sounds/alert.mp3";
-import successCoffeeImg from "../../images/swal-success-pic.jpg";
 import { LoadingFixHeight, centerStyle } from "../../components/SubElements";
 import { TimerContainer } from "../../components/ContainerAndWrap";
 import renderTimerControl from "./components/renderTimerControl";
@@ -89,14 +89,7 @@ const Timer = () => {
           setIsActive(false);
           setIsReset(false);
           toggle(false);
-          Swal.fire({
-            title: "Sweet!",
-            text: "Enjoy your coffee!",
-            imageUrl: successCoffeeImg,
-            imageWidth: 400,
-            imageHeight: 266.25,
-            imageAlt: "Cheers Coffee",
-          });
+          timerFinishModal();
           setDoneAlert(true);
           setDoneAlert(false);
         }
@@ -160,14 +153,7 @@ const Timer = () => {
     setIsReset(false);
     toggle(false);
     setIsActive(false);
-    Swal.fire({
-      title: "Sweet!",
-      text: "Enjoy your coffee!",
-      imageUrl: successCoffeeImg,
-      imageWidth: 400,
-      imageHeight: 266.25,
-      imageAlt: "Cheers Coffee",
-    });
+    timerFinishModal();
   }
 
   async function handlePressStop() {
@@ -223,13 +209,7 @@ const Timer = () => {
 
   function toggleCollect(activeInField, field) {
     if (!currentUser) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Please login to collect this timer.",
-        footer:
-          '<a href="https://brewsdrip.web.app/login">Click here to login.</a>',
-      });
+      swalLoginModal("collect this timer.")
     } else {
       const uid = currentUser.uid;
       getCollectionsFieldUpdate("timers", timerId, field, activeInField, uid);
